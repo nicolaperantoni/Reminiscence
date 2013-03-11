@@ -8,5 +8,7 @@
     <string name="password_hint">nomeNumero</string>
     <string name="back_button_label">Indietro</string>
     <string name="next_button_label">Avanti</string>
+    <string name="confirm_button_label">Conferma</string>
+    
 
 </resources>
