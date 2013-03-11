@@ -1,5 +1,8 @@
 package it.unitn.vanguard.reminiscence;
 
+import it.unitn.vanguard.reminiscence.asynctasks.RegistrationTask;
+import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+
 import java.util.Date;
 
 import android.app.Activity;
@@ -9,13 +12,14 @@ import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * 
  * @author forna
  * 
  */
-public class PasswordActivity extends Activity {
+public class PasswordActivity extends Activity implements OnTaskFinished {
 
 	private EditText mPasswordEditText;
 	private Button mBackButton;
@@ -65,9 +69,17 @@ public class PasswordActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO post
+				new RegistrationTask(PasswordActivity.this).execute(name, surname, eMail, 
+					mPasswordEditText.getText().toString(), day, month, year);
 			}
 		});
+	}
+
+	@Override
+	public void onTaskFinished(boolean res) {
+		//per ottenersi la stringa giusta in base al risultato
+		String resultText = getResources().getString(((res)?R.string.registration_succes:R.string.registration_failed));
+		Toast.makeText(this, resultText, Toast.LENGTH_SHORT).show();
 	}
 
 }

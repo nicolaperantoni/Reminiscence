@@ -9,4 +9,7 @@
     <string name="back_button_label">Indietro</string>
     <string name="next_button_label">Avanti</string>
     <string name="confirm_button_label">Conferma</string>
+    
+    <string name="registration_failed">No! Qualcosa è andato storto!</string>
+    <string name="registration_succes">Evviva! ti sei registrato!</string>
 </resources>
