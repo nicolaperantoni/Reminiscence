@@ -7,7 +7,8 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="PasswordActivity"></activity>
+        <activity android:name="it.unitn.vanguard.reminiscence.PasswordActivity" >
+        </activity>
+        <activity
+            android:name="it.unitn.vanguard.reminiscence.DataNascitaActivity"
+            android:label="@string/title_activity_activity_data_nascita" >
+        </activity>
     </application>
 
 </manifest>
