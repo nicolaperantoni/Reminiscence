@@ -83,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="35dp"
         android:layout_toRightOf="@id/txt_month"
         android:text="1990"
         android:textSize="45dp"
