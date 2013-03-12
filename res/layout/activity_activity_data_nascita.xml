@@ -51,9 +51,67 @@
         android:text="01"
         android:textSize="45dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+        
+        <Button
+             android:id="@+id/btn_day_up"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignBaseline="@id/btn_month_up"
+             android:layout_alignBottom="@id/btn_month_up"
+             android:layout_marginRight="19dp"
+             android:layout_toLeftOf="@id/txt_month"
+             android:layout_above="@id/txt_day"
+             android:background="@drawable/arrow_up" />
+        
+        <Button
+             android:id="@+id/btn_day_down"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignBaseline="@id/btn_month_down"
+             android:layout_alignBottom="@id/btn_month_down"
+             android:layout_marginRight="19dp"
+             android:layout_toLeftOf="@id/txt_month"
+             android:layout_below="@id/txt_day"
+             android:background="@drawable/arrow_down" />
     
     
     <!-- YEAR  -->
+    
+    
+        <TextView
+        android:id="@+id/txt_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/txt_month"
+        android:text="1990"
+        android:textSize="45dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+          <Button
+             android:id="@+id/btn_year_up"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignBaseline="@id/btn_month_up"
+             android:layout_alignBottom="@id/btn_month_up"
+             android:layout_marginLeft="19dp"
+             android:layout_toRightOf="@id/txt_month"
+             android:layout_above="@id/txt_year"
+             android:background="@drawable/arrow_up" />
+        
+        <Button
+             android:id="@+id/btn_year_down"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignBaseline="@id/btn_month_down"
+             android:layout_alignBottom="@id/btn_month_down"
+             android:layout_marginLeft="19dp"
+             android:layout_toRightOf="@id/txt_month"
+             android:layout_below="@id/txt_year"
+             android:background="@drawable/arrow_down" />
+    
+
+         
 
 </RelativeLayout>
