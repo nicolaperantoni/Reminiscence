@@ -11,6 +11,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -46,8 +47,12 @@ public class RegistrationTask extends AsyncTask<String, Void, Boolean> {
 		
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(Constants.SERVER_URL+"registrazione.php");
+		JSONObject json = null;
+		String jsonString;
 		try {
-			Log.i(RegistrationTask.class.getName(), client.execute(post).getEntity().getContent().toString());
+			jsonString = client.execute(post).getEntity().getContent().toString();
+			json = new JSONObject(jsonString);
+			Log.i(RegistrationTask.class.getName(), jsonString);
 			
 		} catch (Exception e) {
 			this.ex=e;
