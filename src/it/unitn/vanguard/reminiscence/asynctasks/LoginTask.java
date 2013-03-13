@@ -9,6 +9,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
@@ -38,17 +40,34 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 		
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(Constants.SERVER_URL+"registrazione.php");
-		String content;
+		JSONObject json = null;
+		String content = null;
 		
 		try {
 			content = client.execute(post).getEntity().getContent().toString();
+			json = new JSONObject(content);
 			Log.i(LoginTask.class.getName(), content);
 		} catch (Exception e) {
 			this.ex=e;
 			return false;
 		}
-		 
-		return null;
+		
+		String retval;
+		try {
+			retval = json.getString("success");
+		} catch (JSONException e) {
+			retval = null;
+		}
+		
+		return (retval=="true")?true:false;
+	}
+	
+	@Override
+	protected void onPostExecute(Boolean result) {
+		super.onPostExecute(result);
+		if(!result && ex!=null)
+			Log.e(RegistrationTask.class.getName(), ex.toString());
+		caller.onTaskFinished(result);
 	}
 	
 }
