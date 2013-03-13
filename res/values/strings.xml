@@ -11,5 +11,6 @@
     <string name="next_button_label">Next</string>
     <string name="confirm_button_label">Confirm</string>
     <string name="title_activity_activity_data_nascita">Activity_data_nascita</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>

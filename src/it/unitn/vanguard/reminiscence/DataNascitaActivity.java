@@ -16,7 +16,7 @@ public class DataNascitaActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_activity_data_nascita);
+		setContentView(R.layout.activity_data_nascita);
 		
 		btnMonthUp = (Button) findViewById(R.id.btn_month_up);
 		btnMonthDown = (Button) findViewById(R.id.btn_month_down);
