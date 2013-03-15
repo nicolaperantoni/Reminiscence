@@ -10,7 +10,6 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
 	}
 
 	@Override
@@ -19,5 +18,4 @@ public class LoginActivity extends Activity {
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
 	}
-
 }

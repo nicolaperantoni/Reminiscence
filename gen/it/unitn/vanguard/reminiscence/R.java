@@ -34,50 +34,74 @@ public final class R {
         public static final int txt_input_bordered=0x7f020006;
     }
     public static final class id {
-        public static final int action_settings=0x7f080012;
-        public static final int btnLogin=0x7f08000c;
-        public static final int btn_day_down=0x7f080005;
-        public static final int btn_day_up=0x7f080004;
-        public static final int btn_month_down=0x7f080002;
-        public static final int btn_month_up=0x7f080001;
-        public static final int btn_year_down=0x7f080008;
-        public static final int btn_year_up=0x7f080007;
-        public static final int edittextPassword=0x7f08000b;
-        public static final int edittextUsername=0x7f08000a;
-        public static final int imageView1=0x7f08000d;
-        public static final int registration_back_btn=0x7f080011;
-        public static final int registration_confirm_btn=0x7f080010;
-        public static final int registration_password_ET=0x7f08000f;
-        public static final int registration_password_header=0x7f08000e;
-        public static final int txtLogin=0x7f080009;
-        public static final int txt_day=0x7f080003;
-        public static final int txt_month=0x7f080000;
-        public static final int txt_year=0x7f080006;
+        public static final int Button01=0x7f08000f;
+        public static final int TextView01=0x7f080010;
+        public static final int action_settings=0x7f080013;
+        public static final int btnLogin=0x7f08000e;
+        public static final int btn_day_down=0x7f080007;
+        public static final int btn_day_up=0x7f080006;
+        public static final int btn_month_down=0x7f080004;
+        public static final int btn_month_up=0x7f080003;
+        public static final int btn_year_down=0x7f08000a;
+        public static final int btn_year_up=0x7f080009;
+        public static final int edittextPassword=0x7f08000d;
+        public static final int edittextUsername=0x7f08000c;
+        public static final int registration_back_btn=0x7f080001;
+        public static final int registration_confirm_btn=0x7f080000;
+        public static final int registration_password_ET=0x7f080012;
+        public static final int registration_password_header=0x7f080011;
+        public static final int txtLogin=0x7f08000b;
+        public static final int txt_day=0x7f080005;
+        public static final int txt_month=0x7f080002;
+        public static final int txt_year=0x7f080008;
     }
     public static final class layout {
         public static final int activity_data_nascita=0x7f030000;
         public static final int activity_login=0x7f030001;
-        public static final int activity_registration_password=0x7f030002;
-        public static final int activity_select=0x7f030003;
+        public static final int activity_registration=0x7f030002;
+        public static final int activity_registration_password=0x7f030003;
+        public static final int activity_select=0x7f030004;
     }
     public static final class menu {
         public static final int activity_data_nascita=0x7f070000;
         public static final int login=0x7f070001;
-        public static final int select=0x7f070002;
+        public static final int registration=0x7f070002;
+        public static final int select=0x7f070003;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
+        /**  General 
+ General 
+         */
         public static final int app_name=0x7f050000;
-        public static final int back_button_label=0x7f050005;
-        public static final int confirm_button_label=0x7f050007;
+        /**  Registration_Activity 
+ Registration_Activity 
+         */
+        public static final int back_button_label=0x7f050009;
+        public static final int confirm_button_label=0x7f05000b;
+        /**  DataNascita_Activity 
+ DataNascita_Activity 
+         */
+        public static final int data_nascita_activity_title=0x7f05000c;
         public static final int hello_world=0x7f050002;
-        public static final int next_button_label=0x7f050006;
-        public static final int password_hint=0x7f050004;
-        public static final int password_suggest_label=0x7f050003;
-        public static final int registration_failed=0x7f05000a;
-        public static final int registration_succes=0x7f05000b;
-        public static final int title_activity_activity_data_nascita=0x7f050008;
-        public static final int title_activity_login=0x7f050009;
+        /**  Login_Activity 
+ Login_Activity 
+         */
+        public static final int login_activity_title=0x7f050003;
+        public static final int login_button_label=0x7f050006;
+        public static final int login_password_hint=0x7f050005;
+        public static final int login_registration_label=0x7f050007;
+        public static final int login_username_hint=0x7f050004;
+        public static final int next_button_label=0x7f05000a;
+        public static final int registration_button_label=0x7f050008;
+        public static final int registration_failed=0x7f05000f;
+        public static final int registration_password_hint=0x7f05000e;
+        /**  RegistrationPassword_Activity 
+ RegistrationPassword_Activity 
+         */
+        public static final int registration_password_suggest_label=0x7f05000d;
+        public static final int registration_succes=0x7f050010;
+        public static final int title_activity_registration=0x7f050011;
     }
     public static final class style {
         /** 

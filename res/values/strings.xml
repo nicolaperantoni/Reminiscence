@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Reminiscens</string>
+    <!-- General -->
+    <string name="app_name">Reminiscence</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="password_suggest_label">You should choose a secret word,
-         we suggest this, but you can change it</string>
-    <string name="password_hint">nameNumber</string>
+
+    <!-- Login_Activity -->
+    <string name="login_activity_title">Sign in</string>
+    <string name="login_username_hint">Username</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_button_label">Sign in</string>
+    <string name="login_registration_label">Don\'t you have an account?</string>
+    <string name="registration_button_label">Sign up</string>
+
+    <!-- Registration_Activity -->
     <string name="back_button_label">Back</string>
     <string name="next_button_label">Next</string>
     <string name="confirm_button_label">Confirm</string>
-    <string name="title_activity_activity_data_nascita">Activity_data_nascita</string>
-    <string name="title_activity_login">LoginActivity</string>
+
+    <!-- DataNascita_Activity -->
+    <string name="data_nascita_activity_title">Date of born</string>
+
+    <!-- RegistrationPassword_Activity -->
+    <string name="registration_password_suggest_label">You should choose a secret word, we suggest this, but you can change it</string>
+    <string name="registration_password_hint">nameNumber</string>
+    <string name="registration_failed">No! Something went wrong!</string>
+    <string name="registration_succes">Yeah! You are now registered!</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
 
 </resources>

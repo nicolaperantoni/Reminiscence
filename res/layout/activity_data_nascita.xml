@@ -8,8 +8,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".DataNascitaActivity" >
     
-    <!-- MONTH  -->
+    <Button
+        android:id="@+id/registration_confirm_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/confirm_button_label" />
+
+    <Button
+        android:id="@+id/registration_back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/back_button_label" />
     
+    <!-- MONTH  -->
     <TextView
     android:id="@+id/txt_month"
     android:layout_width="wrap_content"
@@ -17,7 +36,7 @@
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     android:text="Gennaio"
-    android:textSize="45dp"
+    android:textSize="45sp"
     android:textAppearance="?android:attr/textAppearanceLarge" />
     
 	<Button
@@ -49,7 +68,7 @@
         android:layout_marginRight="60dp"
         android:layout_toLeftOf="@id/txt_month"
         android:text="01"
-        android:textSize="45dp"
+        android:textSize="45sp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
         
         <Button
@@ -86,7 +105,7 @@
         android:layout_marginLeft="35dp"
         android:layout_toRightOf="@id/txt_month"
         android:text="1990"
-        android:textSize="45dp"
+        android:textSize="45sp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
         
           <Button

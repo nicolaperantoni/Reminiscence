@@ -23,17 +23,20 @@
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.DataNascitaActivity"
-            android:label="@string/title_activity_activity_data_nascita" >
+            android:label="@string/data_nascita_activity_title" >
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.LoginActivity"
-            android:label="@string/title_activity_login"
+            android:label="@string/login_activity_title"
             android:windowSoftInputMode="stateAlwaysHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="it.unitn.vanguard.reminiscence.RegistrationActivity"
+            android:label="@string/title_activity_registration" >
         </activity>
     </application>
 

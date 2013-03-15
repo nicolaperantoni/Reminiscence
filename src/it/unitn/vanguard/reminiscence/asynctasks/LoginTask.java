@@ -24,7 +24,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 	
 	public LoginTask(OnTaskFinished caller) {
 		super();
-		this.caller=caller;
+		this.caller = caller;
 	}
 	
 	@Override
@@ -39,7 +39,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 		params.add(new BasicNameValuePair("password", arg0[1]));
 		
 		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(Constants.SERVER_URL+"registrazione.php");
+		HttpPost post = new HttpPost(Constants.SERVER_URL + "login.php");
 		JSONObject json = null;
 		String content = null;
 		
@@ -48,7 +48,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 			json = new JSONObject(content);
 			Log.i(LoginTask.class.getName(), content);
 		} catch (Exception e) {
-			this.ex=e;
+			this.ex = e;
 			return false;
 		}
 		
@@ -59,15 +59,15 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 			retval = null;
 		}
 		
-		return (retval=="true")?true:false;
+		return (retval=="true") ? true : false;
 	}
 	
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
-		if(!result && ex!=null)
+		if(!result && ex!=null) {
 			Log.e(RegistrationTask.class.getName(), ex.toString());
+		}
 		caller.onTaskFinished(result);
 	}
-	
 }
