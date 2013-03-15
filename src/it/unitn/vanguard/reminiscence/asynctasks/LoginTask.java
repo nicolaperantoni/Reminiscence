@@ -1,10 +1,8 @@
 package it.unitn.vanguard.reminiscence.asynctasks;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;

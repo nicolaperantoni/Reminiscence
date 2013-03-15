@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/elderly_1"
     tools:context=".LoginActivity" >
+    
+    <!-- android:background="@drawable/elderly_1" -->
 
     <TextView
         android:id="@+id/txtLogin"
@@ -67,7 +68,7 @@
 
     
     <Button
-        android:id="@+id/Button01"
+        android:id="@+id/btnRegistration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/btnLogin"
@@ -79,13 +80,13 @@
         android:textSize="36sp" />
 
     <TextView
-        android:id="@+id/TextView01"
+        android:id="@+id/txtRegistrationLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/Button01"
-        android:layout_alignBottom="@+id/Button01"
+        android:layout_alignBaseline="@+id/btnRegistration"
+        android:layout_alignBottom="@+id/btnRegistration"
         android:layout_marginRight="15dp"
-        android:layout_toLeftOf="@+id/Button01"
+        android:layout_toLeftOf="@+id/btnRegistration"
         android:text="@string/login_registration_label"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#000"

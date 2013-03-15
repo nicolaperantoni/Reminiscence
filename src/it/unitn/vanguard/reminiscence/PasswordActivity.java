@@ -2,6 +2,9 @@ package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.asynctasks.RegistrationTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.Constants;
+
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,14 +26,18 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	private String day;
 	private String month;
 	private String year;
-
+	
+	// Password suggestion
+	private ArrayList<String> suggestionList;
+	private int rand;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registration_password);
-
 		dispatchInfoFromIntent(getIntent());
-		initializeButton();
+		initializeButtons();
+		generateSuggestion();
 		initializeListeners();
 	}
 	
@@ -41,9 +48,11 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 		day=i.getExtras().getString("day");
 		month=i.getExtras().getString("month");
 		year=i.getExtras().getString("year");
+		suggestionList.add(name);
+		suggestionList.add(surname);
 	}
 
-	private void initializeButton() {
+	private void initializeButtons() {
 		mPasswordEditText = (EditText) findViewById(R.id.registration_password_ET);
 		mBackButton = (Button) findViewById(R.id.registration_back_btn);
 		mConfirmButton = (Button) findViewById(R.id.registration_confirm_btn);
@@ -67,6 +76,14 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 		});
 	}
 
+	private void generateSuggestion() {
+		String suggestion = "";
+		rand = (int)(Math.random() * suggestionList.size());
+		suggestion += suggestionList.get(rand);
+		suggestion += Constants.PASSWORD_MIN + (int)(Math.random() * ((Constants.PASSWORD_MAX - Constants.PASSWORD_MIN) + 1));
+		mPasswordEditText.setText(suggestion);
+	}
+	
 	@Override
 	public void onTaskFinished(boolean res) {
 		//per ottenersi la stringa giusta in base al risultato
