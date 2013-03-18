@@ -10,15 +10,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class PasswordActivity extends Activity implements OnTaskFinished {
 
-	private EditText mPasswordEditText;
-	private Button mBackButton;
-	private Button mConfirmButton;
+	private EditText editTextPassword;
+	private Button btnBack;
+	private Button btnConfirm;
+	private Button btnReloadPasswd;
 	
 	private String name;
 	private String surname;
@@ -42,36 +45,50 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	}
 	
 	private void dispatchInfoFromIntent(Intent i) {
+		/*
 		name=i.getExtras().getString("name");
 		surname=i.getExtras().getString("surname");
 		eMail=i.getExtras().getString("email");
 		day=i.getExtras().getString("day");
 		month=i.getExtras().getString("month");
 		year=i.getExtras().getString("year");
+		*/
+		
+		suggestionList = new ArrayList<String>(2);
+		name = "Mionome";
+		surname = "Miocognome";
 		suggestionList.add(name);
 		suggestionList.add(surname);
 	}
 
 	private void initializeButtons() {
-		mPasswordEditText = (EditText) findViewById(R.id.registration_password_ET);
-		mBackButton = (Button) findViewById(R.id.registration_back_btn);
-		mConfirmButton = (Button) findViewById(R.id.registration_confirm_btn);
+		editTextPassword = (EditText) findViewById(R.id.registration_password_ET);
+		btnBack = (Button) findViewById(R.id.registration_back_btn);
+		btnConfirm = (Button) findViewById(R.id.registration_confirm_btn);
+		btnReloadPasswd = (Button) findViewById(R.id.btnReloadPassword);
 	}
 
 	private void initializeListeners() {
-		mBackButton.setOnClickListener(new View.OnClickListener() {
-
+		btnBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO call previous activity
 			}
 		});
-		mConfirmButton.setOnClickListener(new View.OnClickListener() {
-
+		btnConfirm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				new RegistrationTask(PasswordActivity.this).execute(name, surname, eMail, 
-					mPasswordEditText.getText().toString(), day, month, year);
+					editTextPassword.getText().toString(), day, month, year);
+			}
+		});
+		btnReloadPasswd.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				generateSuggestion();
+				//Toast.makeText(getApplicationContext(), btnReloadPasswd.toString(), Toast.LENGTH_SHORT).show();
+				Animation anim = AnimationUtils.loadAnimation(PasswordActivity.this, R.anim.rotate_arrow_360);
+				v.startAnimation(anim);
 			}
 		});
 	}
@@ -81,7 +98,7 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 		rand = (int)(Math.random() * suggestionList.size());
 		suggestion += suggestionList.get(rand);
 		suggestion += Constants.PASSWORD_MIN + (int)(Math.random() * ((Constants.PASSWORD_MAX - Constants.PASSWORD_MIN) + 1));
-		mPasswordEditText.setText(suggestion);
+		editTextPassword.setText(suggestion);
 	}
 	
 	@Override
@@ -90,5 +107,4 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 		String resultText = getResources().getString(((res)?R.string.registration_succes:R.string.registration_failed));
 		Toast.makeText(this, resultText, Toast.LENGTH_SHORT).show();
 	}
-
 }
