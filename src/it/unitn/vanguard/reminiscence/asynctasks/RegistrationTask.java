@@ -3,13 +3,16 @@ package it.unitn.vanguard.reminiscence.asynctasks;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
@@ -46,12 +49,17 @@ public class RegistrationTask extends AsyncTask<String, Void, Boolean> {
 		
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(Constants.SERVER_URL+"registrazione.php");
+		try {
+			post.setEntity(new UrlEncodedFormEntity(params));
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
 		JSONObject json = null;
 		String jsonString;
 		try {
-			jsonString = client.execute(post).getEntity().getContent().toString();
+			
+			jsonString = EntityUtils.toString(client.execute(post).getEntity());
 			json = new JSONObject(jsonString);
-			Log.i(RegistrationTask.class.getName(), jsonString);
 			
 		} catch (Exception e) {
 			this.ex=e;
