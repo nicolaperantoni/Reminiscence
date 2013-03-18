@@ -25,7 +25,7 @@
     <string name="data_nascita_activity_title">Data di nascita</string>
     
     <!-- RegistrationPassword_Activity -->
-    <string name="registration_password_suggest_label">Inserisci ora una chiave segreta, noi ti suggeriamo questa, ma puoi modificarla quando vuoi.</string>
+    <string name="registration_password_suggest_label">Inserisci ora una chiave segreta:\nNoi ti suggeriamo questa, ma puoi modificarla quando vuoi.</string>
     <string name="registration_password_hint">nomeNumero</string>
     <string name="registration_failed">No! Qualcosa è andato storto!</string>
     <string name="registration_succes">Evviva! ti sei registrato!</string>
