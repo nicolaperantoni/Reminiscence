@@ -29,14 +29,14 @@
             android:name="it.unitn.vanguard.reminiscence.LoginActivity"
             android:label="@string/login_activity_title"
             android:windowSoftInputMode="stateAlwaysHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.RegistrationActivity"
             android:label="@string/title_activity_registration" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
