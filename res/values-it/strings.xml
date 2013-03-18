@@ -27,5 +27,8 @@
     <string name="registration_password_hint">nomeNumero</string>
     <string name="registration_failed">No! Qualcosa è andato storto!</string>
     <string name="registration_succes">Evviva! ti sei registrato!</string>
+    <string name="user_name_label">Nome</string>
+    <string name="user_surname_label">Cognome</string>
+    <string name="user_mail_label">E-Mail</string>
     
 </resources>

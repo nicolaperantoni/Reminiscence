@@ -18,15 +18,7 @@
     <string name="back_button_label">Back</string>
     <string name="next_button_label">Next</string>
     <string name="confirm_button_label">Confirm</string>
-
-    <!-- DataNascita_Activity -->
-    <string name="data_nascita_activity_title">Date of born</string>
-
-    <!-- RegistrationPassword_Activity -->
-    <string name="registration_password_suggest_label">You should choose a secret word, we suggest this, but you can change it</string>
-    <string name="registration_password_hint">nameNumber</string>
-    <string name="registration_failed">No! Something went wrong!</string>
-    <string name="registration_succes">Yeah! You are now registered!</string>
-    <string name="title_activity_registration">RegistrationActivity</string>
-
+    <string name="user_surname_label">Surname</string>
+    <string name="user_name_label">Name</string>
+    <string name="user_mail_label">E-Mail</string>
 </resources>
