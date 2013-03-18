@@ -7,7 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".RegistrationActivity" >
-    
+
     <Button
         android:id="@+id/registration_confirm_btn"
         android:layout_width="wrap_content"
@@ -27,5 +27,28 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:text="@string/back_button_label" />
+
+    <TextView
+        android:id="@+id/registrationNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="131dp"
+        android:layout_toLeftOf="@+id/editTextregistrationName"
+        android:text="Name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/editTextregistrationName"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/registrationNameLabel"
+        android:layout_margin="@dimen/default_margin"
+        android:layout_toLeftOf="@+id/registration_confirm_btn"
+        android:background="@drawable/txt_input_bordered"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="40sp" />
 
 </RelativeLayout>
