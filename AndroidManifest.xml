@@ -20,6 +20,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity android:name="it.unitn.vanguard.reminiscence.PasswordActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.DataNascitaActivity"
@@ -29,10 +33,6 @@
             android:name="it.unitn.vanguard.reminiscence.LoginActivity"
             android:label="@string/login_activity_title"
             android:windowSoftInputMode="stateAlwaysHidden" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.RegistrationActivity"

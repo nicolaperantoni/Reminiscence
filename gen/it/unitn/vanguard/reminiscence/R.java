@@ -9,8 +9,9 @@ package it.unitn.vanguard.reminiscence;
 
 public final class R {
     public static final class anim {
-        public static final int slide_in_left=0x7f040000;
-        public static final int slide_out_left=0x7f040001;
+        public static final int rotate_arrow_360=0x7f040000;
+        public static final int slide_in_left=0x7f040001;
+        public static final int slide_out_left=0x7f040002;
     }
     public static final class attr {
     }
@@ -29,18 +30,20 @@ public final class R {
         public static final int registration_header_font_size=0x7f050001;
     }
     public static final class drawable {
-        public static final int arrow_down=0x7f020000;
-        public static final int arrow_up=0x7f020001;
-        public static final int btn_login=0x7f020002;
-        public static final int elderly_1=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int logo=0x7f020005;
-        public static final int txt_input_bordered=0x7f020006;
+        public static final int arrow_circle_left=0x7f020000;
+        public static final int arrow_down=0x7f020001;
+        public static final int arrow_up=0x7f020002;
+        public static final int btn_login=0x7f020003;
+        public static final int elderly_1=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int logo=0x7f020006;
+        public static final int txt_input_bordered=0x7f020007;
     }
     public static final class id {
-        public static final int action_settings=0x7f090013;
+        public static final int action_settings=0x7f090014;
         public static final int btnLogin=0x7f09000e;
         public static final int btnRegistration=0x7f09000f;
+        public static final int btnReloadPassword=0x7f090013;
         public static final int btn_day_down=0x7f090007;
         public static final int btn_day_up=0x7f090006;
         public static final int btn_month_down=0x7f090004;
