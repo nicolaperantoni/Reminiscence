@@ -45,6 +45,8 @@ public class DataNascitaActivity extends Activity implements OnClickListener{
 			}
 		});
 		
+		//gay
+		
 		mConfirmButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
