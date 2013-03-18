@@ -97,8 +97,10 @@ public final class R {
          */
         public static final int login_activity_title=0x7f060003;
         public static final int login_button_label=0x7f060006;
+        public static final int login_failed=0x7f060012;
         public static final int login_password_hint=0x7f060005;
         public static final int login_registration_label=0x7f060007;
+        public static final int login_succes=0x7f060013;
         public static final int login_username_hint=0x7f060004;
         public static final int next_button_label=0x7f06000a;
         public static final int registration_button_label=0x7f060008;

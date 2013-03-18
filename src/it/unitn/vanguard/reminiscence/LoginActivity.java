@@ -1,6 +1,7 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.asynctasks.LoginTask;
+import it.unitn.vanguard.reminiscence.asynctasks.RegistrationTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import android.app.Activity;
 import android.content.Intent;
@@ -8,11 +9,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity implements OnTaskFinished {
 
 	private Button btnLogin;
 	private Button btnRegistration;
+	private EditText usernameEditText;
+	private EditText passwordEditText;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,8 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	private void initializeButtons() {
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		btnRegistration = (Button) findViewById(R.id.btnRegistration);
+		usernameEditText = (EditText) findViewById(R.id.edittextUsername);
+		passwordEditText = (EditText) findViewById(R.id.edittextPassword);
 	}
 	
 	private void initializeListeners() {
@@ -39,9 +46,14 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 
 			@Override
 			public void onClick(View v) {
+				
+				String username = usernameEditText.getText().toString();
+				String password = passwordEditText.getText().toString();
+				
 				// TODO call previous activity
-				Intent loginIntent = new Intent(getApplicationContext(), RegistrationActivity.class);
-		        startActivityForResult(loginIntent, 0);
+				//Intent loginIntent = new Intent(getApplicationContext(), RegistrationActivity.class);
+		        //startActivityForResult(loginIntent, 0);
+				new LoginTask(LoginActivity.this).execute(username, password);
 			}
 		});
 		btnRegistration.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +69,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	@Override
 	public void onTaskFinished(boolean res) {
 		// TODO Auto-generated method stub
-		
+		String resultText = getResources().getString(((res)?R.string.login_succes:R.string.login_failed));
+		Toast.makeText(this, resultText, Toast.LENGTH_SHORT).show();
 	}
 }

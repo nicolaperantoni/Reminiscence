@@ -13,6 +13,8 @@
     <string name="login_button_label">Accedi</string>
     <string name="login_registration_label">Non sei ancora registrato?</string>
     <string name="registration_button_label">Registrati</string>
+    <string name="login_failed">Username e Password errati! Riprova.</string>
+    <string name="login_succes">Evviva! Ora sei loggato!</string>
     
     <!-- Registration_Activity -->    
     <string name="back_button_label">Indietro</string>

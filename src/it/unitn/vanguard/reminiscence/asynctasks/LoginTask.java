@@ -38,6 +38,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 		
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(Constants.SERVER_URL + "login.php");
+		post.setEntity(null);
 		JSONObject json = null;
 		String content = null;
 		
