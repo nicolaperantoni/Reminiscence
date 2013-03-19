@@ -3,7 +3,10 @@ package it.unitn.vanguard.reminiscence;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -69,9 +72,17 @@ public class RegistrationActivity extends Activity {
 				
 				if( nameOk && surnameOk && mailOk ) {
 					Intent registrationIntent = new Intent(v.getContext(), DataNascitaActivity.class);
-					registrationIntent.putExtra("name",name);
-					registrationIntent.putExtra("surname",surname);
-					registrationIntent.putExtra("email",mail);
+					
+					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+				    SharedPreferences.Editor editor = prefs.edit();
+
+				    
+				    editor.putString("name", name);
+				    editor.putString("surname", surname);
+				    editor.putString("email", mail);
+					
+					editor.commit();
+					
 			        startActivityForResult(registrationIntent, 0);	
 				}
 			}
