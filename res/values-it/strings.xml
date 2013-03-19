@@ -18,6 +18,7 @@
     
     <!-- Registration_Activity -->    
     <string name="title_activity_registration">Registrati</string>
+    <string name="registration_activity_header">Registrati ora per condividere le tue storie.</string>
     <string name="back_button_label">Indietro</string>
     <string name="next_button_label">Avanti</string>
     <string name="confirm_button_label">Conferma</string>

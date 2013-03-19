@@ -7,6 +7,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".RegistrationActivity" >
+    
+        <TextView
+        android:id="@+id/registration_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="left"
+        android:text="@string/registration_activity_header"
+        android:textSize="@dimen/registration_header_font_size" />
 
     <Button
         android:id="@+id/registration_confirm_btn"
@@ -32,20 +41,66 @@
         android:id="@+id/registrationNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="131dp"
-        android:layout_toLeftOf="@+id/editTextregistrationName"
-        android:text="Name"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/registration_header"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        android:text="@string/user_name_label"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <TextView
+        android:id="@+id/registrationSurnameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/registrationNameLabel"
+        android:layout_below="@id/registrationNameLabel"
+        android:layout_marginTop="60dp"
+        android:text="@string/user_surname_label"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/registrationMailLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/registrationSurnameLabel"
+        android:layout_below="@id/registrationSurnameLabel"
+        android:layout_marginTop="60dp"
+        android:text="@string/user_mail_label"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
 
     <EditText
         android:id="@+id/editTextregistrationName"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/registrationNameLabel"
-        android:layout_margin="@dimen/default_margin"
-        android:layout_toLeftOf="@+id/registration_confirm_btn"
+        android:layout_alignBaseline="@+id/registrationNameLabel"
+        android:layout_alignBottom="@+id/registrationNameLabel"
+        android:layout_alignLeft="@+id/editTextregistrationSurname"
+        android:background="@drawable/txt_input_bordered"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="40sp" />
+    
+        <EditText
+        android:id="@+id/editTextregistrationSurname"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/registrationSurnameLabel"
+        android:layout_alignBottom="@+id/registrationSurnameLabel"
+        android:layout_marginLeft="29dp"
+        android:layout_toRightOf="@+id/registrationSurnameLabel"
+        android:background="@drawable/txt_input_bordered"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="40sp" />
+    
+    <EditText
+        android:id="@+id/editTextregistrationMail"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/registrationMailLabel"
+        android:layout_alignBottom="@+id/registrationMailLabel"
+        android:layout_alignLeft="@+id/editTextregistrationSurname"
         android:background="@drawable/txt_input_bordered"
         android:ems="10"
         android:inputType="textPersonName"

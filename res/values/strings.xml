@@ -18,6 +18,7 @@
 
     <!-- Registration_Activity -->
     <string name="title_activity_registration">Sign up</string>
+    <string name="registration_activity_header">Sign up now and share your life stories.</string>
     <string name="back_button_label">Back</string>
     <string name="next_button_label">Next</string>
     <string name="confirm_button_label">Confirm</string>
