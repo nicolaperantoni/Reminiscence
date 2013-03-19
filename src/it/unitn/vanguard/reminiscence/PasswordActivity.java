@@ -48,18 +48,15 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	}
 	
 	private void dispatchInfoFromIntent(Intent i) {
-		/*
+		
 		name=i.getExtras().getString("name");
 		surname=i.getExtras().getString("surname");
 		eMail=i.getExtras().getString("email");
 		day=i.getExtras().getString("day");
 		month=i.getExtras().getString("month");
 		year=i.getExtras().getString("year");
-		*/
 		
 		suggestionList = new ArrayList<String>(2);
-		name = "Mionome";
-		surname = "Miocognome";
 		suggestionList.add(name);
 		suggestionList.add(surname);
 	}

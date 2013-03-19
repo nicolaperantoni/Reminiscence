@@ -9,7 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class DataNascitaActivity extends Activity implements OnClickListener{
+public class DataNascitaActivity extends Activity {
 
 	private Button btnMonthUp, btnMonthDown;
 	private Button mBackButton;
@@ -23,7 +23,6 @@ public class DataNascitaActivity extends Activity implements OnClickListener{
 		
 		initializeButtons();
 		initializeListeners();
-		
 		txtMonth.setText("Novembre");
 	}
 	
@@ -34,7 +33,7 @@ public class DataNascitaActivity extends Activity implements OnClickListener{
 		mBackButton = (Button) findViewById(R.id.registration_back_btn);
 		mConfirmButton = (Button) findViewById(R.id.registration_confirm_btn);
 	}
-	
+
 	private void initializeListeners() {
 		mBackButton.setOnClickListener(new OnClickListener() {
 			
@@ -49,13 +48,24 @@ public class DataNascitaActivity extends Activity implements OnClickListener{
 			
 			@Override
 			public void onClick(View v) {
+				
+				String name, surname, mail;
+				Intent precIntent = getIntent();
+				name = precIntent.getExtras().getString("name");
+				surname = precIntent.getExtras().getString("surname");
+				mail = precIntent.getExtras().getString("email");
+				
+				int day = 2, month = 1, year = 1950;
 				Intent passwordIntent = new Intent(v.getContext(), PasswordActivity.class);
+				passwordIntent.putExtra("name",name);
+				passwordIntent.putExtra("surname",surname);
+				passwordIntent.putExtra("email",mail);
+				passwordIntent.putExtra("day",day);
+				passwordIntent.putExtra("month",month);
+				passwordIntent.putExtra("year",year);
 		        startActivityForResult(passwordIntent, 0);
 			}
 		});
-		
-		btnMonthUp.setOnClickListener(this);
-		btnMonthDown.setOnClickListener(this);
 	}
 
 	@Override
@@ -63,12 +73,6 @@ public class DataNascitaActivity extends Activity implements OnClickListener{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_data_nascita, menu);
 		return true;
-	}
-
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -1,8 +1,11 @@
 package it.unitn.vanguard.reminiscence;
 
-import android.os.Bundle;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +18,8 @@ public class RegistrationActivity extends Activity {
 	private EditText editTextName;
 	private EditText editTextSurname;
 	private EditText editTextMail;
+	private String name, surname, mail;
+	private boolean nameOk = false, surnameOk = false, mailOk = false;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +49,31 @@ public class RegistrationActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				String name = editTextName.getText().toString();
-				String surname = editTextSurname.getText().toString();
-				String mail = editTextMail.getText().toString();
+				if(!nameOk) {
+					editTextName.setBackgroundResource(R.drawable.txt_input_bordered_error);
+				} else {
+					editTextName.setBackgroundResource(R.drawable.txt_input_bordered);
+				}
 				
-				Intent registrationIntent = new Intent(v.getContext(), DataNascitaActivity.class);
-				registrationIntent.putExtra("name",name);
-				registrationIntent.putExtra("surname",surname);
-				registrationIntent.putExtra("email",mail);
-		        startActivityForResult(registrationIntent, 0);
+				if(!surnameOk) {
+					editTextSurname.setBackgroundResource(R.drawable.txt_input_bordered_error);
+				} else {
+					editTextSurname.setBackgroundResource(R.drawable.txt_input_bordered);
+				}
+				
+				if(!mailOk) {
+					editTextMail.setBackgroundResource(R.drawable.txt_input_bordered_error);
+				} else {
+					editTextMail.setBackgroundResource(R.drawable.txt_input_bordered);
+				}
+				
+				if( nameOk && surnameOk && mailOk ) {
+					Intent registrationIntent = new Intent(v.getContext(), DataNascitaActivity.class);
+					registrationIntent.putExtra("name",name);
+					registrationIntent.putExtra("surname",surname);
+					registrationIntent.putExtra("email",mail);
+			        startActivityForResult(registrationIntent, 0);	
+				}
 			}
 		});
 		btnBack.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +82,68 @@ public class RegistrationActivity extends Activity {
 				Intent loginIntent = new Intent(v.getContext(), LoginActivity.class);
 		        startActivityForResult(loginIntent, 0);
 			}
+		});
+		
+		editTextName.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void afterTextChanged(Editable s) {
+				
+				name = editTextName.getText().toString();
+				nameOk = !(name.equals(""));
+				
+				if(!nameOk) {
+					editTextName.setBackgroundResource(R.drawable.txt_input_bordered_error);
+				}
+				else {
+					editTextName.setBackgroundResource(R.drawable.txt_input_bordered);
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) { }
+		});
+		
+		editTextSurname.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void afterTextChanged(Editable s) {
+				
+				surname = editTextSurname.getText().toString();
+				surnameOk = !(surname.equals(""));
+				
+				if(!surnameOk) {
+					editTextSurname.setBackgroundResource(R.drawable.txt_input_bordered_error);
+				}
+				else {
+					editTextSurname.setBackgroundResource(R.drawable.txt_input_bordered);
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) { }
+		});
+		
+		editTextMail.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void afterTextChanged(Editable s) {
+				
+				mail = editTextMail.getText().toString();
+				mailOk = FinalFunctionsUtilities.isValidEmailAddress(mail);
+				
+				if(!mailOk) {
+					editTextMail.setBackgroundResource(R.drawable.txt_input_bordered_error);
+				} else {
+					editTextMail.setBackgroundResource(R.drawable.txt_input_bordered);
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) { }
 		});
 	}
     

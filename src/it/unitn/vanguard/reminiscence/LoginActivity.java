@@ -46,16 +46,10 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	
 	private void initializeListeners() {
 		btnLogin.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				
 				String username = usernameEditText.getText().toString();
 				String password = passwordEditText.getText().toString();
-				
-				// TODO call previous activity
-				//Intent loginIntent = new Intent(getApplicationContext(), RegistrationActivity.class);
-		        //startActivityForResult(loginIntent, 0);
 				new LoginTask(LoginActivity.this).execute(username, password);
 			}
 		});
@@ -63,7 +57,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 			@Override
 			public void onClick(View v) {
 				Intent regIntent = new Intent(getApplicationContext(), RegistrationActivity.class);
-		        startActivityForResult(regIntent, 0);
+		        startActivityForResult(regIntent, 0); 
 		        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 			}
 		});
@@ -71,7 +65,6 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		// TODO Auto-generated method stub
 		//String resultText = getResources().getString(((res)?R.string.login_succes:R.string.login_failed));
 		try {
 			Toast.makeText(this, res.getString("success"), Toast.LENGTH_SHORT).show();
