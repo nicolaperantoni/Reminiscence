@@ -6,6 +6,9 @@ import it.unitn.vanguard.reminiscence.utils.Constants;
 
 import java.util.ArrayList;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -102,9 +105,14 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	}
 	
 	@Override
-	public void onTaskFinished(boolean res) {
+	public void onTaskFinished(JSONObject res) {
 		//per ottenersi la stringa giusta in base al risultato
-		String resultText = getResources().getString(((res)?R.string.registration_succes:R.string.registration_failed));
-		Toast.makeText(this, resultText, Toast.LENGTH_SHORT).show();
+		//String resultText = getResources().getString(((res)?R.string.registration_succes:R.string.registration_failed));
+		try {
+			Toast.makeText(this, res.getString("success"), Toast.LENGTH_SHORT).show();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

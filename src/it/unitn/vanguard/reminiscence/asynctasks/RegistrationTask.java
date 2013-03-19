@@ -23,7 +23,7 @@ public class RegistrationTask extends AsyncTask<String, Void, Boolean> {
 	
 	private OnTaskFinished caller;
 	private Exception ex;
-	
+	private JSONObject json;
 	
 
 	public RegistrationTask(OnTaskFinished caller) {
@@ -54,7 +54,7 @@ public class RegistrationTask extends AsyncTask<String, Void, Boolean> {
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}
-		JSONObject json = null;
+		json = null;
 		String jsonString;
 		try {
 			
@@ -74,7 +74,7 @@ public class RegistrationTask extends AsyncTask<String, Void, Boolean> {
 		super.onPostExecute(result);
 		if(!result && ex!=null)
 			Log.e(RegistrationTask.class.getName(), ex.toString());
-		caller.onTaskFinished(result);
+		caller.onTaskFinished(json);
 	}
 	
 	

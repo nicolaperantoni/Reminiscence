@@ -19,6 +19,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 
 	private OnTaskFinished caller;
 	private Exception ex;
+	private JSONObject json;
 	
 	public LoginTask(OnTaskFinished caller) {
 		super();
@@ -39,7 +40,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(Constants.SERVER_URL + "login.php");
 		post.setEntity(null);
-		JSONObject json = null;
+		json = null;
 		String content = null;
 		
 		try {
@@ -67,6 +68,6 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 		if(!result && ex!=null) {
 			Log.e(RegistrationTask.class.getName(), ex.toString());
 		}
-		caller.onTaskFinished(result);
+		caller.onTaskFinished(json);
 	}
 }
