@@ -8,8 +8,8 @@
 
     <!-- Login_Activity -->
     <string name="login_activity_title">Sign in</string>
-    <string name="login_username_hint">Username</string>
-    <string name="login_password_hint">Password</string>
+    <string name="login_username_hint">Enter you e-mail</string>
+    <string name="login_password_hint">Your password</string>
     <string name="login_button_label">Sign in</string>
     <string name="login_registration_label">Don\'t you have an account?</string>
     <string name="registration_button_label">Sign up</string>
@@ -19,9 +19,9 @@
     <!-- Registration_Activity -->
     <string name="title_activity_registration">Sign up</string>
     <string name="registration_activity_header">Sign up now and share your life stories.</string>
-    <string name="back_button_label">Back</string>
-    <string name="next_button_label">Next</string>
-    <string name="confirm_button_label">Confirm</string>
+    <string name="back_button_label">BACK</string>
+    <string name="next_button_label">NEXT</string>
+    <string name="confirm_button_label">CONFIRM</string>
     <string name="user_surname_label">Surname</string>
     <string name="user_name_label">Name</string>
     <string name="user_mail_label">E-Mail</string>

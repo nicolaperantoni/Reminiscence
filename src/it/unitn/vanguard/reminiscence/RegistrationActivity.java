@@ -41,7 +41,7 @@ public class RegistrationActivity extends Activity {
     	btnConfirm = (Button) findViewById(R.id.registration_confirm_btn);
     	editTextName = (EditText) findViewById(R.id.editTextregistrationName);
     	editTextSurname = (EditText) findViewById(R.id.editTextregistrationSurname);
-    	editTextMail = (EditText) findViewById(R.id.editTextregistrationMail);
+    	editTextMail = (EditText) findViewById(R.id.editTextregistrationEmail);
 	}
 	
 	private void initializeListeners() {

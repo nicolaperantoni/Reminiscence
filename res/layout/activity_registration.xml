@@ -2,113 +2,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1ABC9C"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".RegistrationActivity" >
 
-    <Button
-        android:id="@+id/registration_confirm_btn"
+    <RelativeLayout
+        android:id="@+id/panelRegistration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        android:text="@string/confirm_button_label" />
-
-    <Button
-        android:id="@+id/registration_back_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:text="@string/back_button_label" />
-
-    <TextView
-        android:id="@+id/registrationNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/registration_header"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="30dp"
-        android:textSize="@dimen/registration_edittext_font_size"
-        android:text="@string/user_name_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    
-    <TextView
-        android:id="@+id/registrationSurnameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/registrationNameLabel"
-        android:layout_below="@id/registrationNameLabel"
-        android:layout_marginTop="60dp"
-        android:textSize="@dimen/registration_edittext_font_size"
-        android:text="@string/user_surname_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/panel_login"
+        android:padding="20dp" >
 
-    <TextView
-        android:id="@+id/registrationMailLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/registrationSurnameLabel"
-        android:layout_below="@id/registrationSurnameLabel"
-        android:layout_marginTop="60dp"
-        android:textSize="@dimen/registration_edittext_font_size"
-        android:text="@string/user_mail_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-
-    <EditText
-        android:id="@+id/editTextregistrationName"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/registrationNameLabel"
-        android:layout_alignBottom="@+id/registrationNameLabel"
-        android:layout_alignLeft="@+id/editTextregistrationSurname"
-        android:background="@drawable/txt_input_bordered"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="40sp" />
-    
         <EditText
-        android:id="@+id/editTextregistrationSurname"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/registrationSurnameLabel"
-        android:layout_alignBottom="@+id/registrationSurnameLabel"
-        android:layout_marginLeft="29dp"
-        android:layout_toRightOf="@+id/registrationSurnameLabel"
-        android:background="@drawable/txt_input_bordered"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="40sp" />
-    
-    <EditText
-        android:id="@+id/editTextregistrationMail"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/registrationMailLabel"
-        android:layout_alignBottom="@+id/registrationMailLabel"
-        android:layout_alignLeft="@+id/editTextregistrationSurname"
-        android:background="@drawable/txt_input_bordered"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="40sp" />
+            android:id="@+id/editTextregistrationName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/txt_input_bordered"
+            android:ems="12"
+            android:inputType="textPersonName"
+            android:hint="@string/user_name_label"
+            android:textSize="40sp" >
+            <requestFocus />
+        </EditText>
+
+            <EditText
+            android:id="@+id/editTextregistrationSurname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextregistrationName"
+            android:background="@drawable/txt_input_bordered"
+            android:ems="12"
+            android:layout_marginTop="20dp"
+            android:inputType="textPersonName"
+            android:hint="@string/user_surname_label"
+            android:textSize="40sp" />
+                
+            <EditText
+            android:id="@+id/editTextregistrationEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextregistrationSurname"
+            android:background="@drawable/txt_input_bordered"
+            android:ems="12"
+            android:layout_marginTop="20dp"
+            android:inputType="textEmailAddress"
+            android:hint="@string/user_mail_label"
+            android:textSize="40sp" />
+            
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/registration_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/registrationNameLabel"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="18dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         android:gravity="left"
         android:text="@string/registration_activity_header"
         android:textSize="@dimen/registration_header_font_size" />
+
+    <Button
+        android:id="@+id/registration_confirm_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/panelRegistration"
+        android:layout_alignLeft="@+id/btnArrowConfirm"
+        android:background="#00ffffff"
+        android:text="@string/confirm_button_label" />
+
+    <Button
+        android:id="@+id/btnArrowConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/registration_confirm_btn"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@+id/panelRegistration"
+        android:background="@drawable/arrow_right" />
+
+    <Button
+        android:id="@+id/btnArrowBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/registration_confirm_btn"
+        android:layout_toLeftOf="@+id/panelRegistration"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/arrow_left" />
+
+    <Button
+        android:id="@+id/registration_back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/panelRegistration"
+        android:layout_alignLeft="@+id/btnArrowBack"
+        android:background="#00ffffff"
+        android:text="@string/back_button_label" />
 
 </RelativeLayout>

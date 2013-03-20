@@ -1,96 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#1ABC9C"
     tools:context=".LoginActivity" >
-    
-    <!-- android:background="@drawable/elderly_1" -->
 
-    <TextView
-        android:id="@+id/txtLogin"
+    <RelativeLayout
+        android:id="@+id/panelLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="80dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/login_activity_title"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="36sp"
-        android:typeface="sans" />
+        android:layout_marginLeft="58dp"
+        android:layout_marginTop="45dp"
+        android:layout_toRightOf="@+id/imageView1"
+        android:background="@drawable/panel_login"
+        android:paddingBottom="30dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="30dp" >
 
-    <EditText
-        android:id="@+id/edittextUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/txtLogin"
-        android:layout_below="@+id/txtLogin"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/txt_input_bordered"
-        android:ems="8"
-        android:hint="@string/login_username_hint"
-        android:inputType="textPersonName"
-        android:textColor="#000"
-        android:textSize="30sp"
-        android:shadowColor="#000"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="1"
-        />
-    
-    <EditText
-        android:id="@+id/edittextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/edittextUsername"
-        android:layout_below="@+id/edittextUsername"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/txt_input_bordered"
-        android:ems="8"
-        android:hint="@string/login_password_hint"
-        android:inputType="textPersonName|textVisiblePassword"
-        android:textColor="#000"
-        android:textSize="30sp" />
+        <EditText
+            android:id="@+id/edittextUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/txt_input_bordered_ok"
+            android:ems="10"
+            android:hint="@string/login_username_hint"
+            android:inputType="textPersonName"
+            android:textColor="#000"
+            android:textSize="35sp" />
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/edittextPassword"
-        android:layout_below="@+id/edittextPassword"
-        android:textSize="36sp"
-        android:textColor="#000"
-        android:background="@drawable/btn_login"
-        android:layout_marginTop="20dp"
-        android:text="@string/login_button_label" />
+        <EditText
+            android:id="@+id/edittextPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/edittextUsername"
+            android:layout_below="@+id/edittextUsername"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/txt_input_bordered"
+            android:ems="10"
+            android:hint="@string/login_password_hint"
+            android:inputType="textPersonName|textVisiblePassword"
+            android:textColor="#000"
+            android:textSize="35sp" />
 
-    
-    <Button
-        android:id="@+id/btnRegistration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/btnLogin"
-        android:layout_below="@+id/btnLogin"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/btn_login"
-        android:text="@string/registration_button_label"
-        android:textColor="#000"
-        android:textSize="36sp" />
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/edittextPassword"
+            android:layout_below="@+id/edittextPassword"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_background_selector"
+            android:text="@string/login_button_label"
+            android:textColor="#000"
+            android:textSize="36sp" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/txtRegistrationLabel"
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignBottom="@+id/panelLogin"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/panelLogin"
+        android:layout_marginLeft="65dp"
+        android:src="@drawable/logo" />
+
+    <RelativeLayout
+        android:id="@+id/panelRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnRegistration"
-        android:layout_alignBottom="@+id/btnRegistration"
-        android:layout_marginRight="15dp"
-        android:layout_toLeftOf="@+id/btnRegistration"
-        android:text="@string/login_registration_label"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#000"
-        android:textSize="36sp"
-        android:typeface="sans" />
-    
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_alignRight="@+id/panelLogin"
+        android:layout_below="@+id/panelLogin"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/panel_login"
+        android:paddingBottom="30dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="30dp" >
+
+        <Button
+            android:id="@+id/btnRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/panelLogin"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/btn_background_selector"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/login_registration_label"
+            android:textColor="#000"
+            android:textSize="36sp" />
+    </RelativeLayout>
+
 </RelativeLayout>

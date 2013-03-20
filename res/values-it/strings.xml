@@ -8,8 +8,8 @@
     
     <!-- Login_Activity -->
     <string name="login_activity_title">Accedi</string>
-    <string name="login_username_hint">Nome utente</string>
-    <string name="login_password_hint">Chiave segreta</string>
+    <string name="login_username_hint">Inserisci la tua e-mail</string>
+    <string name="login_password_hint">La tua password</string>
     <string name="login_button_label">Accedi</string>
     <string name="login_registration_label">Non sei ancora registrato?</string>
     <string name="registration_button_label">Registrati</string>
@@ -18,10 +18,10 @@
     
     <!-- Registration_Activity -->    
     <string name="title_activity_registration">Registrati</string>
-    <string name="registration_activity_header">Registrati ora per condividere le tue storie.</string>
-    <string name="back_button_label">Indietro</string>
-    <string name="next_button_label">Avanti</string>
-    <string name="confirm_button_label">Conferma</string>
+    <string name="registration_activity_header">Registrati ora e condividi le tue storie.</string>
+    <string name="back_button_label">INDIETRO</string>
+    <string name="next_button_label">AVANTI</string>
+    <string name="confirm_button_label">CONFERMA</string>
     <string name="user_name_label">Nome</string>
     <string name="user_surname_label">Cognome</string>
     <string name="user_mail_label">E-Mail</string>
