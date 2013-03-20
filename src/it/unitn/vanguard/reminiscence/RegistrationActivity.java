@@ -3,7 +3,9 @@ package it.unitn.vanguard.reminiscence;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -42,6 +44,21 @@ public class RegistrationActivity extends Activity {
     	editTextName = (EditText) findViewById(R.id.editTextregistrationName);
     	editTextSurname = (EditText) findViewById(R.id.editTextregistrationSurname);
     	editTextMail = (EditText) findViewById(R.id.editTextregistrationEmail);
+
+    	
+    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    	
+    	name = prefs.getString("name", "");
+    	surname = prefs.getString("surname", "");
+    	mail = prefs.getString("mail", "");
+    	
+    	editTextName.setText(name);
+    	editTextSurname.setText(surname);
+    	editTextMail.setText(mail);
+    	
+    	nameOk = !(name.equals(""));
+    	surnameOk = !(surname.equals(""));
+    	mailOk = FinalFunctionsUtilities.isValidEmailAddress(mail);
 	}
 	
 	private void initializeListeners() {
@@ -69,9 +86,16 @@ public class RegistrationActivity extends Activity {
 				
 				if( nameOk && surnameOk && mailOk ) {
 					Intent registrationIntent = new Intent(v.getContext(), DataNascitaActivity.class);
-					registrationIntent.putExtra("name",name);
-					registrationIntent.putExtra("surname",surname);
-					registrationIntent.putExtra("email",mail);
+					
+					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+				    SharedPreferences.Editor editor = prefs.edit();
+
+				    editor.putString("name", editTextName.getText().toString());
+				    editor.putString("surname", editTextSurname.getText().toString());
+				    editor.putString("mail", editTextMail.getText().toString());
+					
+					editor.commit();
+					
 			        startActivityForResult(registrationIntent, 0);	
 				}
 			}

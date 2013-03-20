@@ -11,7 +11,9 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -28,7 +30,7 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	
 	private String name;
 	private String surname;
-	private String eMail;
+	private String mail;
 	private String day;
 	private String month;
 	private String year;
@@ -41,24 +43,29 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registration_password);
-		dispatchInfoFromIntent(getIntent());
 		initializeButtons();
+		initializeVars();
 		generateSuggestion();
 		initializeListeners();
 	}
-	
-	private void dispatchInfoFromIntent(Intent i) {
+
+	private void initializeVars() {
+
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+		name = prefs.getString("name", "");
+		surname = prefs.getString("surname", "");
+		mail = prefs.getString("mail", "");
+		day = prefs.getString("day", "");
+		month = prefs.getString("month", "");
+		year = prefs.getString("year", "");
 		
-		name=i.getExtras().getString("name");
-		surname=i.getExtras().getString("surname");
-		eMail=i.getExtras().getString("email");
-		day=i.getExtras().getString("day");
-		month=i.getExtras().getString("month");
-		year=i.getExtras().getString("year");
+		//Toast.makeText(this, mail, Toast.LENGTH_SHORT).show();
 		
 		suggestionList = new ArrayList<String>(2);
-		suggestionList.add(name);
+		suggestionList.add(name); 
 		suggestionList.add(surname);
+		
 	}
 
 	private void initializeButtons() {
@@ -72,13 +79,15 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 		btnBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// TODO call previous activity
+				Intent regIntent = new Intent(v.getContext(), DataNascitaActivity.class);
+		        startActivityForResult(regIntent, 0);
 			}
 		});
 		btnConfirm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				new RegistrationTask(PasswordActivity.this).execute(name, surname, eMail, 
+
+				new RegistrationTask(PasswordActivity.this).execute(name, surname, mail, 
 					editTextPassword.getText().toString(), day, month, year);
 			}
 		});
@@ -106,7 +115,8 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 		//per ottenersi la stringa giusta in base al risultato
 		//String resultText = getResources().getString(((res)?R.string.registration_succes:R.string.registration_failed));
 		try {
-			Toast.makeText(this, res.getString("success"), Toast.LENGTH_SHORT).show();
+			String ret = res.getString("success")+res.getString("err1")+res.getString("err2")+res.getString("err3")+res.getString("err4")+res.getString("err5");
+			Toast.makeText(this, ret, Toast.LENGTH_SHORT).show();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

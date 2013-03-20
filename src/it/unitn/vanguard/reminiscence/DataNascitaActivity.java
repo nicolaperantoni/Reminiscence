@@ -1,8 +1,10 @@
 package it.unitn.vanguard.reminiscence;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -94,14 +96,6 @@ public class DataNascitaActivity extends Activity {
 		});
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
 		btnBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -116,20 +110,17 @@ public class DataNascitaActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				
-				String name, surname, mail;
-				Intent precIntent = getIntent();
-				name = precIntent.getExtras().getString("name");
-				surname = precIntent.getExtras().getString("surname");
-				mail = precIntent.getExtras().getString("email");
-				
-				int day = 2, month = 1, year = 1950;
 				Intent passwordIntent = new Intent(v.getContext(), PasswordActivity.class);
-				passwordIntent.putExtra("name",name);
-				passwordIntent.putExtra("surname",surname);
-				passwordIntent.putExtra("email",mail);
-				passwordIntent.putExtra("day",day);
-				passwordIntent.putExtra("month",month);
-				passwordIntent.putExtra("year",year);
+				
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			    SharedPreferences.Editor editor = prefs.edit();
+
+			    editor.putString("day", txtDay.getText().toString());
+			    editor.putString("month", txtMonth.getText().toString());
+			    editor.putString("year", txtYear.getText().toString());
+				
+				editor.commit();
+				
 		        startActivityForResult(passwordIntent, 0);
 			}
 		});
