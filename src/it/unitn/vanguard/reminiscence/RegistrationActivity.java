@@ -45,6 +45,20 @@ public class RegistrationActivity extends Activity {
     	editTextName = (EditText) findViewById(R.id.editTextregistrationName);
     	editTextSurname = (EditText) findViewById(R.id.editTextregistrationSurname);
     	editTextMail = (EditText) findViewById(R.id.editTextregistrationMail);
+    	
+    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    	
+    	name = prefs.getString("name", "");
+    	surname = prefs.getString("surname", "");
+    	mail = prefs.getString("mail", "");
+    	
+    	editTextName.setText(name);
+    	editTextSurname.setText(surname);
+    	editTextMail.setText(mail);
+    	
+    	nameOk = !(name.equals(""));
+    	surnameOk = !(surname.equals(""));
+    	mailOk = FinalFunctionsUtilities.isValidEmailAddress(mail);
 	}
 	
 	private void initializeListeners() {
@@ -76,10 +90,9 @@ public class RegistrationActivity extends Activity {
 					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 				    SharedPreferences.Editor editor = prefs.edit();
 
-				    
-				    editor.putString("name", name);
-				    editor.putString("surname", surname);
-				    editor.putString("email", mail);
+				    editor.putString("name", editTextName.getText().toString());
+				    editor.putString("surname", editTextSurname.getText().toString());
+				    editor.putString("mail", editTextMail.getText().toString());
 					
 					editor.commit();
 					
