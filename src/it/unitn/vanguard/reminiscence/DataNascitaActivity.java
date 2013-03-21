@@ -1,20 +1,25 @@
 package it.unitn.vanguard.reminiscence;
 
-import android.os.Bundle;
-import android.preference.PreferenceManager;
+import java.util.Calendar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DataNascitaActivity extends Activity {
 
 	// Date values
-	private int day = 1, month = 1, year = 1950;
+	private int day = 1, month = 0, year = 1940;
+	
+	private int maxYear, maxDay, maxMonth;
 	
 	// Day views
 	private Button btnDayUp, btnDayDown;
@@ -31,6 +36,7 @@ public class DataNascitaActivity extends Activity {
     // Back - Confirm Buttons
 	private Button btnBack;
 	private Button btnConfirm;
+	
 	private String[] mesi = {"Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno",
 	        "Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"};
 	
@@ -40,6 +46,12 @@ public class DataNascitaActivity extends Activity {
 		setContentView(R.layout.activity_data_nascita);
 		initializeButtons();
 		initializeListeners();
+		
+		//getting current day, month and year		
+	    Calendar rightNow = Calendar.getInstance();
+		maxYear = rightNow.get(Calendar.YEAR);
+		maxMonth = rightNow.get(Calendar.MONTH);
+		maxDay = rightNow.get(Calendar.DATE);
 	}
 	
 	private void initializeButtons() {
@@ -69,14 +81,28 @@ public class DataNascitaActivity extends Activity {
 		btnDayUp.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				txtDay.setText("" + (++day) % 32);
+				day++;
+				day = valiDate(day, month, year); 
+				if(isOverCurrentDate(day, month, year)){
+					currentDateMsg(day,month, year);
+					day--;
+				}
+				else					
+					txtDay.setText(String.valueOf(day));				
 			}
 		});
 		
 		btnDayDown.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				txtDay.setText("" + (--day) % 32);
+				day--;
+				day = valiDate(day, month, year);
+				if(isOverCurrentDate(day, month, year)){
+					currentDateMsg(day,month, year);
+					day++;
+				}
+				else					
+					txtDay.setText(String.valueOf(day));	
 			}
 		});
 		
@@ -84,17 +110,70 @@ public class DataNascitaActivity extends Activity {
 		btnMonthUp.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				txtMonth.setText(mesi[(++month) % ( mesi.length + 1)]);
+				if(month == 11)	
+					month = 0;					
+				else
+					month++;
+									
+				if(isOverCurrentDate(day, month, year)){
+					currentDateMsg(day,month, year);
+					month--;
+				}				
+				else{	
+					day = valiDate(day, month, year);
+					txtMonth.setText(mesi[month]);
+					txtDay.setText(String.valueOf(day));					
+				}
 			}
 		});
 		
 		btnMonthDown.setOnClickListener(new OnClickListener() {
 			@Override
+			public void onClick(View v) {				
+				if(month == 0)
+					month = 11;
+				else					
+					month--;
+				if(isOverCurrentDate(day, month, year)){
+					currentDateMsg(day,month, year);
+					month++;
+				}
+				else{	
+					day = valiDate(day, month, year);
+					txtMonth.setText(mesi[month]);
+					txtDay.setText(String.valueOf(day));					
+				}
+			}
+		});	
+		
+		// YEAR UP-DOWN EVENTS
+		btnYearUp.setOnClickListener(new OnClickListener() {
+			@Override
 			public void onClick(View v) {
-				txtMonth.setText(mesi[ (--month) % (mesi.length + 1)]);
+				year++;
+				if(isOverCurrentDate(day, month, year)){
+					currentDateMsg(day, month, year);
+					year--;
+				}
+				else{
+					txtYear.setText(String.valueOf(year));
+					day = valiDate(day, month, year);
+					txtDay.setText(String.valueOf(day));
+				}
 			}
 		});
-		
+	
+		btnYearDown.setOnClickListener(new OnClickListener() {
+			@Override
+				public void onClick(View v) {
+					if(year == maxYear-120)
+						txtYear.setText(String.valueOf(year = maxYear-120));
+					else
+						txtYear.setText(String.valueOf(--year));
+					day = valiDate(day, month, year);
+					txtDay.setText(String.valueOf(day));
+				}
+		});				
 		
 		btnBack.setOnClickListener(new OnClickListener() {
 			
@@ -106,10 +185,8 @@ public class DataNascitaActivity extends Activity {
 		});
 		
 		btnConfirm.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
+
+			public void onClick(View v) {	
 				Intent passwordIntent = new Intent(v.getContext(), PasswordActivity.class);
 				
 				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -122,8 +199,58 @@ public class DataNascitaActivity extends Activity {
 				editor.commit();
 				
 		        startActivityForResult(passwordIntent, 0);
-			}
+		    }
 		});
+	}
+	
+	// Leap year
+	boolean is_leap_year(int year){
+	    boolean result;
+	    
+	    if((year%4) != 0)         
+	        result = false;           
+	    else if((year%400) == 0)   
+	        result = true;            
+	    else if((year%100) == 0)    
+	        result = false;          
+	    else                          
+	        result = true;             
+	    
+	    return result;
+    }
+	
+	// Date validation
+	int valiDate(int day, int month, int year){
+		int month_length[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};    
+	    
+		if(is_leap_year(year))
+	        month_length[1] = 29;	          
+	    if(day > month_length[month])
+	    	day = 1;
+	    if(day < 1)
+	        day = month_length[month];
+	    
+	    return day;
+    }   
+	
+	//control on current date
+	boolean isOverCurrentDate(int day, int month, int year){
+		if(year > maxYear)
+			return true;
+		else if(month > maxMonth && year == maxYear)
+			return true;
+		else if(day > maxDay && month == maxMonth && year == maxYear)
+			return true;
+		else 
+			return false;	
+	}
+	
+	//control on current date (easter egg toast)
+	void currentDateMsg(int day, int month, int year){
+			Context context = getApplicationContext();
+			CharSequence text = "Davvero? Sei nato nel futuro?";
+			Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+			toast.show();
 	}
 
 	@Override
@@ -132,5 +259,4 @@ public class DataNascitaActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_data_nascita, menu);
 		return true;
 	}
-
 }
