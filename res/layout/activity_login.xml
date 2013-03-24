@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#1ABC9C"
+    android:background="@color/watergreen"
     tools:context=".LoginActivity" >
 
     <RelativeLayout
@@ -28,7 +28,7 @@
             android:ems="10"
             android:hint="@string/login_username_hint"
             android:inputType="textPersonName"
-            android:textColor="#000"
+            android:textColor="@android:color/black"
             android:textSize="35sp" />
 
         <EditText
@@ -42,7 +42,7 @@
             android:ems="10"
             android:hint="@string/login_password_hint"
             android:inputType="textPersonName|textVisiblePassword"
-            android:textColor="#000"
+            android:textColor="@color/transparent"
             android:textSize="35sp" />
 
         <Button
@@ -54,7 +54,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_background_selector"
             android:text="@string/login_button_label"
-            android:textColor="#000"
+            android:textColor="@color/transparent"
             android:textSize="36sp" />
     </RelativeLayout>
 
@@ -94,7 +94,7 @@
             android:paddingRight="10dp"
             android:paddingTop="10dp"
             android:text="@string/login_registration_label"
-            android:textColor="#000"
+            android:textColor="@color/transparent"
             android:textSize="36sp" />
     </RelativeLayout>
 

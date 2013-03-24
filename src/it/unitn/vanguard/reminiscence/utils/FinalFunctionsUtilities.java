@@ -5,7 +5,7 @@ public final class FinalFunctionsUtilities {
 	public static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
 	/**
-	 * Validates email address agains email regular expression.
+	 * Validates an email address
 	 * 
 	 * @param email an email address to check
 	 * @return true if email address is valid otherwise return false.

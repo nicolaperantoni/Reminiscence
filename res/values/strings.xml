@@ -35,4 +35,7 @@
     <string name="registration_password_hint">nameeNumber</string>
     <string name="registration_failed">No! Something goes wrong!</string>
     <string name="registration_succes">Uhuh! You are now signed up!</string>
+    <string name="story_title_placeholder">Title</string>
+    <string name="story_description_placeholder">Description</string>
+    <string name="no_story">Tell us a story about %1$s</string>
 </resources>

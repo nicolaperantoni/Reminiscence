@@ -57,6 +57,7 @@ public class LoginActivity extends Activity implements OnTaskFinished, OnFocusCh
 				String username = usernameEditText.getText().toString();
 				String password = passwordEditText.getText().toString();
 				new LoginTask(LoginActivity.this).execute(username, password);
+				//startActivity(new Intent(LoginActivity.this,ViewStoriesFragmentActivity.class));
 			}
 		});
 		btnRegistration.setOnClickListener(new View.OnClickListener() {

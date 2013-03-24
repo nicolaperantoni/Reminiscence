@@ -42,6 +42,7 @@
             android:label="@string/title_activity_registration"
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
+        <activity android:name="ViewStoriesFragmentActivity"></activity>
     </application>
 
 </manifest>
