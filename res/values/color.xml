@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="watergreen">#1ABC9C</color>
+    <color name="silver">#ECEFF1</color>
+    <color name="dark_watergreen">#16a085</color>
+    <color name="red">#ff0000</color>
+    <color name="transparent">#000</color>
+</resources>
