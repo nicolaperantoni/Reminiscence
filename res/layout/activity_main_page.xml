@@ -16,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:background="@drawable/add_post"/>
+        android:background="@drawable/add_story"/>
 
     <Button
         android:id="@+id/to_define_btn"
@@ -34,7 +34,7 @@
         android:layout_alignBottom="@+id/new_story_btn"
         android:layout_marginRight="150dp"
         android:layout_toLeftOf="@id/new_story_btn"
-        android:background="@drawable/post"/>
+        android:background="@drawable/stories"/>
 
     <Button
         android:id="@+id/friend_list_btn"
@@ -71,8 +71,8 @@
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:text="Nuova Storia"
-        android:textColor="@color/silver"
-        android:textSize="20sp"/> 
+        android:textSize="20sp"
+        android:textColor="@color/silver"/> 
         
     <TextView
         android:id="@+id/settings_txt"
@@ -83,8 +83,8 @@
         android:layout_alignBottom="@+id/to_define_txt"
         android:gravity="center"
         android:text="Impostazioni"
-        android:textColor="@color/silver"
-        android:textSize="20sp" />
+        android:textSize="20sp" 
+        android:textColor="@color/silver"/>
 
     <TextView
         android:id="@+id/friend_list_txt"
@@ -95,8 +95,8 @@
         android:layout_alignBottom="@+id/new_story_txt"
         android:gravity="center"
         android:text="Lista Amici"
-        android:textColor="@color/silver"
-        android:textSize="20sp" />
+        android:textSize="20sp" 
+        android:textColor="@color/silver"/>
 
     <TextView
         android:id="@+id/to_define_txt"
@@ -105,9 +105,9 @@
         android:layout_below="@+id/to_define_btn"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/silver"
         android:text="Da definire"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textColor="@color/silver"/>
 
     <TextView
         android:id="@+id/story_txt"
@@ -118,8 +118,8 @@
         android:layout_alignBottom="@+id/new_story_txt"
         android:gravity="center"
         android:text="Storie"
-        android:textColor="@color/silver"
-        android:textSize="20sp" />
+        android:textSize="20sp" 
+        android:textColor="@color/silver"/>
 
     <TextView
         android:id="@+id/find_friends_txt"
@@ -130,8 +130,8 @@
         android:layout_alignRight="@id/find_friend_btn"
         android:layout_alignBottom="@+id/to_define_txt"
         android:gravity="center"
-        android:textColor="@color/silver"
         android:text="Cerca Amici"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textColor="@color/silver"/>
 
 </RelativeLayout>
