@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -17,6 +18,8 @@ public class RegistrationActivity extends Activity {
 
 	private Button btnBack;
 	private Button btnConfirm;
+	private Button btnArrowBack;
+	private Button btnArrowConfirm;
 	private EditText editTextName;
 	private EditText editTextSurname;
 	private EditText editTextMail;
@@ -41,6 +44,8 @@ public class RegistrationActivity extends Activity {
     private void initializeButtons() {
     	btnBack = (Button) findViewById(R.id.registration_back_btn);
     	btnConfirm = (Button) findViewById(R.id.registration_confirm_btn);
+    	btnArrowBack = (Button) findViewById(R.id.btnArrowBack);
+    	btnArrowConfirm = (Button) findViewById(R.id.btnArrowConfirm);
     	editTextName = (EditText) findViewById(R.id.editTextregistrationName);
     	editTextSurname = (EditText) findViewById(R.id.editTextregistrationSurname);
     	editTextMail = (EditText) findViewById(R.id.editTextregistrationEmail);
@@ -62,7 +67,7 @@ public class RegistrationActivity extends Activity {
 	}
 	
 	private void initializeListeners() {
-		btnConfirm.setOnClickListener(new View.OnClickListener() {
+		OnClickListener confirmListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				
@@ -99,14 +104,20 @@ public class RegistrationActivity extends Activity {
 			        startActivityForResult(registrationIntent, 0);	
 				}
 			}
-		});
-		btnBack.setOnClickListener(new View.OnClickListener() {
+		};
+		
+		OnClickListener backListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent loginIntent = new Intent(v.getContext(), LoginActivity.class);
 		        startActivityForResult(loginIntent, 0);
 			}
-		});
+		};
+		
+		btnConfirm.setOnClickListener(confirmListener);
+		btnArrowConfirm.setOnClickListener(confirmListener);
+		btnBack.setOnClickListener(backListener);
+		btnArrowBack.setOnClickListener(backListener);
 		
 		editTextName.addTextChangedListener(new TextWatcher() {
 			@Override
