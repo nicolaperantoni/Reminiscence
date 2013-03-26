@@ -114,12 +114,18 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	public void onTaskFinished(JSONObject res) {
 		//per ottenersi la stringa giusta in base al risultato
 		//String resultText = getResources().getString(((res)?R.string.registration_succes:R.string.registration_failed));
-		try {
-			String ret = res.getString("success")+res.getString("err1")+res.getString("err2")+res.getString("err3")+res.getString("err4")+res.getString("err5");
+		String ret = null;
+		try { 
+			ret = res.getString("success")+res.getString("err1")+res.getString("err2")+res.getString("err3")+res.getString("err4")+res.getString("err5");
 			Toast.makeText(this, ret, Toast.LENGTH_SHORT).show();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		//se la registrazione ha successo torna alla pagina di login
+		if (ret.startsWith("true")) {
+			Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
+	        startActivityForResult(loginIntent, 0);
 		}
 	}
 }
