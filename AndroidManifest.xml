@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="it.unitn.vanguard.reminiscence"
     android:versionCode="1"
@@ -31,17 +32,23 @@
             android:name="it.unitn.vanguard.reminiscence.LoginActivity"
             android:label="@string/login_activity_title"
             android:windowSoftInputMode="stateAlwaysHidden" >
-          	<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.RegistrationActivity"
             android:label="@string/title_activity_registration"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
-        <activity android:name="ViewStoriesFragmentActivity"></activity>
+        <activity android:name="it.unitn.vanguard.reminiscence.ViewStoriesFragmentActivity" >
+        </activity>
+        <activity
+            android:name="it.unitn.vanguard.reminiscence.MainPageActivity"
+            android:label="@string/title_activity_main_page" >
+        </activity>
     </application>
 
 </manifest>

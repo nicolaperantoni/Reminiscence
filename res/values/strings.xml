@@ -25,11 +25,10 @@
     <string name="user_surname_label">Surname</string>
     <string name="user_name_label">Name</string>
     <string name="user_mail_label">E-Mail</string>
-    
-    
+
     <!-- DataNascita_Activity -->
     <string name="data_nascita_activity_title">Date of birth</string>
-    
+
     <!-- RegistrationPassword_Activity -->
     <string name="registration_password_suggest_label">Insert now a password:\nWe suggest you this, but you can edit it anytime.</string>
     <string name="registration_password_hint">nameeNumber</string>
@@ -38,4 +37,6 @@
     <string name="story_title_placeholder">Title</string>
     <string name="story_description_placeholder">Description</string>
     <string name="no_story">Tell us a story about %1$s</string>
+    <string name="title_activity_main_page">MainPageActivity</string>
+
 </resources>

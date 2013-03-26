@@ -1,6 +1,7 @@
 package it.unitn.vanguard.reminiscence;
 
 import java.util.Calendar;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -82,13 +83,13 @@ public class DataNascitaActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				day++;
-				day = valiDate(day, month, year); 
-				if(isOverCurrentDate(day, month, year)){
+				day = FinalFunctionsUtilities.valiDate(day, month, year); 
+				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
 					currentDateMsg(day,month, year);
 					day--;
 				}
 				else					
-					txtDay.setText(String.valueOf(day));				
+					txtDay.setText(String.valueOf(day));	
 			}
 		});
 		
@@ -96,8 +97,8 @@ public class DataNascitaActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				day--;
-				day = valiDate(day, month, year);
-				if(isOverCurrentDate(day, month, year)){
+				day = FinalFunctionsUtilities.valiDate(day, month, year);
+				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
 					currentDateMsg(day,month, year);
 					day++;
 				}
@@ -113,14 +114,13 @@ public class DataNascitaActivity extends Activity {
 				if(month == 11)	
 					month = 0;					
 				else
-					month++;
-									
-				if(isOverCurrentDate(day, month, year)){
+					month++;				
+				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
 					currentDateMsg(day,month, year);
 					month--;
 				}				
 				else{	
-					day = valiDate(day, month, year);
+					day = FinalFunctionsUtilities.valiDate(day, month, year);
 					txtMonth.setText(mesi[month]);
 					txtDay.setText(String.valueOf(day));					
 				}
@@ -134,12 +134,12 @@ public class DataNascitaActivity extends Activity {
 					month = 11;
 				else					
 					month--;
-				if(isOverCurrentDate(day, month, year)){
+				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
 					currentDateMsg(day,month, year);
 					month++;
 				}
 				else{	
-					day = valiDate(day, month, year);
+					day = FinalFunctionsUtilities.valiDate(day, month, year);
 					txtMonth.setText(mesi[month]);
 					txtDay.setText(String.valueOf(day));					
 				}
@@ -151,13 +151,13 @@ public class DataNascitaActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				year++;
-				if(isOverCurrentDate(day, month, year)){
+				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
 					currentDateMsg(day, month, year);
 					year--;
 				}
 				else{
 					txtYear.setText(String.valueOf(year));
-					day = valiDate(day, month, year);
+					day = FinalFunctionsUtilities.valiDate(day, month, year);
 					txtDay.setText(String.valueOf(day));
 				}
 			}
@@ -170,7 +170,7 @@ public class DataNascitaActivity extends Activity {
 						txtYear.setText(String.valueOf(year = maxYear-120));
 					else
 						txtYear.setText(String.valueOf(--year));
-					day = valiDate(day, month, year);
+					day = FinalFunctionsUtilities.valiDate(day, month, year);
 					txtDay.setText(String.valueOf(day));
 				}
 		});				
@@ -201,57 +201,15 @@ public class DataNascitaActivity extends Activity {
 		        startActivityForResult(passwordIntent, 0);
 		    }
 		});
-	}
-	
-	// Leap year
-	boolean is_leap_year(int year){
-	    boolean result;
-	    
-	    if((year%4) != 0)         
-	        result = false;           
-	    else if((year%400) == 0)   
-	        result = true;            
-	    else if((year%100) == 0)    
-	        result = false;          
-	    else                          
-	        result = true;             
-	    
-	    return result;
-    }
-	
-	// Date validation
-	int valiDate(int day, int month, int year){
-		int month_length[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};    
-	    
-		if(is_leap_year(year))
-	        month_length[1] = 29;	          
-	    if(day > month_length[month])
-	    	day = 1;
-	    if(day < 1)
-	        day = month_length[month];
-	    
-	    return day;
-    }   
-	
-	//control on current date
-	boolean isOverCurrentDate(int day, int month, int year){
-		if(year > maxYear)
-			return true;
-		else if(month > maxMonth && year == maxYear)
-			return true;
-		else if(day > maxDay && month == maxMonth && year == maxYear)
-			return true;
-		else 
-			return false;	
-	}
+	}	
 	
 	//control on current date (easter egg toast)
-	void currentDateMsg(int day, int month, int year){
-			Context context = getApplicationContext();
-			CharSequence text = "Davvero? Sei nato nel futuro?";
-			Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-			toast.show();
-	}
+		void currentDateMsg(int day, int month, int year){
+				Context context = getApplicationContext();
+				CharSequence text = "Davvero? Sei nato nel futuro?";
+				Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+				toast.show();
+		}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
