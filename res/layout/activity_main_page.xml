@@ -22,16 +22,15 @@
         android:id="@+id/to_define_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/new_story_txt"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
         android:background="@drawable/to_define"/>
 
     <Button
         android:id="@+id/story_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/new_story_btn"
         android:layout_alignBottom="@+id/new_story_btn"
         android:layout_marginRight="150dp"
         android:layout_toLeftOf="@id/new_story_btn"
@@ -41,7 +40,6 @@
         android:id="@+id/friend_list_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/new_story_btn"
         android:layout_alignBottom="@+id/new_story_btn"
         android:layout_marginLeft="150dp"
         android:layout_toRightOf="@id/new_story_btn"
@@ -51,7 +49,6 @@
         android:id="@+id/setting_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/to_define_btn"
         android:layout_alignBottom="@+id/to_define_btn"
         android:layout_marginLeft="150dp"
         android:layout_toRightOf="@id/to_define_btn"
@@ -61,68 +58,80 @@
         android:id="@+id/find_friend_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/to_define_btn"
         android:layout_alignBottom="@+id/to_define_btn"
         android:layout_marginRight="150dp"
         android:layout_toLeftOf="@id/to_define_btn"
         android:background="@drawable/find_friend"/>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/new_story_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/new_story_btn"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:text="Nuova Storia"
-        android:background="@color/silver" />
-
+        android:textColor="@color/silver"
+        android:textSize="20sp"/> 
+        
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/settings_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/setting_btn"
+        android:layout_alignLeft="@+id/setting_btn"
+        android:layout_alignRight="@+id/setting_btn"
+        android:layout_alignBottom="@+id/to_define_txt"
+        android:gravity="center"
         android:text="Impostazioni"
-        android:background="@color/silver"  />
+        android:textColor="@color/silver"
+        android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/friend_list_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/friend_list_btn"
-        android:layout_below="@+id/friend_list_btn"
-        android:layout_marginRight="26dp"
-        android:text="Lista Amici" 
-        android:background="@color/silver" />
+        android:layout_alignLeft="@id/friend_list_btn"
+        android:layout_alignRight="@id/friend_list_btn"
+        android:layout_alignBottom="@+id/new_story_txt"
+        android:gravity="center"
+        android:text="Lista Amici"
+        android:textColor="@color/silver"
+        android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/to_define_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView6"
-        android:layout_alignBottom="@+id/textView6"
-        android:layout_alignLeft="@+id/textView2"
-        android:text="Da definire" 
-        android:background="@color/silver" />
+        android:layout_below="@+id/to_define_btn"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/silver"
+        android:text="Da definire"
+        android:textSize="20sp"/>
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/story_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignRight="@+id/story_btn"
-        android:layout_marginRight="31dp"
+        android:layout_alignLeft="@id/story_btn"
+        android:layout_alignRight="@id/story_btn"
+        android:layout_alignBottom="@+id/new_story_txt"
+        android:gravity="center"
         android:text="Storie"
-        android:background="@color/silver"  />
+        android:textColor="@color/silver"
+        android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/find_friends_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView1"
-        android:layout_below="@+id/find_friend_btn"
-        android:text="Cerca Amici" 
-        android:background="@color/silver" />
+        android:layout_below="@id/find_friend_btn"        
+        android:layout_alignLeft="@id/find_friend_btn"
+        android:layout_alignRight="@id/find_friend_btn"
+        android:layout_alignBottom="@+id/to_define_txt"
+        android:gravity="center"
+        android:textColor="@color/silver"
+        android:text="Cerca Amici"
+        android:textSize="20sp"/>
 
 </RelativeLayout>
