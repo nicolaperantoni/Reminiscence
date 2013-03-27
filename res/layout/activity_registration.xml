@@ -9,54 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".RegistrationActivity" >
 
-    <RelativeLayout
-        android:id="@+id/panelRegistration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/registration_header"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/panel_login"
-        android:padding="20dp" >
-
-        <EditText
-            android:id="@+id/editTextregistrationName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/txt_input_bordered"
-            android:ems="12"
-            android:inputType="textPersonName"
-            android:hint="@string/user_name_label"
-            android:textSize="40sp" >
-            <requestFocus />
-        </EditText>
-
-            <EditText
-            android:id="@+id/editTextregistrationSurname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/editTextregistrationName"
-            android:background="@drawable/txt_input_bordered"
-            android:ems="12"
-            android:layout_marginTop="20dp"
-            android:inputType="textPersonName"
-            android:hint="@string/user_surname_label"
-            android:textSize="40sp" />
-                
-            <EditText
-            android:id="@+id/editTextregistrationEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/editTextregistrationSurname"
-            android:background="@drawable/txt_input_bordered"
-            android:ems="12"
-            android:layout_marginTop="20dp"
-            android:inputType="textEmailAddress"
-            android:hint="@string/user_mail_label"
-            android:textSize="40sp" />
-            
-    </RelativeLayout>
-
     <TextView
         android:id="@+id/registration_header"
         android:layout_width="wrap_content"
@@ -74,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/panelRegistration"
         android:layout_alignLeft="@+id/btnArrowConfirm"
+        android:layout_alignRight="@+id/btnArrowConfirm"
         android:background="@color/watergreen"
         android:text="@string/confirm_button_label" />
 
@@ -84,7 +37,8 @@
         android:layout_above="@+id/registration_confirm_btn"
         android:layout_marginLeft="40dp"
         android:layout_toRightOf="@+id/panelRegistration"
-        android:background="@drawable/arrow_right" />
+        android:textSize="@dimen/default_btn_text_size"
+        android:background="@drawable/arrow_continue" />
 
     <Button
         android:id="@+id/btnArrowBack"
@@ -93,7 +47,7 @@
         android:layout_above="@+id/registration_confirm_btn"
         android:layout_toLeftOf="@+id/panelRegistration"
         android:layout_marginRight="40dp"
-        android:background="@drawable/arrow_left" />
+        android:background="@drawable/arrow_back" />
 
     <Button
         android:id="@+id/registration_back_btn"
@@ -101,7 +55,53 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/panelRegistration"
         android:layout_alignLeft="@+id/btnArrowBack"
+        android:layout_alignRight="@+id/btnArrowBack"
         android:background="@color/watergreen"
+        android:textSize="@dimen/default_btn_text_size"
         android:text="@string/back_button_label" />
+
+    <RelativeLayout
+        android:id="@+id/panelRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/panel_login"
+        android:padding="20dp" >
+
+        <EditText
+            android:id="@+id/editTextregistrationName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/txt_input_bordered"
+            android:ems="12"
+            android:hint="@string/user_name_label"
+            android:inputType="textPersonName"
+            android:textSize="40sp" />
+
+        <EditText
+            android:id="@+id/editTextregistrationSurname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextregistrationName"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/txt_input_bordered"
+            android:ems="12"
+            android:hint="@string/user_surname_label"
+            android:inputType="textPersonName"
+            android:textSize="40sp" />
+
+        <EditText
+            android:id="@+id/editTextregistrationEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextregistrationSurname"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/txt_input_bordered"
+            android:ems="12"
+            android:hint="@string/user_mail_label"
+            android:inputType="textEmailAddress"
+            android:textSize="40sp" />
+    </RelativeLayout>
 
 </RelativeLayout>

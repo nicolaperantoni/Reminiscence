@@ -31,6 +31,7 @@
 
     <!-- DataNascita_Activity -->
     <string name="data_nascita_activity_title">Date of birth</string>
+    <string name="data_nascita_activity_header">Insert your date of birth.</string>
 
     <!-- RegistrationPassword_Activity -->
     <string name="registration_password_suggest_label">Insert now a password:\nWe suggest you this, but you can edit it anytime.</string>

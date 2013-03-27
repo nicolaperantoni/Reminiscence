@@ -31,6 +31,7 @@
     
     <!-- DataNascita_Activity -->
     <string name="data_nascita_activity_title">Data di nascita</string>
+    <string name="data_nascita_activity_header">Inserisci la tua data di nascita.</string>
     
     <!-- RegistrationPassword_Activity -->
     <string name="registration_password_suggest_label">Inserisci ora una chiave segreta:\nNoi ti suggeriamo questa, ma puoi modificarla quando vuoi.</string>
