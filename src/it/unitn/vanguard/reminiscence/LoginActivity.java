@@ -55,12 +55,23 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 			public void onClick(View v) {
 				String username = usernameEditText.getText().toString();
 				String password = passwordEditText.getText().toString();
-				p = new ProgressDialog(LoginActivity.this);
-				p.setTitle(getResources().getString(R.string.please));
-				p.setMessage(getResources().getString(R.string.wait));
-				p.setCancelable(false);
-				p.show();
-				new LoginTask(LoginActivity.this).execute(username, password);
+
+				if (username != null && password != null
+						&& !username.equals("") && !password.equals("")) {
+					p = new ProgressDialog(LoginActivity.this);
+					p.setTitle(getResources().getString(R.string.please));
+					p.setMessage(getResources().getString(R.string.wait));
+					p.setCancelable(false);
+					p.show();
+
+					new LoginTask(LoginActivity.this).execute(username,
+							password);
+
+				} else {
+					Toast.makeText(getApplicationContext(),
+							"Password or username are not valid",
+							Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 		btnRegistration.setOnClickListener(new View.OnClickListener() {
@@ -104,14 +115,15 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		if(p!=null && p.isShowing())
+		if (p != null && p.isShowing())
 			p.dismiss();
 		try {
 			if (res.getString("success").equals("true"))
 				startActivity(new Intent(LoginActivity.this,
 						ViewStoriesFragmentActivity.class));
 			else
-				Toast.makeText(this, getResources().getString(R.string.login_failed),
+				Toast.makeText(this,
+						getResources().getString(R.string.login_failed),
 						Toast.LENGTH_LONG).show();
 		} catch (JSONException e) {
 			Log.e(LoginActivity.class.getName(), e.toString());
