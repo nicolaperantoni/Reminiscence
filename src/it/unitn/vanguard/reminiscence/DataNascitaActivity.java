@@ -35,8 +35,8 @@ public class DataNascitaActivity extends Activity {
     private TextView  txtYear;
 	
     // Back - Confirm Buttons
-	private Button btnBack;
-	private Button btnConfirm;
+	private Button btnBack, arrowBackBtn;
+	private Button btnConfirm, arrowConfirmBtn;
 	
 	private String[] mesi = {"Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno",
 	        "Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"};
@@ -74,6 +74,8 @@ public class DataNascitaActivity extends Activity {
         
 		btnBack = (Button) findViewById(R.id.registration_back_btn);
 		btnConfirm = (Button) findViewById(R.id.registration_confirm_btn);
+		arrowConfirmBtn = (Button) findViewById(R.id.arrow_confirm_btn);
+		arrowBackBtn = (Button) findViewById(R.id.arrow_back_btn);
 	}
 
 	private void initializeListeners() {
@@ -175,6 +177,7 @@ public class DataNascitaActivity extends Activity {
 				}
 		});				
 		
+		//Button back & confirm
 		btnBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -200,6 +203,33 @@ public class DataNascitaActivity extends Activity {
 				
 		        startActivityForResult(passwordIntent, 0);
 		    }
+		});
+		
+		arrowBackBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent regIntent = new Intent(v.getContext(), RegistrationActivity.class);
+		        startActivityForResult(regIntent, 0);
+			}
+		});
+		
+		arrowConfirmBtn.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {	
+				Intent passwordIntent = new Intent(v.getContext(), PasswordActivity.class);
+				
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			    SharedPreferences.Editor editor = prefs.edit();
+
+			    editor.putString("day", txtDay.getText().toString());
+			    editor.putString("month", txtMonth.getText().toString());
+			    editor.putString("year", txtYear.getText().toString());
+				
+				editor.commit();
+				
+		        startActivityForResult(passwordIntent, 0);
+		    }			
 		});
 	}	
 	
