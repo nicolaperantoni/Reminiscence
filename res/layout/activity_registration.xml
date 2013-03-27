@@ -28,7 +28,7 @@
         android:layout_alignLeft="@+id/btnArrowConfirm"
         android:layout_alignRight="@+id/btnArrowConfirm"
         android:background="@color/watergreen"
-        android:text="@string/confirm_button_label" />
+        android:text="@string/next_button_label" />
 
     <Button
         android:id="@+id/btnArrowConfirm"

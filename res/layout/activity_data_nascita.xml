@@ -128,42 +128,42 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/registration_back_btn"
+        android:id="@+id/datanascita_back_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="40dp"
         android:layout_alignBottom="@+id/panelDataNascita"
+        android:layout_marginRight="40dp"
         android:layout_toLeftOf="@+id/panelDataNascita"
         android:background="@color/watergreen"
         android:text="@string/back_button_label"
         android:textSize="@dimen/default_btn_text_size" />
 
     <Button
-        android:id="@+id/btnArrowBack"
+        android:id="@+id/datanascita_confirm_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/registration_back_btn"
-        android:layout_alignLeft="@+id/registration_back_btn"
-        android:background="@drawable/arrow_back" />
-
-    <Button
-        android:id="@+id/Button01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnArrowBack"
+        android:layout_alignBottom="@+id/panelDataNascita"
         android:layout_marginLeft="40dp"
         android:layout_toRightOf="@+id/panelDataNascita"
         android:background="@color/watergreen"
-        android:text="@string/confirm_button_label"
+        android:text="@string/next_button_label"
         android:textSize="@dimen/default_btn_text_size" />
-
+    
     <Button
         android:id="@+id/arrow_confirm_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnArrowBack"
-        android:layout_alignBottom="@+id/btnArrowBack"
-        android:layout_alignLeft="@+id/Button01"
+        android:layout_above="@+id/datanascita_confirm_btn"
+        android:layout_alignLeft="@+id/datanascita_confirm_btn"
+        android:layout_toRightOf="@+id/panelDataNascita"
         android:background="@drawable/arrow_continue" />
+
+    <Button
+        android:id="@+id/arrow_back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/datanascita_back_btn"
+        android:layout_alignRight="@+id/datanascita_back_btn"
+        android:background="@drawable/arrow_back" />
 
 </RelativeLayout>
