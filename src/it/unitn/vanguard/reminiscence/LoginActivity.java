@@ -48,6 +48,8 @@ public class LoginActivity extends Activity implements OnTaskFinished, OnFocusCh
 		usernameEditText = (EditText) findViewById(R.id.edittextUsername);
 		passwordEditText = (EditText) findViewById(R.id.edittextPassword);
 	}
+
+
 	
 	private void initializeListeners() {
 		
@@ -97,7 +99,6 @@ public class LoginActivity extends Activity implements OnTaskFinished, OnFocusCh
 	public void onTaskFinished(JSONObject res) {
 		//String resultText = getResources().getString(((res)?R.string.login_succes:R.string.login_failed));
 		try {
-			Toast.makeText(this, "asdggf",Toast.LENGTH_LONG);
 			Toast.makeText(this, res.getString("success"), Toast.LENGTH_SHORT).show();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
