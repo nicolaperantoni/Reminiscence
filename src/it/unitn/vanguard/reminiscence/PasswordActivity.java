@@ -1,6 +1,7 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.asynctasks.RegistrationTask;
+
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 
@@ -15,6 +16,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -24,8 +26,8 @@ import android.widget.Toast;
 public class PasswordActivity extends Activity implements OnTaskFinished {
 
 	private EditText editTextPassword;
-	private Button btnBack;
-	private Button btnConfirm;
+	private Button btnBack,btnFrecciaBack;
+	private Button btnConfirm,btnFrecciaConferma;
 	private Button btnReloadPasswd;
 	
 	private String name;
@@ -70,27 +72,37 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 
 	private void initializeButtons() {
 		editTextPassword = (EditText) findViewById(R.id.registration_password_ET);
-		btnBack = (Button) findViewById(R.id.registration_back_btn);
-		btnConfirm = (Button) findViewById(R.id.registration_confirm_btn);
+		btnBack = (Button) findViewById(R.id.button_back);
+		btnConfirm = (Button) findViewById(R.id.button_conferma);
+		btnFrecciaConferma = (Button) findViewById(R.id.button_freccia_conferma);
+		btnFrecciaBack = (Button) findViewById(R.id.button_freccia_back);
 		btnReloadPasswd = (Button) findViewById(R.id.btnReloadPassword);
 	}
+	
+	OnClickListener onclickback = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Intent regIntent = new Intent(v.getContext(), DataNascitaActivity.class);
+	        startActivityForResult(regIntent, 0);
+		}
+	};
 
+	OnClickListener onclickconf = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+
+			new RegistrationTask(PasswordActivity.this).execute(name, surname, mail, 
+				editTextPassword.getText().toString(), day, month, year);
+		}
+	};
+	
 	private void initializeListeners() {
-		btnBack.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent regIntent = new Intent(v.getContext(), DataNascitaActivity.class);
-		        startActivityForResult(regIntent, 0);
-			}
-		});
-		btnConfirm.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-				new RegistrationTask(PasswordActivity.this).execute(name, surname, mail, 
-					editTextPassword.getText().toString(), day, month, year);
-			}
-		});
+		
+		btnBack.setOnClickListener(onclickback);
+		btnFrecciaBack.setOnClickListener(onclickback);
+		btnConfirm.setOnClickListener(onclickconf);
+		btnFrecciaConferma.setOnClickListener(onclickconf);
+		
 		btnReloadPasswd.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
