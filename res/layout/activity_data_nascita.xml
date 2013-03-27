@@ -150,7 +150,7 @@
         android:textSize="@dimen/default_btn_text_size" />
     
     <Button
-        android:id="@+id/arrow_confirm_btn"
+        android:id="@+id/datanascita_arrow_confirm_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/datanascita_confirm_btn"
@@ -159,7 +159,7 @@
         android:background="@drawable/arrow_continue" />
 
     <Button
-        android:id="@+id/arrow_back_btn"
+        android:id="@+id/datanascita_arrow_back_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/datanascita_back_btn"

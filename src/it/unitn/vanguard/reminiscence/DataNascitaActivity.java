@@ -72,10 +72,10 @@ public class DataNascitaActivity extends Activity {
         btnYearDown = (Button) findViewById(R.id.btn_year_down);
         txtYear = (TextView) findViewById(R.id.txt_year);
         
-		btnBack = (Button) findViewById(R.id.registration_back_btn);
-		btnConfirm = (Button) findViewById(R.id.registration_confirm_btn);
-		arrowConfirmBtn = (Button) findViewById(R.id.arrow_confirm_btn);
-		arrowBackBtn = (Button) findViewById(R.id.arrow_back_btn);
+		btnBack = (Button) findViewById(R.id.datanascita_back_btn);
+		btnConfirm = (Button) findViewById(R.id.datanascita_confirm_btn);
+		arrowConfirmBtn = (Button) findViewById(R.id.datanascita_arrow_confirm_btn);
+		arrowBackBtn = (Button) findViewById(R.id.datanascita_arrow_back_btn);
 	}
 
 	private void initializeListeners() {

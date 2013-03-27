@@ -28,6 +28,7 @@
         android:layout_alignLeft="@+id/btnArrowConfirm"
         android:layout_alignRight="@+id/btnArrowConfirm"
         android:background="@color/watergreen"
+        android:textSize="@dimen/default_btn_text_size"
         android:text="@string/next_button_label" />
 
     <Button
@@ -48,17 +49,6 @@
         android:layout_toLeftOf="@+id/panelRegistration"
         android:layout_marginRight="40dp"
         android:background="@drawable/arrow_back" />
-
-    <Button
-        android:id="@+id/registration_back_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/panelRegistration"
-        android:layout_alignLeft="@+id/btnArrowBack"
-        android:layout_alignRight="@+id/btnArrowBack"
-        android:background="@color/watergreen"
-        android:textSize="@dimen/default_btn_text_size"
-        android:text="@string/back_button_label" />
 
     <RelativeLayout
         android:id="@+id/panelRegistration"
@@ -103,5 +93,16 @@
             android:inputType="textEmailAddress"
             android:textSize="40sp" />
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/registration_back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnArrowBack"
+        android:layout_alignRight="@+id/btnArrowBack"
+        android:layout_below="@+id/btnArrowBack"
+        android:background="@color/watergreen"
+        android:text="@string/back_button_label"
+        android:textSize="@dimen/default_btn_text_size" />
 
 </RelativeLayout>
