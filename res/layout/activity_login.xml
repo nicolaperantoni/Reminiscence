@@ -28,8 +28,7 @@
             android:ems="10"
             android:hint="@string/login_username_hint"
             android:inputType="textPersonName"
-            android:textColor="@android:color/black"
-            android:textSize="35sp" />
+            android:textColor="@android:color/black" />
 
         <EditText
             android:id="@+id/edittextPassword"
@@ -42,8 +41,7 @@
             android:ems="10"
             android:hint="@string/login_password_hint"
             android:inputType="textPersonName|textVisiblePassword"
-            android:textColor="@color/transparent"
-            android:textSize="35sp" />
+            android:textColor="@color/transparent" />
 
         <Button
             android:id="@+id/btnLogin"
@@ -54,8 +52,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_background_selector"
             android:text="@string/login_button_label"
-            android:textColor="@color/transparent"
-            android:textSize="36sp" />
+            android:textColor="@color/transparent" />
     </RelativeLayout>
 
     <ImageView
@@ -94,8 +91,7 @@
             android:paddingRight="10dp"
             android:paddingTop="10dp"
             android:text="@string/login_registration_label"
-            android:textColor="@color/transparent"
-            android:textSize="36sp" />
+            android:textColor="@color/transparent" />
     </RelativeLayout>
 
 </RelativeLayout>

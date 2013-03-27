@@ -5,6 +5,8 @@
     <string name="app_name">Reminiscence</string>
     <string name="action_settings">Impostazioni</string>
     <string name="hello_world">Ciao mondo!</string>
+    <string name="please">Per Favore</string>
+    <string name="wait">attendi...</string>
     
     <!-- Login_Activity -->
     <string name="login_activity_title">Accedi</string>
@@ -13,7 +15,7 @@
     <string name="login_button_label">Accedi</string>
     <string name="login_registration_label">Non sei ancora registrato?</string>
     <string name="registration_button_label">Registrati</string>
-    <string name="login_failed">Username e Password errati! Riprova.</string>
+    <string name="login_failed">Email e Password errati! Riprova.</string>
     <string name="login_succes">Evviva! Ora sei loggato!</string>
     
     <!-- Registration_Activity -->    
@@ -35,6 +37,30 @@
     <string name="registration_password_hint">nomeNumero</string>
     <string name="registration_failed">No! Qualcosa è andato storto!</string>
     <string name="registration_succes">Evviva! ti sei registrato!</string>
+    
+    <!-- ViewStoriesFragmentActivity -->
+    <string name="story_title_placeholder">Titolo</string>
+    <string name="story_description_placeholder">Descrizione</string>
+    <string name="dummy_story_title">Titolo Finto</string>
+    <string name="dummy_story_desc">Lorem ipsum dolor sit amet, 
+        consectetur adipiscing elit. Curabitur nisi ante, dignissim sit amet 
+        posuere vitae, ullamcorper interdum felis. Vestibulum ante ipsum primis 
+        in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque
+         urna augue, iaculis ac ultrices et, varius eu libero. Sed aliquet, 
+         nunc non porttitor suscipit, massa urna elementum risus, non convallis 
+         magna risus at leo. Cras elementum, purus eget ornare imperdiet, 
+         sem sapien luctus lectus, sed suscipit ante velit sit amet mi. 
+         Ut at nibh quam, eget ullamcorper orci. Duis faucibus elementum 
+         lacinia. Etiam et commodo felis. Vestibulum posuere nibh pretium 
+         metus dapibus eget blandit est lobortis. Maecenas lacinia mi in sem 
+         vulputate feugiat. Fusce porta lacus vitae libero volutpat imperdiet. 
+         Phasellus tortor ante, ornare id accumsan dignissim, fermentum quis 
+         nunc. Praesent ultrices sem at enim eleifend interdum. 
+         Vivamus et turpis ipsum, quis tristique orci. Vestibulum egestas 
+         felis at justo aliquet sollicitudin.</string>
+    <string name="no_story">Raccontaci una storia sul %1$s</string>
 
+    <!-- MainPageActivity -->
+    <string name="title_activity_main_page">Pagina Principale</string>
     
 </resources>
