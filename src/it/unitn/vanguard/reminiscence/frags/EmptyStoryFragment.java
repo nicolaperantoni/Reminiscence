@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EmptyStoryFragment extends Fragment {
 
@@ -22,7 +23,8 @@ public class EmptyStoryFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_emptystory, container,false);
+		View v = inflater.inflate(R.layout.fragment_emptystory, container,
+				false);
 		return v;
 	}
 
@@ -37,9 +39,22 @@ public class EmptyStoryFragment extends Fragment {
 				R.id.emptystory_desc_et);
 		mAddBtn = (Button) getView().findViewById(R.id.emptystory_add_btn);
 
-		String s = String.format(getResources().getString(R.string.no_story), getArguments()
-				.getInt(YEAR_PASSED_KEY));
+		String s = String.format(getResources().getString(R.string.no_story),
+				getArguments().getInt(YEAR_PASSED_KEY));
 		mNoStoryTv.setText(s);
+
+		initializeListeners();
+	}
+
+	private void initializeListeners() {
+		mAddBtn.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getActivity(), "Funzione non disponibile!",
+						Toast.LENGTH_LONG).show();
+			}
+		});
 	}
 
 }

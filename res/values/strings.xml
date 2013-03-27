@@ -34,9 +34,30 @@
     <string name="registration_password_hint">nameeNumber</string>
     <string name="registration_failed">No! Something goes wrong!</string>
     <string name="registration_succes">Uhuh! You are now signed up!</string>
+
+    <!-- ViewStoriesFragmentActivity -->
     <string name="story_title_placeholder">Title</string>
     <string name="story_description_placeholder">Description</string>
+    <string name="dummy_story_title">DummyTitle</string>
+    <string name="dummy_story_desc">Lorem ipsum dolor sit amet, 
+        consectetur adipiscing elit. Curabitur nisi ante, dignissim sit amet 
+        posuere vitae, ullamcorper interdum felis. Vestibulum ante ipsum primis 
+        in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque
+         urna augue, iaculis ac ultrices et, varius eu libero. Sed aliquet, 
+         nunc non porttitor suscipit, massa urna elementum risus, non convallis 
+         magna risus at leo. Cras elementum, purus eget ornare imperdiet, 
+         sem sapien luctus lectus, sed suscipit ante velit sit amet mi. 
+         Ut at nibh quam, eget ullamcorper orci. Duis faucibus elementum 
+         lacinia. Etiam et commodo felis. Vestibulum posuere nibh pretium 
+         metus dapibus eget blandit est lobortis. Maecenas lacinia mi in sem 
+         vulputate feugiat. Fusce porta lacus vitae libero volutpat imperdiet. 
+         Phasellus tortor ante, ornare id accumsan dignissim, fermentum quis 
+         nunc. Praesent ultrices sem at enim eleifend interdum. 
+         Vivamus et turpis ipsum, quis tristique orci. Vestibulum egestas 
+         felis at justo aliquet sollicitudin.</string>
     <string name="no_story">Tell us a story about %1$s</string>
+
+    <!-- MainPageActivity -->
     <string name="title_activity_main_page">MainPageActivity</string>
 
 </resources>

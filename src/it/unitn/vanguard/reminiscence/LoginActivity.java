@@ -1,18 +1,14 @@
 package it.unitn.vanguard.reminiscence;
 
-import it.unitn.vanguard.reminiscence.asynctasks.LoginTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
-import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.MailTo;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -20,7 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LoginActivity extends Activity implements OnTaskFinished, OnFocusChangeListener {
+public class LoginActivity extends Activity implements OnTaskFinished{
 
 	private Button btnLogin;
 	private Button btnRegistration;
@@ -54,10 +50,10 @@ public class LoginActivity extends Activity implements OnTaskFinished, OnFocusCh
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String username = usernameEditText.getText().toString();
-				String password = passwordEditText.getText().toString();
-				new LoginTask(LoginActivity.this).execute(username, password);
-				//startActivity(new Intent(LoginActivity.this,ViewStoriesFragmentActivity.class));
+//				String username = usernameEditText.getText().toString();
+//				String password = passwordEditText.getText().toString();
+//				new LoginTask(LoginActivity.this).execute(username, password);
+				startActivity(new Intent(LoginActivity.this,ViewStoriesFragmentActivity.class));
 			}
 		});
 		btnRegistration.setOnClickListener(new View.OnClickListener() {
@@ -99,14 +95,7 @@ public class LoginActivity extends Activity implements OnTaskFinished, OnFocusCh
 		try {
 			Toast.makeText(this, res.getString("success"), Toast.LENGTH_SHORT).show();
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Log.e(LoginActivity.class.getName(), e.toString());
 		}
-	}
-
-	@Override
-	public void onFocusChange(View v, boolean hasFocus) {
-		// TODO Auto-generated method stub
-		
 	}
 }
