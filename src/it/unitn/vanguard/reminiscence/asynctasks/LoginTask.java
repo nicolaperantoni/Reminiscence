@@ -65,7 +65,6 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 				editor.putString("token", json.getString("token"));
 				editor.commit();
 			}
-			
 
 		} catch (Exception e) {
 			this.ex = e;
