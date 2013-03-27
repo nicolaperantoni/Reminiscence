@@ -16,12 +16,10 @@ import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity implements OnTaskFinished {
 
-	private ImageView immagine;
 	private Button btnLogin;
 	private Button btnRegistration;
 	private EditText usernameEditText;
@@ -48,20 +46,9 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		btnRegistration = (Button) findViewById(R.id.btnRegistration);
 		usernameEditText = (EditText) findViewById(R.id.edittextUsername);
 		passwordEditText = (EditText) findViewById(R.id.edittextPassword);
-		immagine = (ImageView) findViewById(R.id.imageView1);
-		
 	}
 
 	private void initializeListeners() {
-		
-		immagine.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent regIntent = new Intent(v.getContext(), MainPageActivity.class);			
-				 startActivityForResult(regIntent, 0);
-			}
-		});
 
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 			@Override
