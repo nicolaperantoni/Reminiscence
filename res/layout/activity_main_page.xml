@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/dark_blue"
+    android:background="@color/watergreen"
     tools:context=".MainPageActivity" >
 
     <Button
@@ -72,7 +72,7 @@
         android:layout_centerHorizontal="true"
         android:text="Nuova Storia"
         android:textSize="20sp"
-        android:textColor="@color/silver"/> 
+        android:textColor="@color/transparent"/> 
         
     <TextView
         android:id="@+id/settings_txt"
@@ -84,7 +84,7 @@
         android:gravity="center"
         android:text="Impostazioni"
         android:textSize="20sp" 
-        android:textColor="@color/silver"/>
+        android:textColor="@color/transparent"/>
 
     <TextView
         android:id="@+id/friend_list_txt"
@@ -96,7 +96,7 @@
         android:gravity="center"
         android:text="Lista Amici"
         android:textSize="20sp" 
-        android:textColor="@color/silver"/>
+        android:textColor="@color/transparent"/>
 
     <TextView
         android:id="@+id/to_define_txt"
@@ -107,7 +107,7 @@
         android:layout_centerHorizontal="true"
         android:text="Da definire"
         android:textSize="20sp"
-        android:textColor="@color/silver"/>
+        android:textColor="@color/transparent"/>
 
     <TextView
         android:id="@+id/story_txt"
@@ -119,7 +119,7 @@
         android:gravity="center"
         android:text="Storie"
         android:textSize="20sp" 
-        android:textColor="@color/silver"/>
+        android:textColor="@color/transparent"/>
 
     <TextView
         android:id="@+id/find_friends_txt"
@@ -132,6 +132,6 @@
         android:gravity="center"
         android:text="Cerca Amici"
         android:textSize="20sp"
-        android:textColor="@color/silver"/>
+        android:textColor="@color/transparent"/>
 
 </RelativeLayout>
