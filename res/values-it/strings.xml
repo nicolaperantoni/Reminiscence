@@ -5,6 +5,8 @@
     <string name="app_name">Reminiscence</string>
     <string name="action_settings">Impostazioni</string>
     <string name="hello_world">Ciao mondo!</string>
+    <string name="please">Per Favore</string>
+    <string name="wait">attendi...</string>
     
     <!-- Login_Activity -->
     <string name="login_activity_title">Accedi</string>
@@ -13,7 +15,7 @@
     <string name="login_button_label">Accedi</string>
     <string name="login_registration_label">Non sei ancora registrato?</string>
     <string name="registration_button_label">Registrati</string>
-    <string name="login_failed">Username e Password errati! Riprova.</string>
+    <string name="login_failed">Email e Password errati! Riprova.</string>
     <string name="login_succes">Evviva! Ora sei loggato!</string>
     
     <!-- Registration_Activity -->    
