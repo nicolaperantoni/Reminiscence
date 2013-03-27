@@ -1,7 +1,5 @@
 package it.unitn.vanguard.reminiscence;
 
-import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
-import eu.giovannidefrancesco.DroidTimeline.view.YearView;
 import it.unitn.vanguard.reminiscence.frags.EmptyStoryFragment;
 import it.unitn.vanguard.reminiscence.frags.StoryFragment;
 import android.app.AlertDialog;
@@ -14,8 +12,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.TextView;
 import android.widget.Toast;
+import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
+import eu.giovannidefrancesco.DroidTimeline.view.YearView;
 
 public class ViewStoriesFragmentActivity extends FragmentActivity {
 

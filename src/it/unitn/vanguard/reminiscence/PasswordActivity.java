@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	private Button btnBack,btnFrecciaBack;
 	private Button btnConfirm,btnFrecciaConferma;
 	private Button btnReloadPasswd;
+	protected ProgressDialog p;
 	
 	private String name;
 	private String surname;
@@ -90,7 +92,11 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	OnClickListener onclickconf = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-
+			p = new ProgressDialog(PasswordActivity.this);
+			p.setTitle(getResources().getString(R.string.please));
+			p.setMessage(getResources().getString(R.string.wait));
+			p.setCancelable(false);
+			p.show();
 			new RegistrationTask(PasswordActivity.this).execute(name, surname, mail, 
 				editTextPassword.getText().toString(), day, month, year);
 		}
@@ -135,13 +141,29 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 			e.printStackTrace();
 		}*/
 		//se la registrazione ha successo torna alla pagina di login
-		if (ret.startsWith("true")) {
+		/*if (ret.startsWith("true")) {
 			Intent loginIntent = new Intent(getApplicationContext(),
 					LoginActivity.class);
 			startActivityForResult(loginIntent, 0);
-		} else
-			Toast.makeText(this,
-					getResources().getText(R.string.registration_failed),
-					Toast.LENGTH_SHORT).show();
+		} else*/
+			
+		try { 
+			ret = res.getString("success")+res.getString("err1")+res.getString("err2")+res.getString("err3")+res.getString("err4")+res.getString("err5");
+			if (ret.startsWith("true")) {
+				if(p!=null && p.isShowing())
+					p.dismiss();
+				
+				Toast.makeText(this,
+						getResources().getText(R.string.registration_failed),
+						Toast.LENGTH_SHORT).show();
+			
+				Intent loginIntent = new Intent(getApplicationContext(),
+						ViewStoriesFragmentActivity.class);
+				startActivityForResult(loginIntent, 0);
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
