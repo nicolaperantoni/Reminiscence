@@ -56,7 +56,7 @@
          nunc. Praesent ultrices sem at enim eleifend interdum. 
          Vivamus et turpis ipsum, quis tristique orci. Vestibulum egestas 
          felis at justo aliquet sollicitudin.</string>
-    <string name="no_story">Tell us a story about %1$s</string>
+    <string name="no_story">Raccontaci una storia sul %1$s</string>
 
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">Pagina Principale</string>

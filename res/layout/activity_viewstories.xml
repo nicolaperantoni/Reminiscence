@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res/it.unitn.vanguard.reminiscence"
-    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/watergreen" >
@@ -13,9 +12,15 @@
         app:yearColor="@color/silver"
         app:linesColor="@color/silver"
         android:layout_height="150dp" />
+    <View
+        android:id="@+id/viewstories_shadow"
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:layout_alignBottom="@+id/viewstories_tlv"
+        android:background="@drawable/shadow" />
 
     <View
-        android:id="@+id/lineright"
+        android:id="@+id/viewstories_lineright"
         android:layout_width="20dp"
         android:layout_height="3dp"
         android:layout_alignParentLeft="true"
@@ -33,7 +38,7 @@
         android:padding="10dp" />
 
     <View
-        android:id="@+id/lineleft"
+        android:id="@+id/viewstories_lineleft"
         android:layout_width="20dp"
         android:layout_height="3dp"
         android:layout_alignParentRight="true"

@@ -31,7 +31,8 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
 
 		FragmentManager fm = getSupportFragmentManager();
-		StoriesAdapter st = new StoriesAdapter(fm);
+		final StoriesAdapter st = new StoriesAdapter(fm);
+		st.setYear(mTimeLine.getStartYear());
 		mViewPager.setAdapter(st);
 
 		mTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -41,9 +42,9 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 					long arg3) {
 				Toast.makeText(
 						ViewStoriesFragmentActivity.this,
-						"Funzione non ancora disponibile, ma e' stato selezionato l'anno: "
-								+ ((YearView) arg1).getYear(),
+						"Funzione non ancora disponibile!",
 						Toast.LENGTH_SHORT).show();
+				st.setYear(((YearView) arg1).getYear());
 			}
 		});
 
@@ -67,12 +68,16 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 	private class StoriesAdapter extends FragmentPagerAdapter {
 
 		private int mCount;
+		private int mYear;
 
 		public StoriesAdapter(FragmentManager fm) {
 			super(fm);
-
 			// TODO ServerRequest!
-			mCount = 5;
+			mCount = 10;
+		}
+
+		public void setYear(int year) {
+			this.mYear=year;
 		}
 
 		@Override
@@ -82,7 +87,7 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 
 			if (arg0 % 2 == 0) {
 				f = new EmptyStoryFragment();
-				b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY, arg0);
+				b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY, mYear+arg0);
 			} else {
 				f = new StoryFragment();
 				b.putString(StoryFragment.TITLE_PASSED_KEY, getResources()
