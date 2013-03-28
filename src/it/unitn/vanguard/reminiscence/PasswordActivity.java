@@ -149,18 +149,25 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 			
 		try { 
 			ret = res.getString("success")+res.getString("err1")+res.getString("err2")+res.getString("err3")+res.getString("err4")+res.getString("err5");
-			if (ret.startsWith("true")) {				
-				if(p!=null && p.isShowing()){
-					p.dismiss();
-				
-					Toast.makeText(this,
-					getResources().getText(R.string.registration_failed),
-					Toast.LENGTH_SHORT).show();
-				}
+			if(p!=null && p.isShowing()){
+				p.dismiss();
 			}
-			else {				
-				Intent loginIntent = new Intent(getApplicationContext(), ViewStoriesFragmentActivity.class);
+			if (ret.startsWith("true")) {
+			
+				Toast.makeText(this,
+				getResources().getText(R.string.registration_succes),
+				Toast.LENGTH_SHORT).show();
+				
+				// intent
+			}
+			else {
+				Toast.makeText(this,
+				getResources().getText(R.string.registration_failed),
+				Toast.LENGTH_SHORT).show();
+				/*
+				 * 	Intent loginIntent = new Intent(getApplicationContext(), ViewStoriesFragmentActivity.class);
 				startActivityForResult(loginIntent, 0);
+				 */
 			}
 			
 			
