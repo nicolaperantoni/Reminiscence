@@ -159,14 +159,15 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 				Toast.LENGTH_SHORT).show();
 				
 				// intent
+				Intent loginIntent = new Intent(getApplicationContext(), ViewStoriesFragmentActivity.class);
+				startActivityForResult(loginIntent, 0);
 			}
 			else {
 				Toast.makeText(this,
 				getResources().getText(R.string.registration_failed),
 				Toast.LENGTH_SHORT).show();
 				/*
-				 * 	Intent loginIntent = new Intent(getApplicationContext(), ViewStoriesFragmentActivity.class);
-				startActivityForResult(loginIntent, 0);
+				 * 	
 				 */
 			}
 			
