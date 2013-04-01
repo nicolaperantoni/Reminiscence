@@ -7,4 +7,6 @@
     <color name="transparent">#000</color>
     <color name="dark_blue">#2c3e50</color>
     <color name="pomegranate">#C0392B</color>
+    <color name="orange">#FFAF7A</color>   
+    <color name="blue">#3D3DFF</color> 
 </resources>

@@ -189,6 +189,7 @@ public class DataNascitaActivity extends Activity {
 		
 		btnConfirm.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View v) {	
 				Intent passwordIntent = new Intent(v.getContext(), PasswordActivity.class);
 				
@@ -216,6 +217,7 @@ public class DataNascitaActivity extends Activity {
 		
 		arrowConfirmBtn.setOnClickListener(new OnClickListener() {
 
+			@Override
 			public void onClick(View v) {	
 				Intent passwordIntent = new Intent(v.getContext(), PasswordActivity.class);
 				

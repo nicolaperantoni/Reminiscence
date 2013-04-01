@@ -14,8 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_above="@+id/editTextregistrationSurname"
         android:gravity="left"
         android:text="@string/registration_activity_header"
         android:textSize="@dimen/registration_header_font_size" />
@@ -24,7 +23,8 @@
         android:id="@+id/registration_confirm_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/panelRegistration"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_alignLeft="@+id/btnArrowConfirm"
         android:layout_alignRight="@+id/btnArrowConfirm"
         android:background="@color/watergreen"
@@ -35,19 +35,16 @@
         android:id="@+id/btnArrowConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/registration_confirm_btn"
-        android:layout_marginLeft="40dp"
-        android:layout_toRightOf="@+id/panelRegistration"
-        android:textSize="@dimen/default_btn_text_size"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/registration_confirm_btn" 
         android:background="@drawable/arrow_continue" />
 
     <Button
         android:id="@+id/btnArrowBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/registration_confirm_btn"
-        android:layout_toLeftOf="@+id/panelRegistration"
-        android:layout_marginRight="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/registration_back_btn"
         android:background="@drawable/arrow_back" />
 
     <RelativeLayout
@@ -98,9 +95,10 @@
         android:id="@+id/registration_back_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignLeft="@+id/btnArrowBack"
         android:layout_alignRight="@+id/btnArrowBack"
-        android:layout_below="@+id/btnArrowBack"
         android:background="@color/watergreen"
         android:text="@string/back_button_label"
         android:textSize="@dimen/default_btn_text_size" />

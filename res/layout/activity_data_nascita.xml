@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_above="@+id/panelDataNascita"
         android:gravity="left"
         android:text="@string/data_nascita_activity_header"
         android:textSize="@dimen/registration_header_font_size" />
@@ -131,39 +132,42 @@
         android:id="@+id/datanascita_back_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/panelDataNascita"
-        android:layout_marginRight="40dp"
-        android:layout_toLeftOf="@+id/panelDataNascita"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignLeft="@+id/datanascita_arrow_back_btn"
+        android:layout_alignRight="@+id/datanascita_arrow_back_btn"
         android:background="@color/watergreen"
+        android:gravity="center"
         android:text="@string/back_button_label"
         android:textSize="@dimen/default_btn_text_size" />
-
-    <Button
-        android:id="@+id/datanascita_confirm_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/panelDataNascita"
-        android:layout_marginLeft="40dp"
-        android:layout_toRightOf="@+id/panelDataNascita"
-        android:background="@color/watergreen"
-        android:text="@string/next_button_label"
-        android:textSize="@dimen/default_btn_text_size" />
-    
-    <Button
-        android:id="@+id/datanascita_arrow_confirm_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/datanascita_confirm_btn"
-        android:layout_alignLeft="@+id/datanascita_confirm_btn"
-        android:layout_toRightOf="@+id/panelDataNascita"
-        android:background="@drawable/arrow_continue" />
 
     <Button
         android:id="@+id/datanascita_arrow_back_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/datanascita_back_btn"
-        android:layout_alignRight="@+id/datanascita_back_btn"
+        android:layout_alignParentLeft="true"
         android:background="@drawable/arrow_back" />
+
+    <Button
+        android:id="@+id/datanascita_confirm_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignLeft="@+id/datanascita_arrow_confirm_btn"
+        android:layout_alignRight="@+id/datanascita_arrow_confirm_btn"
+        android:background="@color/watergreen"
+        android:text="@string/next_button_label"
+        android:gravity="center"
+        android:textSize="@dimen/default_btn_text_size" />
+
+    <Button
+        android:id="@+id/datanascita_arrow_confirm_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/datanascita_confirm_btn"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/arrow_continue" />
 
 </RelativeLayout>
