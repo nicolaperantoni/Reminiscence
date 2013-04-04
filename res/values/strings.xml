@@ -67,6 +67,6 @@
     <string name="title_activity_change_password">ChangePassword</string>
     <string name="change_password_suggest_label">Change your password:</string>
     <string name="change_password_hint">New password</string>
-    <string name="change_password_confirm_hint">Confirm your password</string>
+    <string name="change_password_confirm_hint">Confirm password</string>
 
 </resources>

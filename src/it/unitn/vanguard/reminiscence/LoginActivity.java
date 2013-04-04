@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
@@ -25,6 +26,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	private Button btnRegistration;
 	private EditText usernameEditText;
 	private EditText passwordEditText;
+
 	private ImageView image;
 	protected ProgressDialog p;
 
@@ -128,5 +130,18 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		} catch (JSONException e) {
 			Log.e(LoginActivity.class.getName(), e.toString());
 		}
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+	    case R.id.action_settings:
+			Intent changePasswd = new Intent(getApplicationContext(),
+					ChangePassword.class);
+			startActivityForResult(changePasswd, 0);
+	        return true;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
 	}
 }
