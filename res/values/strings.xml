@@ -17,7 +17,6 @@
     <string name="registration_button_label">Sign up</string>
     <string name="login_failed">Wrong Email and Password! Try again.</string>
     <string name="login_succes">Now you are logged in</string>
-    
 
     <!-- Registration_Activity -->
     <string name="title_activity_registration">Sign up</string>
@@ -35,7 +34,7 @@
 
     <!-- RegistrationPassword_Activity -->
     <string name="registration_password_suggest_label">Insert now a password:\nWe suggest you this, but you can edit it anytime.</string>
-    <string name="registration_password_hint">nameeNumber</string>
+    <string name="registration_password_hint">nameNumber</string>
     <string name="registration_failed">No! Something goes wrong!</string>
     <string name="registration_succes">Uhuh! You are now signed up!</string>
 
@@ -63,5 +62,11 @@
 
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">MainPageActivity</string>
+    
+    <!-- ChangePasswordActivity -->
+    <string name="title_activity_change_password">ChangePassword</string>
+    <string name="change_password_suggest_label">Change your password:</string>
+    <string name="change_password_hint">New password</string>
+    <string name="change_password_confirm_hint">Confirm your password</string>
 
 </resources>

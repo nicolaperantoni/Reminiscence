@@ -49,6 +49,10 @@
             android:name="it.unitn.vanguard.reminiscence.MainPageActivity"
             android:label="@string/title_activity_main_page" >
         </activity>
+        <activity
+            android:name="it.unitn.vanguard.reminiscence.ChangePassword"
+            android:label="@string/title_activity_change_password" >
+        </activity>
     </application>
 
 </manifest>

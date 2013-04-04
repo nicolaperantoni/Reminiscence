@@ -24,7 +24,7 @@
 		        android:layout_alignParentTop="true"
 		        android:layout_centerHorizontal="true"
 		        android:layout_marginTop="10dp"
-		        android:background="@drawable/add_story"/>
+		        android:background="@drawable/main_add_story"/>
 		
 		    <Button
 		        android:id="@+id/to_define_btn"
@@ -33,7 +33,7 @@
 		        android:layout_below="@+id/new_story_txt"
 		        android:layout_marginTop="50dp"
 		        android:layout_centerHorizontal="true"
-		        android:background="@drawable/to_define"/>
+		        android:background="@drawable/main_to_define"/>
 		
 		    <Button
 		        android:id="@+id/story_btn"
@@ -42,7 +42,7 @@
 		        android:layout_alignBottom="@+id/new_story_btn"
 		        android:layout_marginLeft="10dp"
 		        android:layout_alignParentLeft="true"
-		        android:background="@drawable/stories"/>
+		        android:background="@drawable/main_stories"/>
 		
 		    <Button
 		        android:id="@+id/friend_list_btn"
@@ -51,7 +51,7 @@
 		        android:layout_alignBottom="@+id/new_story_btn"
 		        android:layout_marginRight="10dp"
 		        android:layout_alignParentRight="true"
-		        android:background="@drawable/friend_list"/>
+		        android:background="@drawable/main_friend_list"/>
 		
 		    <Button
 		        android:id="@+id/setting_btn"
@@ -60,7 +60,7 @@
 		        android:layout_alignBottom="@+id/to_define_btn"
 		        android:layout_marginRight="10dp"
 		        android:layout_alignParentRight="true"
-		        android:background="@drawable/settings"/>
+		        android:background="@drawable/main_settings"/>
 		
 		    <Button
 		        android:id="@+id/find_friend_btn"
@@ -69,7 +69,7 @@
 		        android:layout_alignBottom="@+id/to_define_btn"
 		        android:layout_marginLeft="10dp"
 		        android:layout_alignParentLeft="true"
-		        android:background="@drawable/find_friend"/>
+		        android:background="@drawable/main_find_friend"/>
 		
 		    <TextView
 		        android:id="@+id/new_story_txt"
