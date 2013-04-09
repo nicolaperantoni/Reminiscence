@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/watergreen"
     tools:context=".LoginActivity" >
 
     <RelativeLayout
@@ -41,7 +40,7 @@
             android:ems="10"
             android:hint="@string/login_password_hint"
             android:inputType="textPersonName|textVisiblePassword"
-            android:textColor="@color/transparent" />
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btnLogin"
@@ -52,7 +51,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/btn_background_selector"
             android:text="@string/login_button_label"
-            android:textColor="@color/transparent" />
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <ImageView
@@ -91,7 +90,7 @@
             android:paddingRight="10dp"
             android:paddingTop="10dp"
             android:text="@string/login_registration_label"
-            android:textColor="@color/transparent" />
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     

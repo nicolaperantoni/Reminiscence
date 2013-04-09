@@ -25,7 +25,7 @@
         android:id="@+id/panelDataNascita"
         android:layout_width="600dp"
         android:layout_height="300dp"
-        android:background="@color/test"
+        android:background="@color/panel"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:padding="5dp" >
@@ -136,7 +136,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignLeft="@+id/datanascita_arrow_back_btn"
         android:layout_alignRight="@+id/datanascita_arrow_back_btn"
-        android:background="@color/transparent"
+        android:background="@color/white"
         android:gravity="center"
         android:text="@string/back_button_label"
         android:textSize="@dimen/default_btn_text_size" />
@@ -157,7 +157,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignLeft="@+id/datanascita_arrow_confirm_btn"
         android:layout_alignRight="@+id/datanascita_arrow_confirm_btn"
-        android:background="@color/transparent"
+        android:background="@color/white"
         android:text="@string/next_button_label"
         android:gravity="center"
         android:textSize="@dimen/default_btn_text_size" />

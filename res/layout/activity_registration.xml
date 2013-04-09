@@ -28,7 +28,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignLeft="@+id/btnArrowConfirm"
         android:layout_alignRight="@+id/btnArrowConfirm"
-        android:background="@color/transparent"
+        android:background="@color/white"
         android:textSize="@dimen/default_btn_text_size"
         android:text="@string/next_button_label" />
 
@@ -100,7 +100,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignLeft="@+id/btnArrowBack"
         android:layout_alignRight="@+id/btnArrowBack"
-        android:background="@color/transparent"
+        android:background="@color/white"
         android:text="@string/back_button_label"
         android:textSize="@dimen/default_btn_text_size" />
 
