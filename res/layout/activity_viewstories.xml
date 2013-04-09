@@ -8,8 +8,8 @@
         android:id="@+id/viewstories_tlv"
         android:layout_width="fill_parent"
         app:backgroundColor="@color/pomegranate"
-        app:yearColor="@color/silver"
-        app:linesColor="@color/silver"
+        app:yearColor="@color/panel"
+        app:linesColor="@color/panel"
         android:layout_height="150dp" />
     <View
         android:id="@+id/viewstories_shadow"
