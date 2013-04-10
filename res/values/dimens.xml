@@ -3,6 +3,7 @@
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="default_margin">20dp</dimen>
+    <dimen name="default_margin_double">40dp</dimen>
     <dimen name="default_textSize">35sp</dimen>
     <dimen name="defaul_textSize_large">50sp</dimen>
     <dimen name="registration_header_font_size">48sp</dimen>
@@ -11,5 +12,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     
     <dimen name="default_btn_text_size">20sp</dimen>
-
+    <dimen name="defaul_textSize_huge">75sp</dimen>
 </resources>
