@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        android:src="@drawable/default_profile_image" />
+
+    <TextView
+        android:id="@+id/profile_name_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/profile_image"
+        android:textSize="@dimen/defaul_textSize_huge"
+        android:layout_alignTop="@+id/profile_image"
+        android:layout_marginLeft="@dimen/default_margin_double"
+        android:layout_centerHorizontal="true"
+        android:text="@string/user_name_label" />
+
+    <TextView
+        android:id="@+id/profile_surname_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:textSize="@dimen/defaul_textSize_huge"
+		android:layout_alignBottom="@+id/profile_image"
+        android:layout_below="@+id/profile_name_textview"
+        android:layout_toRightOf="@+id/profile_image"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginLeft="@dimen/default_margin_double"
+        android:text="@string/user_surname_label" />
+
+</RelativeLayout>
