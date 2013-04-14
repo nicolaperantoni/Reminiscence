@@ -7,7 +7,8 @@
     <color name="panel">#ecf0f1</color>
     
     <!-- Colori bottoni -->
-    <color name="green_btn">#85B02B</color>
+    <color name="green_btn_dark">#42a640</color>
+    <color name="green_btn">#5cbf5a</color>
     <color name="green_btn_pressed">#79A027</color>
     
     <!-- Colori Input -->

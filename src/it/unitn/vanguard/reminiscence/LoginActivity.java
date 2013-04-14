@@ -46,15 +46,15 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	}
 
 	private void initializeButtons() {
-		btnLogin = (Button) findViewById(R.id.btnLogin);
-		btnRegistration = (Button) findViewById(R.id.btnRegistration);
-		usernameEditText = (EditText) findViewById(R.id.edittextUsername);
-		passwordEditText = (EditText) findViewById(R.id.edittextPassword);
-		image = (ImageView) findViewById(R.id.imageView1);
+		//btnLogin = (Button) findViewById(R.id.btnLogin);
+		//btnRegistration = (Button) findViewById(R.id.btnRegistration);
+		//usernameEditText = (EditText) findViewById(R.id.edittextUsername);
+		//passwordEditText = (EditText) findViewById(R.id.edittextPassword);
+		//image = (ImageView) findViewById(R.id.imageView1);
 	}
 
 	private void initializeListeners() {
-		
+		/*
 		image.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -87,7 +87,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 						R.anim.slide_out_left);
 			}
 		});
-
+/*
 		usernameEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
@@ -113,7 +113,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 							.setBackgroundResource(R.drawable.txt_input_bordered);
 				}
 			}
-		});
+		});*/
 	}
 
 	@Override
