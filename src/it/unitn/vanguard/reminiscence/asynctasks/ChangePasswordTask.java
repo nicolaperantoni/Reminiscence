@@ -48,6 +48,7 @@ public class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
 						.getApplicationContext());
 		String token = prefs.getString("token", "");
 		String old = prefs.getString("password", "");
+		
 
 		if (!token.equals("")) {
 			params.add(new BasicNameValuePair("oldpass", old ));
