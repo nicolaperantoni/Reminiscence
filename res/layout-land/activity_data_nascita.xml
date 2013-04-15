@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:layout_above="@+id/panelDataNascita"
-        android:gravity="left"
+        android:gravity="center"
         android:text="@string/data_nascita_activity_header"
         android:textSize="@dimen/registration_header_font_size" 
         android:textColor="@color/bluetext"/>
@@ -25,7 +25,7 @@
         android:id="@+id/panelDataNascita"
         android:layout_width="600dp"
         android:layout_height="300dp"
-        android:background="@color/panel"
+        android:background="@drawable/panel"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:padding="5dp" >
@@ -133,21 +133,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
+        
         android:layout_alignLeft="@+id/datanascita_arrow_back_btn"
         android:layout_alignRight="@+id/datanascita_arrow_back_btn"
         android:background="@color/white"
         android:gravity="center"
         android:text="@string/back_button_label"
         android:textSize="@dimen/default_btn_text_size" />
-
-    <Button
-        android:id="@+id/datanascita_arrow_back_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/datanascita_back_btn"
-        android:layout_alignParentLeft="true"
-        android:background="@drawable/arrow_back" />
 
     <Button
         android:id="@+id/datanascita_confirm_btn"
@@ -169,5 +161,13 @@
         android:layout_above="@+id/datanascita_confirm_btn"
         android:layout_alignParentRight="true"
         android:background="@drawable/arrow_continue" />
+
+    <Button
+        android:id="@+id/datanascita_arrow_back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/datanascita_back_btn"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/arrow_back" />
 
 </RelativeLayout>

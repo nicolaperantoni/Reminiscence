@@ -14,7 +14,7 @@
         android:layout_height="400dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/panel_login" >
+        android:background="@drawable/panel" >
 
 		    <Button
 		        android:id="@+id/new_story_btn"

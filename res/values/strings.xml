@@ -33,7 +33,7 @@
     <string name="data_nascita_activity_header">Insert your date of birth.</string>
 
     <!-- RegistrationPassword_Activity -->
-    <string name="registration_password_suggest_label">Insert now a password:\nWe suggest you this, but you can edit it anytime.</string>
+    <string name="registration_password_suggest_label">now you need a password;\nyou can use this one or change it</string>
     <string name="registration_password_hint">nameNumber</string>
     <string name="registration_failed">No! Something goes wrong!</string>
     <string name="registration_succes">Uhuh! You are now signed up!</string>
