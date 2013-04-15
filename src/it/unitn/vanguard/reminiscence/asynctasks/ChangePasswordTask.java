@@ -47,17 +47,18 @@ public class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
 				.getDefaultSharedPreferences(((Activity) caller)
 						.getApplicationContext());
 		String token = prefs.getString("token", "");
+		String old = prefs.getString("password", "");
 
 		if (!token.equals("")) {
-			params.add(new BasicNameValuePair("password", arg0[0]));
+			params.add(new BasicNameValuePair("oldpass", old ));
+			params.add(new BasicNameValuePair("newpass", arg0[0]));
 			params.add(new BasicNameValuePair("token", token));
 			
 			HttpClient client = new DefaultHttpClient();
-			HttpPost post = new HttpPost(Constants.SERVER_URL + "changepassword.php");
+			HttpPost post = new HttpPost(Constants.SERVER_URL + "modificapass.php");
 			try {
 				post.setEntity(new UrlEncodedFormEntity(params));
 			} catch (UnsupportedEncodingException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			json = null;

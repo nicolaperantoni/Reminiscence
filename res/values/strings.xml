@@ -68,5 +68,8 @@
     <string name="change_password_suggest_label">Change your password:</string>
     <string name="change_password_hint">New password</string>
     <string name="change_password_confirm_hint">Confirm password</string>
+    <string name="empty_password">Inserisci password e conferma.</string>
+    <string name="wrong_password">Le due password inserite non corrispondono.</string>
+    <string name="correct_password">La tua nuova password è stata cambiata!</string>
 
 </resources>

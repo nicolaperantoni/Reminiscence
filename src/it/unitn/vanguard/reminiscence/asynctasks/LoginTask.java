@@ -60,6 +60,8 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 						.getDefaultSharedPreferences(((Activity) caller)
 								.getApplicationContext());
 				SharedPreferences.Editor editor = prefs.edit();
+				editor.putString("email", arg0[0]);
+				editor.putString("password", arg0[1]);
 				editor.putString("token", json.getString("token"));
 				editor.commit();
 			}

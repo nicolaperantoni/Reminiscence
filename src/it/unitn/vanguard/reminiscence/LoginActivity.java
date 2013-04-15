@@ -27,7 +27,6 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	private EditText usernameEditText;
 	private EditText passwordEditText;
 
-	private ImageView image;
 	protected ProgressDialog p;
 
 	@Override
@@ -50,20 +49,10 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		btnRegistration = (Button) findViewById(R.id.btnRegistration);
 		usernameEditText = (EditText) findViewById(R.id.edittextUsername);
 		passwordEditText = (EditText) findViewById(R.id.edittextPassword);
-		image = (ImageView) findViewById(R.id.imageView1);
 	}
 
 	private void initializeListeners() {
-		
-		image.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent mainpage = new Intent(getApplicationContext(),
-						MainPageActivity.class);
-				startActivityForResult(mainpage, 0);
-			}
-		});
-		
+
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -114,7 +103,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 				}
 			}
 		});
-	}
+	} 
 
 	@Override
 	public void onTaskFinished(JSONObject res) {

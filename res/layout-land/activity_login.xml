@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#61bb46"
     tools:context=".LoginActivity" >
 
     <RelativeLayout
@@ -10,9 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="58dp"
-        android:layout_marginTop="45dp"
-        android:layout_toRightOf="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="92dp"
         android:background="@drawable/panel_login"
         android:paddingBottom="30dp"
         android:paddingLeft="30dp"
@@ -24,10 +24,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/txt_input_bordered_ok"
-            android:ems="10"
+            android:ems="15"
             android:hint="@string/login_username_hint"
             android:inputType="textPersonName"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black" >
+
+            <requestFocus />
+        </EditText>
 
         <EditText
             android:id="@+id/edittextPassword"
@@ -37,10 +40,10 @@
             android:layout_below="@+id/edittextUsername"
             android:layout_marginTop="20dp"
             android:background="@drawable/txt_input_bordered"
-            android:ems="10"
+            android:ems="15"
             android:hint="@string/login_password_hint"
             android:inputType="textPersonName|textVisiblePassword"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/btnLogin"
@@ -54,24 +57,14 @@
             android:textColor="@color/white" />
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_alignBottom="@+id/panelLogin"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/panelLogin"
-        android:layout_marginLeft="65dp"
-        android:src="@drawable/logo" />
-
     <RelativeLayout
         android:id="@+id/panelRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView1"
+        android:layout_alignLeft="@+id/panelLogin"
         android:layout_alignRight="@+id/panelLogin"
         android:layout_below="@+id/panelLogin"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="38dp"
         android:background="@drawable/panel_login"
         android:paddingBottom="30dp"
         android:paddingLeft="30dp"
@@ -92,7 +85,5 @@
             android:text="@string/login_registration_label"
             android:textColor="@color/white" />
     </RelativeLayout>
-
-    
 
 </RelativeLayout>

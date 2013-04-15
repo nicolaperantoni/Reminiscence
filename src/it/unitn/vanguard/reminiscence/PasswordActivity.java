@@ -158,6 +158,15 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 				getResources().getText(R.string.registration_succes),
 				Toast.LENGTH_SHORT).show();
 				
+
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			    SharedPreferences.Editor editor = prefs.edit();
+
+			    editor.putString("password", editTextPassword.getText().toString());
+				
+				editor.commit();
+				
+				
 				// intent
 				Intent loginIntent = new Intent(getApplicationContext(), ViewStoriesFragmentActivity.class);
 				startActivityForResult(loginIntent, 0);
