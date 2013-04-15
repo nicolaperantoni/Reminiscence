@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,7 +18,7 @@ import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity implements OnTaskFinished {
@@ -45,6 +46,11 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	}
 
 	private void initializeButtons() {
+		
+		TextView logo = (TextView)findViewById(R.id.Logo);
+		Typeface typeFace = Typeface.createFromAsset(getAssets(),"Pacifico.ttf");
+		logo.setTypeface(typeFace);
+		
 		btnLogin = (Button) findViewById(R.id.btnLogin);
 		btnRegistration = (Button) findViewById(R.id.btnRegistration);
 		usernameEditText = (EditText) findViewById(R.id.edittextUsername);
