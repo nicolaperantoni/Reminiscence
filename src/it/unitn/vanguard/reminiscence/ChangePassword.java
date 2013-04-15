@@ -1,18 +1,17 @@
 package it.unitn.vanguard.reminiscence;
 
+import it.unitn.vanguard.reminiscence.asynctasks.ChangePasswordTask;
+import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+
 import org.json.JSONObject;
 
-import it.unitn.vanguard.reminiscence.asynctasks.LoginTask;
-import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 public class ChangePassword extends Activity implements OnTaskFinished {
 	
@@ -45,7 +44,7 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 				p.setMessage(getResources().getString(R.string.wait));
 				p.setCancelable(false);
 				p.show();
-				new LoginTask(ChangePassword.this).execute(username, password);
+				new ChangePasswordTask(ChangePassword.this).execute(username, password);
 			}
 		});
 	}

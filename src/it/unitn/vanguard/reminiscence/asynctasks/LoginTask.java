@@ -48,7 +48,6 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 		try {
 			post.setEntity(new UrlEncodedFormEntity(params));
 		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		json = null;
