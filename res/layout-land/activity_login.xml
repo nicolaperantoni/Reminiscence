@@ -52,7 +52,7 @@
             android:layout_alignRight="@+id/edittextPassword"
             android:layout_below="@+id/edittextPassword"
             android:layout_marginTop="20dp"
-            android:background="@drawable/btn_background_selector"
+            android:background="@drawable/btn_default_selector"
             android:text="@string/login_button_label"
             android:textColor="@color/white" />
     </RelativeLayout>
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/panelLogin"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_background_selector"
+            android:background="@drawable/btn_default_selector"
             android:paddingBottom="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
