@@ -56,6 +56,7 @@
             android:ems="10"
             android:hint="@string/login_username_hint"
             android:inputType="textPersonName"
+            android:drawableLeft="@drawable/refresh"
             android:textColor="@android:color/black" />
 
         <EditText
