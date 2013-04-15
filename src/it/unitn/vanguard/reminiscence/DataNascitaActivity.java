@@ -81,7 +81,7 @@ public class DataNascitaActivity extends Activity {
 	private void initializeListeners() {
 		
 		// DAY UP-DOWN EVENTS
-		btnDayUp.setOnClickListener(new OnClickListener() {
+		btnDayDown.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				day++;
@@ -95,7 +95,7 @@ public class DataNascitaActivity extends Activity {
 			}
 		});
 		
-		btnDayDown.setOnClickListener(new OnClickListener() {
+		btnDayUp.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				day--;
@@ -110,7 +110,7 @@ public class DataNascitaActivity extends Activity {
 		});
 		
 		// MONTH UP-DOWN EVENTS
-		btnMonthUp.setOnClickListener(new OnClickListener() {
+		btnMonthDown.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if(month == 11)	
@@ -129,7 +129,7 @@ public class DataNascitaActivity extends Activity {
 			}
 		});
 		
-		btnMonthDown.setOnClickListener(new OnClickListener() {
+		btnMonthUp.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {				
 				if(month == 0)
@@ -149,7 +149,7 @@ public class DataNascitaActivity extends Activity {
 		});	
 		
 		// YEAR UP-DOWN EVENTS
-		btnYearUp.setOnClickListener(new OnClickListener() {
+		btnYearDown.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				year++;
@@ -165,7 +165,7 @@ public class DataNascitaActivity extends Activity {
 			}
 		});
 	
-		btnYearDown.setOnClickListener(new OnClickListener() {
+		btnYearUp.setOnClickListener(new OnClickListener() {
 			@Override
 				public void onClick(View v) {
 					if(year == maxYear-120)
