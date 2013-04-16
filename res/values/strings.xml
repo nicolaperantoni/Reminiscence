@@ -13,8 +13,7 @@
     <string name="login_username_hint">User e-mail</string>
     <string name="login_password_hint">Password</string>
     <string name="login_button_label">Sign in</string>
-    <string name="login_registration_label">Register</string>
-    <string name="registration_button_label">Sign up</string>
+    <string name="login_registration_button_label">Sign up</string>
     <string name="login_failed">Wrong Email and Password! Try again.</string>
     <string name="login_succes">Now you are logged in</string>
 
@@ -33,7 +32,7 @@
     <string name="data_nascita_activity_header">Insert your date of birth.</string>
 
     <!-- RegistrationPassword_Activity -->
-    <string name="registration_password_suggest_label">now you need a password;\nyou can use this one or change it</string>
+    <string name="registration_password_suggest_label">Now you need a password.\nYou can use this one or change it</string>
     <string name="registration_password_hint">nameNumber</string>
     <string name="registration_failed">No! Something goes wrong!</string>
     <string name="registration_succes">Uhuh! You are now signed up!</string>
@@ -68,8 +67,8 @@
     <string name="change_password_suggest_label">Change your password:</string>
     <string name="change_password_hint">New password</string>
     <string name="change_password_confirm_hint">Confirm password</string>
-    <string name="empty_password">Inserisci password e conferma.</string>
-    <string name="wrong_password">Le due password inserite non corrispondono.</string>
-    <string name="correct_password">La tua nuova password è stata cambiata!</string>
+    <string name="empty_password">Insert password and confirm it.</string>
+    <string name="wrong_password">Passwords don\'t match.</string>
+    <string name="correct_password">Your password has been changed!</string>
 
 </resources>

@@ -10,11 +10,10 @@
     
     <!-- Login_Activity -->
     <string name="login_activity_title">Accedi</string>
-    <string name="login_username_hint">Inserisci la tua e-mail</string>
-    <string name="login_password_hint">La tua password</string>
+    <string name="login_username_hint">Inserisci e-mail</string>
+    <string name="login_password_hint">Password</string>
     <string name="login_button_label">Accedi</string>
-    <string name="login_registration_label">Non sei ancora registrato?</string>
-    <string name="registration_button_label">Registrati</string>
+    <string name="login_registration_button_label">Registrati</string>
     <string name="login_failed">Email e Password errati! Riprova.</string>
     <string name="login_succes">Evviva! Ora sei loggato!</string>
     
@@ -24,8 +23,8 @@
     <string name="back_button_label">INDIETRO</string>
     <string name="next_button_label">AVANTI</string>
     <string name="confirm_button_label">CONFERMA</string>
-    <string name="user_name_label">Nome</string>
     <string name="user_surname_label">Cognome</string>
+    <string name="user_name_label">Nome</string>
     <string name="user_mail_label">E-Mail</string>
     
     
@@ -34,7 +33,7 @@
     <string name="data_nascita_activity_header">Inserisci la tua data di nascita.</string>
     
     <!-- RegistrationPassword_Activity -->
-    <string name="registration_password_suggest_label">Inserisci ora una chiave segreta:\nNoi ti suggeriamo questa, ma puoi modificarla quando vuoi.</string>
+    <string name="registration_password_suggest_label">Inserisci ora una chiave segreta.\nTi suggeriamo questa, ma puoi modificarla.</string>
     <string name="registration_password_hint">nomeNumero</string>
     <string name="registration_failed">No! Qualcosa è andato storto!</string>
     <string name="registration_succes">Evviva! ti sei registrato!</string>
@@ -63,5 +62,14 @@
 
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">Pagina Principale</string>
+    
+    <!-- ChangePasswordActivity -->
+    <string name="title_activity_change_password">Cambia Password</string>
+    <string name="change_password_suggest_label">Cambia password:</string>
+    <string name="change_password_hint">Nuova password</string>
+    <string name="change_password_confirm_hint">Conferma password</string>
+    <string name="empty_password">Inserisci password e conferma.</string>
+    <string name="wrong_password">Le due password inserite non corrispondono.</string>
+    <string name="correct_password">La tua nuova password è stata cambiata!</string>
     
 </resources>

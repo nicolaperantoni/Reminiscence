@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_background_red"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -14,17 +15,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:layout_above="@+id/panelDataNascita"
         android:gravity="center"
         android:text="@string/data_nascita_activity_header"
-        android:textSize="@dimen/registration_header_font_size" 
-        android:textColor="@color/bluetext"/>
+        android:textColor="@color/white"
+        android:textSize="@dimen/registration_header_font_size" />
 
     <RelativeLayout
         android:id="@+id/panelDataNascita"
         android:layout_width="600dp"
         android:layout_height="300dp"
+        android:background="@drawable/txt_input_bordered"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:padding="5dp" >
@@ -132,10 +132,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        
         android:layout_alignLeft="@+id/datanascita_arrow_back_btn"
         android:layout_alignRight="@+id/datanascita_arrow_back_btn"
-        android:background="@color/white"
+        android:background="@color/red_background_dark"
         android:gravity="center"
         android:text="@string/back_button_label"
         android:textSize="@dimen/default_btn_text_size" />
@@ -148,7 +147,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignLeft="@+id/datanascita_arrow_confirm_btn"
         android:layout_alignRight="@+id/datanascita_arrow_confirm_btn"
-        android:background="@color/white"
+        android:background="@color/red_background_dark"
         android:text="@string/next_button_label"
         android:gravity="center"
         android:textSize="@dimen/default_btn_text_size" />
