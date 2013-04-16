@@ -175,22 +175,18 @@ public class DataNascitaActivity extends Activity {
 					day = FinalFunctionsUtilities.valiDate(day, month, year);
 					txtDay.setText(String.valueOf(day));
 				}
-		});				
-		
-		//Button back & confirm
-		btnBack.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent regIntent = new Intent(v.getContext(), RegistrationActivity.class);
-		        startActivityForResult(regIntent, 0);
-			}
 		});
 		
-		btnConfirm.setOnClickListener(new OnClickListener() {
-
+		OnClickListener onclickback = new View.OnClickListener() {
 			@Override
-			public void onClick(View v) {	
+			public void onClick(View v) {
+				finish();
+			}
+		};
+		
+		OnClickListener onclickconfirm = new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
 				Intent passwordIntent = new Intent(v.getContext(), PasswordActivity.class);
 				
 				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -203,50 +199,23 @@ public class DataNascitaActivity extends Activity {
 				editor.commit();
 				
 		        startActivityForResult(passwordIntent, 0);
-		    }
-		});
-		
-		arrowBackBtn.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent regIntent = new Intent(v.getContext(), RegistrationActivity.class);
-		        startActivityForResult(regIntent, 0);
 			}
-		});
+		};
 		
-		arrowConfirmBtn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {	
-				Intent passwordIntent = new Intent(v.getContext(), PasswordActivity.class);
-				
-				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-			    SharedPreferences.Editor editor = prefs.edit();
-
-			    editor.putString("day", txtDay.getText().toString());
-			    editor.putString("month", txtMonth.getText().toString());
-			    editor.putString("year", txtYear.getText().toString());
-				
-				editor.commit();
-				
-		        startActivityForResult(passwordIntent, 0);
-		    }			
-		});
-	}	
+		//Button back
+		btnBack.setOnClickListener(onclickback);
+		arrowBackBtn.setOnClickListener(onclickback);
+		
+		// Button confirm
+		btnConfirm.setOnClickListener(onclickconfirm);
+		arrowConfirmBtn.setOnClickListener(onclickconfirm);
+	}
 	
 	//control on current date (easter egg toast)
-		void currentDateMsg(int day, int month, int year){
-				Context context = getApplicationContext();
-				CharSequence text = "Davvero? Sei nato nel futuro?";
-				Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-				toast.show();
-		}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_data_nascita, menu);
-		return true;
+	void currentDateMsg(int day, int month, int year){
+			Context context = getApplicationContext();
+			CharSequence text = "Davvero? Sei nato nel futuro?";
+			Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+			toast.show();
 	}
 }

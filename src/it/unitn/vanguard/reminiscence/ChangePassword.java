@@ -22,7 +22,7 @@ import android.widget.Toast;
 public class ChangePassword extends Activity implements OnTaskFinished {
 	
 	protected ProgressDialog p;
-	private Button btnChangePassword;
+	private Button btnChangePassword, btnChangePasswordBack;
 	private EditText txtNewPassword, txtConfirmPassword;
 	
 	@Override
@@ -35,6 +35,7 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 	
 	private void initializeButtons() {
 		btnChangePassword = (Button) findViewById(R.id.btnChangePassword);
+		btnChangePasswordBack = (Button) findViewById(R.id.btnChangePasswordBack);
 		txtNewPassword = (EditText) findViewById(R.id.txtNewPassword);
 		txtConfirmPassword = (EditText) findViewById(R.id.txtConfirmPassword);
 	}
@@ -64,9 +65,17 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 						p.setCancelable(false);
 						p.show();
 						new ChangePasswordTask(ChangePassword.this).execute(new_pass1, new_pass2);
+						finish();
 					}
 				}
 			} 
+		});
+		
+		btnChangePasswordBack.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
 		});
 	}
 

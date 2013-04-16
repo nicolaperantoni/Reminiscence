@@ -2,6 +2,7 @@ package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.asynctasks.LoginTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +34,12 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if(FinalFunctionsUtilities.isLoggedIn(getApplicationContext())) { 
+			Intent changePasswd = new Intent(getApplicationContext(),
+					ViewStoriesFragmentActivity.class);
+			startActivityForResult(changePasswd, 0);
+			finish();
+		}
 		setContentView(R.layout.activity_login);
 		initializeButtons();
 		initializeListeners();

@@ -84,8 +84,7 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	OnClickListener onclickback = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			Intent regIntent = new Intent(v.getContext(), DataNascitaActivity.class);
-	        startActivityForResult(regIntent, 0);
+			finish();
 		}
 	};
 
@@ -166,9 +165,9 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 				
 				editor.commit();
 				
-				
 				// intent
 				Intent loginIntent = new Intent(getApplicationContext(), ViewStoriesFragmentActivity.class);
+				loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivityForResult(loginIntent, 0);
 			}
 			else {

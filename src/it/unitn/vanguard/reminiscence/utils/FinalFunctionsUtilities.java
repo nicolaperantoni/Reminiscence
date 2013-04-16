@@ -1,5 +1,10 @@
 package it.unitn.vanguard.reminiscence.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
+
 public final class FinalFunctionsUtilities {
 
 	public static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
@@ -54,5 +59,22 @@ public final class FinalFunctionsUtilities {
 			return true;
 		else 
 			return false;	
+	}
+	
+	public static boolean isLoggedIn(Context context) {
+		String token = getSharedPreferences("token", context);
+		return !token.trim().equals("");
+	}
+	
+	public static void setSharedPreferences(String key, String value, Context context) {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(key, value);
+		editor.commit();
+	}
+	
+	public static String getSharedPreferences(String key, Context context) {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		return  prefs.getString(key, "");
 	}
 }

@@ -105,4 +105,9 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 
 	}
 
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+	}
+
 }

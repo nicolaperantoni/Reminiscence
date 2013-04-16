@@ -21,7 +21,11 @@
         android:layout_centerHorizontal="true"
         android:text="@string/app_name"
         android:textColor="@color/white"
-        android:textSize="70sp" />
+        android:textSize="80sp"
+        android:shadowColor="#000000"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="5" />
 
         <EditText
             android:id="@+id/edittextPassword"
@@ -73,7 +77,11 @@
                 android:layout_weight="0.5"
                 android:background="@drawable/btn_default_selector"
                 android:text="@string/login_button_label"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:shadowColor="#000000"
+		        android:shadowDx="2"
+		        android:shadowDy="2"
+		        android:shadowRadius="5" />
 
             <Button
                 android:id="@+id/btnRegistration"
@@ -83,7 +91,11 @@
                 android:layout_weight="0.5"
                 android:background="@drawable/btn_default_selector"
                 android:text="@string/login_registration_button_label"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:shadowColor="#000000"
+		        android:shadowDx="2"
+		        android:shadowDy="2"
+		        android:shadowRadius="5" />
         </LinearLayout>
     </RelativeLayout>
 

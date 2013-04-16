@@ -109,8 +109,7 @@ public class RegistrationActivity extends Activity {
 		OnClickListener backListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent loginIntent = new Intent(v.getContext(), LoginActivity.class);
-		        startActivityForResult(loginIntent, 0);
+				finish();
 			}
 		};
 		
