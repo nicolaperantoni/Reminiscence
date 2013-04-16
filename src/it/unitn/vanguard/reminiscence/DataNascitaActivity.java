@@ -149,7 +149,7 @@ public class DataNascitaActivity extends Activity {
 		});	
 		
 		// YEAR UP-DOWN EVENTS
-		btnYearDown.setOnClickListener(new OnClickListener() {
+		btnYearUp.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				year++;
@@ -165,7 +165,7 @@ public class DataNascitaActivity extends Activity {
 			}
 		});
 	
-		btnYearUp.setOnClickListener(new OnClickListener() {
+		btnYearDown.setOnClickListener(new OnClickListener() {
 			@Override
 				public void onClick(View v) {
 					if(year == maxYear-120)
