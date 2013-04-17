@@ -47,13 +47,6 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		initializeListeners();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
-	}
-
 	private void initializeButtons() {
 		
 		TextView logo = (TextView)findViewById(R.id.Logo);
@@ -71,14 +64,37 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		btnLogin.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				
 				String username = usernameEditText.getText().toString();
 				String password = passwordEditText.getText().toString();
-				p = new ProgressDialog(LoginActivity.this);
-				p.setTitle(getResources().getString(R.string.please));
-				p.setMessage(getResources().getString(R.string.wait));
-				p.setCancelable(false);
-				p.show();
-				new LoginTask(LoginActivity.this).execute(username, password);
+				boolean isEmptyUsername = username.trim().equals("");
+				boolean isEmptyPassword = password.trim().equals("");
+				
+				if(isEmptyUsername && isEmptyPassword) {
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_empty_both),
+							Toast.LENGTH_LONG).show();
+				}
+				else if(isEmptyUsername) {
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_empty_username),
+							Toast.LENGTH_LONG).show();
+				}
+				else if(isEmptyPassword) {
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_empty_password),
+							Toast.LENGTH_LONG).show();
+				}
+				else if(FinalFunctionsUtilities.isDeviceConnected(getApplicationContext())) {
+					p = new ProgressDialog(LoginActivity.this);
+					p.setTitle(getResources().getString(R.string.please));
+					p.setMessage(getResources().getString(R.string.wait));
+					p.setCancelable(false);
+					p.show();
+					new LoginTask(LoginActivity.this).execute(username, password);
+				}
+				else {
+					if(p!=null && p.isShowing()) { 	p.dismiss(); }
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_fail),
+							Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 		btnRegistration.setOnClickListener(new View.OnClickListener() {
@@ -122,8 +138,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		if(p!=null && p.isShowing())
-			p.dismiss();
+		if(p!=null && p.isShowing()) { 	p.dismiss(); }
 		try {
 			if (res.getString("success").equals("true"))
 				startActivity(new Intent(LoginActivity.this,
@@ -134,18 +149,5 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		} catch (JSONException e) {
 			Log.e(LoginActivity.class.getName(), e.toString());
 		}
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-	    case R.id.action_settings:
-			Intent changePasswd = new Intent(getApplicationContext(),
-					ChangePassword.class);
-			startActivityForResult(changePasswd, 0);
-	        return true;
-	    default:
-	        return super.onOptionsItemSelected(item);
-	    }
 	}
 }

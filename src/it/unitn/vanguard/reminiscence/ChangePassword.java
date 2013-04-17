@@ -49,7 +49,7 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 				String new_pass2 = txtConfirmPassword.getText().toString();
 				
 				if(new_pass1.trim().equals("") || new_pass2.trim().equals("")) {
-					Toast.makeText(ChangePassword.this, getResources().getString(R.string.empty_password),
+					Toast.makeText(getApplicationContext(), getResources().getString(R.string.empty_password),
 							Toast.LENGTH_LONG).show();
 				}
 				else {
@@ -88,15 +88,7 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		
-		//ottiene il token se presente
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(getApplicationContext());
-		String old = prefs.getString("password", "");
-		Log.e("passwooooooooooooord vecchiaaaaaaaaaaaaa", old);
-		
-		Log.e("jasonnnnnnnnnnnnnnnnnnnnnnnnnn" + LoginActivity.class.getName(), res.toString());
-		
+
 		if(p!=null && p.isShowing())
 			p.dismiss();
 		try {

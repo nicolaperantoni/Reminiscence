@@ -2,7 +2,8 @@ package it.unitn.vanguard.reminiscence.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 
 public final class FinalFunctionsUtilities {
@@ -77,4 +78,24 @@ public final class FinalFunctionsUtilities {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		return  prefs.getString(key, "");
 	}
+	
+    /**
+     * Controlla se e' presente la connessione ad internet, sia mobile che wi-fi
+     *
+     * @param context il context dell'applicazione
+     * @return true se il dispositivo e' connesso ad internet (wi-fi o mobile), false altrimenti
+     */
+    public static boolean isDeviceConnected(Context context) {
+
+            ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            NetworkInfo mobileDataInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+            NetworkInfo wifiInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+            if (mobileDataInfo.getState() != NetworkInfo.State.CONNECTED && wifiInfo.getState() != NetworkInfo.State.CONNECTED) {
+                    return false;
+            }
+
+            return true;
+    }
 }

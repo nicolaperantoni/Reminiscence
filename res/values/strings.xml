@@ -7,6 +7,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="please">Please</string>
     <string name="wait">wait...</string>
+    <string name="connection_fail">You must be connected to the internet</string>
 
     <!-- Login_Activity -->
     <string name="login_activity_title">Sign in</string>
@@ -14,6 +15,9 @@
     <string name="login_password_hint">Password</string>
     <string name="login_button_label">Sign in</string>
     <string name="login_registration_button_label">Sign up</string>
+    <string name="login_empty_username">Insert your e-mail.</string>
+    <string name="login_empty_password">Insert your password.</string>
+    <string name="login_empty_both">Insert your e-mail and password.</string>
     <string name="login_failed">Wrong Email and Password! Try again.</string>
     <string name="login_succes">Now you are logged in</string>
 
@@ -34,6 +38,8 @@
     <!-- RegistrationPassword_Activity -->
     <string name="registration_password_suggest_label">Now you need a password.\nYou can use this one or change it</string>
     <string name="registration_password_hint">nameNumber</string>
+    <string name="registration_password_empty">Password can\'t be blank.</string>
+    <string name="registration_password_wrong">Password must have only letters and numbers.</string>
     <string name="registration_failed">No! Something goes wrong!</string>
     <string name="registration_succes">Uhuh! You are now signed up!</string>
 

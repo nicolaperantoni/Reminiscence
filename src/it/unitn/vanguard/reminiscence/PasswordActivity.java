@@ -1,9 +1,11 @@
 package it.unitn.vanguard.reminiscence;
 
+import it.unitn.vanguard.reminiscence.asynctasks.LoginTask;
 import it.unitn.vanguard.reminiscence.asynctasks.RegistrationTask;
 
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.ArrayList;
 
@@ -38,6 +40,7 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	private String day;
 	private String month;
 	private String year;
+	private String password;
 	
 	// Password suggestion
 	private ArrayList<String> suggestionList;
@@ -91,13 +94,26 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	OnClickListener onclickconf = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			p = new ProgressDialog(PasswordActivity.this);
-			p.setTitle(getResources().getString(R.string.please));
-			p.setMessage(getResources().getString(R.string.wait));
-			p.setCancelable(false);
-			p.show();
-			new RegistrationTask(PasswordActivity.this).execute(name, surname, mail, 
-				editTextPassword.getText().toString(), day, month, year);
+			
+			password = editTextPassword.getText().toString();
+			boolean isPasswordEmpty = password.trim().equals("");
+			if(isPasswordEmpty) {
+				Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_empty),
+						Toast.LENGTH_LONG).show();
+			}
+			else if(FinalFunctionsUtilities.isDeviceConnected(getApplicationContext())) {
+				p = new ProgressDialog(PasswordActivity.this);
+				p.setTitle(getResources().getString(R.string.please));
+				p.setMessage(getResources().getString(R.string.wait));
+				p.setCancelable(false);
+				p.show();
+				new RegistrationTask(PasswordActivity.this).execute(name, surname, mail, 
+					password, day, month, year);
+			}
+			else {
+				Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_fail),
+						Toast.LENGTH_LONG).show();
+			}
 		}
 	};
 	
@@ -120,11 +136,11 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	}
 
 	private void generateSuggestion() {
-		String suggestion = "";
+		password = "";
 		rand = (int)(Math.random() * suggestionList.size());
-		suggestion += suggestionList.get(rand);
-		suggestion += Constants.PASSWORD_MIN + (int)(Math.random() * ((Constants.PASSWORD_MAX - Constants.PASSWORD_MIN) + 1));
-		editTextPassword.setText(suggestion);
+		password += suggestionList.get(rand);
+		password += Constants.PASSWORD_MIN + (int)(Math.random() * ((Constants.PASSWORD_MAX - Constants.PASSWORD_MIN) + 1));
+		editTextPassword.setText(password);
 	}
 	
 	@Override
@@ -161,7 +177,7 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 			    SharedPreferences.Editor editor = prefs.edit();
 
-			    editor.putString("password", editTextPassword.getText().toString());
+			    editor.putString("password", password);
 				
 				editor.commit();
 				

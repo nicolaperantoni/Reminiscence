@@ -7,6 +7,7 @@
     <string name="hello_world">Ciao mondo!</string>
     <string name="please">Per Favore</string>
     <string name="wait">attendi...</string>
+    <string name="connection_fail">Devi essere connesso alla rete internet</string>
     
     <!-- Login_Activity -->
     <string name="login_activity_title">Accedi</string>
@@ -14,6 +15,9 @@
     <string name="login_password_hint">Password</string>
     <string name="login_button_label">Accedi</string>
     <string name="login_registration_button_label">Registrati</string>
+    <string name="login_empty_username">Inserisci la tua e-mail.</string>
+    <string name="login_empty_password">Inserisci la password.</string>
+    <string name="login_empty_both">Inserisci la tua e-mail e la tua password.</string>
     <string name="login_failed">Email e Password errati! Riprova.</string>
     <string name="login_succes">Evviva! Ora sei loggato!</string>
     
@@ -35,6 +39,8 @@
     <!-- RegistrationPassword_Activity -->
     <string name="registration_password_suggest_label">Inserisci ora una chiave segreta.\nTi suggeriamo questa, ma puoi modificarla.</string>
     <string name="registration_password_hint">nomeNumero</string>
+    <string name="registration_password_empty">La password non può essere vuota.</string>
+    <string name="registration_password_wrong">La password deve contenere solo lettere e numeri.</string>
     <string name="registration_failed">No! Qualcosa è andato storto!</string>
     <string name="registration_succes">Evviva! ti sei registrato!</string>
     
