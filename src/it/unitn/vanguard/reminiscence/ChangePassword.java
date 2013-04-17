@@ -1,7 +1,10 @@
 package it.unitn.vanguard.reminiscence;
 
+import java.util.Locale;
+
 import it.unitn.vanguard.reminiscence.asynctasks.ChangePasswordTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +17,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -80,13 +84,6 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.change_password, menu);
-		return true;
-	}
-
-	@Override
 	public void onTaskFinished(JSONObject res) {
 
 		if(p!=null && p.isShowing())
@@ -102,5 +99,43 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 		} catch (JSONException e) {
 			Log.e(LoginActivity.class.getName(), e.toString());
 		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.login, menu);
+		
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
+		Locale locale = new Locale(language);
+		
+		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
+			menu.getItem(0).setIcon(R.drawable.it);
+		}
+		else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
+			menu.getItem(0).setIcon(R.drawable.en);
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Locale locale = null;
+		switch (item.getItemId()) {
+		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
+		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
+	    }
+		if(locale != null) {
+			// Get Language
+			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), getApplicationContext());
+		    
+			android.content.res.Configuration config = getApplicationContext().getResources().getConfiguration();
+		    config.locale = locale;
+		    getApplicationContext().getResources().updateConfiguration(config, getApplicationContext().getResources().getDisplayMetrics());
+		    // Refresh activity
+		    finish();
+		    startActivity(getIntent());
+	    }
+	    return true;
 	}
 }

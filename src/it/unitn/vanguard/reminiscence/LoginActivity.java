@@ -16,6 +16,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -155,8 +156,21 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		Log.e("inizioo","asdad");
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
+		
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
+		Locale locale = new Locale(language);
+		Log.e("ora sono in",language);
+		//switchLanguage(locale);
+		
+		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
+			menu.getItem(0).setIcon(R.drawable.it);
+		}
+		else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
+			menu.getItem(0).setIcon(R.drawable.en);
+		}
 		return true;
 	}
 	
@@ -164,18 +178,29 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Locale locale = null;
 		switch (item.getItemId()) {
-	    case R.id.action_language_it: { locale = new Locale("it"); }
-	    case R.id.action_language_en: { locale = new Locale("en"); }
+		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
+		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
 	    }
 		if(locale != null) {
-			Locale.setDefault(locale);
-		    android.content.res.Configuration config = new android.content.res.Configuration();
+		    switchLanguage(locale);
+	    }
+	    return true;
+	}
+	
+	private void switchLanguage(Locale locale) {
+		
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
+		Locale old = new Locale(language);
+		Log.e("voglio cambiare in: ", locale.getLanguage());
+		Log.e("old", old.getLanguage() + "");
+		if(!old.getLanguage().equals(locale.getLanguage())) {
+			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), getApplicationContext());
+			android.content.res.Configuration config = getApplicationContext().getResources().getConfiguration();
 		    config.locale = locale;
 		    getApplicationContext().getResources().updateConfiguration(config, getApplicationContext().getResources().getDisplayMetrics());
 		    // Refresh activity
 		    finish();
 		    startActivity(getIntent());
 	    }
-	    return true;
 	}
 }

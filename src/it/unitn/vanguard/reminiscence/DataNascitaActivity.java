@@ -1,7 +1,10 @@
 package it.unitn.vanguard.reminiscence;
 
-import java.util.Calendar;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+
+import java.util.Calendar;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +12,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -222,5 +226,43 @@ public class DataNascitaActivity extends Activity {
 			CharSequence text = "Davvero? Sei nato nel futuro?";
 			Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
 			toast.show();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.login, menu);
+		
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
+		Locale locale = new Locale(language);
+		
+		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
+			menu.getItem(0).setIcon(R.drawable.it);
+		}
+		else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
+			menu.getItem(0).setIcon(R.drawable.en);
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Locale locale = null;
+		switch (item.getItemId()) {
+		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
+		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
+	    }
+		if(locale != null) {
+			// Get Language
+			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), getApplicationContext());
+		    
+			android.content.res.Configuration config = getApplicationContext().getResources().getConfiguration();
+		    config.locale = locale;
+		    getApplicationContext().getResources().updateConfiguration(config, getApplicationContext().getResources().getDisplayMetrics());
+		    // Refresh activity
+		    finish();
+		    startActivity(getIntent());
+	    }
+	    return true;
 	}
 }

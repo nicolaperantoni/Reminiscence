@@ -78,7 +78,7 @@
             android:hint="@string/user_surname_label"
             android:inputType="textPersonName"
             android:textSize="40sp" />
-
+        
         <EditText
             android:id="@+id/editTextregistrationEmail"
             android:layout_width="wrap_content"
@@ -90,6 +90,7 @@
             android:hint="@string/user_mail_label"
             android:inputType="textEmailAddress"
             android:textSize="40sp" />
+        
     </RelativeLayout>
 
     <Button

@@ -17,7 +17,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:gravity="center_horizontal"
-        android:text="@string/data_nascita_activity_title"
+        android:text="@string/data_nascita_activity_header"
         android:textColor="@color/white"
         android:textSize="@dimen/registration_header_font_size" />
 

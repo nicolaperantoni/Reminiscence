@@ -8,6 +8,7 @@ import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +19,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -204,5 +207,43 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.login, menu);
+		
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
+		Locale locale = new Locale(language);
+		
+		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
+			menu.getItem(0).setIcon(R.drawable.it);
+		}
+		else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
+			menu.getItem(0).setIcon(R.drawable.en);
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Locale locale = null;
+		switch (item.getItemId()) {
+		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
+		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
+	    }
+		if(locale != null) {
+			// Get Language
+			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), getApplicationContext());
+		    
+			android.content.res.Configuration config = getApplicationContext().getResources().getConfiguration();
+		    config.locale = locale;
+		    getApplicationContext().getResources().updateConfiguration(config, getApplicationContext().getResources().getDisplayMetrics());
+		    // Refresh activity
+		    finish();
+		    startActivity(getIntent());
+	    }
+	    return true;
 	}
 }
