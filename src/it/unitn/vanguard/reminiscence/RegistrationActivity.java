@@ -101,7 +101,9 @@ public class RegistrationActivity extends Activity {
 					
 					editor.commit();
 					
-			        startActivityForResult(registrationIntent, 0);	
+			        startActivityForResult(registrationIntent, 0);
+			        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+			        finish();
 				}
 			}
 		};
@@ -109,6 +111,9 @@ public class RegistrationActivity extends Activity {
 		OnClickListener backListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), LoginActivity.class);
+				startActivityForResult(intent, 0);
+				overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 				finish();
 			}
 		};

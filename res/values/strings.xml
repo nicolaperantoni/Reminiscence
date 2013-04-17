@@ -3,11 +3,16 @@
 
     <!-- General -->
     <string name="app_name">Reminiscence</string>
-    <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="please">Please</string>
     <string name="wait">wait...</string>
     <string name="connection_fail">You must be connected to the internet</string>
+    
+    <!-- Menus -->
+    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_language_italian">Italian</string>
+    <string name="action_language_english">English</string>
 
     <!-- Login_Activity -->
     <string name="login_activity_title">Sign in</string>

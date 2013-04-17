@@ -180,6 +180,9 @@ public class DataNascitaActivity extends Activity {
 		OnClickListener onclickback = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), RegistrationActivity.class);
+				startActivityForResult(intent, 0);
+				overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 				finish();
 			}
 		};
@@ -199,6 +202,8 @@ public class DataNascitaActivity extends Activity {
 				editor.commit();
 				
 		        startActivityForResult(passwordIntent, 0);
+		        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+				finish();
 			}
 		};
 		

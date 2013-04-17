@@ -87,6 +87,9 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	OnClickListener onclickback = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
+			Intent intent = new Intent(v.getContext(), DataNascitaActivity.class);
+			startActivityForResult(intent, 0);
+			overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 			finish();
 		}
 	};
@@ -185,6 +188,7 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 				Intent loginIntent = new Intent(getApplicationContext(), ViewStoriesFragmentActivity.class);
 				loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivityForResult(loginIntent, 0);
+				finish();
 			}
 			else {
 				Toast.makeText(this,

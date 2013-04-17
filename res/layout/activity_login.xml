@@ -35,7 +35,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:background="@drawable/txt_input_bordered"
-            android:drawableLeft="@drawable/passwd"
+            android:drawableLeft="@drawable/password"
             android:drawablePadding="10dp"
             android:ems="12"
             android:hint="@string/login_password_hint"

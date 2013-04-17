@@ -4,6 +4,8 @@ import it.unitn.vanguard.reminiscence.asynctasks.LoginTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
+import java.util.Locale;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -103,8 +105,8 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 				Intent regIntent = new Intent(getApplicationContext(),
 						RegistrationActivity.class);
 				startActivityForResult(regIntent, 0);
-				overridePendingTransition(R.anim.slide_in_left,
-						R.anim.slide_out_left);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+				finish();
 			}
 		});
 		
@@ -149,5 +151,31 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		} catch (JSONException e) {
 			Log.e(LoginActivity.class.getName(), e.toString());
 		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.login, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Locale locale = null;
+		switch (item.getItemId()) {
+	    case R.id.action_language_it: { locale = new Locale("it"); }
+	    case R.id.action_language_en: { locale = new Locale("en"); }
+	    }
+		if(locale != null) {
+			Locale.setDefault(locale);
+		    android.content.res.Configuration config = new android.content.res.Configuration();
+		    config.locale = locale;
+		    getApplicationContext().getResources().updateConfiguration(config, getApplicationContext().getResources().getDisplayMetrics());
+		    // Refresh activity
+		    finish();
+		    startActivity(getIntent());
+	    }
+	    return true;
 	}
 }
