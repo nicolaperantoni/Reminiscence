@@ -126,11 +126,10 @@ public class RegistrationActivity extends Activity {
 			public void afterTextChanged(Editable s) {
 				
 				name = editTextName.getText().toString();
-				nameOk = !(name.trim().equals(""));
+				nameOk = !(name.trim().equals("") || name.startsWith(" ") || name.endsWith(" "));
 				
 				if(!nameOk) {
 					editTextName.setBackgroundResource(R.drawable.txt_input_bordered_error);
-					editTextName.setText("");
 				}
 				else {
 					editTextName.setBackgroundResource(R.drawable.txt_input_bordered);
@@ -148,11 +147,10 @@ public class RegistrationActivity extends Activity {
 			public void afterTextChanged(Editable s) {
 				
 				surname = editTextSurname.getText().toString();
-				surnameOk = !(surname.trim().equals(""));
+				surnameOk = !(surname.trim().equals("") || surname.startsWith(" ") || surname.endsWith(" "));
 				
 				if(!surnameOk) {
 					editTextSurname.setBackgroundResource(R.drawable.txt_input_bordered_error);
-					editTextSurname.setText("");
 				}
 				else {
 					editTextSurname.setBackgroundResource(R.drawable.txt_input_bordered);
@@ -169,7 +167,7 @@ public class RegistrationActivity extends Activity {
 			@Override
 			public void afterTextChanged(Editable s) {
 				
-				mail = editTextMail.getText().toString().trim();
+				mail = editTextMail.getText().toString();
 				mailOk = FinalFunctionsUtilities.isValidEmailAddress(mail);
 				
 				if(!mailOk) {

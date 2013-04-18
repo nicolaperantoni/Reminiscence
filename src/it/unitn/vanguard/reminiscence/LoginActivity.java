@@ -14,11 +14,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -138,21 +135,6 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 							.setBackgroundResource(R.drawable.txt_input_bordered);
 				}
 			}
-		});
-		
-		usernameEditText.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void afterTextChanged(Editable s) {
-				if(!s.toString().trim().equals(usernameEditText.getText().toString().trim())) {
-					usernameEditText.setText(s.toString().trim());
-				}
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) { }
-			
 		});
 	} 
 

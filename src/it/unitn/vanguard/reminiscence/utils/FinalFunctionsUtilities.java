@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public final class FinalFunctionsUtilities {
 
@@ -18,7 +19,8 @@ public final class FinalFunctionsUtilities {
 	 * @return true if email address is valid otherwise return false.
 	 */
 	public static boolean isValidEmailAddress(String email) {
-		return email.matches(EMAIL_REGEX) && !email.equals("");
+		return email.matches(EMAIL_REGEX) && !email.trim().equals("") 
+				&& !email.startsWith(" ") && !email.endsWith(" ");
 	}
 
 	// Leap year
