@@ -14,6 +14,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -137,6 +139,21 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 				}
 			}
 		});
+		
+		usernameEditText.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void afterTextChanged(Editable s) {
+				if(!s.toString().trim().equals(usernameEditText.getText().toString().trim())) {
+					usernameEditText.setText(s.toString().trim());
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) { }
+			
+		});
 	} 
 
 	@Override
@@ -161,15 +178,21 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		getMenuInflater().inflate(R.menu.login, menu);
 		
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
-		Locale locale = new Locale(language);
-		Log.e("ora sono in",language);
-		//switchLanguage(locale);
-		
-		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
-			menu.getItem(0).setIcon(R.drawable.it);
-		}
-		else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
-			menu.getItem(0).setIcon(R.drawable.en);
+		if(!language.trim().equals("")) {
+			Locale locale = new Locale(language);
+			Log.e("ora sono in",language);
+			//switchLanguage(locale, true); 
+			
+			if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
+				menu.getItem(0).setIcon(R.drawable.it);
+			}
+			else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
+				menu.getItem(0).setIcon(R.drawable.en);
+			}
+		} else {
+			android.content.res.Configuration config = getApplicationContext().getResources().getConfiguration();
+			FinalFunctionsUtilities.setSharedPreferences("language", config.locale.getLanguage(), getApplicationContext());
+			Log.e("prima volta: settato a ",FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext()) );
 		}
 		return true;
 	}
@@ -182,18 +205,18 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
 	    }
 		if(locale != null) {
-		    switchLanguage(locale);
+		    switchLanguage(locale, false);
 	    }
 	    return true;
 	}
 	
-	private void switchLanguage(Locale locale) {
+	private void switchLanguage(Locale locale, boolean deviceRotated) {
 		
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
 		Locale old = new Locale(language);
 		Log.e("voglio cambiare in: ", locale.getLanguage());
 		Log.e("old", old.getLanguage() + "");
-		if(!old.getLanguage().equals(locale.getLanguage())) {
+		if(!old.getLanguage().equals(locale.getLanguage()) || deviceRotated) {
 			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), getApplicationContext());
 			android.content.res.Configuration config = getApplicationContext().getResources().getConfiguration();
 		    config.locale = locale;

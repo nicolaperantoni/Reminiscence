@@ -17,7 +17,7 @@ public final class FinalFunctionsUtilities {
 	 * @return true if email address is valid otherwise return false.
 	 */
 	public static boolean isValidEmailAddress(String email) {
-		return email.matches(EMAIL_REGEX);
+		return email.matches(EMAIL_REGEX) && !email.equals("");
 	}
 	
 	// Leap year
