@@ -31,7 +31,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	private EditText usernameEditText;
 	private EditText passwordEditText;
 
-	protected ProgressDialog p;
+	protected ProgressDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	}
 
 	private void initializeButtons() {
-		
+		// Set the Typeface for logo label..
 		TextView logo = (TextView)findViewById(R.id.Logo);
 		Typeface typeFace = Typeface.createFromAsset(getAssets(),"Pacifico.ttf");
 		logo.setTypeface(typeFace);
@@ -85,15 +85,15 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 							Toast.LENGTH_LONG).show();
 				}
 				else if(FinalFunctionsUtilities.isDeviceConnected(getApplicationContext())) {
-					p = new ProgressDialog(LoginActivity.this);
-					p.setTitle(getResources().getString(R.string.please));
-					p.setMessage(getResources().getString(R.string.wait));
-					p.setCancelable(false);
-					p.show();
+					dialog = new ProgressDialog(LoginActivity.this);
+					dialog.setTitle(getResources().getString(R.string.please));
+					dialog.setMessage(getResources().getString(R.string.wait));
+					dialog.setCancelable(false);
+					dialog.show();
 					new LoginTask(LoginActivity.this).execute(username, password);
 				}
 				else {
-					if(p!=null && p.isShowing()) { 	p.dismiss(); }
+					if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
 					Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_fail),
 							Toast.LENGTH_LONG).show();
 				}
@@ -102,8 +102,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		btnRegistration.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent regIntent = new Intent(getApplicationContext(),
-						RegistrationActivity.class);
+				Intent regIntent = new Intent(getApplicationContext(), RegistrationActivity.class);
 				startActivityForResult(regIntent, 0);
 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 				finish();
@@ -114,11 +113,9 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
-					usernameEditText
-							.setBackgroundResource(R.drawable.txt_input_bordered_ok);
+					usernameEditText.setBackgroundResource(R.drawable.txt_input_bordered_ok);
 				} else {
-					usernameEditText
-							.setBackgroundResource(R.drawable.txt_input_bordered);
+					usernameEditText.setBackgroundResource(R.drawable.txt_input_bordered);
 				}
 			}
 		});
@@ -128,11 +125,9 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
-					passwordEditText
-							.setBackgroundResource(R.drawable.txt_input_bordered_ok);
+					passwordEditText.setBackgroundResource(R.drawable.txt_input_bordered_ok);
 				} else {
-					passwordEditText
-							.setBackgroundResource(R.drawable.txt_input_bordered);
+					passwordEditText.setBackgroundResource(R.drawable.txt_input_bordered);
 				}
 			}
 		});
@@ -140,14 +135,13 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		if(p!=null && p.isShowing()) { 	p.dismiss(); }
+		if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
 		try {
-			if (res.getString("success").equals("true"))
-				startActivity(new Intent(LoginActivity.this,
-						ViewStoriesFragmentActivity.class));
-			else
-				Toast.makeText(this, getResources().getString(R.string.login_failed),
-						Toast.LENGTH_LONG).show();
+			if (res.getString("success").equals("true")) {
+				startActivity(new Intent(LoginActivity.this, ViewStoriesFragmentActivity.class));
+			} else {
+				Toast.makeText(this, getResources().getString(R.string.login_failed), Toast.LENGTH_LONG).show();
+			}
 		} catch (JSONException e) {
 			Log.e(LoginActivity.class.getName(), e.toString());
 		}

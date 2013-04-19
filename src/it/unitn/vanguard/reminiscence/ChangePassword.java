@@ -3,6 +3,7 @@ package it.unitn.vanguard.reminiscence;
 import java.util.Locale;
 
 import it.unitn.vanguard.reminiscence.asynctasks.ChangePasswordTask;
+import it.unitn.vanguard.reminiscence.asynctasks.LoginTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
@@ -25,7 +26,7 @@ import android.widget.Toast;
 
 public class ChangePassword extends Activity implements OnTaskFinished {
 	
-	protected ProgressDialog p;
+	protected ProgressDialog dialog;
 	private Button btnChangePassword, btnChangePasswordBack;
 	private EditText txtNewPassword, txtConfirmPassword;
 	
@@ -51,8 +52,10 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 				
 				String new_pass1 = txtNewPassword.getText().toString();
 				String new_pass2 = txtConfirmPassword.getText().toString();
+				boolean isEmptyNewPassword = new_pass1.trim().equals("");
+				boolean isEmptyConfPassword = new_pass2.trim().equals("");
 				
-				if(new_pass1.trim().equals("") || new_pass2.trim().equals("")) {
+				if(isEmptyNewPassword || isEmptyConfPassword) {
 					Toast.makeText(getApplicationContext(), getResources().getString(R.string.empty_password),
 							Toast.LENGTH_LONG).show();
 				}
@@ -63,11 +66,11 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 					}
 					else {
 
-						p = new ProgressDialog(ChangePassword.this);
-						p.setTitle(getResources().getString(R.string.please));
-						p.setMessage(getResources().getString(R.string.wait));
-						p.setCancelable(false);
-						p.show();
+						dialog = new ProgressDialog(ChangePassword.this);
+						dialog.setTitle(getResources().getString(R.string.please));
+						dialog.setMessage(getResources().getString(R.string.wait));
+						dialog.setCancelable(false);
+						dialog.show();
 						new ChangePasswordTask(ChangePassword.this).execute(new_pass1, new_pass2);
 						finish();
 					}
@@ -86,8 +89,8 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 	@Override
 	public void onTaskFinished(JSONObject res) {
 
-		if(p!=null && p.isShowing())
-			p.dismiss();
+		if(dialog!=null && dialog.isShowing())
+			dialog.dismiss();
 		try {
 			if (res.getString("success").equals("true")) {
 				Toast.makeText(ChangePassword.this, getResources().getString(R.string.correct_password),

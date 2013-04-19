@@ -43,8 +43,9 @@
     
     <!-- RegistrationPassword_Activity -->
     <string name="registration_password_suggest_label">Inserisci ora una chiave segreta.\nTi suggeriamo questa, ma puoi modificarla.</string>
-    <string name="registration_password_hint">nomeNumero</string>
+    <string name="registration_password_hint">Nome + Numero</string>
     <string name="registration_password_empty">La password non può essere vuota.</string>
+    <string name="registration_password_empty">La password non può contenere spazi.</string>
     <string name="registration_password_wrong">La password deve contenere solo lettere e numeri.</string>
     <string name="registration_failed">No! Qualcosa è andato storto!</string>
     <string name="registration_succes">Evviva! ti sei registrato!</string>

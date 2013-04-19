@@ -108,4 +108,5 @@ public final class FinalFunctionsUtilities {
 			return true;
 		return wifiInfo.getState() == NetworkInfo.State.CONNECTED;
 	}
+	
 }

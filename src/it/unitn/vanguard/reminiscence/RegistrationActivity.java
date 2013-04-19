@@ -5,6 +5,7 @@ import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -49,11 +50,10 @@ public class RegistrationActivity extends Activity {
     	editTextMail = (EditText) findViewById(R.id.editTextregistrationEmail);
 
     	
-    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-    	
-    	name = prefs.getString("name", "");
-    	surname = prefs.getString("surname", "");
-    	mail = prefs.getString("mail", "");
+    	Context context = getApplicationContext();
+    	name = FinalFunctionsUtilities.getSharedPreferences("name", context);
+    	surname = FinalFunctionsUtilities.getSharedPreferences("surname", context);
+    	mail = FinalFunctionsUtilities.getSharedPreferences("mail", context);
     	
     	editTextName.setText(name);
     	editTextSurname.setText(surname);
@@ -90,15 +90,11 @@ public class RegistrationActivity extends Activity {
 				if( nameOk && surnameOk && mailOk ) {
 					Intent registrationIntent = new Intent(v.getContext(), DataNascitaActivity.class);
 					
-					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-				    SharedPreferences.Editor editor = prefs.edit();
+					Context context = getApplicationContext();
+					FinalFunctionsUtilities.setSharedPreferences("name", name, context);
+					FinalFunctionsUtilities.setSharedPreferences("surname", surname, context);
+					FinalFunctionsUtilities.setSharedPreferences("mail", mail, context);
 
-				    editor.putString("name", editTextName.getText().toString());
-				    editor.putString("surname", editTextSurname.getText().toString());
-				    editor.putString("mail", editTextMail.getText().toString());
-					
-					editor.commit();
-					
 			        startActivityForResult(registrationIntent, 0);
 			        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 			        finish();

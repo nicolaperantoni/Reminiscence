@@ -42,8 +42,9 @@
 
     <!-- RegistrationPassword_Activity -->
     <string name="registration_password_suggest_label">Now you need a password.\nYou can use this one or change it</string>
-    <string name="registration_password_hint">nameNumber</string>
+    <string name="registration_password_hint">Name + number</string>
     <string name="registration_password_empty">Password can\'t be blank.</string>
+    <string name="registration_password_contains_spaces">Password can\'t contains spaces.</string>
     <string name="registration_password_wrong">Password must have only letters and numbers.</string>
     <string name="registration_failed">No! Something goes wrong!</string>
     <string name="registration_succes">Uhuh! You are now signed up!</string>
