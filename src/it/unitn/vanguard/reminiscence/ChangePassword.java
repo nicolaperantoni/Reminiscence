@@ -1,21 +1,18 @@
 package it.unitn.vanguard.reminiscence;
 
-import java.util.Locale;
-
 import it.unitn.vanguard.reminiscence.asynctasks.ChangePasswordTask;
-import it.unitn.vanguard.reminiscence.asynctasks.LoginTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +23,7 @@ import android.widget.Toast;
 
 public class ChangePassword extends Activity implements OnTaskFinished {
 	
+	private Context context;
 	protected ProgressDialog dialog;
 	private Button btnChangePassword, btnChangePasswordBack;
 	private EditText txtNewPassword, txtConfirmPassword;
@@ -33,6 +31,9 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		context = getApplicationContext();
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_change_password);
 		initializeButtons();
 		initializeListeners();
@@ -106,12 +107,12 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
 		Locale locale = new Locale(language);
-		
+
 		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.it);
 		}
@@ -128,13 +129,8 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
 		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
 	    }
-		if(locale != null) {
-			// Get Language
-			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), getApplicationContext());
-		    
-			android.content.res.Configuration config = getApplicationContext().getResources().getConfiguration();
-		    config.locale = locale;
-		    getApplicationContext().getResources().updateConfiguration(config, getApplicationContext().getResources().getDisplayMetrics());
+		
+		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
 		    // Refresh activity
 		    finish();
 		    startActivity(getIntent());

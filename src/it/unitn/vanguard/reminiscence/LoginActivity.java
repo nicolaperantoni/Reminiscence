@@ -11,7 +11,9 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +28,8 @@ import android.widget.Toast;
 
 public class LoginActivity extends Activity implements OnTaskFinished {
 
+	private Context context;
+	
 	private Button btnLogin;
 	private Button btnRegistration;
 	private EditText usernameEditText;
@@ -36,6 +40,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		context = getApplicationContext();
 		/*
 		// Se l'utente aveva già affettuato il login in precedenza salta dirett nella timeline
 		if(FinalFunctionsUtilities.isLoggedIn(getApplicationContext())) { 
@@ -44,6 +49,8 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 			startActivityForResult(changePasswd, 0);
 			finish();
 		}*/
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_login);
 		initializeButtons();
 		initializeListeners();
@@ -73,18 +80,15 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 				boolean isEmptyPassword = password.trim().equals("");
 				
 				if(isEmptyUsername && isEmptyPassword) {
-					Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_empty_both),
-							Toast.LENGTH_LONG).show();
+					Toast.makeText(context, getResources().getString(R.string.login_empty_both), Toast.LENGTH_LONG).show();
 				}
 				else if(isEmptyUsername) {
-					Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_empty_username),
-							Toast.LENGTH_LONG).show();
+					Toast.makeText(context, getResources().getString(R.string.login_empty_username), Toast.LENGTH_LONG).show();
 				}
 				else if(isEmptyPassword) {
-					Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_empty_password),
-							Toast.LENGTH_LONG).show();
+					Toast.makeText(context, getResources().getString(R.string.login_empty_password), Toast.LENGTH_LONG).show();
 				}
-				else if(FinalFunctionsUtilities.isDeviceConnected(getApplicationContext())) {
+				else if(FinalFunctionsUtilities.isDeviceConnected(context)) {
 					dialog = new ProgressDialog(LoginActivity.this);
 					dialog.setTitle(getResources().getString(R.string.please));
 					dialog.setMessage(getResources().getString(R.string.wait));
@@ -94,15 +98,14 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 				}
 				else {
 					if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
-					Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_fail),
-							Toast.LENGTH_LONG).show();
+					Toast.makeText(context, getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
 		btnRegistration.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent regIntent = new Intent(getApplicationContext(), RegistrationActivity.class);
+				Intent regIntent = new Intent(context, RegistrationActivity.class);
 				startActivityForResult(regIntent, 0);
 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 				finish();
@@ -131,8 +134,8 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 				}
 			}
 		});
-	} 
-
+	}
+	
 	@Override
 	public void onTaskFinished(JSONObject res) {
 		if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
@@ -149,26 +152,17 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		Log.e("inizioo","asdad");
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
-		if(!language.trim().equals("")) {
-			Locale locale = new Locale(language);
-			Log.e("ora sono in",language);
-			//switchLanguage(locale, true); 
-			
-			if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
-				menu.getItem(0).setIcon(R.drawable.it);
-			}
-			else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
-				menu.getItem(0).setIcon(R.drawable.en);
-			}
-		} else {
-			android.content.res.Configuration config = getApplicationContext().getResources().getConfiguration();
-			FinalFunctionsUtilities.setSharedPreferences("language", config.locale.getLanguage(), getApplicationContext());
-			Log.e("prima volta: settato a ",FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext()) );
+		Locale locale = new Locale(language);
+
+		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
+			menu.getItem(0).setIcon(R.drawable.it);
+		}
+		else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
+			menu.getItem(0).setIcon(R.drawable.en);
 		}
 		return true;
 	}
@@ -180,26 +174,12 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
 		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
 	    }
-		if(locale != null) {
-		    switchLanguage(locale, false);
-	    }
-	    return true;
-	}
-	
-	private void switchLanguage(Locale locale, boolean deviceRotated) {
 		
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
-		Locale old = new Locale(language);
-		Log.e("voglio cambiare in: ", locale.getLanguage());
-		Log.e("old", old.getLanguage() + "");
-		if(!old.getLanguage().equals(locale.getLanguage()) || deviceRotated) {
-			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), getApplicationContext());
-			android.content.res.Configuration config = getApplicationContext().getResources().getConfiguration();
-		    config.locale = locale;
-		    getApplicationContext().getResources().updateConfiguration(config, getApplicationContext().getResources().getDisplayMetrics());
+		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
 		    // Refresh activity
 		    finish();
 		    startActivity(getIntent());
 	    }
+	    return true;
 	}
 }

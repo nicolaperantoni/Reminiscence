@@ -1,7 +1,10 @@
 package it.unitn.vanguard.reminiscence.utils;
 
+import java.util.Locale;
+
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
@@ -109,4 +112,22 @@ public final class FinalFunctionsUtilities {
 		return wifiInfo.getState() == NetworkInfo.State.CONNECTED;
 	}
 	
+	
+	public static boolean switchLanguage(Locale locale, Context context) {
+		
+		// Ottengo la configurazione attuale e controllo se è uguale a quella delle
+		// SharedPreferences. Se non sono uguali cambio la lingua altrimenti
+		// non faccio nulla..
+		
+		Configuration config = context.getResources().getConfiguration();
+		Locale oldLanguage = config.locale;
+		
+		if(!oldLanguage.getLanguage().equals(locale.getLanguage())) {
+			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), context);
+		    config.locale = locale;
+		    context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+		    return true;
+		}
+		return false;
+	}
 }

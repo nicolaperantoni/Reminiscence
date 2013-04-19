@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 public class DataNascitaActivity extends Activity {
 
+	private Context context;
+	
 	// Date values
 	private int day = 1, month = 0, year = 1940;
 	
@@ -48,6 +50,9 @@ public class DataNascitaActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		context = getApplicationContext();
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_data_nascita);
 		initializeButtons();
 		initializeListeners();
@@ -214,12 +219,12 @@ public class DataNascitaActivity extends Activity {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
 		Locale locale = new Locale(language);
-		
+
 		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.it);
 		}
@@ -236,13 +241,8 @@ public class DataNascitaActivity extends Activity {
 		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
 		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
 	    }
-		if(locale != null) {
-			// Get Language
-			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), getApplicationContext());
-		    
-			android.content.res.Configuration config = getApplicationContext().getResources().getConfiguration();
-		    config.locale = locale;
-		    getApplicationContext().getResources().updateConfiguration(config, getApplicationContext().getResources().getDisplayMetrics());
+		
+		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
 		    // Refresh activity
 		    finish();
 		    startActivity(getIntent());

@@ -7,12 +7,9 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +19,8 @@ import android.widget.EditText;
 
 public class RegistrationActivity extends Activity {
 
+	private Context context;
+	
 	private Button btnBack;
 	private Button btnConfirm;
 	private Button btnArrowBack;
@@ -35,6 +34,9 @@ public class RegistrationActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = getApplicationContext();
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
         setContentView(R.layout.activity_registration);
 		initializeButtons();
 		initializeListeners();
@@ -49,8 +51,6 @@ public class RegistrationActivity extends Activity {
     	editTextSurname = (EditText) findViewById(R.id.editTextregistrationSurname);
     	editTextMail = (EditText) findViewById(R.id.editTextregistrationEmail);
 
-    	
-    	Context context = getApplicationContext();
     	name = FinalFunctionsUtilities.getSharedPreferences("name", context);
     	surname = FinalFunctionsUtilities.getSharedPreferences("surname", context);
     	mail = FinalFunctionsUtilities.getSharedPreferences("mail", context);
@@ -88,9 +88,8 @@ public class RegistrationActivity extends Activity {
 				}
 				
 				if( nameOk && surnameOk && mailOk ) {
-					Intent registrationIntent = new Intent(v.getContext(), DataNascitaActivity.class);
+					Intent registrationIntent = new Intent(context, DataNascitaActivity.class);
 					
-					Context context = getApplicationContext();
 					FinalFunctionsUtilities.setSharedPreferences("name", name, context);
 					FinalFunctionsUtilities.setSharedPreferences("surname", surname, context);
 					FinalFunctionsUtilities.setSharedPreferences("mail", mail, context);
@@ -105,7 +104,7 @@ public class RegistrationActivity extends Activity {
 		OnClickListener backListener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), LoginActivity.class);
+				Intent intent = new Intent(context, LoginActivity.class);
 				startActivityForResult(intent, 0);
 				overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 				finish();
@@ -183,14 +182,12 @@ public class RegistrationActivity extends Activity {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		Log.e("inizioo","asdad");
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
 		Locale locale = new Locale(language);
-		switchLanguage(locale);
-		
+
 		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.it);
 		}
@@ -207,26 +204,12 @@ public class RegistrationActivity extends Activity {
 		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
 		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
 	    }
-		if(locale != null) {
-		    switchLanguage(locale);
-	    }
-	    return true;
-	}
-	
-	private void switchLanguage(Locale locale) {
 		
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
-		Locale old = new Locale(language);
-		Log.e("voglio cambiare in: ", locale.getLanguage());
-		Log.e("old", old.getLanguage() + "");
-		if(!old.getLanguage().equals(locale.getLanguage())) {
-			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), getApplicationContext());
-			android.content.res.Configuration config = getApplicationContext().getResources().getConfiguration();
-		    config.locale = locale;
-		    getApplicationContext().getResources().updateConfiguration(config, getApplicationContext().getResources().getDisplayMetrics());
+		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
 		    // Refresh activity
 		    finish();
 		    startActivity(getIntent());
 	    }
+	    return true;
 	}
 }
