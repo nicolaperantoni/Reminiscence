@@ -9,6 +9,7 @@ import java.util.Locale;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -126,7 +127,7 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
+		getMenuInflater().inflate(R.menu.timeline, menu);
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
 		Locale locale = new Locale(language);
 
@@ -143,8 +144,15 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Locale locale = null;
 		switch (item.getItemId()) {
+			// Languages
 		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
 		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
+		    case R.id.action_settings: {
+		    	Intent changePasswd = new Intent(getApplicationContext(),
+		    	ChangePassword.class);
+		    	startActivityForResult(changePasswd, 0);
+		    	return true;
+		    }
 	    }
 		
 		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
