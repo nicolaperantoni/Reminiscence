@@ -66,7 +66,6 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 								Toast.LENGTH_LONG).show();
 					}
 					else {
-
 						dialog = new ProgressDialog(ChangePassword.this);
 						dialog.setTitle(getResources().getString(R.string.please));
 						dialog.setMessage(getResources().getString(R.string.wait));
