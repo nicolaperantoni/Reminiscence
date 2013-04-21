@@ -70,9 +70,6 @@ public class DataNascitaActivity extends Activity {
 	private void initializeVars() {
 
 		Context context = getApplicationContext();
-		name = FinalFunctionsUtilities.getSharedPreferences("name", context);
-		surname = FinalFunctionsUtilities.getSharedPreferences("surname", context);
-		mail = FinalFunctionsUtilities.getSharedPreferences("mail", context);
 		day = FinalFunctionsUtilities.getSharedPreferences("day", context);
 		month = FinalFunctionsUtilities.getSharedPreferences("month", context);
 		year = FinalFunctionsUtilities.getSharedPreferences("year", context);
@@ -234,9 +231,6 @@ public class DataNascitaActivity extends Activity {
 				// Get shared preferences
 				Context context = getApplicationContext();
 				
-				FinalFunctionsUtilities.setSharedPreferences("name", name, context);
-				FinalFunctionsUtilities.setSharedPreferences("surname", surname, context);
-				FinalFunctionsUtilities.setSharedPreferences("mail", mail, context);
 				FinalFunctionsUtilities.setSharedPreferences("day", txtDay.getText().toString(), context);
 				FinalFunctionsUtilities.setSharedPreferences("month", txtMonth.getText().toString(), context);
 				FinalFunctionsUtilities.setSharedPreferences("year", txtYear.getText().toString(), context);
