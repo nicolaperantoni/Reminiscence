@@ -90,36 +90,42 @@ public class DataNascitaActivity extends Activity {
 	private void initializeListeners() {
 		
 		// DAY UP-DOWN EVENTS
-		btnDayDown.setOnClickListener(new OnClickListener() {
+		btnDayUp.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				day = FinalFunctionsUtilities.valiDate(++day, month, year); 
+				day--;
+				day = FinalFunctionsUtilities.valiDate(day, month, year); 
 				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
-					currentDateMsg(day--,month, year);
+					currentDateMsg();
 				}
 				else { 	txtDay.setText(String.valueOf(day)); }
 			}
 		});
 		
-		btnDayUp.setOnClickListener(new OnClickListener() {
+		btnDayDown.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				day--;
+				day++;
 				day = FinalFunctionsUtilities.valiDate(day, month, year);
 				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
-					currentDateMsg(day++,month, year);
+					currentDateMsg();
 				}
 				else { txtDay.setText(String.valueOf(day));	}
 			}
 		});
 		
 		// MONTH UP-DOWN EVENTS
-		btnMonthDown.setOnClickListener(new OnClickListener() {
+		btnMonthUp.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(month == 11)	{ month = 0; } else { 	month++; }
+				if(month == 0)	{ 
+					month = 11; 
+				} 
+				else { 	
+					month--; 
+				}
 				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
-					currentDateMsg(day,month--, year);
+					currentDateMsg();
 				}
 				else {	
 					day = FinalFunctionsUtilities.valiDate(day, month, year);
@@ -129,12 +135,17 @@ public class DataNascitaActivity extends Activity {
 			}
 		});
 		
-		btnMonthUp.setOnClickListener(new OnClickListener() {
+		btnMonthDown.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {				
-				if(month == 0) { month = 11; } else	 { month--; }
+				if(month == 11) { 
+					month = 0; 
+				}
+				else	 { 
+					month++; 
+				}
 				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
-					currentDateMsg(day,month++, year);
+					currentDateMsg();
 				}
 				else{	
 					day = FinalFunctionsUtilities.valiDate(day, month, year);
@@ -148,25 +159,29 @@ public class DataNascitaActivity extends Activity {
 		btnYearUp.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, ++year, maxDay, maxMonth, maxYear)){
-					currentDateMsg(day, month, year--);
+				year++;
+				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
+					year--;
+					currentDateMsg();
 				}
 				else{
 					txtYear.setText(String.valueOf(year));
+				}
 					day = FinalFunctionsUtilities.valiDate(day, month, year);
 					txtDay.setText(String.valueOf(day));
-				}
+				
 			}
 		});
 	
 		btnYearDown.setOnClickListener(new OnClickListener() {
 			@Override
 				public void onClick(View v) {
+					year--;
 					if(year == maxYear-120) {
 						txtYear.setText(String.valueOf(year = maxYear-120));
 					}
 					else {
-						txtYear.setText(String.valueOf(--year));
+						txtYear.setText(String.valueOf(year));
 					}
 					day = FinalFunctionsUtilities.valiDate(day, month, year);
 					txtDay.setText(String.valueOf(day));
@@ -210,7 +225,7 @@ public class DataNascitaActivity extends Activity {
 	}
 	
 	//control on current date (easter egg toast)
-	void currentDateMsg(int day, int month, int year){
+	void currentDateMsg(){
 			Context context = getApplicationContext();
 			CharSequence text = "Davvero? Sei nato nel futuro?";
 			Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
