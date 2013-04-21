@@ -23,7 +23,7 @@ public class DataNascitaActivity extends Activity {
 
 	private Context context;
 	
-	private String name, surname, mail, day, month, year;
+	private String day, month, year;
 	
 	// Date values
 	private int dayValue = 1, monthValue = 0, yearValue = 1940;
