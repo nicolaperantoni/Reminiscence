@@ -23,8 +23,10 @@ public class DataNascitaActivity extends Activity {
 
 	private Context context;
 	
+	private String name, surname, mail, day, month, year;
+	
 	// Date values
-	private int day = 1, month = 0, year = 1940;
+	private int dayValue = 1, monthValue = 0, yearValue = 1940;
 	
 	private int maxYear, maxDay, maxMonth;
 	
@@ -55,6 +57,7 @@ public class DataNascitaActivity extends Activity {
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_data_nascita);
 		initializeButtons();
+		initializeVars();		
 		initializeListeners();
 		
 		//getting current day, month and year		
@@ -62,6 +65,31 @@ public class DataNascitaActivity extends Activity {
 		maxYear = rightNow.get(Calendar.YEAR);
 		maxMonth = rightNow.get(Calendar.MONTH);
 		maxDay = rightNow.get(Calendar.DATE);
+	}
+	
+	private void initializeVars() {
+
+		Context context = getApplicationContext();
+		name = FinalFunctionsUtilities.getSharedPreferences("name", context);
+		surname = FinalFunctionsUtilities.getSharedPreferences("surname", context);
+		mail = FinalFunctionsUtilities.getSharedPreferences("mail", context);
+		day = FinalFunctionsUtilities.getSharedPreferences("day", context);
+		month = FinalFunctionsUtilities.getSharedPreferences("month", context);
+		year = FinalFunctionsUtilities.getSharedPreferences("year", context);
+		
+		//inizializza le variabili
+		dayValue = Integer.parseInt(day);
+		yearValue = Integer.parseInt(year);
+		for(int i = 0; i < mesi.length; i++){
+			if(mesi[i].equals(month)){
+				monthValue = i;
+			}
+		}
+		
+		//setta i campi di testo
+		txtDay.setText(day);
+    	txtMonth.setText(month);
+    	txtYear.setText(year);
 	}
 	
 	private void initializeButtons() {
@@ -93,24 +121,24 @@ public class DataNascitaActivity extends Activity {
 		btnDayUp.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				day--;
-				day = FinalFunctionsUtilities.valiDate(day, month, year); 
-				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
+				dayValue--;
+				dayValue = FinalFunctionsUtilities.valiDate(dayValue, monthValue, yearValue); 
+				if(FinalFunctionsUtilities.isOverCurrentDate(dayValue, monthValue, yearValue, maxDay, maxMonth, maxYear)){
 					currentDateMsg();
 				}
-				else { 	txtDay.setText(String.valueOf(day)); }
+				else { 	txtDay.setText(String.valueOf(dayValue)); }
 			}
 		});
 		
 		btnDayDown.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				day++;
-				day = FinalFunctionsUtilities.valiDate(day, month, year);
-				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
+				dayValue++;
+				dayValue = FinalFunctionsUtilities.valiDate(dayValue, monthValue, yearValue);
+				if(FinalFunctionsUtilities.isOverCurrentDate(dayValue, monthValue, yearValue, maxDay, maxMonth, maxYear)){
 					currentDateMsg();
 				}
-				else { txtDay.setText(String.valueOf(day));	}
+				else { txtDay.setText(String.valueOf(dayValue));	}
 			}
 		});
 		
@@ -118,19 +146,19 @@ public class DataNascitaActivity extends Activity {
 		btnMonthUp.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(month == 0)	{ 
-					month = 11; 
+				if(monthValue == 0)	{ 
+					monthValue = 11; 
 				} 
 				else { 	
-					month--; 
+					monthValue--; 
 				}
-				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
+				if(FinalFunctionsUtilities.isOverCurrentDate(dayValue, monthValue, yearValue, maxDay, maxMonth, maxYear)){
 					currentDateMsg();
 				}
 				else {	
-					day = FinalFunctionsUtilities.valiDate(day, month, year);
-					txtMonth.setText(mesi[month]);
-					txtDay.setText(String.valueOf(day));					
+					dayValue = FinalFunctionsUtilities.valiDate(dayValue, monthValue, yearValue);
+					txtMonth.setText(mesi[monthValue]);
+					txtDay.setText(String.valueOf(dayValue));					
 				}
 			}
 		});
@@ -138,19 +166,19 @@ public class DataNascitaActivity extends Activity {
 		btnMonthDown.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {				
-				if(month == 11) { 
-					month = 0; 
+				if(monthValue == 11) { 
+					monthValue = 0; 
 				}
 				else	 { 
-					month++; 
+					monthValue++; 
 				}
-				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
+				if(FinalFunctionsUtilities.isOverCurrentDate(dayValue, monthValue, yearValue, maxDay, maxMonth, maxYear)){
 					currentDateMsg();
 				}
 				else{	
-					day = FinalFunctionsUtilities.valiDate(day, month, year);
-					txtMonth.setText(mesi[month]);
-					txtDay.setText(String.valueOf(day));					
+					dayValue = FinalFunctionsUtilities.valiDate(dayValue, monthValue, yearValue);
+					txtMonth.setText(mesi[monthValue]);
+					txtDay.setText(String.valueOf(dayValue));					
 				}
 			}
 		});	
@@ -159,16 +187,16 @@ public class DataNascitaActivity extends Activity {
 		btnYearUp.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				year++;
-				if(FinalFunctionsUtilities.isOverCurrentDate(day, month, year, maxDay, maxMonth, maxYear)){
-					year--;
+				yearValue++;
+				if(FinalFunctionsUtilities.isOverCurrentDate(dayValue, monthValue, yearValue, maxDay, maxMonth, maxYear)){
+					yearValue--;
 					currentDateMsg();
 				}
 				else{
-					txtYear.setText(String.valueOf(year));
+					txtYear.setText(String.valueOf(yearValue));
 				}
-					day = FinalFunctionsUtilities.valiDate(day, month, year);
-					txtDay.setText(String.valueOf(day));
+					dayValue = FinalFunctionsUtilities.valiDate(dayValue, monthValue, yearValue);
+					txtDay.setText(String.valueOf(dayValue));
 				
 			}
 		});
@@ -176,15 +204,15 @@ public class DataNascitaActivity extends Activity {
 		btnYearDown.setOnClickListener(new OnClickListener() {
 			@Override
 				public void onClick(View v) {
-					year--;
-					if(year == maxYear-120) {
-						txtYear.setText(String.valueOf(year = maxYear-120));
+					yearValue--;
+					if(yearValue == maxYear-120) {
+						txtYear.setText(String.valueOf(yearValue = maxYear-120));
 					}
 					else {
-						txtYear.setText(String.valueOf(year));
+						txtYear.setText(String.valueOf(yearValue));
 					}
-					day = FinalFunctionsUtilities.valiDate(day, month, year);
-					txtDay.setText(String.valueOf(day));
+					dayValue = FinalFunctionsUtilities.valiDate(dayValue, monthValue, yearValue);
+					txtDay.setText(String.valueOf(dayValue));
 				}
 		});
 		
@@ -205,6 +233,10 @@ public class DataNascitaActivity extends Activity {
 				
 				// Get shared preferences
 				Context context = getApplicationContext();
+				
+				FinalFunctionsUtilities.setSharedPreferences("name", name, context);
+				FinalFunctionsUtilities.setSharedPreferences("surname", surname, context);
+				FinalFunctionsUtilities.setSharedPreferences("mail", mail, context);
 				FinalFunctionsUtilities.setSharedPreferences("day", txtDay.getText().toString(), context);
 				FinalFunctionsUtilities.setSharedPreferences("month", txtMonth.getText().toString(), context);
 				FinalFunctionsUtilities.setSharedPreferences("year", txtYear.getText().toString(), context);
