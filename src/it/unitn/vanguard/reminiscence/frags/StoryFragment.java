@@ -89,16 +89,19 @@ public class StoryFragment extends Fragment {
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
+	{	
 	    super.onActivityResult(requestCode, resultCode, data);
 	    if (resultCode == Activity.RESULT_OK)
 	    {
+Log.e("sadsad","asdad");
+	    	
 	        Uri chosenImageUri = data.getData();
 	        
 	        Bitmap mBitmap = null;
 	        try {
 
-				Bitmap bm =  Media.getBitmap(getView().getContext().getContentResolver(), chosenImageUri);
+				Bitmap bm = Media.getBitmap(getView().getContext().getContentResolver(), chosenImageUri);
+				mBitmap = Media.getBitmap(getView().getContext().getContentResolver(), chosenImageUri);
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();  
 				bm.compress(Bitmap.CompressFormat.JPEG, 40, baos);
 				bm.recycle();
@@ -113,13 +116,13 @@ public class StoryFragment extends Fragment {
 				nameValuePairs.add(new BasicNameValuePair("image",encodedImage));
 
 				try{
-
+/*
 				HttpClient httpclient = new DefaultHttpClient();
 				HttpPost httppost = new HttpPost("http://www.theflame92.altervista.org/base64.php");
 				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 				HttpResponse response = httpclient.execute(httppost);
 				HttpEntity entity = response.getEntity();
-				InputStream is = entity.getContent();
+				InputStream is = entity.getContent();*/
 				view.setImageBitmap(mBitmap);
 				
 				}catch(Exception e){
