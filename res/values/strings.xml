@@ -7,7 +7,7 @@
     <string name="please">Please</string>
     <string name="wait">wait...</string>
     <string name="connection_fail">You must be connected to the internet</string>
-    
+
     <!-- Menus -->
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
@@ -40,7 +40,6 @@
     <string name="registration_name_empty">Name can\'t be blank</string>
     <string name="registration_name_contains_spaces">Name can\'t start or end with spaces</string>
     <string name="registration_email_empty">Email can\'t be blank</string>
-    
 
     <!-- DataNascita_Activity -->
     <string name="data_nascita_activity_title">Date of birth</string>
@@ -79,7 +78,7 @@
 
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">MainPageActivity</string>
-    
+
     <!-- ChangePasswordActivity -->
     <string name="title_activity_change_password">ChangePassword</string>
     <string name="change_password_suggest_label">Change your password:</string>
@@ -91,11 +90,13 @@
     <string name="exit_message">Are you sure you want to exit</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    
+
     <!-- LuogoNascita Activity -->
     <string name="label_luogo_nascita">Where you were born?</string>
     <string name="hint_luogo_nascita">Your birth place</string>
     <string name="birthplace_empty">Birthplace can\'t be black</string>
     <string name="birthplace_contains_spaces">Birthplace can\'t start or end with spaces</string>
+    <string name="title_activity_profile_fragment">ProfileFragment</string>
+    <string name="profile_image_desc">Profile Image</string>
 
 </resources>
