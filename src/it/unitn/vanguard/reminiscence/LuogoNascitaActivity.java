@@ -28,7 +28,7 @@ import android.widget.Button;
 public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 	
 	protected ProgressDialog p;
-	private Button btnLuogoNascita, btnLuogoNascitaBack;
+	private Button btnLuogoNascita;
 	private AutoCompleteTextView txtLuogoNascita;
 	private String first=null;
 	
@@ -42,7 +42,6 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 	
 	private void initializeButtons() {
 		btnLuogoNascita = (Button) findViewById(R.id.btnLuogoNascita);
-		btnLuogoNascitaBack = (Button) findViewById(R.id.btnLuogoNascitaBack);
 		txtLuogoNascita = (AutoCompleteTextView) findViewById(R.id.txtLuogoNascita);
 	}
 
@@ -80,13 +79,6 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 				if(!h.equals(""))
 					new GetSuggLuogoNascita(LuogoNascitaActivity.this).execute(h);
 				
-			}
-		});
-		
-		btnLuogoNascitaBack.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish(); 
 			}
 		});
 	}

@@ -21,7 +21,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentTop="true"
 	        android:gravity="center_horizontal"
-	        android:text="@string/change_password_suggest_label"
+	        android:text="@string/label_luogo_nascita"
 	        android:textColor="@color/white"
 	        android:textSize="@dimen/defaul_textSize_huge"
 	        android:shadowColor="#000000"
@@ -38,7 +38,7 @@
 	        android:layout_marginTop="30dp"
 	        android:background="@drawable/txt_input_bordered"
 	        android:ems="10"
-	        android:hint="@string/change_password_hint"	        
+	        android:hint="@string/hint_luogo_nascita"	        
 	        android:textColor="@color/black" 
 	        android:inputType="textVisiblePassword"
 	        android:selectAllOnFocus="true"
@@ -55,18 +55,6 @@
 	        android:text="@string/confirm_button_label"
 	        android:textColor="@color/white"
 	        android:textSize="60sp" />
-	    
-	      <Button
-	        android:id="@+id/btnLuogoNascitaBack"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_centerHorizontal="true"
-	        android:layout_below="@+id/btnLuogoNascita"
-	        android:layout_marginTop="30dp"
-	        android:background="@drawable/btn_default_selector"
-	        android:text="@string/back_button_label"
-	        android:textSize="60sp"
-	        android:textColor="@color/white" />
       
       </RelativeLayout>
 

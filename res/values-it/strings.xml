@@ -88,5 +88,7 @@
     <string name="empty_password">Inserisci password e conferma.</string>
     <string name="wrong_password">Le due password inserite non corrispondono.</string>
     <string name="correct_password">La tua nuova password è stata cambiata!</string>
+    <string name="label_luogo_nascita">Inserisci la tua data di nascita</string>
+    <string name="hint_luogo_nascita">Luogo di nascita</string>
     
 </resources>
