@@ -39,7 +39,7 @@
     <string name="registration_surname_contains_spaces">Il Cognome non può iniziare o terminare con spazi</string>
     <string name="registration_name_empty">Il Nome non può rimanere vuoto</string>
     <string name="registration_name_contains_spaces">Il Nome non può iniziare o terminare con spazi</string>
-    <string name="registration_email_empty">L' e-mail non può rimanere vuota</string>
+    <string name="registration_email_empty">L\' e-mail non può rimanere vuota</string>
     
     
     <!-- DataNascita_Activity -->
