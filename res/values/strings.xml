@@ -90,7 +90,7 @@
     <string name="correct_password">Your password has been changed!</string>
     <string name="label_luogo_nascita">Insert your birth place</string>
     <string name="hint_luogo_nascita">Your birth place</string>
-    <string name="exit_message">Are you sure you want to exit</string>
+    <string name="exit_message">Are you sure you want to exit?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
