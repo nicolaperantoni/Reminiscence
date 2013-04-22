@@ -75,7 +75,9 @@
          Vivamus et turpis ipsum, quis tristique orci. Vestibulum egestas 
          felis at justo aliquet sollicitudin.</string>
     <string name="no_story">Tell us a story about %1$s</string>
-
+    <string name="logout_failed">Logout failed</string>
+    <string name="logout_success">Logout successed</string> 
+    
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">MainPageActivity</string>
 

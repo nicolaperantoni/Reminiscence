@@ -1,12 +1,16 @@
 package it.unitn.vanguard.reminiscence;
 
+import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
 import it.unitn.vanguard.reminiscence.frags.EmptyStoryFragment;
 import it.unitn.vanguard.reminiscence.frags.StoryFragment;
+import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
 
-import android.R.animator;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -31,7 +35,7 @@ import android.widget.Toast;
 import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
 import eu.giovannidefrancesco.DroidTimeline.view.YearView;
 
-public class ViewStoriesFragmentActivity extends FragmentActivity {
+public class ViewStoriesFragmentActivity extends FragmentActivity implements OnTaskFinished{
 
 	private Context context;
 
@@ -153,8 +157,17 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 
 				builder.setMessage(R.string.exit_message)
 				.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-
+					public void onClick(DialogInterface dialogInterface, int id) {
+						dialog = new ProgressDialog(ViewStoriesFragmentActivity.this);
+						dialog.setTitle(getResources().getString(R.string.please));
+						dialog.setMessage(getResources().getString(R.string.wait));
+						dialog.setCancelable(false);
+						dialog.show();
+						
+						String email = FinalFunctionsUtilities.getSharedPreferences("email", context);
+						String password = FinalFunctionsUtilities.getSharedPreferences("password", context);
+						
+						new LogoutTask(ViewStoriesFragmentActivity.this).execute(email, password);
 					}
 				})
 				.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -181,5 +194,20 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 			startActivity(getIntent());
 		}
 		return true;
+	}
+
+	@Override
+	public void onTaskFinished(JSONObject res) {
+		if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
+		try {
+			if (res.getString("success").equals("true")) {
+				Toast.makeText(getApplicationContext(), getResources().getString(R.string.logout_success), Toast.LENGTH_LONG).show();
+				startActivity(new Intent(ViewStoriesFragmentActivity.this, LoginActivity.class));
+			} else {
+				Toast.makeText(this, getResources().getString(R.string.logout_failed), Toast.LENGTH_LONG).show();
+			}
+		} catch (JSONException e) {
+			Log.e(LoginActivity.class.getName(), e.toString());
+		}		
 	}
 }
