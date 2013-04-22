@@ -1,35 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="bottom" >
+    
+    	<RelativeLayout
+	    android:id="@+id/panelButtonStory"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:background="@color/red">
+	    	    
+	    <Button
+	        android:id="@+id/btnPhoto"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Photo" />
+	    
+	</RelativeLayout>
+	
+	<ScrollView
+	    android:id="@+id/scrollStory"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_gravity="top"
+	    android:layout_above="@id/panelButtonStory" >
+	
+	    <RelativeLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" >
+	
+	        <TextView
+	            android:id="@+id/story_title_tv"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:layout_marginTop="30dp"
+	            android:padding="10dp"
+	            android:singleLine="false"
+	            android:text="@string/story_title_placeholder"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+	        
+	        <ImageView
+	            android:id="@+id/photo"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" 
+	            android:layout_centerHorizontal="true"
+	            android:layout_below="@id/story_title_tv"
+	            android:background="@color/red"/>
+	
+	        <TextView
+	            android:id="@+id/story_description_tv"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            android:layout_below="@+id/photo"
+	            android:layout_centerHorizontal="true"
+	            android:layout_marginTop="50dp"
+	            android:gravity="center"
+	            android:padding="10dp"
+	            android:singleLine="false"
+	            android:text="@string/story_description_placeholder"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	        
+	    </RelativeLayout>
+	    
+	</ScrollView>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/story_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:padding="10dp"
-            android:singleLine="false"
-            android:text="@string/story_title_placeholder"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/story_description_tv"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@+id/story_title_tv"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:singleLine="false"
-            android:text="@string/story_description_placeholder"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </RelativeLayout>
-
-</ScrollView>
+</RelativeLayout>
