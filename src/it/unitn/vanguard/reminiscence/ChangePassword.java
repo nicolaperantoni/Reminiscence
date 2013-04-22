@@ -159,7 +159,7 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 				Toast.makeText(this, getResources().getString(R.string.login_failed),
 						Toast.LENGTH_LONG).show();
 		} catch (JSONException e) {
-			Log.e(LoginActivity.class.getName(), e.toString());
+			Log.e(ChangePassword.class.getName(), e.toString());
 		}
 	}
 	

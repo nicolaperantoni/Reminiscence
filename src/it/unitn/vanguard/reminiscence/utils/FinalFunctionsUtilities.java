@@ -88,7 +88,7 @@ public final class FinalFunctionsUtilities {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 		
-		if(key.equals("day")) { retVal = "01"; }
+		if(key.equals("day")) { retVal = "1"; }
 		if(key.equals("month")) { retVal = "Gennaio"; }
 		if(key.equals("year")) { retVal = "1940"; }
 		if(key.equals("language")) {

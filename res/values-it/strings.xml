@@ -93,7 +93,7 @@
     <string name="no">No</string>
     
     <!-- LuogoNascita Activity -->
-    <string name="label_luogo_nascita">Inserisci la tua data di nascita</string>
+    <string name="label_luogo_nascita">Dove sei nato?</string>
     <string name="hint_luogo_nascita">Luogo di nascita</string>
     <string name="birthplace_empty">Il Luogo di nascita non può rimanere vuoto</string>
     <string name="birthplace_contains_spaces">Il Luogo di nascita non può iniziare o terminare con spazi</string>
