@@ -76,6 +76,8 @@
          Vivamus et turpis ipsum, quis tristique orci. Vestibulum egestas 
          felis at justo aliquet sollicitudin.</string>
     <string name="no_story">Raccontaci una storia sul %1$s</string>
+    <string name="logout_failed">Logout fallito</string>
+    <string name="logout_success">Logout riuscito con successo</string>
 
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">Pagina Principale</string>
@@ -89,11 +91,11 @@
     <string name="wrong_password">Le due password inserite non corrispondono.</string>
     <string name="correct_password">La tua nuova password è stata cambiata!</string>
     <string name="yes">Si</string>
-    <string name="exit_message">Sei sicuro di voler uscire</string>
+    <string name="exit_message">Sei sicuro di voler uscire?</string>
     <string name="no">No</string>
     
     <!-- LuogoNascita Activity -->
-    <string name="label_luogo_nascita">Inserisci la tua data di nascita</string>
+    <string name="label_luogo_nascita">Dove sei nato?</string>
     <string name="hint_luogo_nascita">Luogo di nascita</string>
     <string name="birthplace_empty">Il Luogo di nascita non può rimanere vuoto</string>
     <string name="birthplace_contains_spaces">Il Luogo di nascita non può iniziare o terminare con spazi</string>

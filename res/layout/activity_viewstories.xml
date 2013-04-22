@@ -7,10 +7,10 @@
     <eu.giovannidefrancesco.DroidTimeline.view.TimeLineView
         android:id="@+id/viewstories_tlv"
         android:layout_width="fill_parent"
-        app:backgroundColor="@color/pomegranate"
-        app:yearColor="@color/panel"
-        app:linesColor="@color/panel"
-        android:layout_height="150dp" />
+        app:backgroundColor="@color/red_background_dark"
+        app:yearColor="@color/white"
+        app:linesColor="@color/white"
+        android:layout_height="100dp" />
     <View
         android:id="@+id/viewstories_shadow"
         android:layout_width="fill_parent"

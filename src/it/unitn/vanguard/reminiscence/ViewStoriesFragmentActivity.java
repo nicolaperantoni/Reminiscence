@@ -1,35 +1,44 @@
 package it.unitn.vanguard.reminiscence;
 
-import it.unitn.vanguard.reminiscence.asynctasks.RegistrationTask;
+import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
 import it.unitn.vanguard.reminiscence.frags.EmptyStoryFragment;
 import it.unitn.vanguard.reminiscence.frags.StoryFragment;
+import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
 import eu.giovannidefrancesco.DroidTimeline.view.YearView;
 
-public class ViewStoriesFragmentActivity extends FragmentActivity {
+public class ViewStoriesFragmentActivity extends FragmentActivity implements OnTaskFinished{
 
 	private Context context;
-	
+
 	private ViewPager mViewPager;
 	private TimeLineView mTimeLine;
 	protected ProgressDialog dialog;
@@ -62,22 +71,6 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 				st.setYear(((YearView) arg1).getYear());
 			}
 		});
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Siamo spiacenti!");
-		builder.setMessage("Questa schermata non e' ancora pronta,"
-				+ "ma puoi comunque visualizzarla!");
-		builder.setCancelable(true);
-		builder.setNeutralButton("Capito!",
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-
-				});
-		builder.create().show();
 	}
 
 	private class StoriesAdapter extends FragmentPagerAdapter {
@@ -128,7 +121,7 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		
+
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.timeline, menu);
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
@@ -142,46 +135,79 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Locale locale = null;
+
 		switch (item.getItemId()) {
-			// Languages
-		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
-		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
-		    case R.id.action_settings: {
-		    	Intent changePasswd = new Intent(getApplicationContext(),
-		    	ChangePassword.class);
-		    	startActivityForResult(changePasswd, 0);
-		    	return true;
-		    }
-		    case R.id.action_logout: {
-      		    if(FinalFunctionsUtilities.isDeviceConnected(getApplicationContext())) {
-      		    	AlertDialog.Builder builder = new AlertDialog.Builder(ViewStoriesFragmentActivity.this);
-      		        builder.setMessage(R.string.exit_message)
-      		               .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-      		                   public void onClick(DialogInterface dialog, int id) {
-      		                       
-      		                   }
-      		               })
-      		               .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-      		                   public void onClick(DialogInterface dialog, int id) {
-      		                      
-      		                   }
-      		               });
-      		        builder.show();
+		// Languages
+		case R.id.action_language_it: { locale = Locale.ITALY; break; }
+		case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
+		case R.id.action_settings: {
+			Intent changePasswd = new Intent(getApplicationContext(),
+					ChangePassword.class);
+			startActivityForResult(changePasswd, 0);
+			return true;
+		}
+		case R.id.action_logout: {
+			if(FinalFunctionsUtilities.isDeviceConnected(getApplicationContext())) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+
+				builder.setMessage(R.string.exit_message)
+				.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialogInterface, int id) {
+						dialog = new ProgressDialog(ViewStoriesFragmentActivity.this);
+						dialog.setTitle(getResources().getString(R.string.please));
+						dialog.setMessage(getResources().getString(R.string.wait));
+						dialog.setCancelable(false);
+						dialog.show();
+						
+						String email = FinalFunctionsUtilities.getSharedPreferences("email", context);
+						String password = FinalFunctionsUtilities.getSharedPreferences("password", context);
+						
+						new LogoutTask(ViewStoriesFragmentActivity.this).execute(email, password);
+					}
+				})
+				.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+
+					}
+				});
+
+				AlertDialog alert =  builder.create();
+				alert.show();
+				((TextView) alert.findViewById(android.R.id.message)).setGravity(Gravity.CENTER);
+				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE)).setBackgroundResource(R.drawable.bottone_logout);
+				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE)).setTextColor(Color.WHITE);
+
 			}
 			else { 	Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show(); }
-		    } 
-	  }
-	    
-		
+		} 
+		}
+
+
 		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
-		    // Refresh activity
-		    finish();
-		    startActivity(getIntent());
-	    }
-	    return true;
+			// Refresh activity
+			finish();
+			startActivity(getIntent());
+		}
+		return true;
+	}
+
+	@Override
+	public void onTaskFinished(JSONObject res) {
+		if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
+		try {
+			if (res.getString("success").equals("true")) {
+				Toast.makeText(getApplicationContext(), getResources().getString(R.string.logout_success), Toast.LENGTH_LONG).show();
+				startActivity(new Intent(ViewStoriesFragmentActivity.this, LoginActivity.class));
+			} else {
+				Toast.makeText(this, getResources().getString(R.string.logout_failed), Toast.LENGTH_LONG).show();
+			}
+		} catch (JSONException e) {
+			Log.e(LoginActivity.class.getName(), e.toString());
+		}		
 	}
 }

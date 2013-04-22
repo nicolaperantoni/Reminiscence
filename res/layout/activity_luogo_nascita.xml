@@ -23,7 +23,7 @@
 	        android:gravity="center_horizontal"
 	        android:text="@string/label_luogo_nascita"
 	        android:textColor="@color/white"
-	        android:textSize="@dimen/defaul_textSize_huge"
+	        android:textSize="@dimen/default_textSize_huge"
 	        android:shadowColor="#000000"
 	        android:shadowDx="3"
 	        android:shadowDy="3"
@@ -36,10 +36,11 @@
 	        android:layout_below="@+id/luogonascita_header"
 	        android:layout_centerHorizontal="true"
 	        android:layout_marginTop="30dp"
+	        android:textColorHighlight="#000"
 	        android:background="@drawable/txt_input_bordered"
-	        android:ems="10"
-	        android:hint="@string/hint_luogo_nascita"	         
+	        android:ems="10"	         
 	        android:inputType="text"
+	        android:hint="@string/hint_luogo_nascita"
 	        android:selectAllOnFocus="true"
 	        android:textSize="60sp" />
 	

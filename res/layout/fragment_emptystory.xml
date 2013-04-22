@@ -52,6 +52,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@android:drawable/ic_input_add" />
+        android:background="@drawable/add_story" />
 
 </RelativeLayout>

@@ -181,9 +181,10 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 			
 			if(dialog!=null && dialog.isShowing()) { dialog.dismiss(); 	}
 			
-			ret = res.getString("success")+res.getString("err1")+res.getString("err2")+res.getString("err3")+res.getString("err4")+res.getString("err5");
+			ret = res.getString("success"); //+res.getString("err1")+res.getString("err2")+res.getString("err3")+res.getString("err4")+res.getString("err5");
 			if (ret.startsWith("true")) {
-			
+				
+				FinalFunctionsUtilities.setSharedPreferences("token", res.getString("token"), getApplicationContext());
 				Toast.makeText(this, getResources().getText(R.string.registration_succes), Toast.LENGTH_SHORT).show();
 				FinalFunctionsUtilities.setSharedPreferences("password", password, getApplicationContext());
 				

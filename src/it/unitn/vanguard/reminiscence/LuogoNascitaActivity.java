@@ -47,6 +47,8 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = getApplicationContext();
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_luogo_nascita);
 		Resources res = getResources(); 
 		int color = res.getColor(android.R.color.black);
@@ -144,11 +146,10 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 			e.printStackTrace();
 		}
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), 
-				android.R.layout.simple_dropdown_item_1line,removeDuplicate(sugg));
+				R.layout.my_item_view,removeDuplicate(sugg));
 		txtLuogoNascita.setThreshold(2);
 		txtLuogoNascita.setAdapter(adapter);
 		txtLuogoNascita.showDropDown();
-		txtLuogoNascita.setTextColor(Color.BLACK);
 	}
 	
 	@Override

@@ -18,13 +18,13 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="it.unitn.vanguard.reminiscence.SelectActivity"
-            android:label="@string/app_name" 
-            android:configChanges="locale|orientation">
+            android:configChanges="locale|orientation"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.PasswordActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:configChanges="locale|orientation" >
+            android:configChanges="locale|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.LuogoNascitaActivity"
@@ -32,15 +32,15 @@
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.DataNascitaActivity"
+            android:configChanges="locale|orientation"
             android:label="@string/data_nascita_activity_title"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:configChanges="locale|orientation" >
+            android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.LoginActivity"
+            android:configChanges="locale|orientation"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:configChanges="locale|orientation" >
+            android:windowSoftInputMode="stateAlwaysHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,9 +49,9 @@
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.RegistrationActivity"
+            android:configChanges="locale|orientation"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:configChanges="locale|orientation" >
+            android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.ViewStoriesFragmentActivity"
@@ -59,14 +59,22 @@
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.MainPageActivity"
-            android:label="@string/title_activity_main_page"
-            android:configChanges="locale|orientation">
+            android:configChanges="locale|orientation"
+            android:label="@string/title_activity_main_page" >
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.ChangePassword"
+            android:configChanges="locale|orientation"
             android:label="@string/title_activity_change_password"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:configChanges="locale|orientation" >
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name="it.unitn.vanguard.reminiscence.frags.ProfileFragment"
+            android:label="@string/title_activity_profile_fragment"
+            android:parentActivityName="android.support.v4.app.FragmentActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.support.v4.app.FragmentActivity" />
         </activity>
     </application>
 

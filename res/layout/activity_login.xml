@@ -58,7 +58,7 @@
             android:drawablePadding="10dp"
             android:ems="12"
             android:hint="@string/login_username_hint"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:textColor="@android:color/black"  />
 
         <LinearLayout

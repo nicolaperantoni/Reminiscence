@@ -46,6 +46,10 @@ public class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(((Activity) caller).getApplicationContext());
 		String token = prefs.getString("token", "");
 		String old = prefs.getString("password", "");
+
+		Log.e("token", token);
+		Log.e("old pass",old);
+		Log.e("new pass",arg0[0]);
 		
 
 		if (!token.equals("")) {
@@ -67,7 +71,7 @@ public class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
 				json = new JSONObject(jsonString);
 				if (json != null && json.getString("success").equals("true")) {
 					SharedPreferences.Editor editor = prefs.edit();
-					editor.putString("password", json.getString("password"));
+					editor.putString("password", arg0[0]);
 					editor.commit();
 					return true;
 				}
