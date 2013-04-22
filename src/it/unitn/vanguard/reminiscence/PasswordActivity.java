@@ -77,7 +77,6 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 		suggestionList = new ArrayList<String>(2);
 		suggestionList.add(name); 
 		suggestionList.add(surname);
-		
 	}
 
 	private void initializeButtons() {
@@ -104,7 +103,6 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 		public void onClick(View v) {
 			
 			password = editTextPassword.getText().toString();
-			
 			passwordOk = !password.equals("");
 			
 			if(!passwordOk) {

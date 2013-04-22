@@ -1,6 +1,7 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.asynctasks.ChangePasswordTask;
+import it.unitn.vanguard.reminiscence.asynctasks.RegistrationTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
@@ -13,6 +14,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +30,10 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 	protected ProgressDialog dialog;
 	private Button btnChangePassword, btnChangePasswordBack;
 	private EditText txtNewPassword, txtConfirmPassword;
+	
+	// Controllo sintassi password e conferma
+	private boolean passwordOk, confirmOk;
+	private String password, confirm;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +72,10 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 						Toast.makeText(ChangePassword.this, getResources().getString(R.string.wrong_password),
 								Toast.LENGTH_LONG).show();
 					}
+					else if(!FinalFunctionsUtilities.isDeviceConnected(getApplicationContext())) {
+						Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show();
+					}
 					else {
-
 						dialog = new ProgressDialog(ChangePassword.this);
 						dialog.setTitle(getResources().getString(R.string.please));
 						dialog.setMessage(getResources().getString(R.string.wait));
@@ -84,6 +93,55 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 			public void onClick(View v) {
 				finish();
 			}
+		});
+		
+		txtNewPassword.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void afterTextChanged(Editable s) {
+				
+				password = txtNewPassword.getText().toString();
+				passwordOk = !password.equals("");
+				
+				if(!passwordOk) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_empty), Toast.LENGTH_SHORT).show();
+				}
+				else if (!(passwordOk = passwordOk && !password.contains(" "))) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_contains_spaces), Toast.LENGTH_SHORT).show();
+				}
+				
+				if(passwordOk) { txtNewPassword.setBackgroundResource(R.drawable.txt_input_bordered); }
+				else { 	txtNewPassword.setBackgroundResource(R.drawable.txt_input_bordered_error); }
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) { }
+		});
+		
+		
+		txtConfirmPassword.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void afterTextChanged(Editable s) {
+				
+				confirm = txtConfirmPassword.getText().toString();
+				confirmOk = !confirm.equals("");
+				
+				if(!confirmOk) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_empty), Toast.LENGTH_SHORT).show();
+				}
+				else if (!(confirmOk = confirmOk && !confirm.contains(" "))) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_contains_spaces), Toast.LENGTH_SHORT).show();
+				}
+				
+				if(confirmOk) { txtConfirmPassword.setBackgroundResource(R.drawable.txt_input_bordered); }
+				else { 	txtConfirmPassword.setBackgroundResource(R.drawable.txt_input_bordered_error); }
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) { }
 		});
 	}
 

@@ -35,6 +35,12 @@
     <string name="user_surname_label">Surname</string>
     <string name="user_name_label">Name</string>
     <string name="user_mail_label">E-Mail</string>
+    <string name="registration_surname_empty">Surname can\'t be blank</string>
+    <string name="registration_surname_contains_spaces">Surname can\'t start or end with spaces</string>
+    <string name="registration_name_empty">Name can\'t be blank</string>
+    <string name="registration_name_contains_spaces">Name can\'t start or end with spaces</string>
+    <string name="registration_email_empty">Email can\'t be blank</string>
+    
 
     <!-- DataNascita_Activity -->
     <string name="data_nascita_activity_title">Date of birth</string>

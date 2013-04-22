@@ -1,9 +1,43 @@
-
+﻿
 Registrazione:
 username con simboli [no sense rz]
 email deve finire con com,it,eu,org,uk, [no sense rz]
 chiave -> parola
 
+bug ancora nella selezione della data di nascita se portato nel 2013.
+password e data non vengono ricordate andando avanti e indietro
+applicazione crash quando viene cambiata la passwd (non sempre!)
+
+StackTrace:
+04-20 20:57:21.920: E/AndroidRuntime(5806): FATAL EXCEPTION: main
+04-20 20:57:21.920: E/AndroidRuntime(5806): java.lang.ArrayIndexOutOfBoundsException: length=12; index=12
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities.valiDate(FinalFunctionsUtilities.java:51)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at it.unitn.vanguard.reminiscence.DataNascitaActivity$1.onClick(DataNascitaActivity.java:96)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at android.view.View.performClick(View.java:4084)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at android.view.View$PerformClick.run(View.java:16966)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at android.os.Handler.handleCallback(Handler.java:615)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at android.os.Handler.dispatchMessage(Handler.java:92)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at android.os.Looper.loop(Looper.java:137)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at android.app.ActivityThread.main(ActivityThread.java:4745)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at java.lang.reflect.Method.invokeNative(Native Method)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at java.lang.reflect.Method.invoke(Method.java:511)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:786)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:553)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at dalvik.system.NativeStart.main(Native Method)
+
+avvolte la app dice email e password errati
+quando cerco di cambiare la password (probabilmente perche' viene cambiata
+sul server e l'utente non rifa' il login quindi sul device non viene aggiornata)
+
+se nella schermata di cambia password cambia la linga la schermata delle
+storie non lo fa (e neanche il resto della app)
+
+posso tornare indietro dalla schermata delle storie al login 
+ 
+
+TO-DOs:
+
+logout = bonny
 nuova storia = defra
 apload foto e video = bonny + zen
 mockup lista amici + profilo = perantoni
