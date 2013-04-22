@@ -1,7 +1,6 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.asynctasks.GetSuggLuogoNascita;
-import it.unitn.vanguard.reminiscence.asynctasks.RegistrationTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
@@ -18,6 +17,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -47,7 +48,11 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 		super.onCreate(savedInstanceState);
 		context = getApplicationContext();
 		setContentView(R.layout.activity_luogo_nascita);
+		Resources res = getResources(); 
+		int color = res.getColor(android.R.color.black);
 		initializeButtons();
+
+		txtLuogoNascita.setTextColor(color );
 		initializeListeners();
 	}
 	
@@ -140,8 +145,10 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 		}
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), 
 				android.R.layout.simple_dropdown_item_1line,removeDuplicate(sugg));
+		txtLuogoNascita.setThreshold(2);
 		txtLuogoNascita.setAdapter(adapter);
 		txtLuogoNascita.showDropDown();
+		txtLuogoNascita.setTextColor(Color.BLACK);
 	}
 	
 	@Override
