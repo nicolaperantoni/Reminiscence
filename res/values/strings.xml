@@ -88,5 +88,9 @@
     <string name="empty_password">Insert password and confirm it.</string>
     <string name="wrong_password">Passwords don\'t match.</string>
     <string name="correct_password">Your password has been changed!</string>
+    <string name="exit_message">Are you sure you want to exit?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string />
 
 </resources>
