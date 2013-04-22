@@ -27,6 +27,10 @@
             android:configChanges="locale|orientation" >
         </activity>
         <activity
+            android:name="it.unitn.vanguard.reminiscence.LuogoNascitaActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
             android:name="it.unitn.vanguard.reminiscence.DataNascitaActivity"
             android:label="@string/data_nascita_activity_title"
             android:windowSoftInputMode="stateAlwaysHidden"
