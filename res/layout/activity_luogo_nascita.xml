@@ -36,6 +36,7 @@
 	        android:layout_below="@+id/luogonascita_header"
 	        android:layout_centerHorizontal="true"
 	        android:layout_marginTop="30dp"
+	        android:textColorHighlight="#000"
 	        android:background="@drawable/txt_input_bordered"
 	        android:ems="10"
 	        android:hint="@string/hint_luogo_nascita"

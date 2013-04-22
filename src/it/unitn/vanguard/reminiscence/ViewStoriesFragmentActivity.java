@@ -62,22 +62,6 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 				st.setYear(((YearView) arg1).getYear());
 			}
 		});
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Siamo spiacenti!");
-		builder.setMessage("Questa schermata non e' ancora pronta,"
-				+ "ma puoi comunque visualizzarla!");
-		builder.setCancelable(true);
-		builder.setNeutralButton("Capito!",
-				new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-
-				});
-		builder.create().show();
 	}
 
 	private class StoriesAdapter extends FragmentPagerAdapter {

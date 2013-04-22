@@ -33,7 +33,7 @@ public class GetSuggLuogoNascita extends AsyncTask<String, Void, Boolean> {
 		if (arg0.length < 1) {
 			throw new IllegalStateException("You should pass at least 1 params");
 		}
-		String url = "https://www.dandelion.eu/api/v1/datagem/25/data.json?$order=&$limit=100&$offset=0&$where=istarts_with(municipality,'";
+		String url = "https://www.dandelion.eu/api/v1/datagem/25/data.json?$order=&$limit=5&$offset=0&$where=istarts_with(municipality,'";
 		url =url + arg0[0] + "')";
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url); //find link from luca
