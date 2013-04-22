@@ -1,6 +1,7 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.asynctasks.GetSuggLuogoNascita;
+import it.unitn.vanguard.reminiscence.asynctasks.RegistrationTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
@@ -96,10 +97,11 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 				else if (!(placeOk = placeOk && !h.contains(" "))) {
 					Toast.makeText(getApplicationContext(), getResources().getText(R.string.birthplace_contains_spaces), Toast.LENGTH_SHORT).show();
 				}
-				else {
+				else if(FinalFunctionsUtilities.isDeviceConnected(getApplicationContext())) {
 					new GetSuggLuogoNascita(LuogoNascitaActivity.this).execute(h);
 				}
-				
+				else { 	Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show(); }
+
 				if(placeOk) { txtLuogoNascita.setBackgroundResource(R.drawable.txt_input_bordered); }
 				else { 	txtLuogoNascita.setBackgroundResource(R.drawable.txt_input_bordered_error); }
 				
