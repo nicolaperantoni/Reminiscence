@@ -30,6 +30,9 @@
             android:singleLine="false"
             android:text="@string/story_description_placeholder"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        
+        
     </RelativeLayout>
 
 </ScrollView>
