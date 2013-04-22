@@ -203,6 +203,7 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements OnT
 			if (res.getString("success").equals("true")) {
 				Toast.makeText(getApplicationContext(), getResources().getString(R.string.logout_success), Toast.LENGTH_LONG).show();
 				startActivity(new Intent(ViewStoriesFragmentActivity.this, LoginActivity.class));
+				this.finish();
 			} else {
 				Toast.makeText(this, getResources().getString(R.string.logout_failed), Toast.LENGTH_LONG).show();
 			}
