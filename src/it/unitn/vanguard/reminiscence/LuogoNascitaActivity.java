@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,7 +29,7 @@ import android.widget.Button;
 public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 	
 	protected ProgressDialog p;
-	private Button btnLuogoNascita, btnLuogoNascitaBack;
+	private Button btnLuogoNascitaConfirm, btnLuogoNascitaBack;
 	private AutoCompleteTextView txtLuogoNascita;
 	private String first=null;
 	
@@ -41,7 +42,7 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 	}
 	
 	private void initializeButtons() {
-		btnLuogoNascita = (Button) findViewById(R.id.btnLuogoNascita);
+		btnLuogoNascitaConfirm = (Button) findViewById(R.id.btnLuogoNascita);
 		btnLuogoNascitaBack = (Button) findViewById(R.id.btnLuogoNascitaBack);
 		txtLuogoNascita = (AutoCompleteTextView) findViewById(R.id.txtLuogoNascita);
 	}
@@ -77,6 +78,7 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 				
 				String h = txtLuogoNascita.getText().toString();
 				h = h.trim();
+				h = h.replace(" ", "+");
 				if(!h.equals(""))
 					new GetSuggLuogoNascita(LuogoNascitaActivity.this).execute(h);
 				
@@ -87,6 +89,17 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 			@Override
 			public void onClick(View v) {
 				finish(); 
+			}
+		});
+		
+		btnLuogoNascitaConfirm.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// intent
+				Intent loginIntent = new Intent(getApplicationContext(), ViewStoriesFragmentActivity.class);
+				loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivityForResult(loginIntent, 0);
+				finish();
 			}
 		});
 	}

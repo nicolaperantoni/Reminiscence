@@ -84,9 +84,18 @@ public final class FinalFunctionsUtilities {
 	}
 
 	public static String getSharedPreferences(String key, Context context) {
+		String retVal = "";
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
-		return prefs.getString(key, "");
+		
+		if(key.equals("day")) { retVal = "01"; }
+		if(key.equals("month")) { retVal = "Gennaio"; }
+		if(key.equals("year")) { retVal = "1940"; }
+		if(key.equals("language")) {
+			Configuration config = context.getResources().getConfiguration();
+			retVal = config.locale.getLanguage();
+		}
+		return prefs.getString(key, retVal);
 	}
 
 	/**

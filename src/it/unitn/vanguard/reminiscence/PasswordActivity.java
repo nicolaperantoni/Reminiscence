@@ -188,9 +188,9 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 				FinalFunctionsUtilities.setSharedPreferences("password", password, getApplicationContext());
 				
 				// intent
-				Intent loginIntent = new Intent(getApplicationContext(), ViewStoriesFragmentActivity.class);
-				loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivityForResult(loginIntent, 0);
+				Intent intent = new Intent(getApplicationContext(), LuogoNascitaActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivityForResult(intent, 0);
 				finish();
 			}
 			else {
