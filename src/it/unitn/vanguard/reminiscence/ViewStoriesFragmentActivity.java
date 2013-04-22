@@ -1,5 +1,6 @@
 package it.unitn.vanguard.reminiscence;
 
+import it.unitn.vanguard.reminiscence.asynctasks.RegistrationTask;
 import it.unitn.vanguard.reminiscence.frags.EmptyStoryFragment;
 import it.unitn.vanguard.reminiscence.frags.StoryFragment;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
@@ -7,6 +8,7 @@ import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 import java.util.Locale;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,6 +32,7 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 	
 	private ViewPager mViewPager;
 	private TimeLineView mTimeLine;
+	protected ProgressDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -153,7 +156,26 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 		    	startActivityForResult(changePasswd, 0);
 		    	return true;
 		    }
-	    }
+		    case R.id.action_logout: {
+      		    if(FinalFunctionsUtilities.isDeviceConnected(getApplicationContext())) {
+      		    	AlertDialog.Builder builder = new AlertDialog.Builder(ViewStoriesFragmentActivity.this);
+      		        builder.setMessage(R.string.exit_message)
+      		               .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+      		                   public void onClick(DialogInterface dialog, int id) {
+      		                       // FIRE ZE MISSILES!
+      		                   }
+      		               })
+      		               .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+      		                   public void onClick(DialogInterface dialog, int id) {
+      		                       // User cancelled the dialog
+      		                   }
+      		               });
+      		        builder.show();
+			}
+			else { 	Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show(); }
+		    } 
+	  }
+	    
 		
 		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
 		    // Refresh activity
