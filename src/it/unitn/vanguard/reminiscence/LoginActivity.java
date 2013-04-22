@@ -41,14 +41,15 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = getApplicationContext();
-		/*
+	
 		// Se l'utente aveva già affettuato il login in precedenza salta dirett nella timeline
 		if(FinalFunctionsUtilities.isLoggedIn(getApplicationContext())) { 
 			Intent changePasswd = new Intent(getApplicationContext(),
 					ViewStoriesFragmentActivity.class);
 			startActivityForResult(changePasswd, 0);
 			finish();
-		}*/
+		}
+		
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_login);
