@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class RegistrationActivity extends Activity {
 
@@ -121,8 +122,14 @@ public class RegistrationActivity extends Activity {
 			public void afterTextChanged(Editable s) {
 				
 				name = editTextName.getText().toString();
-				nameOk = !(name.trim().equals("") || name.startsWith(" ") || name.endsWith(" "));
-				
+				nameOk = !name.trim().equals("");
+				if(!nameOk) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_surname_empty), Toast.LENGTH_SHORT).show();
+				}
+				else if (!(nameOk = nameOk && !name.startsWith(" ") && !name.endsWith(" "))) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_surname_contains_spaces), Toast.LENGTH_SHORT).show();
+				}
+
 				if(!nameOk) {
 					editTextName.setBackgroundResource(R.drawable.txt_input_bordered_error);
 				}
@@ -142,7 +149,13 @@ public class RegistrationActivity extends Activity {
 			public void afterTextChanged(Editable s) {
 				
 				surname = editTextSurname.getText().toString();
-				surnameOk = !(surname.trim().equals("") || surname.startsWith(" ") || surname.endsWith(" "));
+				surnameOk = !surname.trim().equals("");
+				if(!surnameOk) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_surname_empty), Toast.LENGTH_SHORT).show();
+				}
+				else if (!(surnameOk = surnameOk && !surname.startsWith(" ") && !surname.endsWith(" "))) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_surname_contains_spaces), Toast.LENGTH_SHORT).show();
+				}
 				
 				if(!surnameOk) {
 					editTextSurname.setBackgroundResource(R.drawable.txt_input_bordered_error);
