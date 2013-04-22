@@ -1,8 +1,6 @@
 package it.unitn.vanguard.reminiscence;
 
-import it.unitn.vanguard.reminiscence.asynctasks.LoginTask;
 import it.unitn.vanguard.reminiscence.asynctasks.RegistrationTask;
-
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
@@ -15,10 +13,11 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,11 +30,13 @@ import android.widget.Toast;
 
 public class PasswordActivity extends Activity implements OnTaskFinished {
 
+	private Context context;
+	
 	private EditText editTextPassword;
 	private Button btnBack,btnFrecciaBack;
 	private Button btnConfirm,btnFrecciaConferma;
 	private Button btnReloadPasswd;
-	protected ProgressDialog p;
+	protected ProgressDialog dialog;
 	
 	private String name;
 	private String surname;
@@ -48,10 +49,14 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	// Password suggestion
 	private ArrayList<String> suggestionList;
 	private int rand;
+	private boolean passwordOk = true;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		context = getApplicationContext();
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_registration_password);
 		initializeButtons();
 		initializeVars();
@@ -61,21 +66,17 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 
 	private void initializeVars() {
 
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-		name = prefs.getString("name", "");
-		surname = prefs.getString("surname", "");
-		mail = prefs.getString("mail", "");
-		day = prefs.getString("day", "");
-		month = prefs.getString("month", "");
-		year = prefs.getString("year", "");
-		
-		//Toast.makeText(this, mail, Toast.LENGTH_SHORT).show();
+		Context context = getApplicationContext();
+		name = FinalFunctionsUtilities.getSharedPreferences("name", context);
+		surname = FinalFunctionsUtilities.getSharedPreferences("surname", context);
+		mail = FinalFunctionsUtilities.getSharedPreferences("mail", context);
+		day = FinalFunctionsUtilities.getSharedPreferences("day", context);
+		month = FinalFunctionsUtilities.getSharedPreferences("month", context);
+		year = FinalFunctionsUtilities.getSharedPreferences("year", context);
 		
 		suggestionList = new ArrayList<String>(2);
 		suggestionList.add(name); 
 		suggestionList.add(surname);
-		
 	}
 
 	private void initializeButtons() {
@@ -102,24 +103,23 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 		public void onClick(View v) {
 			
 			password = editTextPassword.getText().toString();
-			boolean isPasswordEmpty = password.trim().equals("");
-			if(isPasswordEmpty) {
-				Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_empty),
-						Toast.LENGTH_LONG).show();
+			passwordOk = !password.equals("");
+			
+			if(!passwordOk) {
+				Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_empty), Toast.LENGTH_SHORT).show();
+			}
+			else if (!(passwordOk = passwordOk && !password.contains(" "))) {
+				Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_contains_spaces), Toast.LENGTH_SHORT).show();
 			}
 			else if(FinalFunctionsUtilities.isDeviceConnected(getApplicationContext())) {
-				p = new ProgressDialog(PasswordActivity.this);
-				p.setTitle(getResources().getString(R.string.please));
-				p.setMessage(getResources().getString(R.string.wait));
-				p.setCancelable(false);
-				p.show();
-				new RegistrationTask(PasswordActivity.this).execute(name, surname, mail, 
-					password, day, month, year);
+				dialog = new ProgressDialog(PasswordActivity.this);
+				dialog.setTitle(getResources().getString(R.string.please));
+				dialog.setMessage(getResources().getString(R.string.wait));
+				dialog.setCancelable(false);
+				dialog.show();
+				new RegistrationTask(PasswordActivity.this).execute(name, surname, mail, password, day, month, year);
 			}
-			else {
-				Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_fail),
-						Toast.LENGTH_LONG).show();
-			}
+			else { 	Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show(); }
 		}
 	};
 	
@@ -134,10 +134,34 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 			@Override
 			public void onClick(View v) {
 				generateSuggestion();
-				//Toast.makeText(getApplicationContext(), btnReloadPasswd.toString(), Toast.LENGTH_SHORT).show();
 				Animation anim = AnimationUtils.loadAnimation(PasswordActivity.this, R.anim.rotate_arrow_360);
 				v.startAnimation(anim);
 			}
+		});
+		
+		
+		editTextPassword.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void afterTextChanged(Editable s) {
+				
+				password = editTextPassword.getText().toString();
+				passwordOk = !password.equals("");
+				
+				if(!passwordOk) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_empty), Toast.LENGTH_SHORT).show();
+				}
+				else if (!(passwordOk = passwordOk && !password.contains(" "))) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_contains_spaces), Toast.LENGTH_SHORT).show();
+				}
+				
+				if(passwordOk) { editTextPassword.setBackgroundResource(R.drawable.txt_input_bordered); }
+				else { 	editTextPassword.setBackgroundResource(R.drawable.txt_input_bordered_error); }
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) { }
 		});
 	}
 
@@ -151,41 +175,17 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		//per ottenersi la stringa giusta in base al risultato
-		//String resultText = getResources().getString(((res)?R.string.registration_succes:R.string.registration_failed));
-		String ret = null;
-		/*try { 
-			ret = res.getString("success")+res.getString("err1")+res.getString("err2")+res.getString("err3")+res.getString("err4")+res.getString("err5");
-			Toast.makeText(this, ret, Toast.LENGTH_SHORT).show();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		//se la registrazione ha successo torna alla pagina di login
-		/*if (ret.startsWith("true")) {
-			Intent loginIntent = new Intent(getApplicationContext(),
-					LoginActivity.class);
-			startActivityForResult(loginIntent, 0);
-		} else*/
-			
+		
+		String ret = null;	
 		try { 
+			
+			if(dialog!=null && dialog.isShowing()) { dialog.dismiss(); 	}
+			
 			ret = res.getString("success")+res.getString("err1")+res.getString("err2")+res.getString("err3")+res.getString("err4")+res.getString("err5");
-			if(p!=null && p.isShowing()){
-				p.dismiss();
-			}
 			if (ret.startsWith("true")) {
 			
-				Toast.makeText(this,
-				getResources().getText(R.string.registration_succes),
-				Toast.LENGTH_SHORT).show();
-				
-
-				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-			    SharedPreferences.Editor editor = prefs.edit();
-
-			    editor.putString("password", password);
-				
-				editor.commit();
+				Toast.makeText(this, getResources().getText(R.string.registration_succes), Toast.LENGTH_SHORT).show();
+				FinalFunctionsUtilities.setSharedPreferences("password", password, getApplicationContext());
 				
 				// intent
 				Intent loginIntent = new Intent(getApplicationContext(), ViewStoriesFragmentActivity.class);
@@ -194,29 +194,23 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 				finish();
 			}
 			else {
-				Toast.makeText(this,
-				getResources().getText(R.string.registration_failed),
-				Toast.LENGTH_SHORT).show();
-				/*
-				 * 	
-				 */
+				Toast.makeText(this, getResources().getText(R.string.registration_failed), Toast.LENGTH_SHORT).show();
 			}
 			
 			
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
 		Locale locale = new Locale(language);
-		
+
 		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.it);
 		}
@@ -233,13 +227,8 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
 		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
 	    }
-		if(locale != null) {
-			// Get Language
-			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), getApplicationContext());
-		    
-			android.content.res.Configuration config = getApplicationContext().getResources().getConfiguration();
-		    config.locale = locale;
-		    getApplicationContext().getResources().updateConfiguration(config, getApplicationContext().getResources().getDisplayMetrics());
+		
+		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
 		    // Refresh activity
 		    finish();
 		    startActivity(getIntent());

@@ -2,7 +2,12 @@ package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.frags.EmptyStoryFragment;
 import it.unitn.vanguard.reminiscence.frags.StoryFragment;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+
+import java.util.Locale;
+
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,12 +26,17 @@ import eu.giovannidefrancesco.DroidTimeline.view.YearView;
 
 public class ViewStoriesFragmentActivity extends FragmentActivity {
 
+	private Context context;
+	
 	private ViewPager mViewPager;
 	private TimeLineView mTimeLine;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
+		context = getApplicationContext();
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_viewstories);
 
 		mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
@@ -115,21 +125,41 @@ public class ViewStoriesFragmentActivity extends FragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.timeline, menu);
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
+		Locale locale = new Locale(language);
+
+		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
+			menu.getItem(2).setIcon(R.drawable.it);
+		}
+		else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
+			menu.getItem(2).setIcon(R.drawable.en);
+		}
 		return true;
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Locale locale = null;
 		switch (item.getItemId()) {
-	    case R.id.action_settings:
-			Intent changePasswd = new Intent(getApplicationContext(),
-					ChangePassword.class);
-			startActivityForResult(changePasswd, 0);
-	        return true;
-	    default:
-	        return super.onOptionsItemSelected(item);
+			// Languages
+		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
+		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
+		    case R.id.action_settings: {
+		    	Intent changePasswd = new Intent(getApplicationContext(),
+		    	ChangePassword.class);
+		    	startActivityForResult(changePasswd, 0);
+		    	return true;
+		    }
 	    }
+		
+		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
+		    // Refresh activity
+		    finish();
+		    startActivity(getIntent());
+	    }
+	    return true;
 	}
 }

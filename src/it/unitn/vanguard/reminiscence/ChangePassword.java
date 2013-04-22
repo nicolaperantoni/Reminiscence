@@ -1,20 +1,21 @@
 package it.unitn.vanguard.reminiscence;
 
-import java.util.Locale;
-
 import it.unitn.vanguard.reminiscence.asynctasks.ChangePasswordTask;
+import it.unitn.vanguard.reminiscence.asynctasks.RegistrationTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,13 +26,21 @@ import android.widget.Toast;
 
 public class ChangePassword extends Activity implements OnTaskFinished {
 	
-	protected ProgressDialog p;
+	private Context context;
+	protected ProgressDialog dialog;
 	private Button btnChangePassword, btnChangePasswordBack;
 	private EditText txtNewPassword, txtConfirmPassword;
+	
+	// Controllo sintassi password e conferma
+	private boolean passwordOk, confirmOk;
+	private String password, confirm;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		context = getApplicationContext();
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_change_password);
 		initializeButtons();
 		initializeListeners();
@@ -51,8 +60,10 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 				
 				String new_pass1 = txtNewPassword.getText().toString();
 				String new_pass2 = txtConfirmPassword.getText().toString();
+				boolean isEmptyNewPassword = new_pass1.trim().equals("");
+				boolean isEmptyConfPassword = new_pass2.trim().equals("");
 				
-				if(new_pass1.trim().equals("") || new_pass2.trim().equals("")) {
+				if(isEmptyNewPassword || isEmptyConfPassword) {
 					Toast.makeText(getApplicationContext(), getResources().getString(R.string.empty_password),
 							Toast.LENGTH_LONG).show();
 				}
@@ -61,13 +72,15 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 						Toast.makeText(ChangePassword.this, getResources().getString(R.string.wrong_password),
 								Toast.LENGTH_LONG).show();
 					}
+					else if(!FinalFunctionsUtilities.isDeviceConnected(getApplicationContext())) {
+						Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show();
+					}
 					else {
-
-						p = new ProgressDialog(ChangePassword.this);
-						p.setTitle(getResources().getString(R.string.please));
-						p.setMessage(getResources().getString(R.string.wait));
-						p.setCancelable(false);
-						p.show();
+						dialog = new ProgressDialog(ChangePassword.this);
+						dialog.setTitle(getResources().getString(R.string.please));
+						dialog.setMessage(getResources().getString(R.string.wait));
+						dialog.setCancelable(false);
+						dialog.show();
 						new ChangePasswordTask(ChangePassword.this).execute(new_pass1, new_pass2);
 						finish();
 					}
@@ -81,13 +94,62 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 				finish();
 			}
 		});
+		
+		txtNewPassword.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void afterTextChanged(Editable s) {
+				
+				password = txtNewPassword.getText().toString();
+				passwordOk = !password.equals("");
+				
+				if(!passwordOk) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_empty), Toast.LENGTH_SHORT).show();
+				}
+				else if (!(passwordOk = passwordOk && !password.contains(" "))) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_contains_spaces), Toast.LENGTH_SHORT).show();
+				}
+				
+				if(passwordOk) { txtNewPassword.setBackgroundResource(R.drawable.txt_input_bordered); }
+				else { 	txtNewPassword.setBackgroundResource(R.drawable.txt_input_bordered_error); }
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) { }
+		});
+		
+		
+		txtConfirmPassword.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void afterTextChanged(Editable s) {
+				
+				confirm = txtConfirmPassword.getText().toString();
+				confirmOk = !confirm.equals("");
+				
+				if(!confirmOk) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_empty), Toast.LENGTH_SHORT).show();
+				}
+				else if (!(confirmOk = confirmOk && !confirm.contains(" "))) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_contains_spaces), Toast.LENGTH_SHORT).show();
+				}
+				
+				if(confirmOk) { txtConfirmPassword.setBackgroundResource(R.drawable.txt_input_bordered); }
+				else { 	txtConfirmPassword.setBackgroundResource(R.drawable.txt_input_bordered_error); }
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) { }
+		});
 	}
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
 
-		if(p!=null && p.isShowing())
-			p.dismiss();
+		if(dialog!=null && dialog.isShowing())
+			dialog.dismiss();
 		try {
 			if (res.getString("success").equals("true")) {
 				Toast.makeText(ChangePassword.this, getResources().getString(R.string.correct_password),
@@ -103,12 +165,12 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
 		Locale locale = new Locale(language);
-		
+
 		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.it);
 		}
@@ -125,13 +187,8 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
 		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
 	    }
-		if(locale != null) {
-			// Get Language
-			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), getApplicationContext());
-		    
-			android.content.res.Configuration config = getApplicationContext().getResources().getConfiguration();
-		    config.locale = locale;
-		    getApplicationContext().getResources().updateConfiguration(config, getApplicationContext().getResources().getDisplayMetrics());
+		
+		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
 		    // Refresh activity
 		    finish();
 		    startActivity(getIntent());

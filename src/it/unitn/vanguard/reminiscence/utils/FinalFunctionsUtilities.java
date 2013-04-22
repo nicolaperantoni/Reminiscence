@@ -1,10 +1,14 @@
 package it.unitn.vanguard.reminiscence.utils;
 
+import java.util.Locale;
+
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public final class FinalFunctionsUtilities {
 
@@ -18,7 +22,8 @@ public final class FinalFunctionsUtilities {
 	 * @return true if email address is valid otherwise return false.
 	 */
 	public static boolean isValidEmailAddress(String email) {
-		return email.matches(EMAIL_REGEX);
+		return email.matches(EMAIL_REGEX) && !email.trim().equals("") 
+				&& !email.startsWith(" ") && !email.endsWith(" ");
 	}
 
 	// Leap year
@@ -105,5 +110,24 @@ public final class FinalFunctionsUtilities {
 		if (mobileDataInfo != null && mobileDataInfo.getState()==NetworkInfo.State.CONNECTED)
 			return true;
 		return wifiInfo.getState() == NetworkInfo.State.CONNECTED;
+	}
+	
+	
+	public static boolean switchLanguage(Locale locale, Context context) {
+		
+		// Ottengo la configurazione attuale e controllo se è uguale a quella delle
+		// SharedPreferences. Se non sono uguali cambio la lingua altrimenti
+		// non faccio nulla..
+		
+		Configuration config = context.getResources().getConfiguration();
+		Locale oldLanguage = config.locale;
+		
+		if(!oldLanguage.getLanguage().equals(locale.getLanguage())) {
+			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), context);
+		    config.locale = locale;
+		    context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+		    return true;
+		}
+		return false;
 	}
 }

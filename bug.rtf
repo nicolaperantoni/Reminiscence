@@ -1,34 +1,48 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf370
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+﻿
+Registrazione:
+username con simboli [no sense rz]
+email deve finire con com,it,eu,org,uk, [no sense rz]
+chiave -> parola
 
-\f0\fs24 \cf0 BUG:\
-\
-Registrazione:\
-username solo di spazi [risolto rz]\
-username con simboli\
-frecce invertite nell'inserimento della data\
-email dive finite con com,it,eu,org,uk,us\
-password solo di spazi [risolto rz]\
-posso tornare indietro una volta registrato [risolto rz]\
-quando arrivi all'anno ttuale la app si bugia :P\
-\
-chiave -> parola \
-\
-\
-Login:\
-Posso cambiare la password senza essere loggato [risolto rz]\
-pudding sulle immagini dentro le edittext [risolto rz]\
-\
-gestione dispositivo connesso=zen\
-menu+cambia passwd=zaffo (zen gi\'e0' un pop' fatto)\
-ombre+focus [risolto rz]\
-nuova storia=defra\
-perantoni=mockup lista amici+profilo\
-forna=lista amici+profilo\
-\
-dalla timeline posso tornare all'activity\
-la app ritorna alla schermata di login\
-}
+bug ancora nella selezione della data di nascita se portato nel 2013.
+password e data non vengono ricordate andando avanti e indietro
+applicazione crash quando viene cambiata la passwd (non sempre!)
+
+StackTrace:
+04-20 20:57:21.920: E/AndroidRuntime(5806): FATAL EXCEPTION: main
+04-20 20:57:21.920: E/AndroidRuntime(5806): java.lang.ArrayIndexOutOfBoundsException: length=12; index=12
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities.valiDate(FinalFunctionsUtilities.java:51)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at it.unitn.vanguard.reminiscence.DataNascitaActivity$1.onClick(DataNascitaActivity.java:96)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at android.view.View.performClick(View.java:4084)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at android.view.View$PerformClick.run(View.java:16966)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at android.os.Handler.handleCallback(Handler.java:615)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at android.os.Handler.dispatchMessage(Handler.java:92)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at android.os.Looper.loop(Looper.java:137)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at android.app.ActivityThread.main(ActivityThread.java:4745)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at java.lang.reflect.Method.invokeNative(Native Method)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at java.lang.reflect.Method.invoke(Method.java:511)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:786)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:553)
+04-20 20:57:21.920: E/AndroidRuntime(5806): 	at dalvik.system.NativeStart.main(Native Method)
+
+avvolte la app dice email e password errati
+quando cerco di cambiare la password (probabilmente perche' viene cambiata
+sul server e l'utente non rifa' il login quindi sul device non viene aggiornata)
+
+se nella schermata di cambia password cambia la linga la schermata delle
+storie non lo fa (e neanche il resto della app)
+
+posso tornare indietro dalla schermata delle storie al login 
+ 
+
+TO-DOs:
+
+logout = bonny
+nuova storia = defra
+apload foto e video = bonny + zen
+mockup lista amici + profilo = perantoni
+lista amici + profilo = forna
+inserimento luogo nascita = zamboni
+fix data nascita (preferences) = zaffo
+fix switch language = zen
+fix empty password + end with and start with = zen [risolto-testato]

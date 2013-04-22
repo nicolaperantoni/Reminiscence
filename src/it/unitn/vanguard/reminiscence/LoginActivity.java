@@ -11,12 +11,13 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -27,16 +28,19 @@ import android.widget.Toast;
 
 public class LoginActivity extends Activity implements OnTaskFinished {
 
+	private Context context;
+	
 	private Button btnLogin;
 	private Button btnRegistration;
 	private EditText usernameEditText;
 	private EditText passwordEditText;
 
-	protected ProgressDialog p;
+	protected ProgressDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		context = getApplicationContext();
 		/*
 		// Se l'utente aveva già affettuato il login in precedenza salta dirett nella timeline
 		if(FinalFunctionsUtilities.isLoggedIn(getApplicationContext())) { 
@@ -45,13 +49,15 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 			startActivityForResult(changePasswd, 0);
 			finish();
 		}*/
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_login);
 		initializeButtons();
 		initializeListeners();
 	}
 
 	private void initializeButtons() {
-		
+		// Set the Typeface for logo label..
 		TextView logo = (TextView)findViewById(R.id.Logo);
 		Typeface typeFace = Typeface.createFromAsset(getAssets(),"Pacifico.ttf");
 		logo.setTypeface(typeFace);
@@ -74,37 +80,32 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 				boolean isEmptyPassword = password.trim().equals("");
 				
 				if(isEmptyUsername && isEmptyPassword) {
-					Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_empty_both),
-							Toast.LENGTH_LONG).show();
+					Toast.makeText(context, getResources().getString(R.string.login_empty_both), Toast.LENGTH_LONG).show();
 				}
 				else if(isEmptyUsername) {
-					Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_empty_username),
-							Toast.LENGTH_LONG).show();
+					Toast.makeText(context, getResources().getString(R.string.login_empty_username), Toast.LENGTH_LONG).show();
 				}
 				else if(isEmptyPassword) {
-					Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_empty_password),
-							Toast.LENGTH_LONG).show();
+					Toast.makeText(context, getResources().getString(R.string.login_empty_password), Toast.LENGTH_LONG).show();
 				}
-				else if(FinalFunctionsUtilities.isDeviceConnected(getApplicationContext())) {
-					p = new ProgressDialog(LoginActivity.this);
-					p.setTitle(getResources().getString(R.string.please));
-					p.setMessage(getResources().getString(R.string.wait));
-					p.setCancelable(false);
-					p.show();
+				else if(FinalFunctionsUtilities.isDeviceConnected(context)) {
+					dialog = new ProgressDialog(LoginActivity.this);
+					dialog.setTitle(getResources().getString(R.string.please));
+					dialog.setMessage(getResources().getString(R.string.wait));
+					dialog.setCancelable(false);
+					dialog.show();
 					new LoginTask(LoginActivity.this).execute(username, password);
 				}
 				else {
-					if(p!=null && p.isShowing()) { 	p.dismiss(); }
-					Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_fail),
-							Toast.LENGTH_LONG).show();
+					if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
+					Toast.makeText(context, getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show();
 				}
 			}
 		});
 		btnRegistration.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent regIntent = new Intent(getApplicationContext(),
-						RegistrationActivity.class);
+				Intent regIntent = new Intent(context, RegistrationActivity.class);
 				startActivityForResult(regIntent, 0);
 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 				finish();
@@ -115,11 +116,9 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
-					usernameEditText
-							.setBackgroundResource(R.drawable.txt_input_bordered_ok);
+					usernameEditText.setBackgroundResource(R.drawable.txt_input_bordered_ok);
 				} else {
-					usernameEditText
-							.setBackgroundResource(R.drawable.txt_input_bordered);
+					usernameEditText.setBackgroundResource(R.drawable.txt_input_bordered);
 				}
 			}
 		});
@@ -129,26 +128,23 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
-					passwordEditText
-							.setBackgroundResource(R.drawable.txt_input_bordered_ok);
+					passwordEditText.setBackgroundResource(R.drawable.txt_input_bordered_ok);
 				} else {
-					passwordEditText
-							.setBackgroundResource(R.drawable.txt_input_bordered);
+					passwordEditText.setBackgroundResource(R.drawable.txt_input_bordered);
 				}
 			}
 		});
-	} 
-
+	}
+	
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		if(p!=null && p.isShowing()) { 	p.dismiss(); }
+		if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
 		try {
-			if (res.getString("success").equals("true"))
-				startActivity(new Intent(LoginActivity.this,
-						ViewStoriesFragmentActivity.class));
-			else
-				Toast.makeText(this, getResources().getString(R.string.login_failed),
-						Toast.LENGTH_LONG).show();
+			if (res.getString("success").equals("true")) {
+				startActivity(new Intent(LoginActivity.this, ViewStoriesFragmentActivity.class));
+			} else {
+				Toast.makeText(this, getResources().getString(R.string.login_failed), Toast.LENGTH_LONG).show();
+			}
 		} catch (JSONException e) {
 			Log.e(LoginActivity.class.getName(), e.toString());
 		}
@@ -156,15 +152,12 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		Log.e("inizioo","asdad");
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
 		Locale locale = new Locale(language);
-		Log.e("ora sono in",language);
-		//switchLanguage(locale);
-		
+
 		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.it);
 		}
@@ -181,26 +174,12 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
 		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
 	    }
-		if(locale != null) {
-		    switchLanguage(locale);
-	    }
-	    return true;
-	}
-	
-	private void switchLanguage(Locale locale) {
 		
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
-		Locale old = new Locale(language);
-		Log.e("voglio cambiare in: ", locale.getLanguage());
-		Log.e("old", old.getLanguage() + "");
-		if(!old.getLanguage().equals(locale.getLanguage())) {
-			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), getApplicationContext());
-			android.content.res.Configuration config = getApplicationContext().getResources().getConfiguration();
-		    config.locale = locale;
-		    getApplicationContext().getResources().updateConfiguration(config, getApplicationContext().getResources().getDisplayMetrics());
+		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
 		    // Refresh activity
 		    finish();
 		    startActivity(getIntent());
 	    }
+	    return true;
 	}
 }

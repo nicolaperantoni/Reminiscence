@@ -35,6 +35,11 @@
     <string name="user_surname_label">Cognome</string>
     <string name="user_name_label">Nome</string>
     <string name="user_mail_label">E-Mail</string>
+    <string name="registration_surname_empty">Il Cognome non può rimanere vuoto</string>
+    <string name="registration_surname_contains_spaces">Il Cognome non può iniziare o terminare con spazi</string>
+    <string name="registration_name_empty">Il Nome non può rimanere vuoto</string>
+    <string name="registration_name_contains_spaces">Il Nome non può iniziare o terminare con spazi</string>
+    <string name="registration_email_empty">L\' e-mail non può rimanere vuota</string>
     
     
     <!-- DataNascita_Activity -->
@@ -43,8 +48,9 @@
     
     <!-- RegistrationPassword_Activity -->
     <string name="registration_password_suggest_label">Inserisci ora una chiave segreta.\nTi suggeriamo questa, ma puoi modificarla.</string>
-    <string name="registration_password_hint">nomeNumero</string>
+    <string name="registration_password_hint">Nome + Numero</string>
     <string name="registration_password_empty">La password non può essere vuota.</string>
+    <string name="registration_password_contains_spaces">La password non può contenere spazi.</string>
     <string name="registration_password_wrong">La password deve contenere solo lettere e numeri.</string>
     <string name="registration_failed">No! Qualcosa è andato storto!</string>
     <string name="registration_succes">Evviva! ti sei registrato!</string>
