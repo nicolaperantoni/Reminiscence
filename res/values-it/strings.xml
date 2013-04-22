@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+re you sure you want to exit?Are you sure you want to exit?Are you sure you want to exit??xml version="1.0" encoding="utf-8"?>
 <resources>
     
     <!-- General -->
@@ -83,5 +83,9 @@
     <string name="empty_password">Inserisci password e conferma.</string>
     <string name="wrong_password">Le due password inserite non corrispondono.</string>
     <string name="correct_password">La tua nuova password è stata cambiata!</string>
+    <string name="yes">Si</string>
+    <string name="exit_message">Sei sicuro di voler uscire?</string>
+    <string name="no">No</string>
+    <string />
     
 </resources>
