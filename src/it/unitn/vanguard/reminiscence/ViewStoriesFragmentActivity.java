@@ -1,12 +1,15 @@
 package it.unitn.vanguard.reminiscence;
 
+import it.unitn.vanguard.reminiscence.QuestionPopUpHandler.QuestionPopUp;
+import it.unitn.vanguard.reminiscence.asynctasks.GetStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
+import it.unitn.vanguard.reminiscence.frags.BornFragment;
 import it.unitn.vanguard.reminiscence.frags.EmptyStoryFragment;
 import it.unitn.vanguard.reminiscence.frags.StoryFragment;
+import it.unitn.vanguard.reminiscence.interfaces.OnTaskExecuted;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
-import it.unitn.vanguard.reminiscence.utils.QuestionPopUpHandler;
-import it.unitn.vanguard.reminiscence.utils.QuestionPopUpHandler.QuestionPopUp;
 
 import java.util.Locale;
 
@@ -40,17 +43,21 @@ import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
 import eu.giovannidefrancesco.DroidTimeline.view.YearView;
 
 public class ViewStoriesFragmentActivity extends FragmentActivity implements
-		OnTaskFinished,QuestionPopUp {
+		OnTaskFinished, QuestionPopUp, OnTaskExecuted {
 
 	private Context context;
 
 	private ViewPager mViewPager;
 	private TimeLineView mTimeLine;
 	protected ProgressDialog dialog;
-	
+
 	private TextView mQuestionTv;
 	private ImageView mCloseQuestionImgV;
-	
+
+	private StoriesAdapter mStoriesAdapter;
+
+	public static int initialYear = 1940;
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -65,84 +72,71 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
 
 		FragmentManager fm = getSupportFragmentManager();
-		final StoriesAdapter st = new StoriesAdapter(fm);
-		st.setYear(mTimeLine.getStartYear());
-		mViewPager.setAdapter(st);
+		mStoriesAdapter = new StoriesAdapter(fm);
+		mViewPager.setAdapter(mStoriesAdapter);
 
 		mTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Toast.makeText(ViewStoriesFragmentActivity.this,
-						"Funzione non ancora disponibile!", Toast.LENGTH_SHORT)
-						.show();
-				st.setYear(((YearView) arg1).getYear());
+				int year = ((YearView) arg1).getYear();
+				new GetStoriesTask(ViewStoriesFragmentActivity.this,
+						initialYear).execute(year);
+				// initialYear=year;
 			}
 		});
-		
+
 		mQuestionTv = (TextView) findViewById(R.id.viewtories_addstory_hint);
 		mQuestionTv.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				OnHide();
 			}
 		});
-		
+
 		mCloseQuestionImgV = (ImageView) findViewById(R.id.viewstories_addstory_hint_close);
 		mCloseQuestionImgV.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				OnHide();
 			}
 		});
-		
+
 		Bundle b = new Bundle();
 		b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY, "Vuoi trombare?");
 		Message msg = new Message();
 		msg.setData(b);
 		new QuestionPopUpHandler(this).sendMessageDelayed(msg, 10000);
+		new GetStoriesTask(this, initialYear).execute(initialYear);
 	}
 
 	private class StoriesAdapter extends FragmentPagerAdapter {
 
-		private int mCount;
-		private int mYear;
-
 		public StoriesAdapter(FragmentManager fm) {
 			super(fm);
-			// TODO ServerRequest!
-			mCount = 10;
-		}
-
-		public void setYear(int year) {
-			this.mYear = year;
 		}
 
 		@Override
 		public Fragment getItem(int arg0) {
-			Fragment f = new EmptyStoryFragment();
-			Bundle b = new Bundle();
-
-			if (arg0 % 2 == 0) {
-				f = new EmptyStoryFragment();
-				b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY, mYear + arg0);
-			} else {
-				f = new StoryFragment();
-				b.putString(StoryFragment.TITLE_PASSED_KEY, getResources()
-						.getString(R.string.dummy_story_title));
-				b.putString(StoryFragment.DESCRIPTION_PASSED_KEY,
-						getResources().getString(R.string.dummy_story_desc));
+			if (arg0 == 0) {
+				Fragment f = new BornFragment();
+				Bundle b = new Bundle();
+				b.putString(BornFragment.BORN_CITY_PASSED_KEY,
+						FinalFunctionsUtilities.getSharedPreferences(
+								Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
+								ViewStoriesFragmentActivity.this));
+				f.setArguments(b);
+				return f;
 			}
-			f.setArguments(b);
-			return f;
+			return FinalFunctionsUtilities.stories.get(arg0);
 		}
 
 		@Override
 		public int getCount() {
-			return mCount;
+			return FinalFunctionsUtilities.stories.size();
 		}
 
 	}
@@ -282,22 +276,35 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 	@Override
 	public void OnShow(String question) {
 		togglePopup(true);
+		mQuestionTv.setText(question);
 	}
 
 	@Override
 	public void OnHide() {
 		togglePopup(false);
 	}
-	
-	private void togglePopup(boolean visibility){
-		if(!visibility){
+
+	private void togglePopup(boolean visibility) {
+		if (!visibility) {
 			mQuestionTv.setVisibility(View.GONE);
 			mCloseQuestionImgV.setVisibility(View.GONE);
-		}
-		else{
+		} else {
 			mQuestionTv.setVisibility(View.VISIBLE);
 			mCloseQuestionImgV.setVisibility(View.VISIBLE);
 		}
-			
+
+	}
+
+	@Override
+	public void OnFinish(Boolean result) {
+		// TODO display a toast in case of error
+		// TODO call it for the the next year
+		initialYear++;
+		new GetStoriesTask(this, initialYear).execute(initialYear);
+	}
+
+	@Override
+	public void OnProgress() {
+		mStoriesAdapter.notifyDataSetChanged();
 	}
 }

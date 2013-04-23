@@ -9,5 +9,7 @@ public class Constants {
 	public static final int PASSWORD_MAX = 1000;
 
 	public static final int QUESTION_POPUP_SHOWING_TIME = 10000;
-	public static final int QUESTION_INTERVAL = 50000;
+	public static final int QUESTION_INTERVAL = 120000;
+	
+	public static final String LOUGO_DI_NASCITA_PREFERENCES_KEY="luogodinascita";
 }

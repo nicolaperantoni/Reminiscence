@@ -1,5 +1,8 @@
 package it.unitn.vanguard.reminiscence.utils;
 
+import it.unitn.vanguard.reminiscence.frags.StoryFragment;
+
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.content.Context;
@@ -13,7 +16,9 @@ import android.util.Log;
 public final class FinalFunctionsUtilities {
 
 	public static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-
+	
+	public static ArrayList<StoryFragment> stories = new ArrayList<StoryFragment>();
+	
 	/**
 	 * Validates an email address
 	 * 
@@ -22,7 +27,7 @@ public final class FinalFunctionsUtilities {
 	 * @return true if email address is valid otherwise return false.
 	 */
 	public static boolean isValidEmailAddress(String email) {
-		return email.matches(EMAIL_REGEX) && !email.trim().equals("") 
+		return email.matches(EMAIL_REGEX) && !email.trim().equals("")
 				&& !email.startsWith(" ") && !email.endsWith(" ");
 	}
 
@@ -87,15 +92,25 @@ public final class FinalFunctionsUtilities {
 		String retVal = "";
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
-		
-		if(key.equals("day")) { retVal = "1"; }
-		if(key.equals("month")) { retVal = "Gennaio"; }
-		if(key.equals("year")) { retVal = "1940"; }
-		if(key.equals("language")) {
+
+		if (key.equals("day")) {
+			retVal = "1";
+		}
+		if (key.equals("month")) {
+			retVal = "Gennaio";
+		}
+		if (key.equals("year")) {
+			retVal = "1940";
+		}
+		if(key.equals(Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY)){
+			retVal="Trento";
+		}
+		if (key.equals("language")) {
 			Configuration config = context.getResources().getConfiguration();
 			retVal = config.locale.getLanguage();
 		}
-		return prefs.getString(key, retVal);
+		String r = prefs.getString(key, retVal);
+		return r;
 	}
 
 	/**
@@ -115,27 +130,30 @@ public final class FinalFunctionsUtilities {
 				.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 		NetworkInfo wifiInfo = connectivityManager
 				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-		
-		if (mobileDataInfo != null && mobileDataInfo.getState()==NetworkInfo.State.CONNECTED)
+
+		if (mobileDataInfo != null
+				&& mobileDataInfo.getState() == NetworkInfo.State.CONNECTED)
 			return true;
 		return wifiInfo.getState() == NetworkInfo.State.CONNECTED;
 	}
-	
-	
+
 	public static boolean switchLanguage(Locale locale, Context context) {
-		
-		// Ottengo la configurazione attuale e controllo se è uguale a quella delle
+
+		// Ottengo la configurazione attuale e controllo se è uguale a quella
+		// delle
 		// SharedPreferences. Se non sono uguali cambio la lingua altrimenti
 		// non faccio nulla..
-		
+
 		Configuration config = context.getResources().getConfiguration();
 		Locale oldLanguage = config.locale;
-		
-		if(!oldLanguage.getLanguage().equals(locale.getLanguage())) {
-			FinalFunctionsUtilities.setSharedPreferences("language", locale.getLanguage(), context);
-		    config.locale = locale;
-		    context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
-		    return true;
+
+		if (!oldLanguage.getLanguage().equals(locale.getLanguage())) {
+			FinalFunctionsUtilities.setSharedPreferences("language",
+					locale.getLanguage(), context);
+			config.locale = locale;
+			context.getResources().updateConfiguration(config,
+					context.getResources().getDisplayMetrics());
+			return true;
 		}
 		return false;
 	}
