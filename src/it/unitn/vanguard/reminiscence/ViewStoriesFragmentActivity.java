@@ -51,7 +51,7 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 
 	private StoriesAdapter mStoriesAdapter;
 
-	public static int initialYear = 1940;
+	public static int initialYear;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -65,11 +65,17 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 
 		mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
+		
 
 		FragmentManager fm = getSupportFragmentManager();
 		mStoriesAdapter = new StoriesAdapter(fm);
 		mViewPager.setAdapter(mStoriesAdapter);
 
+		initialYear = Integer.parseInt(FinalFunctionsUtilities
+				.getSharedPreferences("year", this));
+		
+		mTimeLine.setStartYear(initialYear);
+		
 		mTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
@@ -104,7 +110,7 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 		b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY, "Vuoi trombare?");
 		Message msg = new Message();
 		msg.setData(b);
-		new QuestionPopUpHandler(this).sendMessageDelayed(msg, 10000);
+		new QuestionPopUpHandler(this).sendMessageDelayed(msg, Constants.QUESTION_INTERVAL);
 		new GetStoriesTask(this, initialYear).execute(initialYear);
 	}
 

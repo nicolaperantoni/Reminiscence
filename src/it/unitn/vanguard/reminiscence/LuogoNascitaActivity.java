@@ -171,7 +171,6 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 			sugg.add(res.getString("mun2"));
 			sugg.add(res.getString("mun3"));
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
