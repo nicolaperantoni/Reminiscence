@@ -36,7 +36,7 @@
         android:background="@drawable/addstory_hint_background"
         android:padding="10dp"
         android:text="@string/dummy_story_desc"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/viewstories_addstory_hint_close"
@@ -47,6 +47,6 @@
         android:layout_marginLeft="-16dp"
         android:layout_toRightOf="@+id/viewtories_addstory_hint"
         android:src="@drawable/close"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
 </RelativeLayout>

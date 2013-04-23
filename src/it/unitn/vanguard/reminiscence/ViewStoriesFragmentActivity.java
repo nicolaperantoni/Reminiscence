@@ -73,9 +73,12 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 		FragmentManager fm = getSupportFragmentManager();
 		mStoriesAdapter = new StoriesAdapter(fm);
 		mViewPager.setAdapter(mStoriesAdapter);
-
-		initialYear = Integer.parseInt(FinalFunctionsUtilities
-				.getSharedPreferences("year", this));
+		
+		//e' per avere lo 0 alla fine degli anni.(per avere la decade insomma)
+		String year =FinalFunctionsUtilities
+				.getSharedPreferences("year", this);
+		year=year.substring(0,year.length()-1);		
+		initialYear = Integer.parseInt(year+'0');
 		
 		mTimeLine.setStartYear(initialYear);
 		
@@ -135,12 +138,12 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 				f.setArguments(b);
 				return f;
 			}
-			return FinalFunctionsUtilities.stories.get(arg0);
+			return FinalFunctionsUtilities.stories.get(arg0-1);
 		}
 
 		@Override
 		public int getCount() {
-			return FinalFunctionsUtilities.stories.size();
+			return 1+FinalFunctionsUtilities.stories.size();
 		}
 
 	}
