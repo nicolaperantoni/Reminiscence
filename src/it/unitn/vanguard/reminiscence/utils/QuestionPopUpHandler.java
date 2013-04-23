@@ -11,6 +11,20 @@ public class QuestionPopUpHandler extends Handler {
 		public void OnHide();
 	}
 	
+	private class HideHandler extends Handler{
+		private QuestionPopUp listener;	
+		public HideHandler(QuestionPopUp listener) {
+			super();
+			this.listener = listener;
+		}
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			listener.OnHide();
+		}
+		
+	}
+	
 	public static final String QUESTION_PASSED_KEY="question_msg";
 	
 	private QuestionPopUp listener;	
@@ -26,16 +40,11 @@ public class QuestionPopUpHandler extends Handler {
 		Bundle datas = msg.getData();
 		String question = datas.getString(QUESTION_PASSED_KEY);
 		listener.OnShow(question);
-		try {
-			Thread.sleep(10000);
-			listener.OnHide();
+			new HideHandler(listener).sendMessageDelayed(new Message(), 10000);
 			//TODO retrieve the new question from the server
-			this.sendMessageDelayed(msg, 10000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		
+			Message newmsg = new Message();
+			newmsg.setData(datas);
+			this.sendMessageDelayed(newmsg, 50000);
 	}
 	
 }
