@@ -9,8 +9,7 @@
 	    android:id="@+id/panelButtonStory"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:background="@color/red">
+	    android:layout_alignParentBottom="true">
 	    	    
 	    <Button
 	        android:id="@+id/btnPhoto"
@@ -44,11 +43,12 @@
 	        
 	        <ImageView
 	            android:id="@+id/photo"
-	            android:layout_width="wrap_content"
+	            android:padding="5dp"
+	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content" 
 	            android:layout_centerHorizontal="true"
 	            android:layout_below="@id/story_title_tv"
-	            android:background="@color/red"/>
+	            android:background="@color/white"/>
 	
 	        <TextView
 	            android:id="@+id/story_description_tv"
