@@ -46,6 +46,9 @@ public class LuogoNascitaTask extends AsyncTask<String, Void, Boolean> {
 		params.add(new BasicNameValuePair("token", FinalFunctionsUtilities.getSharedPreferences("token", ((Activity) caller)
 								.getApplicationContext())));
 		
+		// Salvo il luogo di nascita nelle sharedPreferences
+		FinalFunctionsUtilities.setSharedPreferences("luogoNascita", arg0[0], ((Activity)caller).getApplicationContext());
+		
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(Constants.SERVER_URL+"setLuogoNascita.php");
 		try {
