@@ -1,6 +1,7 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.asynctasks.GetSuggLuogoNascita;
+import it.unitn.vanguard.reminiscence.asynctasks.LuogoNascitaTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
@@ -118,6 +119,9 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 		btnLuogoNascitaConfirm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				
+				new LuogoNascitaTask(LuogoNascitaActivity.this).execute(txtLuogoNascita.getText().toString());
+				
 				// intent
 				Intent loginIntent = new Intent(getApplicationContext(), ViewStoriesFragmentActivity.class);
 				loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -134,6 +138,7 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
+		
 		Log.e("asd", res.toString());
 		ArrayList<String> sugg = new ArrayList<String>();
 		try {
@@ -144,13 +149,12 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}/*
+		}
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), 
 				R.layout.my_item_view,removeDuplicate(sugg));
 		txtLuogoNascita.setThreshold(2);
 		txtLuogoNascita.setAdapter(adapter);
 		txtLuogoNascita.showDropDown();
-		*/
 	}
 	
 	@Override

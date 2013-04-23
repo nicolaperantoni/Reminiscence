@@ -93,7 +93,7 @@ public class RegistrationActivity extends Activity {
 					
 					FinalFunctionsUtilities.setSharedPreferences("name", name, context);
 					FinalFunctionsUtilities.setSharedPreferences("surname", surname, context);
-					FinalFunctionsUtilities.setSharedPreferences("mail", mail, context);
+					FinalFunctionsUtilities.setSharedPreferences("email", mail, context);
 
 			        startActivityForResult(registrationIntent, 0);
 			        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

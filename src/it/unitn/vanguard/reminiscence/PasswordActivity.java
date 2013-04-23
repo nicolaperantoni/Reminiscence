@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -69,7 +70,7 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 		Context context = getApplicationContext();
 		name = FinalFunctionsUtilities.getSharedPreferences("name", context);
 		surname = FinalFunctionsUtilities.getSharedPreferences("surname", context);
-		mail = FinalFunctionsUtilities.getSharedPreferences("mail", context);
+		mail = FinalFunctionsUtilities.getSharedPreferences("email", context);
 		day = FinalFunctionsUtilities.getSharedPreferences("day", context);
 		month = FinalFunctionsUtilities.getSharedPreferences("month", context);
 		year = FinalFunctionsUtilities.getSharedPreferences("year", context);
@@ -187,7 +188,7 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 				FinalFunctionsUtilities.setSharedPreferences("token", res.getString("token"), getApplicationContext());
 				Toast.makeText(this, getResources().getText(R.string.registration_succes), Toast.LENGTH_SHORT).show();
 				FinalFunctionsUtilities.setSharedPreferences("password", password, getApplicationContext());
-				
+				//Log.e("token", FinalFunctionsUtilities.getSharedPreferences("token", getApplicationContext()));
 				// intent
 				Intent intent = new Intent(getApplicationContext(), LuogoNascitaActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
