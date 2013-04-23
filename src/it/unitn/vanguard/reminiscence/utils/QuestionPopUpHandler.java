@@ -11,9 +11,9 @@ public class QuestionPopUpHandler extends Handler {
 		public void OnHide();
 	}
 	
-	private class HideHandler extends Handler{
+	private class PopUpHideHandler extends Handler{
 		private QuestionPopUp listener;	
-		public HideHandler(QuestionPopUp listener) {
+		public PopUpHideHandler(QuestionPopUp listener) {
 			super();
 			this.listener = listener;
 		}
@@ -40,11 +40,12 @@ public class QuestionPopUpHandler extends Handler {
 		Bundle datas = msg.getData();
 		String question = datas.getString(QUESTION_PASSED_KEY);
 		listener.OnShow(question);
-			new HideHandler(listener).sendMessageDelayed(new Message(), 10000);
+			new PopUpHideHandler(listener).sendMessageDelayed(new Message(),
+					Constants.QUESTION_POPUP_SHOWING_TIME);
 			//TODO retrieve the new question from the server
 			Message newmsg = new Message();
 			newmsg.setData(datas);
-			this.sendMessageDelayed(newmsg, 50000);
+			this.sendMessageDelayed(newmsg, Constants.QUESTION_INTERVAL);
 	}
 	
 }
