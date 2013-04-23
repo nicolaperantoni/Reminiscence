@@ -102,5 +102,8 @@
     <string name="title_activity_profile_fragment">ProfileFragment</string>
     <string name="profile_image_desc">Profile Image</string>
     <string name="friend_list_label">Lista amici:</string>
+    
+    <!-- Born Fragment -->
+    <string name="born">Born in %1$s</string>
 
 </resources>

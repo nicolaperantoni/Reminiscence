@@ -1,5 +1,6 @@
-package it.unitn.vanguard.reminiscence.utils;
+package it.unitn.vanguard.reminiscence;
 
+import it.unitn.vanguard.reminiscence.utils.Constants;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
