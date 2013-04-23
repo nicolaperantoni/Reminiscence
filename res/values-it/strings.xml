@@ -100,5 +100,6 @@
     <string name="birthplace_empty">Il Luogo di nascita non può rimanere vuoto</string>
     <string name="birthplace_contains_spaces">Il Luogo di nascita non può iniziare o terminare con spazi</string>
     
-    
+    <!-- Born Fragment -->
+    <string name="born">Nato a %1$s</string>
 </resources>
