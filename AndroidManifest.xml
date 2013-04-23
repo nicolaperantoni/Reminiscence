@@ -54,6 +54,12 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
+            android:name="it.unitn.vanguard.reminiscence.ViewFriendsProfileFragmentActivity"
+            android:configChanges="locale|orientation"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
             android:name="it.unitn.vanguard.reminiscence.ViewStoriesFragmentActivity"
             android:configChanges="locale|orientation" >
         </activity>

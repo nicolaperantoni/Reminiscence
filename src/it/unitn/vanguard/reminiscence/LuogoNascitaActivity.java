@@ -144,12 +144,13 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}/*
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), 
 				R.layout.my_item_view,removeDuplicate(sugg));
 		txtLuogoNascita.setThreshold(2);
 		txtLuogoNascita.setAdapter(adapter);
 		txtLuogoNascita.showDropDown();
+		*/
 	}
 	
 	@Override
