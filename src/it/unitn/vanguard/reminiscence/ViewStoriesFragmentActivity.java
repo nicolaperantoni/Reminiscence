@@ -281,16 +281,16 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 
 	@Override
 	public void OnShow(String question) {
-		togglePopup();
+		togglePopup(true);
 	}
 
 	@Override
 	public void OnHide() {
-		togglePopup();
+		togglePopup(false);
 	}
 	
-	private void togglePopup(){
-		if(mQuestionTv.isShown()){
+	private void togglePopup(boolean visibility){
+		if(!visibility){
 			mQuestionTv.setVisibility(View.GONE);
 			mCloseQuestionImgV.setVisibility(View.GONE);
 		}

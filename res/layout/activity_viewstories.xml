@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <!-- <eu.giovannidefrancesco.DroidTimeline.view.TimeLineView -->
-    <!-- android:id="@+id/viewstories_tlv" -->
-    <!-- android:layout_width="fill_parent" -->
-    <!-- app:backgroundColor="@color/red_background_dark" -->
-    <!-- app:yearColor="@color/white" -->
-    <!-- app:linesColor="@color/white" -->
-    <!-- android:layout_height="100dp" /> -->
+    <eu.giovannidefrancesco.DroidTimeline.view.TimeLineView
+        android:id="@+id/viewstories_tlv"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        app:backgroundColor="@color/red_background_dark"
+        app:linesColor="@color/white"
+        app:yearColor="@color/white" />
 
     <View
         android:id="@+id/viewstories_shadow"
@@ -19,13 +19,6 @@
         android:layout_alignBottom="@+id/viewstories_tlv"
         android:background="@drawable/shadow" />
 
-    <View
-        android:id="@+id/viewstories_lineright"
-        android:layout_width="20dp"
-        android:layout_height="3dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/storyline" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewstories_pager"
@@ -33,7 +26,6 @@
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/viewstories_tlv"
-        android:background="@drawable/storyborder"
         android:padding="10dp" />
 
     <TextView
@@ -52,8 +44,8 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_above="@+id/viewtories_addstory_hint"
-        android:layout_marginBottom="-15dp"
-        android:layout_marginLeft="-15dp"
+        android:layout_marginBottom="-20dp"
+        android:layout_marginLeft="-20dp"
         android:layout_toRightOf="@+id/viewtories_addstory_hint"
         android:src="@drawable/close"
         android:visibility="gone" />
