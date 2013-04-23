@@ -47,8 +47,8 @@ public class ViewFriendsProfileFragmentActivity extends FragmentActivity impleme
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		
-//		pf = (ProfileFragment) getFragmentManager().findFragmentById(R.id.user_profile_fragment);
-//		fl = (FriendListFragment) getFragmentManager().findFragmentById(R.id.friend_list_fragment);
+		pf = (ProfileFragment) getSupportFragmentManager().findFragmentById(R.id.user_profile_fragment);
+		fl = (FriendListFragment) getSupportFragmentManager().findFragmentById(R.id.friend_list_fragment);
 		
 		context = getApplicationContext();
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
