@@ -82,11 +82,6 @@ public class FriendListFragment extends ListFragment {
 		return ad;
 	}
 	
-	
-
-
-		
-	
 	public void setNames(String[] name, String[] surname, String[] mail) {
 		if(name.length!=surname.length || name.length!=mail.length) {
 			return;

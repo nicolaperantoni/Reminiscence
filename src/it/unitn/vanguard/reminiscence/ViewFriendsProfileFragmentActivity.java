@@ -1,21 +1,14 @@
 package it.unitn.vanguard.reminiscence;
 
-import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 import it.unitn.vanguard.reminiscence.frags.FriendListFragment;
 import it.unitn.vanguard.reminiscence.frags.ProfileFragment;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 public class ViewFriendsProfileFragmentActivity extends FragmentActivity implements FriendListFragment.OnItemSelectListener{
 	
@@ -47,13 +40,14 @@ public class ViewFriendsProfileFragmentActivity extends FragmentActivity impleme
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		
+		setContentView(R.layout.activity_friendlist_profile);
+		
 		pf = (ProfileFragment) getSupportFragmentManager().findFragmentById(R.id.user_profile_fragment);
 		fl = (FriendListFragment) getSupportFragmentManager().findFragmentById(R.id.friend_list_fragment);
 		
 		context = getApplicationContext();
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
-		setContentView(R.layout.activity_friendlist_profile);
 		
 	}
 	
@@ -62,9 +56,4 @@ public class ViewFriendsProfileFragmentActivity extends FragmentActivity impleme
 	public void onItemSelect(String name, String surname) {
 		pf.update(name, surname);
 	}
-
-
-
-
-
 }
