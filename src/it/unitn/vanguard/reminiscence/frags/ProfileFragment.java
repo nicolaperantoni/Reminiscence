@@ -44,7 +44,10 @@ public class ProfileFragment extends Fragment {
 		nameTextView.setText(name);
 		surnameTextView.setText(surname);
 	}
-	
-	
+
+	public void update(String name, String surname) {
+		nameTextView.setText(name);
+		surnameTextView.setText(surname);
+	}	
 
 }

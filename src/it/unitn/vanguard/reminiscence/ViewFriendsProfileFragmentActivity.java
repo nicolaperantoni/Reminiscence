@@ -73,15 +73,11 @@ public class ViewFriendsProfileFragmentActivity extends FragmentActivity impleme
 		ListView lv = (ListView) findViewById(R.id.friendlistview);
 		lv.setAdapter(ad);
 	}
-
-	public void updateProfile(String string) {
-		
-	}
 	
 	
 	@Override
-	public void onItemSelect(String mail) {
-		
+	public void onItemSelect(String name, String surname) {
+		pf.update(name, surname);
 	}
 
 

@@ -121,13 +121,13 @@ public class FriendListFragment extends ListFragment {
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(lv, v, position, id);
 		
-		((ViewFriendsProfileFragmentActivity) context).updateProfile(mails[position]);
+		((ViewFriendsProfileFragmentActivity) context).onItemSelect(names[position], surnames[position]);
 	}
 
 
 
 	public interface OnItemSelectListener {
-		public void onItemSelect(String mail);
+		public void onItemSelect(String name, String surname);
 	}
 	
 }
