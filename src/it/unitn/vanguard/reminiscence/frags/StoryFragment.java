@@ -116,7 +116,7 @@ Log.e("sadsad","asdad");
 				nameValuePairs.add(new BasicNameValuePair("image",encodedImage));
 
 				try{
-/*
+				/*
 				HttpClient httpclient = new DefaultHttpClient();
 				HttpPost httppost = new HttpPost("http://www.theflame92.altervista.org/base64.php");
 				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
