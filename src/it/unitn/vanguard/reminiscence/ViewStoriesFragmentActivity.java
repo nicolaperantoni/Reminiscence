@@ -5,6 +5,8 @@ import it.unitn.vanguard.reminiscence.frags.EmptyStoryFragment;
 import it.unitn.vanguard.reminiscence.frags.StoryFragment;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+import it.unitn.vanguard.reminiscence.utils.QuestionPopUpHandler;
+import it.unitn.vanguard.reminiscence.utils.QuestionPopUpHandler.QuestionPopUp;
 
 import java.util.Locale;
 
@@ -18,6 +20,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -30,25 +33,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
 import eu.giovannidefrancesco.DroidTimeline.view.YearView;
 
-public class ViewStoriesFragmentActivity extends FragmentActivity implements OnTaskFinished{
+public class ViewStoriesFragmentActivity extends FragmentActivity implements
+		OnTaskFinished,QuestionPopUp {
 
 	private Context context;
 
 	private ViewPager mViewPager;
 	private TimeLineView mTimeLine;
 	protected ProgressDialog dialog;
-
+	
+	private TextView mQuestionTv;
+	private ImageView mCloseQuestionImgV;
+	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		context = getApplicationContext();
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		String language = FinalFunctionsUtilities.getSharedPreferences(
+				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
+
 		setContentView(R.layout.activity_viewstories);
 
 		mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
@@ -64,13 +74,36 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements OnT
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Toast.makeText(
-						ViewStoriesFragmentActivity.this,
-						"Funzione non ancora disponibile!",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(ViewStoriesFragmentActivity.this,
+						"Funzione non ancora disponibile!", Toast.LENGTH_SHORT)
+						.show();
 				st.setYear(((YearView) arg1).getYear());
 			}
 		});
+		
+		mQuestionTv = (TextView) findViewById(R.id.viewtories_addstory_hint);
+		mQuestionTv.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				OnHide();
+			}
+		});
+		
+		mCloseQuestionImgV = (ImageView) findViewById(R.id.viewstories_addstory_hint_close);
+		mCloseQuestionImgV.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				OnHide();
+			}
+		});
+		
+		Bundle b = new Bundle();
+		b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY, "Vuoi trombare?");
+		Message msg = new Message();
+		msg.setData(b);
+		new QuestionPopUpHandler(this).sendMessageDelayed(msg, 10000);
 	}
 
 	private class StoriesAdapter extends FragmentPagerAdapter {
@@ -85,7 +118,7 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements OnT
 		}
 
 		public void setYear(int year) {
-			this.mYear=year;
+			this.mYear = year;
 		}
 
 		@Override
@@ -95,7 +128,7 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements OnT
 
 			if (arg0 % 2 == 0) {
 				f = new EmptyStoryFragment();
-				b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY, mYear+arg0);
+				b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY, mYear + arg0);
 			} else {
 				f = new StoryFragment();
 				b.putString(StoryFragment.TITLE_PASSED_KEY, getResources()
@@ -124,13 +157,14 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements OnT
 
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.timeline, menu);
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
+		String language = FinalFunctionsUtilities.getSharedPreferences(
+				"language", getApplicationContext());
 		Locale locale = new Locale(language);
 
-		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
+		if (locale.toString().equals(Locale.ITALIAN.getLanguage())
+				|| locale.toString().equals(locale.ITALY.getLanguage())) {
 			menu.getItem(2).setIcon(R.drawable.it);
-		}
-		else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
+		} else if (locale.toString().equals(Locale.ENGLISH.getLanguage())) {
 			menu.getItem(2).setIcon(R.drawable.en);
 		}
 		return true;
@@ -142,8 +176,14 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements OnT
 
 		switch (item.getItemId()) {
 		// Languages
-		case R.id.action_language_it: { locale = Locale.ITALY; break; }
-		case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
+		case R.id.action_language_it: {
+			locale = Locale.ITALY;
+			break;
+		}
+		case R.id.action_language_en: {
+			locale = Locale.ENGLISH;
+			break;
+		}
 		case R.id.action_settings: {
 			Intent changePasswd = new Intent(getApplicationContext(),
 					ChangePassword.class);
@@ -151,44 +191,64 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements OnT
 			return true;
 		}
 		case R.id.action_logout: {
-			if(FinalFunctionsUtilities.isDeviceConnected(getApplicationContext())) {
+			if (FinalFunctionsUtilities
+					.isDeviceConnected(getApplicationContext())) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-
 				builder.setMessage(R.string.exit_message)
-				.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialogInterface, int id) {
-						dialog = new ProgressDialog(ViewStoriesFragmentActivity.this);
-						dialog.setTitle(getResources().getString(R.string.please));
-						dialog.setMessage(getResources().getString(R.string.wait));
-						dialog.setCancelable(false);
-						dialog.show();
-						
-						String email = FinalFunctionsUtilities.getSharedPreferences("email", context);
-						String password = FinalFunctionsUtilities.getSharedPreferences("password", context);
-						
-						new LogoutTask(ViewStoriesFragmentActivity.this).execute(email, password);
-					}
-				})
-				.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
+						.setPositiveButton(R.string.yes,
+								new DialogInterface.OnClickListener() {
+									public void onClick(
+											DialogInterface dialogInterface,
+											int id) {
+										dialog = new ProgressDialog(
+												ViewStoriesFragmentActivity.this);
+										dialog.setTitle(getResources()
+												.getString(R.string.please));
+										dialog.setMessage(getResources()
+												.getString(R.string.wait));
+										dialog.setCancelable(false);
+										dialog.show();
 
-					}
-				});
+										String email = FinalFunctionsUtilities
+												.getSharedPreferences("email",
+														context);
+										String password = FinalFunctionsUtilities
+												.getSharedPreferences(
+														"password", context);
 
-				AlertDialog alert =  builder.create();
+										new LogoutTask(
+												ViewStoriesFragmentActivity.this)
+												.execute(email, password);
+									}
+								})
+						.setNegativeButton(R.string.no,
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+
+									}
+								});
+
+				AlertDialog alert = builder.create();
 				alert.show();
-				((TextView) alert.findViewById(android.R.id.message)).setGravity(Gravity.CENTER);
-				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE)).setBackgroundResource(R.drawable.bottone_logout);
-				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE)).setTextColor(Color.WHITE);
+				((TextView) alert.findViewById(android.R.id.message))
+						.setGravity(Gravity.CENTER);
+				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
+						.setBackgroundResource(R.drawable.bottone_logout);
+				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
+						.setTextColor(Color.WHITE);
 
+			} else {
+				Toast.makeText(getApplicationContext(),
+						getResources().getString(R.string.connection_fail),
+						Toast.LENGTH_LONG).show();
 			}
-			else { 	Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show(); }
-		} 
+		}
 		}
 
-
-		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
+		if (locale != null
+				&& FinalFunctionsUtilities.switchLanguage(locale, context)) {
 			// Refresh activity
 			finish();
 			startActivity(getIntent());
@@ -198,17 +258,46 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements OnT
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
+		if (dialog != null && dialog.isShowing()) {
+			dialog.dismiss();
+		}
 		try {
 			if (res.getString("success").equals("true")) {
-				Toast.makeText(getApplicationContext(), getResources().getString(R.string.logout_success), Toast.LENGTH_LONG).show();
-				startActivity(new Intent(ViewStoriesFragmentActivity.this, LoginActivity.class));
+				Toast.makeText(getApplicationContext(),
+						getResources().getString(R.string.logout_success),
+						Toast.LENGTH_LONG).show();
+				startActivity(new Intent(ViewStoriesFragmentActivity.this,
+						LoginActivity.class));
 				this.finish();
 			} else {
-				Toast.makeText(this, getResources().getString(R.string.logout_failed), Toast.LENGTH_LONG).show();
+				Toast.makeText(this,
+						getResources().getString(R.string.logout_failed),
+						Toast.LENGTH_LONG).show();
 			}
 		} catch (JSONException e) {
 			Log.e(LoginActivity.class.getName(), e.toString());
-		}		
+		}
+	}
+
+	@Override
+	public void OnShow(String question) {
+		togglePopup();
+	}
+
+	@Override
+	public void OnHide() {
+		togglePopup();
+	}
+	
+	private void togglePopup(){
+		if(mQuestionTv.isShown()){
+			mQuestionTv.setVisibility(View.GONE);
+			mCloseQuestionImgV.setVisibility(View.GONE);
+		}
+		else{
+			mQuestionTv.setVisibility(View.VISIBLE);
+			mCloseQuestionImgV.setVisibility(View.VISIBLE);
+		}
+			
 	}
 }

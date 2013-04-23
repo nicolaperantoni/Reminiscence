@@ -57,12 +57,15 @@ public class EmptyStoryFragment extends Fragment {
 	public void onStart() {
 		super.onStart();
 
-		mNoStoryTv = (TextView) getView().findViewById(R.id.emptystory_nostory_tv);
+		mNoStoryTv = (TextView) getView().findViewById(
+				R.id.emptystory_nostory_tv);
 		mTitleEt = (EditText) getView().findViewById(R.id.emptystory_title_et);
-		mDescriptionEt = (EditText) getView().findViewById(R.id.emptystory_desc_et);
+		mDescriptionEt = (EditText) getView().findViewById(
+				R.id.emptystory_desc_et);
 		mAddBtn = (Button) getView().findViewById(R.id.emptystory_add_btn);
 
-		String s = String.format(getResources().getString(R.string.no_story), getArguments().getInt(YEAR_PASSED_KEY));
+		String s = String.format(getResources().getString(R.string.no_story),
+				getArguments().getInt(YEAR_PASSED_KEY));
 		mNoStoryTv.setText(s);
 
 		initializeListeners();

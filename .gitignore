@@ -2,3 +2,4 @@ bin/
 gen/
 *.class
 *.dex
+project.properties
