@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <!-- <eu.giovannidefrancesco.DroidTimeline.view.TimeLineView -->
-    <!-- android:id="@+id/viewstories_tlv" -->
-    <!-- android:layout_width="fill_parent" -->
-    <!-- app:backgroundColor="@color/red_background_dark" -->
-    <!-- app:yearColor="@color/white" -->
-    <!-- app:linesColor="@color/white" -->
-    <!-- android:layout_height="100dp" /> -->
+    <eu.giovannidefrancesco.DroidTimeline.view.TimeLineView
+    android:id="@+id/viewstories_tlv"
+    android:layout_width="fill_parent"
+    app:backgroundColor="@color/red_background_dark"
+    app:yearColor="@color/white"
+    app:linesColor="@color/white"
+    android:layout_height="100dp" />
 
     <View
         android:id="@+id/viewstories_shadow"
