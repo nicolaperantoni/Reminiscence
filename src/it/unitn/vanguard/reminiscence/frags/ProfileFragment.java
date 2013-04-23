@@ -31,20 +31,6 @@ public class ProfileFragment extends Fragment {
 		return v;
 	}
 
-	@Override
-	public void onStart() {
-		super.onStart();
-		
-		String name = getArguments().getString(NAME_PASSED_KEY);
-		String surname = getArguments().getString(SURNAME_PASSED_KEY);
-		
-		nameTextView = (TextView) getView().findViewById(R.id.profile_name_textview);
-		surnameTextView = (TextView) getView().findViewById(R.id.profile_surname_textview);
-		
-		nameTextView.setText(name);
-		surnameTextView.setText(surname);
-	}
-
 	public void update(String name, String surname) {
 		nameTextView.setText(name);
 		surnameTextView.setText(surname);

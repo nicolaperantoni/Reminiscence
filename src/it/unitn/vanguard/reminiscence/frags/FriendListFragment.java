@@ -16,13 +16,12 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 public class FriendListFragment extends ListFragment {
 	
-	Context context;
-	ListView lv;
 	
 	private OnItemSelectListener listener;
 	
@@ -46,28 +45,24 @@ public class FriendListFragment extends ListFragment {
 							R.drawable.default_profile_image,
 							R.drawable.default_profile_image,};
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_friendlist, container,false);
-		return v;
-	}
 
 	@Override
 	public void onStart() {
 		super.onStart();	
-
-		context = getActivity();
-		lv = (ListView) getActivity().findViewById(R.id.friend_list_view);
-		
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
-		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);		
-		
-		setAdapter();
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", getActivity());
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), getActivity());
 		
 	}
 	
-	private void setAdapter() {
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		setListAdapter(setAdapter());
+	}
+
+
+	private ListAdapter setAdapter() {
 
 		List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
 		 
@@ -84,9 +79,13 @@ public class FriendListFragment extends ListFragment {
 		
 		
 		SimpleAdapter ad = new SimpleAdapter(getActivity(), aList, R.layout.friend_listview_item, from, to);
-		ListView lv = (ListView) getView().findViewById(R.id.friendlistview);
-		lv.setAdapter(ad);
+		return ad;
 	}
+	
+	
+
+
+		
 	
 	public void setNames(String[] name, String[] surname, String[] mail) {
 		if(name.length!=surname.length || name.length!=mail.length) {
@@ -119,9 +118,9 @@ public class FriendListFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(lv, v, position, id);
+		super.onListItemClick(l, v, position, id);
 		
-		((ViewFriendsProfileFragmentActivity) context).onItemSelect(names[position], surnames[position]);
+		((ViewFriendsProfileFragmentActivity) getActivity()).onItemSelect(names[position], surnames[position]);
 	}
 
 
