@@ -58,13 +58,12 @@ public class LogoutTask extends AsyncTask<String, Void, Boolean> {
 			json = new JSONObject(jsonString);
 			if (json != null && json.getString("success").equals("true")) {
 				FinalFunctionsUtilities.setSharedPreferences("token", "", ((Activity) caller).getApplicationContext());
-						
 			}
 
 		} catch (Exception e) {
 			this.ex = e;
 			return false;
-		}
+		} 
 
 		return true;
 	}

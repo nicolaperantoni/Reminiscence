@@ -1,7 +1,9 @@
 package it.unitn.vanguard.reminiscence.asynctasks;
 
+import it.unitn.vanguard.reminiscence.LuogoNascitaActivity;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -35,14 +38,16 @@ public class LuogoNascitaTask extends AsyncTask<String, Void, Boolean> {
 	protected Boolean doInBackground(String... arg0) {
 		
 		if(arg0.length<1) {
-			throw new IllegalStateException("You should pass at least 7 params");
+			throw new IllegalStateException("You should pass at least 1 params");
 		}
 		
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(6);
-		params.add(new BasicNameValuePair("luogonascita", arg0[0]));
+		params.add(new BasicNameValuePair("luogo", arg0[0]));
+		params.add(new BasicNameValuePair("token", FinalFunctionsUtilities.getSharedPreferences("token", ((Activity) caller)
+								.getApplicationContext())));
 		
 		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(Constants.SERVER_URL+"luogonascita.php");
+		HttpPost post = new HttpPost(Constants.SERVER_URL+"setLuogoNascita.php");
 		try {
 			post.setEntity(new UrlEncodedFormEntity(params));
 		} catch (UnsupportedEncodingException e1) {
