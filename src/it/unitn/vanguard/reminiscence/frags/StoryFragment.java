@@ -1,21 +1,19 @@
 package it.unitn.vanguard.reminiscence.frags;
 
+import it.unitn.vanguard.reminiscence.R;
+import it.unitn.vanguard.reminiscence.asynctasks.UploadPhotoTask;
+import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.Constants;
+
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
-import it.unitn.vanguard.reminiscence.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -32,13 +30,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class StoryFragment extends Fragment {
+public class StoryFragment extends Fragment implements OnTaskFinished {
 
 	public static final String TITLE_PASSED_KEY = "storyTitle";
 	public static final String DESCRIPTION_PASSED_KEY = "descriptionTitle";
 
 	private TextView mTitleTv;
 	private TextView mDescTv;
+	private String story_id = "4";
 	
 	// Image
 	private ImageView view;
@@ -93,7 +92,6 @@ public class StoryFragment extends Fragment {
 	    super.onActivityResult(requestCode, resultCode, data);
 	    if (resultCode == Activity.RESULT_OK)
 	    {
-Log.e("sadsad","asdad");
 	    	
 	        Uri chosenImageUri = data.getData();
 	        
@@ -103,7 +101,7 @@ Log.e("sadsad","asdad");
 				Bitmap bm = Media.getBitmap(getView().getContext().getContentResolver(), chosenImageUri);
 				mBitmap = Media.getBitmap(getView().getContext().getContentResolver(), chosenImageUri);
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-				bm.compress(Bitmap.CompressFormat.JPEG, 40, baos);
+				bm.compress(Bitmap.CompressFormat.JPEG, 80, baos);
 				bm.recycle();
 				byte[] b = baos.toByteArray();
 				
@@ -116,15 +114,8 @@ Log.e("sadsad","asdad");
 				nameValuePairs.add(new BasicNameValuePair("image",encodedImage));
 
 				try{
-				/*
-				HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost("http://www.theflame92.altervista.org/base64.php");
-				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-				HttpResponse response = httpclient.execute(httppost);
-				HttpEntity entity = response.getEntity();
-				InputStream is = entity.getContent();*/
-				view.setImageBitmap(mBitmap);
-				
+					new UploadPhotoTask(this, Constants.imageType.STORY).execute(encodedImage, story_id);
+					view.setImageBitmap(mBitmap);
 				}catch(Exception e){
 
 					Log.e("log_tag", "Error in http connection "+ e.toString());
@@ -139,6 +130,12 @@ Log.e("sadsad","asdad");
 				e.printStackTrace();
 			}
        	}
+	}
+
+	@Override
+	public void onTaskFinished(JSONObject res) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

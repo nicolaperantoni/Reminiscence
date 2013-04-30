@@ -4,5 +4,15 @@
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw600dp devices (e.g. 7" tablets) here.
     -->
-
+    <dimen name="default_margin">20dp</dimen>
+    <dimen name="default_margin_double">40dp</dimen>
+    <dimen name="default_textSize">35sp</dimen>
+    <dimen name="default_textSize_large">50sp</dimen>
+    <dimen name="default_textSize_huge">75sp</dimen>
+    <dimen name="registration_header_font_size">48sp</dimen>
+    <dimen name="registration_edittext_font_size">25sp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    
+    <dimen name="default_btn_text_size">20sp</dimen>
 </resources>

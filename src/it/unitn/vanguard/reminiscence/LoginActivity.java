@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -96,7 +95,6 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 					dialog.setCancelable(false);
 					dialog.show();
 					new LoginTask(LoginActivity.this).execute(username, password);
-					finish();
 				}
 				else {
 					if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
@@ -144,6 +142,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		try {
 			if (res.getString("success").equals("true")) {
 				startActivity(new Intent(LoginActivity.this, ViewStoriesFragmentActivity.class));
+				finish();
 			} else {
 				Toast.makeText(this, getResources().getString(R.string.login_failed), Toast.LENGTH_LONG).show();
 			}

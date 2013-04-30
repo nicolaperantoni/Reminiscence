@@ -12,4 +12,7 @@ public class Constants {
 	public static final int QUESTION_INTERVAL = 120000;
 	
 	public static final String LOUGO_DI_NASCITA_PREFERENCES_KEY="luogodinascita";
+	
+	
+	public static enum imageType { PROFILE, STORY };
 }
