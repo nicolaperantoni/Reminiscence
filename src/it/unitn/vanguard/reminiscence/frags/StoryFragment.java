@@ -37,7 +37,7 @@ public class StoryFragment extends Fragment implements OnTaskFinished {
 
 	private TextView mTitleTv;
 	private TextView mDescTv;
-	private String story_id = "4";
+	private String story_id;
 	
 	// Image
 	private ImageView view;
