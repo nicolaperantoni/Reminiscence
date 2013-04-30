@@ -83,7 +83,7 @@
 
     <!-- ChangePasswordActivity -->
     <string name="title_activity_change_password">ChangePassword</string>
-    <string name="change_password_suggest_label">Change your password:</string>
+    <string name="change_password_suggest_label">Change your password</string>
     <string name="change_password_hint">New password</string>
     <string name="change_password_confirm_hint">Confirm password</string>
     <string name="empty_password">Insert password and confirm it.</string>
@@ -100,7 +100,7 @@
     <string name="birthplace_contains_spaces">Birthplace can\'t start or end with spaces</string>
     <string name="title_activity_profile_fragment">ProfileFragment</string>
     <string name="profile_image_desc">Profile Image</string>
-    <string name="friend_list_label">Lista amici:</string>
+    <string name="friend_list_label">Lista amici</string>
     
     <!-- ProfileImage Activity -->
     <string name="profile_image_change_button">Change your profile image!</string>
@@ -108,5 +108,8 @@
     <!-- Born Fragment -->
     <string name="born">Born in %1$s</string>
     <string name="title_activity_profile_image">ProfileImage</string>
+    <string name="profile_label">Profile:</string>
+    <string name="settings_label">Settings:</string>
+    <string name="change_locale">change language</string>
 
 </resources>

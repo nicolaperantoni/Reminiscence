@@ -84,7 +84,7 @@
     
     <!-- ChangePasswordActivity -->
     <string name="title_activity_change_password">Cambia Password</string>
-    <string name="change_password_suggest_label">Cambia password:</string>
+    <string name="change_password_suggest_label">Cambia password</string>
     <string name="change_password_hint">Nuova password</string>
     <string name="change_password_confirm_hint">Conferma password</string>
     <string name="empty_password">Inserisci password e conferma.</string>

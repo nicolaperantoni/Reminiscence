@@ -48,9 +48,10 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 			startActivityForResult(timeline, 0);
 			finish();
 		}
-		
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
-		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
+		String language = FinalFunctionsUtilities.getSharedPreferences(
+				"language", this);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language),
+				this);
 		setContentView(R.layout.activity_login);
 		initializeButtons();
 		initializeListeners();

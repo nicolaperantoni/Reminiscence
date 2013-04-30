@@ -15,6 +15,9 @@ import java.util.Locale;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.slidingmenu.lib.SlidingMenu;
+import com.slidingmenu.lib.app.SlidingFragmentActivity;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -41,7 +44,7 @@ import android.widget.Toast;
 import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
 import eu.giovannidefrancesco.DroidTimeline.view.YearView;
 
-public class ViewStoriesFragmentActivity extends FragmentActivity implements
+public class ViewStoriesFragmentActivity extends BaseActivity implements
 		OnTaskFinished, QuestionPopUp, OnTaskExecuted {
 
 	private Context context;
@@ -58,15 +61,17 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 	public static int initialYear;
 
 	@Override
-	protected void onCreate(Bundle arg0) {
+	public void onCreate(Bundle arg0) {
+		//per far funzionare lo sliding menu :P
+		
 		super.onCreate(arg0);
+		setContentView(R.layout.activity_viewstories);
+		
 		context = getApplicationContext();
 		String language = FinalFunctionsUtilities.getSharedPreferences(
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
-
-		setContentView(R.layout.activity_viewstories);
-		
+	
 
 		mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
@@ -144,29 +149,29 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 
 		@Override
 		public Fragment getItem(int arg0) {
-//			if (arg0 == 0) {
-//				Fragment f = new BornFragment();
-//				Bundle b = new Bundle();
-//				b.putString(BornFragment.BORN_CITY_PASSED_KEY,
-//						FinalFunctionsUtilities.getSharedPreferences(
-//								Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
-//								ViewStoriesFragmentActivity.this));
-//				f.setArguments(b);
-//				return f;
-//			}
-//			else if(arg0==getCount()-1){
-//				Fragment f = new EmptyStoryFragment();
-//				Bundle b = new Bundle();
-//				b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY, initialYear);
-//				f.setArguments(b);
-//				return f;
-//			}
-			return FinalFunctionsUtilities.stories.get(arg0);
+			Fragment f =null;
+			Bundle b = new Bundle();
+			if (arg0 == 0) {
+				f = new BornFragment();
+				b.putString(BornFragment.BORN_CITY_PASSED_KEY,
+						FinalFunctionsUtilities.getSharedPreferences(
+								Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
+								ViewStoriesFragmentActivity.this));
+				f.setArguments(b);
+			}
+			else if(arg0==getCount()-1){
+				f = new EmptyStoryFragment();
+				
+				b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY, initialYear);
+				f.setArguments(b);
+				
+			}
+			return f;
 		}
 
 		@Override
 		public int getCount() {
-			return FinalFunctionsUtilities.stories.size();
+			return 1+FinalFunctionsUtilities.stories.size();
 		}
 
 	}
