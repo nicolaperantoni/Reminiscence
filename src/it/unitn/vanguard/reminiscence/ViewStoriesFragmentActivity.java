@@ -209,8 +209,12 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 			break;
 		}
 		case R.id.action_settings: {
+			/*
 			Intent changePasswd = new Intent(getApplicationContext(),
 					ChangePassword.class);
+			startActivityForResult(changePasswd, 0);*/
+			Intent changePasswd = new Intent(getApplicationContext(),
+					ProfileImageActivity.class);
 			startActivityForResult(changePasswd, 0);
 			return true;
 		}

@@ -15,6 +15,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -114,7 +115,7 @@ public class StoryFragment extends Fragment implements OnTaskFinished {
 				nameValuePairs.add(new BasicNameValuePair("image",encodedImage));
 
 				try{
-					new UploadPhotoTask(this, Constants.imageType.STORY).execute(encodedImage, story_id);
+					new UploadPhotoTask(this, Constants.imageType.STORY, getActivity().getApplicationContext()).execute(encodedImage, story_id);
 					view.setImageBitmap(mBitmap);
 				}catch(Exception e){
 

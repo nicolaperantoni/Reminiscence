@@ -17,24 +17,23 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 
 public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 
 	private OnTaskFinished caller;
 	private imageType imageType;
+	private Context context;
 	private Exception ex;
 	private JSONObject json;
 
-	public UploadPhotoTask(OnTaskFinished caller, Constants.imageType imageType) {
+	public UploadPhotoTask(OnTaskFinished caller, Constants.imageType imageType, Context context) {
 		super();
 		this.caller = caller;
 		this.imageType = imageType;
+		this.context = context;
 	}
 
 	@Override
@@ -46,8 +45,7 @@ public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 		params.add(new BasicNameValuePair("image", arg0[0]));
-		
-		params.add(new BasicNameValuePair("token", FinalFunctionsUtilities.getSharedPreferences("token", (((Fragment) caller).getActivity()).getApplicationContext())));
+		params.add(new BasicNameValuePair("token", FinalFunctionsUtilities.getSharedPreferences("token", context)));
 
 		String serverPath;
 		if(imageType == Constants.imageType.PROFILE) { serverPath = "addProfilePhoto.php"; }
@@ -73,6 +71,7 @@ public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 			}
 		} catch (Exception e) {
 			this.ex = e;
+			Log.e("erroreeeeeeeeeeeeeee", e.toString());
 			return false;
 		}
 

@@ -13,9 +13,11 @@ import java.util.Locale;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -29,12 +31,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class ProfileImageActivity extends Activity implements OnTaskFinished {
 	
 	private Context context;
 	private Button btnChangeImage;
 	private ImageView imageView;
+	protected ProgressDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 
 	private void initializeButtons() {		
 		btnChangeImage = (Button) findViewById(R.id.btnChangeImgProfile);
+		imageView = (ImageView) findViewById(R.id.imgProfile);
 	}
 	
 	private void initializeListeners() {
@@ -90,10 +95,14 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 				nameValuePairs.add(new BasicNameValuePair("image",encodedImage));
 
 				try{
-					new UploadPhotoTask(this, Constants.imageType.PROFILE).execute(encodedImage, "");
+					dialog = new ProgressDialog(ProfileImageActivity.this);
+					dialog.setTitle(getResources().getString(R.string.please));
+					dialog.setMessage(getResources().getString(R.string.wait));
+					dialog.setCancelable(false);
+					dialog.show();
+					new UploadPhotoTask(this, Constants.imageType.PROFILE, context).execute(encodedImage, "4");
 					imageView.setImageBitmap(mBitmap);
 				}catch(Exception e){
-
 					Log.e("log_tag", "Error in http connection "+ e.toString());
 					e.printStackTrace();
 				}
@@ -143,7 +152,15 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		// TODO Auto-generated method stub
-		
+		if(dialog!=null && dialog.isShowing()) { dialog.dismiss(); }
+		try {
+			if (res.getString("success").equals("true")) {
+				Toast.makeText(this, getResources().getString(R.string.login_succes), Toast.LENGTH_LONG).show();
+			} else {
+				Toast.makeText(this, getResources().getString(R.string.login_failed), Toast.LENGTH_LONG).show();
+			}
+		} catch (JSONException e) {
+			Log.e(LoginActivity.class.getName(), e.toString());
+		}
 	}
 }

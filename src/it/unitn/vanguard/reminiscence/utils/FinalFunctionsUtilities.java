@@ -1,7 +1,5 @@
 package it.unitn.vanguard.reminiscence.utils;
 
-import it.unitn.vanguard.reminiscence.frags.StoryFragment;
-
 import java.util.ArrayList;
 import java.util.Locale;
 
