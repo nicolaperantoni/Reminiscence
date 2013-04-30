@@ -11,12 +11,13 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 
 public final class FinalFunctionsUtilities {
 
 	public static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 	
-	public static ArrayList<StoryFragment> stories = new ArrayList<StoryFragment>();
+	public static ArrayList<Fragment> stories = new ArrayList<Fragment>();
 	
 	/**
 	 * Validates an email address

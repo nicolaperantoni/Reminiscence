@@ -4,6 +4,7 @@ import it.unitn.vanguard.reminiscence.QuestionPopUpHandler.QuestionPopUp;
 import it.unitn.vanguard.reminiscence.asynctasks.GetStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
 import it.unitn.vanguard.reminiscence.frags.BornFragment;
+import it.unitn.vanguard.reminiscence.frags.EmptyStoryFragment;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskExecuted;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
@@ -65,6 +66,7 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 
 		setContentView(R.layout.activity_viewstories);
+		
 
 		mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
@@ -81,6 +83,20 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 		initialYear = Integer.parseInt(year+'0');
 		
 		mTimeLine.setStartYear(initialYear);
+		//TODO this is shit!
+		Fragment f = new BornFragment();
+		Bundle b = new Bundle();
+		b.putString(BornFragment.BORN_CITY_PASSED_KEY,
+				FinalFunctionsUtilities.getSharedPreferences(
+						Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
+						ViewStoriesFragmentActivity.this));
+		f.setArguments(b);
+		FinalFunctionsUtilities.stories.add(f);
+		f = new EmptyStoryFragment();
+		b = new Bundle();
+		b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY,initialYear);
+		f.setArguments(b);
+		FinalFunctionsUtilities.stories.add(f);
 		
 		mTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -111,11 +127,11 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 				OnHide();
 			}
 		});
-
-		Bundle b = new Bundle();
-		b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY, "Vuoi trombare?");
+		// TODO rename b1
+		Bundle b1 = new Bundle();
+		b1.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY, "Sei mai andato in crociera?");
 		Message msg = new Message();
-		msg.setData(b);
+		msg.setData(b1);
 		new QuestionPopUpHandler(this).sendMessageDelayed(msg, Constants.QUESTION_INTERVAL);
 		new GetStoriesTask(this, initialYear).execute(initialYear);
 	}
@@ -128,22 +144,29 @@ public class ViewStoriesFragmentActivity extends FragmentActivity implements
 
 		@Override
 		public Fragment getItem(int arg0) {
-			if (arg0 == 0) {
-				Fragment f = new BornFragment();
-				Bundle b = new Bundle();
-				b.putString(BornFragment.BORN_CITY_PASSED_KEY,
-						FinalFunctionsUtilities.getSharedPreferences(
-								Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
-								ViewStoriesFragmentActivity.this));
-				f.setArguments(b);
-				return f;
-			}
-			return FinalFunctionsUtilities.stories.get(arg0-1);
+//			if (arg0 == 0) {
+//				Fragment f = new BornFragment();
+//				Bundle b = new Bundle();
+//				b.putString(BornFragment.BORN_CITY_PASSED_KEY,
+//						FinalFunctionsUtilities.getSharedPreferences(
+//								Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
+//								ViewStoriesFragmentActivity.this));
+//				f.setArguments(b);
+//				return f;
+//			}
+//			else if(arg0==getCount()-1){
+//				Fragment f = new EmptyStoryFragment();
+//				Bundle b = new Bundle();
+//				b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY, initialYear);
+//				f.setArguments(b);
+//				return f;
+//			}
+			return FinalFunctionsUtilities.stories.get(arg0);
 		}
 
 		@Override
 		public int getCount() {
-			return 1+FinalFunctionsUtilities.stories.size();
+			return FinalFunctionsUtilities.stories.size();
 		}
 
 	}

@@ -96,6 +96,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 					dialog.setCancelable(false);
 					dialog.show();
 					new LoginTask(LoginActivity.this).execute(username, password);
+					finish();
 				}
 				else {
 					if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
