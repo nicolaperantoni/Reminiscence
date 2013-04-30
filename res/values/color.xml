@@ -19,11 +19,16 @@
     <!-- Colori Input -->
     <color name="red">#ff0000</color>
     
-    <color name="midnight_blue">#2C3E50</color>
-    <color name="wet_asphalt">#34495E</color>
+    
     <color name="dark_blue">#2c3e50</color>
     <color name="pomegranate">#C0392B</color>
     <color name="orange">#FFAF7A</color>   
     <color name="blue">#3D3DFF</color>
     <color name="bluetext">#4B6DC3</color>
+    
+    <!-- Colori menu -->
+    <color name="lighter_midnight_blue">#4E6378</color>
+    <color name="darker_midnight_blue">#132537</color>
+    <color name="midnight_blue">#2C3E50</color>
+    <color name="wet_asphalt">#34495E</color>
 </resources>

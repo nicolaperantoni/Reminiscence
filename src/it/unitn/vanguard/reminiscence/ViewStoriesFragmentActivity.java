@@ -62,8 +62,6 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 	@Override
 	public void onCreate(Bundle arg0) {
-		//per far funzionare lo sliding menu :P
-		
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_viewstories);
 		
@@ -71,7 +69,9 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 		String language = FinalFunctionsUtilities.getSharedPreferences(
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
-	
+
+		setContentView(R.layout.activity_viewstories);
+		
 
 		mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
@@ -149,7 +149,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 		@Override
 		public Fragment getItem(int arg0) {
-			Fragment f =null;
+			Fragment f = new BornFragment();
 			Bundle b = new Bundle();
 			if (arg0 == 0) {
 				f = new BornFragment();
@@ -159,19 +159,20 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 								ViewStoriesFragmentActivity.this));
 				f.setArguments(b);
 			}
-			else if(arg0==getCount()-1){
+			else if(arg0==FinalFunctionsUtilities.stories.size()-1){
 				f = new EmptyStoryFragment();
-				
 				b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY, initialYear);
 				f.setArguments(b);
 				
 			}
+			else 
+				FinalFunctionsUtilities.stories.get(arg0-1);
 			return f;
 		}
 
 		@Override
 		public int getCount() {
-			return 1+FinalFunctionsUtilities.stories.size();
+			return FinalFunctionsUtilities.stories.size();
 		}
 
 	}
