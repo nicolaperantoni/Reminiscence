@@ -76,8 +76,8 @@
          felis at justo aliquet sollicitudin.</string>
     <string name="no_story">Tell us a story about %1$s</string>
     <string name="logout_failed">Logout failed</string>
-    <string name="logout_success">Logout successed</string> 
-    
+    <string name="logout_success">Logout successed</string>
+
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">MainPageActivity</string>
 
@@ -89,7 +89,6 @@
     <string name="empty_password">Insert password and confirm it.</string>
     <string name="wrong_password">Passwords don\'t match.</string>
     <string name="correct_password">Your password has been changed!</string>
-    
     <string name="exit_message">Are you sure you want to exit?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -103,7 +102,11 @@
     <string name="profile_image_desc">Profile Image</string>
     <string name="friend_list_label">Lista amici:</string>
     
+    <!-- ProfileImage Activity -->
+    <string name="profile_image_change_button">Change your profile image!</string>
+
     <!-- Born Fragment -->
     <string name="born">Born in %1$s</string>
+    <string name="title_activity_profile_image">ProfileImage</string>
 
 </resources>
