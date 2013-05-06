@@ -52,7 +52,7 @@ public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 			params.add(new BasicNameValuePair("token", token ));
 			
 			String serverPath;
-			if(imageType == Constants.imageType.PROFILE) { serverPath = "addProfilePhoto.php"; }
+			if(imageType == Constants.imageType.PROFILE) { serverPath = "addProfileImage.php"; }
 			else {
 				serverPath = "addImage.php";
 				params.add(new BasicNameValuePair("story_id", arg0[1]));
@@ -71,7 +71,6 @@ public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 				jsonString = EntityUtils.toString(client.execute(post).getEntity());
 				json = new JSONObject(jsonString);
 				if (json != null && json.getString("success").equals("true")) {
-					json.put("Operation", "UploadPhotoTask");
 					return true;
 				}
 			} catch (Exception e) {
