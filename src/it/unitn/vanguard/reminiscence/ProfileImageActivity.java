@@ -179,7 +179,7 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 					imageView.setImageBitmap(bitmap);
 				}
 			}
-			else {
+			else if(res.getString("operation").equals("AddProfileImage")){
 				if (res.getString("success").equals("true")) {
 					Toast.makeText(this, getResources().getString(R.string.profile_image_change_success), Toast.LENGTH_LONG).show();
 				} else {

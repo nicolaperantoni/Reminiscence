@@ -51,7 +51,7 @@ public class GetProfilePhotoTask extends AsyncTask<Integer, JSONObject, Boolean>
 			params.add(new BasicNameValuePair("token", token));
 
 			HttpClient client = new DefaultHttpClient();
-			HttpPost post = new HttpPost(Constants.SERVER_URL + "getProfileFoto.php");
+			HttpPost post = new HttpPost(Constants.SERVER_URL + "getProfileImage.php");
 			try {
 				Log.e("asd","inviataaaaaaaaaaaaa");
 				post.setEntity(new UrlEncodedFormEntity(params));
