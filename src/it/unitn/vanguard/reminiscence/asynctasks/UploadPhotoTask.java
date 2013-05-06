@@ -43,10 +43,13 @@ public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 			throw new IllegalStateException("You should pass at least 2 params");
 		}
 
+		if(!FinalFunctionsUtilities.isDeviceConnected(context))
+			return false;
+		
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 		params.add(new BasicNameValuePair("image", arg0[0]));
 		params.add(new BasicNameValuePair("token", FinalFunctionsUtilities.getSharedPreferences("token", context)));
-
+		
 		String serverPath;
 		if(imageType == Constants.imageType.PROFILE) { serverPath = "addProfilePhoto.php"; }
 		else {

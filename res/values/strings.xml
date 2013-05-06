@@ -99,17 +99,19 @@
     <string name="birthplace_empty">Birthplace can\'t be black</string>
     <string name="birthplace_contains_spaces">Birthplace can\'t start or end with spaces</string>
     <string name="title_activity_profile_fragment">ProfileFragment</string>
-    <string name="profile_image_desc">Profile Image</string>
-    <string name="friend_list_label">Lista amici</string>
+    <string name="profile_image_desc">Profile image</string>
+    <string name="friend_list_label">Friends</string>
     
     <!-- ProfileImage Activity -->
     <string name="profile_image_change_button">Change your profile image!</string>
+    <string name="profile_image_change_success">Your profile image has been changed!</string>
+    <string name="profile_image_change_failed">Error: profile image cannot be change! try later.</string>
 
     <!-- Born Fragment -->
     <string name="born">Born in %1$s</string>
     <string name="title_activity_profile_image">ProfileImage</string>
     <string name="profile_label">Profile:</string>
     <string name="settings_label">Settings:</string>
-    <string name="change_locale">change language</string>
+    <string name="change_locale">Change language</string>
 
 </resources>

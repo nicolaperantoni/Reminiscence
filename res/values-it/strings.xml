@@ -99,10 +99,19 @@
     <string name="hint_luogo_nascita">Luogo di nascita</string>
     <string name="birthplace_empty">Il Luogo di nascita non può rimanere vuoto</string>
     <string name="birthplace_contains_spaces">Il Luogo di nascita non può iniziare o terminare con spazi</string>
+    <string name="title_activity_profile_fragment">FragmentProfilo</string>
+    <string name="profile_image_desc">Immagine profilo</string>
+    <string name="friend_list_label">Lista amici</string>
     
     <!-- ProfileImage Activity -->
     <string name="profile_image_change_button">Cambia la tua immagine!</string>
+    <string name="profile_image_change_success">La tua immagine profilo è stata cambiata!</string>
+    <string name="profile_image_change_failed">Errore: l\'immagine profilo non può essere cambiata! Riprova più tardi.</string>
     
     <!-- Born Fragment -->
     <string name="born">Nato a %1$s</string>
+    <string name="title_activity_profile_image">ImmagineProfilo</string>
+    <string name="profile_label">Profilo:</string>
+    <string name="settings_label">Impostazioni:</string>
+    <string name="change_locale">Cambia lingua</string>
 </resources>
