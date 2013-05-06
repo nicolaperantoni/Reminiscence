@@ -41,10 +41,8 @@ public class GetProfilePhotoTask extends AsyncTask<Integer, JSONObject, Boolean>
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(1);
 
 		// ottiene il token se presente
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(((Activity) caller)
-						.getApplicationContext());
-		String token = prefs.getString("token", "");
+		String token = FinalFunctionsUtilities.getSharedPreferences("token", context);
+		Log.e("token", "->"+token);
 
 		if (!token.equals("") && FinalFunctionsUtilities.isDeviceConnected(context)) {
 			Log.e("asd","invioooo richiestaaa");
