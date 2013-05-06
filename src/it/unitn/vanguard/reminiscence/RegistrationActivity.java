@@ -1,6 +1,7 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+import it.unitn.vanguard.reminiscence.utils.Constants;
 
 import java.util.Locale;
 
@@ -52,9 +53,9 @@ public class RegistrationActivity extends Activity {
     	editTextSurname = (EditText) findViewById(R.id.editTextregistrationSurname);
     	editTextMail = (EditText) findViewById(R.id.editTextregistrationEmail);
 
-    	name = FinalFunctionsUtilities.getSharedPreferences("name", context);
-    	surname = FinalFunctionsUtilities.getSharedPreferences("surname", context);
-    	mail = FinalFunctionsUtilities.getSharedPreferences("mail", context);
+    	name = FinalFunctionsUtilities.getSharedPreferences(Constants.NAME_KEY, context);
+    	surname = FinalFunctionsUtilities.getSharedPreferences(Constants.SURNAME_KEY, context);
+    	mail = FinalFunctionsUtilities.getSharedPreferences(Constants.MAIL_KEY, context);
     	
     	editTextName.setText(name);
     	editTextSurname.setText(surname);
@@ -91,9 +92,9 @@ public class RegistrationActivity extends Activity {
 				if( nameOk && surnameOk && mailOk ) {
 					Intent registrationIntent = new Intent(context, DataNascitaActivity.class);
 					
-					FinalFunctionsUtilities.setSharedPreferences("name", name, context);
-					FinalFunctionsUtilities.setSharedPreferences("surname", surname, context);
-					FinalFunctionsUtilities.setSharedPreferences("email", mail, context);
+					FinalFunctionsUtilities.setSharedPreferences(Constants.NAME_KEY, name, context);
+					FinalFunctionsUtilities.setSharedPreferences(Constants.SURNAME_KEY, surname, context);
+					FinalFunctionsUtilities.setSharedPreferences(Constants.MAIL_KEY, mail, context);
 
 			        startActivityForResult(registrationIntent, 0);
 			        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

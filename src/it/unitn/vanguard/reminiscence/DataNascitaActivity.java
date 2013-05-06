@@ -1,5 +1,6 @@
 package it.unitn.vanguard.reminiscence;
 
+import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Calendar;
@@ -8,9 +9,7 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,9 +69,9 @@ public class DataNascitaActivity extends Activity {
 	private void initializeVars() {
 
 		Context context = getApplicationContext();
-		day = FinalFunctionsUtilities.getSharedPreferences("day", context);
-		month = FinalFunctionsUtilities.getSharedPreferences("month", context);
-		year = FinalFunctionsUtilities.getSharedPreferences("year", context);
+		day = FinalFunctionsUtilities.getSharedPreferences(Constants.DAY_KEY, context);
+		month = FinalFunctionsUtilities.getSharedPreferences(Constants.MONTH_KEY, context);
+		year = FinalFunctionsUtilities.getSharedPreferences(Constants.YEAR_KEY, context);
 		
 		//inizializza le variabili
 		dayValue = Integer.parseInt(day);
@@ -231,9 +230,9 @@ public class DataNascitaActivity extends Activity {
 				// Get shared preferences
 				Context context = getApplicationContext();
 				
-				FinalFunctionsUtilities.setSharedPreferences("day", txtDay.getText().toString(), context);
-				FinalFunctionsUtilities.setSharedPreferences("month", txtMonth.getText().toString(), context);
-				FinalFunctionsUtilities.setSharedPreferences("year", txtYear.getText().toString(), context);
+				FinalFunctionsUtilities.setSharedPreferences(Constants.DAY_KEY, txtDay.getText().toString(), context);
+				FinalFunctionsUtilities.setSharedPreferences(Constants.MONTH_KEY, txtMonth.getText().toString(), context);
+				FinalFunctionsUtilities.setSharedPreferences(Constants.YEAR_KEY, txtYear.getText().toString(), context);
 				
 		        startActivityForResult(passwordIntent, 0);
 		        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
