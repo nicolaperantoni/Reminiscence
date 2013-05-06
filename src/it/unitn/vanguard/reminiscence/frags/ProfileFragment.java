@@ -27,8 +27,8 @@ public class ProfileFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		nameTextView = (TextView) getView().findViewById(R.id.profile_name_textview);
-		surnameTextView = (TextView) getView().findViewById(R.id.profile_surname_textview);
+		//nameTextView = (TextView) getView().findViewById(R.id.profile_name_textview);
+		//surnameTextView = (TextView) getView().findViewById(R.id.profile_surname_textview);
 	}
 
 

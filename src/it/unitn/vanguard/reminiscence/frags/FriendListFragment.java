@@ -13,9 +13,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.text.AndroidCharacter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -58,28 +61,21 @@ public class FriendListFragment extends ListFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		setListAdapter(setAdapter());
+		setAdapter();
 	}
 
 
-	private ListAdapter setAdapter() {
+	private void setAdapter() {
 
-		List<HashMap<String,String>> aList = new ArrayList<HashMap<String,String>>();
+		ArrayList<String> aList = new ArrayList<String>();
 		 
 		for(int i=0; i < names.length; i++) {
-			HashMap<String, String> hm = new HashMap<String,String>();
-			hm.put("name", names[i]);
-			hm.put("surname", surnames[i]);
-			hm.put("image", Integer.toString(images[i]));
-			aList.add(hm);
+			aList.add(names[i] + " " + surnames[i]);
 		}
 		
-		String[] from = new String[]{"name", "surname", "image"};
-		int[] to = new int[]{R.id.name, R.id.surname, R.id.flag};
-		
-		
-		SimpleAdapter ad = new SimpleAdapter(getActivity(), aList, R.layout.friend_listview_item, from, to);
-		return ad;
+		ArrayAdapter<String> t = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, aList);
+		//ListView listv = (ListView) getActivity().findViewById(R.id.friendlistview);
+		setListAdapter(t);
 	}
 	
 	public void setNames(String[] name, String[] surname, String[] mail) {
