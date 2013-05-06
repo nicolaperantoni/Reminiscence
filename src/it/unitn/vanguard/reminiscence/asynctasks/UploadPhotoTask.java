@@ -40,45 +40,47 @@ public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 	protected Boolean doInBackground(String... arg0) {
 
 		if (arg0.length != 2) {
-			throw new IllegalStateException("You should pass at least 2 params");
-		}
-
-		if(!FinalFunctionsUtilities.isDeviceConnected(context))
-			return false;
-		
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
-		params.add(new BasicNameValuePair("image", arg0[0]));
-		params.add(new BasicNameValuePair("token", FinalFunctionsUtilities.getSharedPreferences("token", context)));
-		
-		String serverPath;
-		if(imageType == Constants.imageType.PROFILE) { serverPath = "addProfilePhoto.php"; }
-		else {
-			serverPath = "addImage.php";
-			params.add(new BasicNameValuePair("story_id", arg0[1]));
+			throw new IllegalStateException("You should pass 2 params");
 		}
 		
-		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(Constants.SERVER_URL + serverPath);
-		try {
-			post.setEntity(new UrlEncodedFormEntity(params));
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		}
-		json = null;
-		String jsonString;
-		try {
-			jsonString = EntityUtils.toString(client.execute(post).getEntity());
-			json = new JSONObject(jsonString);
-			if (json != null && json.getString("success").equals("true")) {
-				Log.e("tutto bene", "tutto bene");
+		String token = FinalFunctionsUtilities.getSharedPreferences("token", context);
+		
+		if (!token.equals("") && FinalFunctionsUtilities.isDeviceConnected(context)) {
+		
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("image", arg0[0]));
+			params.add(new BasicNameValuePair("token", token ));
+			
+			String serverPath;
+			if(imageType == Constants.imageType.PROFILE) { serverPath = "addProfilePhoto.php"; }
+			else {
+				serverPath = "addImage.php";
+				params.add(new BasicNameValuePair("story_id", arg0[1]));
 			}
-		} catch (Exception e) {
-			this.ex = e;
-			Log.e("erroreeeeeeeeeeeeeee", e.toString());
-			return false;
+			
+			HttpClient client = new DefaultHttpClient();
+			HttpPost post = new HttpPost(Constants.SERVER_URL + serverPath);
+			try {
+				post.setEntity(new UrlEncodedFormEntity(params));
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+			json = null;
+			String jsonString;
+			try {
+				jsonString = EntityUtils.toString(client.execute(post).getEntity());
+				json = new JSONObject(jsonString);
+				if (json != null && json.getString("success").equals("true")) {
+					json.put("Operation", "UploadPhotoTask");
+					return true;
+				}
+			} catch (Exception e) {
+				this.ex = e;
+				Log.e("Error", e.toString());
+				return false;
+			}
 		}
-
-		return true;
+		return false;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package it.unitn.vanguard.reminiscence;
 
+import it.unitn.vanguard.reminiscence.asynctasks.GetProfilePhotoTask;
 import it.unitn.vanguard.reminiscence.asynctasks.UploadPhotoTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
@@ -21,6 +22,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
@@ -49,6 +51,7 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 		setContentView(R.layout.activity_profile_image);
 		initializeButtons();
 		initializeListeners();
+		getProfileImage();
 	}
 
 	private void initializeButtons() {		
@@ -66,6 +69,21 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 				startActivityForResult(photoPickerIntent, 1);
 			}
 		});
+	}
+	
+	private void getProfileImage(){
+		try {
+			dialog = new ProgressDialog(ProfileImageActivity.this);
+			dialog.setTitle(getResources().getString(R.string.please));
+			dialog.setMessage(getResources().getString(R.string.wait));
+			dialog.setCancelable(false);
+			dialog.show();
+			Log.e("asd","GetProfilePhotoTask");
+			new GetProfilePhotoTask(this, context).execute();
+		}catch(Exception e){
+			Log.e("log_tag", "Error in http connection "+ e.toString());
+			e.printStackTrace();
+		}
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -154,13 +172,23 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 	public void onTaskFinished(JSONObject res) {
 		if(dialog!=null && dialog.isShowing()) { dialog.dismiss(); }
 		try {
-			if (res.getString("success").equals("true")) {
-				Toast.makeText(this, getResources().getString(R.string.login_succes), Toast.LENGTH_LONG).show();
-			} else {
-				Toast.makeText(this, getResources().getString(R.string.login_failed), Toast.LENGTH_LONG).show();
+			if(res.getString("operation").equals("GetProfileImage")) {
+				if (res.getString("success").equals("true")) {
+					byte[] decodedString = Base64.decode(res.getString("photo"), Base64.DEFAULT);
+					Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
+					imageView.setImageBitmap(bitmap);
+				}
 			}
-		} catch (JSONException e) {
-			Log.e(LoginActivity.class.getName(), e.toString());
+			else {
+				if (res.getString("success").equals("true")) {
+					Toast.makeText(this, getResources().getString(R.string.profile_image_change_success), Toast.LENGTH_LONG).show();
+				} else {
+					Toast.makeText(this, getResources().getString(R.string.profile_image_change_failed), Toast.LENGTH_LONG).show();
+				}
+			}
+		}
+		catch (JSONException e) {
+			Log.e(ProfileImageActivity.class.getName(), e.toString());
 		}
 	}
 }
