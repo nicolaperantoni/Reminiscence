@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:gravity="center"
+    android:background="@color/red_background_dark"
 >
     <ImageView
         android:id="@+id/item_profile_image"
