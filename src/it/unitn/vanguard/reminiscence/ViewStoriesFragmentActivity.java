@@ -149,7 +149,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 		@Override
 		public Fragment getItem(int arg0) {
-			Fragment f = new BornFragment();
+			Fragment f = new Fragment();
 			Bundle b = new Bundle();
 			if (arg0 == 0) {
 				f = new BornFragment();
@@ -163,7 +163,6 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 				f = new EmptyStoryFragment();
 				b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY, initialYear);
 				f.setArguments(b);
-				
 			}
 			else 
 				FinalFunctionsUtilities.stories.get(arg0-1);
@@ -287,7 +286,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 			finish();
 			startActivity(getIntent());
 		}
-		return true;
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
