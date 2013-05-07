@@ -44,8 +44,8 @@ public class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
 		
 		//ottiene il token se presente
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(((Activity) caller).getApplicationContext());
-		String token = prefs.getString("token", "");
-		String old = prefs.getString("password", "");
+		String token = prefs.getString(Constants.TOKEN_KEY, "");
+		String old = prefs.getString(Constants.PASSWORD_KEY, "");
 
 		Log.e("token", token);
 		Log.e("old pass",old);
