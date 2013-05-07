@@ -9,6 +9,7 @@ import java.util.Locale;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 public class ViewFriendsProfileFragmentActivity extends FragmentActivity implements FriendListFragment.OnItemSelectListener{
 	
@@ -34,6 +35,7 @@ public class ViewFriendsProfileFragmentActivity extends FragmentActivity impleme
 	
 	@Override
 	public void onItemSelect(String name, String surname) {
+		Log.e("tuamadre", name + " " + surname);
 		pf.update(name, surname);
 	}
 }

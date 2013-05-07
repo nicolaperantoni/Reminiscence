@@ -70,6 +70,8 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 			this.ex = e;
 			return false;
 		}
+		
+		caller.onTaskFinished(json);
 
 		return true;
 	}
