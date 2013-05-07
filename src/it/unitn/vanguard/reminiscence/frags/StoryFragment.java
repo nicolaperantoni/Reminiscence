@@ -31,13 +31,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class StoryFragment extends Fragment implements OnTaskFinished {
+public class StoryFragment extends Fragment implements OnTaskFinished,Comparable<StoryFragment> {
 
 	public static final String TITLE_PASSED_KEY = "storyTitle";
 	public static final String DESCRIPTION_PASSED_KEY = "descriptionTitle";
-
+	public static final String YEAR_PASSED_KEY = "year";
+	
 	private TextView mTitleTv;
 	private TextView mDescTv;
+	private int mYear;
 	private String story_id;
 	
 	// Image
@@ -57,6 +59,7 @@ public class StoryFragment extends Fragment implements OnTaskFinished {
 
 		String title = getArguments().getString(TITLE_PASSED_KEY);
 		String description = getArguments().getString(DESCRIPTION_PASSED_KEY);
+		mYear = getArguments().getInt(YEAR_PASSED_KEY);
 
 		mTitleTv = (TextView) getView().findViewById(R.id.story_title_tv);
 		mTitleTv.setText(title);
@@ -133,10 +136,24 @@ public class StoryFragment extends Fragment implements OnTaskFinished {
        	}
 	}
 
+	public int getYear() {
+		return mYear;
+	}
+
 	@Override
 	public void onTaskFinished(JSONObject res) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int compareTo(StoryFragment arg0) {
+		if(arg0.getYear()>this.mYear)
+			return -1;
+		else if(arg0.getYear()==this.mYear)
+			return 0;
+		else
+			return 1;
 	}
 
 }
