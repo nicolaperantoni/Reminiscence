@@ -38,10 +38,6 @@ public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 
 	@Override
 	protected Boolean doInBackground(String... arg0) {
-
-		if (arg0.length != 2) {
-			throw new IllegalStateException("You should pass 2 params");
-		}
 		
 		String token = FinalFunctionsUtilities.getSharedPreferences("token", context);
 		
