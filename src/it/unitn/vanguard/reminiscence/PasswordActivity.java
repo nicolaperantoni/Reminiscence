@@ -69,14 +69,14 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	private void initializeVars() {
 
 		Context context = getApplicationContext();
-		name = FinalFunctionsUtilities.getSharedPreferences("name", context);
+		name = FinalFunctionsUtilities.getSharedPreferences(Constants.NAME_KEY, context);
 
-		surname = FinalFunctionsUtilities.getSharedPreferences("surname", context);
-		mail = FinalFunctionsUtilities.getSharedPreferences("email", context);
+		surname = FinalFunctionsUtilities.getSharedPreferences(Constants.SURNAME_KEY, context);
+		mail = FinalFunctionsUtilities.getSharedPreferences(Constants.MAIL_KEY, context);
 
-		day = FinalFunctionsUtilities.getSharedPreferences("day", context);
-		month = FinalFunctionsUtilities.getSharedPreferences("month", context);
-		year = FinalFunctionsUtilities.getSharedPreferences("year", context);
+		day = FinalFunctionsUtilities.getSharedPreferences(Constants.DAY_KEY, context);
+		month = FinalFunctionsUtilities.getSharedPreferences(Constants.MONTH_KEY, context);
+		year = FinalFunctionsUtilities.getSharedPreferences(Constants.YEAR_KEY, context);
 
 		suggestionList = new ArrayList<String>(2);
 		suggestionList.add(name);
@@ -222,9 +222,9 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 			ret = res.getString("success"); // +res.getString("err1")+res.getString("err2")+res.getString("err3")+res.getString("err4")+res.getString("err5");
 			if (ret.startsWith("true")) {
 				
-				FinalFunctionsUtilities.setSharedPreferences("token", res.getString("token"), getApplicationContext());
+				FinalFunctionsUtilities.setSharedPreferences(Constants.TOKEN_KEY, res.getString("token"), getApplicationContext());
 				Toast.makeText(this, getResources().getText(R.string.registration_succes), Toast.LENGTH_SHORT).show();
-				FinalFunctionsUtilities.setSharedPreferences("password", password, getApplicationContext());
+				FinalFunctionsUtilities.setSharedPreferences(Constants.PASSWORD_KEY, password, getApplicationContext());
 				//Log.e("token", FinalFunctionsUtilities.getSharedPreferences("token", getApplicationContext()));
 				// intent
 				Intent intent = new Intent(getApplicationContext(), LuogoNascitaActivity.class);

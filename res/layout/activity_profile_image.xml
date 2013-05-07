@@ -9,35 +9,43 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ProfileImageActivity" >
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
+        
+    <ImageView
+        android:id="@+id/imgProfile"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:src="@drawable/default_profile_image"
+        android:background="#000000"
+		android:padding="1dp" />
+    
+   	<TextView
+        android:id="@+id/changeProfileImage_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" >
-
-        <ImageView
-            android:id="@+id/imgProfile"
-            android:layout_centerHorizontal="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxWidth="400dp"
-            android:maxHeight="400dp"
-            android:src="@drawable/default_profile_image" />
-        
-        <Button
+        android:layout_above="@id/imgProfile"
+        android:layout_marginBottom="40dp"
+        android:shadowColor="#000000"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="5"
+        android:text="@string/label_change_profile_image"
+        android:textColor="@color/white"
+        android:textSize="@dimen/default_textSize_huge" />
+   	
+   	        <Button
         android:id="@+id/btnChangeImgProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imgProfile"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/btn_default_selector"
         android:textColor="@color/white"
         android:textSize="60sp"
         android:layout_centerHorizontal="true"
         android:text="@string/profile_image_change_button" />
-        
-        
-    </RelativeLayout>
 
 </RelativeLayout>

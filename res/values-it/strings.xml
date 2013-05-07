@@ -104,7 +104,8 @@
     <string name="friend_list_label">Lista amici</string>
     
     <!-- ProfileImage Activity -->
-    <string name="profile_image_change_button">Cambia la tua immagine!</string>
+   	<string name="label_change_profile_image">Cambia la tua immagine profilo</string>
+    <string name="profile_image_change_button">Scegli un\'immagine</string>
     <string name="profile_image_change_success">La tua immagine profilo è stata cambiata!</string>
     <string name="profile_image_change_failed">Errore: l\'immagine profilo non può essere cambiata! Riprova più tardi.</string>
     

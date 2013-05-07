@@ -43,7 +43,7 @@ public class LuogoNascitaTask extends AsyncTask<String, Void, Boolean> {
 		
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(6);
 		params.add(new BasicNameValuePair("luogo", arg0[0]));
-		params.add(new BasicNameValuePair("token", FinalFunctionsUtilities.getSharedPreferences("token", ((Activity) caller)
+		params.add(new BasicNameValuePair("token", FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, ((Activity) caller)
 								.getApplicationContext())));
 		
 		HttpClient client = new DefaultHttpClient();

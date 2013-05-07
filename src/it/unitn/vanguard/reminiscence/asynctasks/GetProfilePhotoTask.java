@@ -2,6 +2,7 @@ package it.unitn.vanguard.reminiscence.asynctasks;
 
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -16,49 +17,38 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
+public class GetProfilePhotoTask extends AsyncTask<Integer, JSONObject, Boolean> {
 
 	private OnTaskFinished caller;
 	private Exception ex;
 	private JSONObject json;
+	private Context context;
 
-	public ChangePasswordTask(OnTaskFinished caller) {
-		super();
+	public GetProfilePhotoTask(OnTaskFinished caller, Context context) {
 		this.caller = caller;
+		this.context = context;
 	}
 
 	@Override
-	protected Boolean doInBackground(String... arg0) {
+	protected Boolean doInBackground(Integer... arg0) {
 
+		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(1);
 
-		if (arg0.length < 1) {
-			throw new IllegalStateException("You should pass at least 1 params");
-		}
+		// ottiene il token se presente
+		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, context);
+		Log.e("token", "->"+token);
 
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
-		
-		//ottiene il token se presente
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(((Activity) caller).getApplicationContext());
-		String token = prefs.getString(Constants.TOKEN_KEY, "");
-		String old = prefs.getString(Constants.PASSWORD_KEY, "");
-
-		Log.e("token", token);
-		Log.e("old pass",old);
-		Log.e("new pass",arg0[0]);
-		
-
-		if (!token.equals("")) {
-			params.add(new BasicNameValuePair("oldpass", old ));
-			params.add(new BasicNameValuePair("newpass", arg0[0]));
-			params.add(new BasicNameValuePair("token", token));
+		if (!token.equals("") && FinalFunctionsUtilities.isDeviceConnected(context)) {
 			
+			params.add(new BasicNameValuePair("token", token));
 			HttpClient client = new DefaultHttpClient();
-			HttpPost post = new HttpPost(Constants.SERVER_URL + "modificapass.php");
+			HttpPost post = new HttpPost(Constants.SERVER_URL + "getProfileImage.php");
 			try {
 				post.setEntity(new UrlEncodedFormEntity(params));
 			} catch (UnsupportedEncodingException e1) {
@@ -70,24 +60,22 @@ public class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
 				jsonString = EntityUtils.toString(client.execute(post).getEntity());
 				json = new JSONObject(jsonString);
 				if (json != null && json.getString("success").equals("true")) {
-					SharedPreferences.Editor editor = prefs.edit();
-					editor.putString("password", arg0[0]);
-					editor.commit();
 					return true;
 				}
 			} catch (Exception e) {
 				this.ex = e;
+				Log.e("Error", e.toString());
 				return false;
 			}
 		}
 		return false;
 	}
-
+	
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
 		if (!result && ex != null) {
-			Log.e(RegistrationTask.class.getName(), ex.toString());
+			Log.e(GetProfilePhotoTask.class.getName(), ex.toString());
 		}
 		caller.onTaskFinished(json);
 	}

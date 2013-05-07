@@ -53,7 +53,7 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean> {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(((Activity) caller)
 						.getApplicationContext());
-		String token = prefs.getString("token", "");
+		String token = prefs.getString(Constants.TOKEN_KEY, "");
 
 		if (!token.equals("") && arg0[0]>=lastYear) {
 			params.add(new BasicNameValuePair("year",""+ arg0[0]));

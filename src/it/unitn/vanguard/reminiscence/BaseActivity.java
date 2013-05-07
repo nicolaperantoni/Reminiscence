@@ -85,7 +85,8 @@ public class BaseActivity extends SlidingFragmentActivity {
 			
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(BaseActivity.this, "not yet", Toast.LENGTH_SHORT).show();
+				startActivity(new Intent(BaseActivity.this,
+						ViewFriendsProfileFragmentActivity.class));
 			}
 		});
 

@@ -159,11 +159,11 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 								ViewStoriesFragmentActivity.this));
 				f.setArguments(b);
 			}
-			else if(arg0==FinalFunctionsUtilities.stories.size()-1){
-				f = new EmptyStoryFragment();
-				b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY, initialYear);
-				f.setArguments(b);
-			}
+//			else if(arg0==FinalFunctionsUtilities.stories.size()-1){
+//				f = new EmptyStoryFragment();
+//				b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY, initialYear);
+//				f.setArguments(b);
+//			}
 			else 
 				FinalFunctionsUtilities.stories.get(arg0-1);
 			return f;
