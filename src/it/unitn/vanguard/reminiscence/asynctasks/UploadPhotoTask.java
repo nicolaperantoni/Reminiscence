@@ -39,7 +39,7 @@ public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(String... arg0) {
 		
-		String token = FinalFunctionsUtilities.getSharedPreferences("token", context);
+		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, context);
 		
 		if (!token.equals("") && FinalFunctionsUtilities.isDeviceConnected(context)) {
 		

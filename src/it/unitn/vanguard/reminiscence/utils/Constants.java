@@ -19,6 +19,7 @@ public class Constants {
 	public final static String MONTH_KEY = "month";
 	public final static String YEAR_KEY = "year";
 	public final static String PASSWORD_KEY = "password";
+	public final static String TOKEN_KEY = "token";
 	
 	public static enum imageType { PROFILE, STORY };
 }

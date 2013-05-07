@@ -222,7 +222,7 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 			ret = res.getString("success"); // +res.getString("err1")+res.getString("err2")+res.getString("err3")+res.getString("err4")+res.getString("err5");
 			if (ret.startsWith("true")) {
 				
-				FinalFunctionsUtilities.setSharedPreferences("token", res.getString("token"), getApplicationContext());
+				FinalFunctionsUtilities.setSharedPreferences(Constants.TOKEN_KEY, res.getString("token"), getApplicationContext());
 				Toast.makeText(this, getResources().getText(R.string.registration_succes), Toast.LENGTH_SHORT).show();
 				FinalFunctionsUtilities.setSharedPreferences(Constants.PASSWORD_KEY, password, getApplicationContext());
 				//Log.e("token", FinalFunctionsUtilities.getSharedPreferences("token", getApplicationContext()));
