@@ -103,7 +103,8 @@
     <string name="friend_list_label">Friends</string>
     
     <!-- ProfileImage Activity -->
-    <string name="profile_image_change_button">Change your profile image!</string>
+    <string name="label_change_profile_image">Change your profile image</string>
+    <string name="profile_image_change_button">Choose an image</string>
     <string name="profile_image_change_success">Your profile image has been changed!</string>
     <string name="profile_image_change_failed">Error: profile image cannot be change! try later.</string>
 
