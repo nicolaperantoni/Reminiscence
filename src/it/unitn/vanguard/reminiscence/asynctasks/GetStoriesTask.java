@@ -44,14 +44,13 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean>
 
 	@Override
 	protected Boolean doInBackground(Integer... arg) {
-
+		caller.OnStart();
 		if (arg.length > 0) {
 			if (arg[0] != null)
 				this.year = arg[0];
 			else
 				throw new IllegalStateException("You should provide a year");
 		}
-
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 
 		// ottiene il token se presente
