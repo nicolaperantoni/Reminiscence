@@ -1,9 +1,11 @@
 package it.unitn.vanguard.reminiscence.utils;
 
+import it.unitn.vanguard.reminiscence.frags.BornFragment;
 import it.unitn.vanguard.reminiscence.frags.StoryFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Locale;
 
 import android.content.Context;
@@ -17,17 +19,29 @@ import android.support.v4.app.Fragment;
 public final class FinalFunctionsUtilities {
 
 	public static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-	
-	public static ArrayList<StoryFragment> stories = new ArrayList<StoryFragment>(){
 
-		public boolean add(StoryFragment object) {
-			boolean out= super.add(object);
-			Collections.sort(this);
+	public static ArrayList<Fragment> stories = new ArrayList<Fragment>() {
+
+		public boolean add(Fragment object) {
+			boolean out = super.add(object);
+			Collections.sort(this, new Comparator<Fragment>() {
+
+				@Override
+				public int compare(Fragment lhsf, Fragment rhsf) {
+					try {
+						StoryFragment lhs = (StoryFragment) lhsf;
+						StoryFragment rhs = (StoryFragment) rhsf;
+						return rhs.getYear().compareTo(lhs.getYear());
+					} catch (Exception e) {
+						return 1;
+					}
+				}
+			});
 			return out;
 		}
-		
+
 	};
-	
+
 	/**
 	 * Validates an email address
 	 * 
@@ -111,8 +125,8 @@ public final class FinalFunctionsUtilities {
 		if (key.equals("year")) {
 			retVal = "1940";
 		}
-		if(key.equals(Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY)){
-			retVal="Trento";
+		if (key.equals(Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY)) {
+			retVal = "Trento";
 		}
 		if (key.equals("language")) {
 			Configuration config = context.getResources().getConfiguration();

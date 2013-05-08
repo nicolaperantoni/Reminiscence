@@ -86,22 +86,32 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 		FragmentManager fm = getSupportFragmentManager();
 		mStoriesAdapter = new StoriesAdapter(fm);
 		mViewPager.setAdapter(mStoriesAdapter);
-
 		// e' per avere lo 0 alla fine degli anni.(per avere la decade insomma)
 		String year = FinalFunctionsUtilities
 				.getSharedPreferences("year", this);
 		year = year.substring(0, year.length() - 1);
-		initialYear = Integer.parseInt(year + '0');
-
+		//initialYear = Integer.parseInt(year + '0');
+		initialYear=1950;
 		mTimeLine.setStartYear(initialYear);
 		// TODO this is shit!
-		Fragment f = new BornFragment();
-		Bundle b = new Bundle();
-		b.putString(BornFragment.BORN_CITY_PASSED_KEY, FinalFunctionsUtilities
-				.getSharedPreferences(
-						Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
-						ViewStoriesFragmentActivity.this));
-		f.setArguments(b);
+//		Fragment f = new BornFragment();
+//		Bundle b = new Bundle();
+//		b.putString(BornFragment.BORN_CITY_PASSED_KEY, FinalFunctionsUtilities
+//				.getSharedPreferences(
+//						Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
+//						ViewStoriesFragmentActivity.this));
+//		f.setArguments(b);
+		
+		if (FinalFunctionsUtilities.stories.isEmpty()) {
+			Fragment f = new BornFragment();
+			Bundle b = new Bundle();
+			b.putString(BornFragment.BORN_CITY_PASSED_KEY, FinalFunctionsUtilities
+					.getSharedPreferences(
+							Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
+							ViewStoriesFragmentActivity.this));
+			f.setArguments(b);
+			FinalFunctionsUtilities.stories.add(f);
+		}
 
 		mTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -151,24 +161,12 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 		@Override
 		public Fragment getItem(int arg0) {
-			Fragment f = new Fragment();
-			Bundle b = new Bundle();
-			if (arg0 == 0) {
-				f = new BornFragment();
-				b.putString(BornFragment.BORN_CITY_PASSED_KEY,
-						FinalFunctionsUtilities.getSharedPreferences(
-								Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
-								ViewStoriesFragmentActivity.this));
-				f.setArguments(b);
-			}
-			else
-				FinalFunctionsUtilities.stories.get(arg0 - 1);
-			return f;
+			return FinalFunctionsUtilities.stories.get(arg0);
 		}
 
 		@Override
 		public int getCount() {
-			return 1+FinalFunctionsUtilities.stories.size();
+			return FinalFunctionsUtilities.stories.size();
 		}
 
 	}
@@ -340,7 +338,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 			requests.remove().execute();
 		else{
 			initialYear++;
-			new GetStoriesTask(this, initialYear).execute(initialYear);
+			new GetStoriesTask(this,initialYear).execute();
 		}
 	}
 

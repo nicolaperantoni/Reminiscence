@@ -71,6 +71,8 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean> {
 				String s = EntityUtils.toString(response.getEntity());
 				JSONObject json = new JSONObject(s);
 				int n = json.getInt("numStory");
+				if (n < 1)
+					return false;
 				for (int i = 0; i < n; i++) {
 					JSONObject story = new JSONObject(json.get("s" + i)
 							.toString());
@@ -110,9 +112,7 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean> {
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
-		if (result) {
-			caller.OnFinish(result);
-		}
+		caller.OnFinish(result);
 	}
 
 }

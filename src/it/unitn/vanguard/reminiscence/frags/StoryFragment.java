@@ -31,7 +31,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class StoryFragment extends Fragment implements OnTaskFinished,Comparable<StoryFragment> {
+public class StoryFragment extends Fragment implements OnTaskFinished{
 
 	public static final String TITLE_PASSED_KEY = "storyTitle";
 	public static final String DESCRIPTION_PASSED_KEY = "descriptionTitle";
@@ -39,7 +39,7 @@ public class StoryFragment extends Fragment implements OnTaskFinished,Comparable
 	
 	private TextView mTitleTv;
 	private TextView mDescTv;
-	private int mYear;
+	private Integer mYear;
 	private String story_id;
 	
 	// Image
@@ -57,29 +57,17 @@ public class StoryFragment extends Fragment implements OnTaskFinished,Comparable
 	public void onStart() {
 		super.onStart();
 
-		String title = getArguments().getString(TITLE_PASSED_KEY);
-		String description = getArguments().getString(DESCRIPTION_PASSED_KEY);
 		mYear = getArguments().getInt(YEAR_PASSED_KEY);
 
 		mTitleTv = (TextView) getView().findViewById(R.id.story_title_tv);
-		mTitleTv.setText(title);
 
 		mDescTv = (TextView) getView().findViewById(R.id.story_description_tv);
-		mDescTv.setText(description);
+		
 		btnPhoto = (Button) getView().findViewById(R.id.btnPhoto);
 		view = (ImageView) getView().findViewById(R.id.photo);
 
 		initializeTexts();
-
-	}
-
-	private void initializeTexts() {
-		if (getArguments() != null) {
-			Bundle b = getArguments();
-			mTitleTv.setText(b.getString(TITLE_PASSED_KEY));
-			mDescTv.setText(b.getString(DESCRIPTION_PASSED_KEY));
-		}
-
+		
 		btnPhoto.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -89,6 +77,24 @@ public class StoryFragment extends Fragment implements OnTaskFinished,Comparable
 				startActivityForResult(photoPickerIntent, 1);
 			}
 		});
+
+	}
+	
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		initializeTexts();
+	}
+
+	private void initializeTexts() {
+		if (getArguments() != null) {
+			Bundle b = getArguments();
+			mTitleTv.setText(b.getString(TITLE_PASSED_KEY));
+			mDescTv.setText(b.getString(DESCRIPTION_PASSED_KEY));
+		}
+
+
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -136,7 +142,7 @@ public class StoryFragment extends Fragment implements OnTaskFinished,Comparable
        	}
 	}
 
-	public int getYear() {
+	public Integer getYear() {
 		return mYear;
 	}
 
@@ -144,16 +150,6 @@ public class StoryFragment extends Fragment implements OnTaskFinished,Comparable
 	public void onTaskFinished(JSONObject res) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public int compareTo(StoryFragment arg0) {
-		if(arg0.getYear()>this.mYear)
-			return -1;
-		else if(arg0.getYear()==this.mYear)
-			return 0;
-		else
-			return 1;
 	}
 
 }
