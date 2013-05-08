@@ -147,7 +147,7 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 						LuogoNascitaActivity.this);
 				// intent
 				Intent loginIntent = new Intent(getApplicationContext(),
-						ViewStoriesFragmentActivity.class);
+						ViewStoriesActivity.class);
 				loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivityForResult(loginIntent, 0);
 				finish();

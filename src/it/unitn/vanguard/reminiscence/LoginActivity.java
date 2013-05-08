@@ -44,7 +44,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		// Se l'utente aveva già affettuato il login in precedenza salta dirett nella timeline
 		if(FinalFunctionsUtilities.isLoggedIn(getApplicationContext())) { 
 			Intent timeline = new Intent(context,
-					ViewStoriesFragmentActivity.class);
+					ViewStoriesActivity.class);
 			startActivityForResult(timeline, 0);
 			finish();
 		}
@@ -142,7 +142,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		if(dialog!=null && dialog.isShowing()) dialog.dismiss();
 		try {
 			if (res.getString("success").equals("true")) {
-				startActivity(new Intent(context, ViewStoriesFragmentActivity.class));
+				startActivity(new Intent(context, ViewStoriesActivity.class));
 				finish();
 			} else {
 				Toast.makeText(context, getResources().getString(R.string.login_failed), Toast.LENGTH_LONG).show();

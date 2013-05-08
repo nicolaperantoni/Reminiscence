@@ -42,9 +42,7 @@ import android.widget.Toast;
 import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
 import eu.giovannidefrancesco.DroidTimeline.view.YearView;
 
-
-
-public class ViewStoriesFragmentActivity extends BaseActivity implements
+public class ViewStoriesActivity extends BaseActivity implements
 		OnTaskFinished, QuestionPopUp, OnTask {
 
 	private Context context;
@@ -57,23 +55,23 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 	private ImageView mCloseQuestionImgV;
 
 	private StoriesAdapter mStoriesAdapter;
-
-	private int initialYear;
+	private int startYear;
+	private int selectedItemIndex;
+	private int requestYear;
 
 	private Queue<GetStoriesTask> requests;
 
 	@Override
 	public void onCreate(Bundle arg0) {
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);  
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(arg0);
-		
+
 		setContentView(R.layout.activity_viewstories);
 
 		context = getApplicationContext();
 		String language = FinalFunctionsUtilities.getSharedPreferences(
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
-
 
 		mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
@@ -82,40 +80,42 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 		FragmentManager fm = getSupportFragmentManager();
 		mStoriesAdapter = new StoriesAdapter(fm);
 		mViewPager.setAdapter(mStoriesAdapter);
-		
-		// e' per avere lo 0 alla fine degli anni.(per avere l'intera decade, praticmanete)
+
+		// e' per avere lo 0 alla fine degli anni.(per avere l'intera decade,
+		// praticmanete)
 		String year = FinalFunctionsUtilities
 				.getSharedPreferences("year", this);
 		year = year.substring(0, year.length() - 1);
-		initialYear = Integer.parseInt(year + '0');
-		mTimeLine.setStartYear(initialYear);
-		
+		requestYear = Integer.parseInt(year + '0');
+		startYear = requestYear;
+		selectedItemIndex=0;
+		mTimeLine.setStartYear(requestYear);
 
 		setListeners();
 
 		initializePopUps();
-		
+
 		initializeStoryList();
-		
+
 	}
-	
+
 	private void initializeStoryList() {
-		//Mette dentro il fragment della data di nascita
+		// Mette dentro il fragment della data di nascita
 		if (FinalFunctionsUtilities.stories.isEmpty()) {
 			Fragment f = new BornFragment();
 			Bundle b = new Bundle();
 			b.putString(BornFragment.BORN_CITY_PASSED_KEY,
 					FinalFunctionsUtilities.getSharedPreferences(
 							Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
-							ViewStoriesFragmentActivity.this));
+							ViewStoriesActivity.this));
 			f.setArguments(b);
 			FinalFunctionsUtilities.stories.add(f);
 		}
-		//Comincia a chiedere al server le storie
-		new GetStoriesTask(this, initialYear).execute();
+		// Comincia a chiedere al server le storie
+		new GetStoriesTask(this, requestYear).execute();
 	}
 
-	private void initializePopUps(){
+	private void initializePopUps() {
 		Bundle b = new Bundle();
 		b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY,
 				"Sei mai andato in crociera?");
@@ -123,9 +123,9 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 		msg.setData(b);
 		new QuestionPopUpHandler(this).sendMessageDelayed(msg,
 				Constants.QUESTION_INTERVAL);
-		new GetStoriesTask(this, initialYear).execute(initialYear);
+		new GetStoriesTask(this, requestYear).execute(requestYear);
 	}
-	
+
 	private void setListeners() {
 		mTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -133,9 +133,8 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				int year = ((YearView) arg1).getYear();
-				requests.add(new GetStoriesTask(
-						ViewStoriesFragmentActivity.this, year));
-				// initialYear=year;
+				selectedItemIndex=arg2;
+				requests.add(new GetStoriesTask(ViewStoriesActivity.this, year));
 			}
 		});
 
@@ -164,7 +163,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 				if (FinalFunctionsUtilities
 						.isDeviceConnected(getApplicationContext())) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(
-							ViewStoriesFragmentActivity.this);
+							ViewStoriesActivity.this);
 
 					builder.setMessage(R.string.exit_message)
 							.setPositiveButton(R.string.yes,
@@ -173,7 +172,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 												DialogInterface dialogInterface,
 												int id) {
 											dialog = new ProgressDialog(
-													ViewStoriesFragmentActivity.this);
+													ViewStoriesActivity.this);
 											dialog.setTitle(getResources()
 													.getString(R.string.please));
 											dialog.setMessage(getResources()
@@ -184,14 +183,14 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 											String email = FinalFunctionsUtilities
 													.getSharedPreferences(
 															Constants.MAIL_KEY,
-															ViewStoriesFragmentActivity.this);
+															ViewStoriesActivity.this);
 											String password = FinalFunctionsUtilities
 													.getSharedPreferences(
 															Constants.PASSWORD_KEY,
-															ViewStoriesFragmentActivity.this);
+															ViewStoriesActivity.this);
 
 											new LogoutTask(
-													ViewStoriesFragmentActivity.this)
+													ViewStoriesActivity.this)
 													.execute(email, password);
 										}
 									})
@@ -239,12 +238,12 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 	}
 
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.timeline, menu);
+
 		String language = FinalFunctionsUtilities.getSharedPreferences(
 				"language", getApplicationContext());
 		Locale locale = new Locale(language);
@@ -255,7 +254,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 		} else if (locale.toString().equals(Locale.ENGLISH.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.en);
 		}
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -264,15 +263,17 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 		switch (item.getItemId()) {
 		// Languages
-		case R.id.action_language_it: {
+		case R.id.action_language_it:
 			locale = Locale.ITALY;
 			break;
-		}
-		case R.id.action_language_en: {
+		case R.id.action_language_en:
 			locale = Locale.ENGLISH;
 			break;
-		}
-
+		case R.id.action_add_story:
+			Intent i = new Intent(this, EmptyStoryActivity.class);
+			i.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY,startYear+10*selectedItemIndex+"");
+			startActivity(i);
+			break;
 		}
 
 		if (locale != null
@@ -296,7 +297,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 				Toast.makeText(getApplicationContext(),
 						getResources().getString(R.string.logout_success),
 						Toast.LENGTH_LONG).show();
-				startActivity(new Intent(ViewStoriesFragmentActivity.this,
+				startActivity(new Intent(ViewStoriesActivity.this,
 						LoginActivity.class));
 				this.finish();
 			} else {
@@ -335,25 +336,24 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 	public void OnFinish(Boolean result) {
 		// TODO display a toast in case of error
 		// TODO call it for the the next year
-		setProgressBarIndeterminateVisibility(false); 
-		if (!requests.isEmpty()){
-			setProgressBarIndeterminateVisibility(true); 
+		setProgressBarIndeterminateVisibility(false);
+		if (!requests.isEmpty()) {
+			setProgressBarIndeterminateVisibility(true);
 			requests.remove().execute();
-		}
-		else {
-			initialYear++;
-			new GetStoriesTask(this, initialYear).execute();
+		} else {
+			requestYear++;
+			new GetStoriesTask(this, requestYear).execute();
 		}
 	}
 
 	@Override
 	public void OnProgress() {
-		setProgressBarIndeterminateVisibility(true); 
+		setProgressBarIndeterminateVisibility(true);
 		mStoriesAdapter.notifyDataSetChanged();
 	}
 
 	@Override
 	public void OnStart() {
-		//setProgressBarIndeterminateVisibility(true); 
+		// setProgressBarIndeterminateVisibility(true);
 	}
 }

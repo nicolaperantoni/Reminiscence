@@ -53,6 +53,7 @@ public class BaseActivity extends SlidingFragmentActivity{
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		} catch (Exception e) {
 			// TODO: non farlo
+			//sarebbe meglio implementare actionbarsherlock!
 		}
 	}
 
