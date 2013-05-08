@@ -1,7 +1,7 @@
 package it.unitn.vanguard.reminiscence.asynctasks;
 
 import it.unitn.vanguard.reminiscence.frags.StoryFragment;
-import it.unitn.vanguard.reminiscence.interfaces.OnTaskExecuted;
+import it.unitn.vanguard.reminiscence.interfaces.OnTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
@@ -28,14 +28,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean> {
+public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean> 
+	implements Comparable<GetStoriesTask> {
 
-	private OnTaskExecuted caller;
+	private OnTask caller;
 	private Exception ex;
 	private JSONObject json;
 	private int year;
 
-	public GetStoriesTask(OnTaskExecuted caller, Integer year) {
+	public GetStoriesTask(OnTask caller, Integer year) {
 		this.caller = caller;
 		if (year != null)
 			this.year = year;
@@ -113,6 +114,15 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean> {
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
 		caller.OnFinish(result);
+	}
+
+	@Override
+	public int compareTo(GetStoriesTask another) {
+		if (this.year>another.year)
+			return -1;
+		else if(this.year==another.year)
+			return 0;
+		return 1;
 	}
 
 }

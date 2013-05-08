@@ -4,13 +4,14 @@ import it.unitn.vanguard.reminiscence.QuestionPopUpHandler.QuestionPopUp;
 import it.unitn.vanguard.reminiscence.asynctasks.GetStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
 import it.unitn.vanguard.reminiscence.frags.BornFragment;
-import it.unitn.vanguard.reminiscence.interfaces.OnTaskExecuted;
+import it.unitn.vanguard.reminiscence.interfaces.OnTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +33,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,7 +45,7 @@ import eu.giovannidefrancesco.DroidTimeline.view.YearView;
 
 
 public class ViewStoriesFragmentActivity extends BaseActivity implements
-		OnTaskFinished, QuestionPopUp, OnTaskExecuted {
+		OnTaskFinished, QuestionPopUp, OnTask {
 
 	private Context context;
 
@@ -58,13 +60,13 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 	private int initialYear;
 
-	private PriorityQueue<GetStoriesTask> requests;
+	private Queue<GetStoriesTask> requests;
 
 	@Override
 	public void onCreate(Bundle arg0) {
-
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);  
 		super.onCreate(arg0);
-
+		
 		setContentView(R.layout.activity_viewstories);
 
 		context = getApplicationContext();
@@ -72,7 +74,6 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 
-		setContentView(R.layout.activity_viewstories);
 
 		mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
@@ -88,6 +89,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 		year = year.substring(0, year.length() - 1);
 		initialYear = Integer.parseInt(year + '0');
 		mTimeLine.setStartYear(initialYear);
+		
 
 		setListeners();
 
@@ -98,6 +100,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 	}
 	
 	private void initializeStoryList() {
+		//Mette dentro il fragment della data di nascita
 		if (FinalFunctionsUtilities.stories.isEmpty()) {
 			Fragment f = new BornFragment();
 			Bundle b = new Bundle();
@@ -108,6 +111,8 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 			f.setArguments(b);
 			FinalFunctionsUtilities.stories.add(f);
 		}
+		//Comincia a chiedere al server le storie
+		new GetStoriesTask(this, initialYear).execute();
 	}
 
 	private void initializePopUps(){
@@ -330,6 +335,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 	public void OnFinish(Boolean result) {
 		// TODO display a toast in case of error
 		// TODO call it for the the next year
+		setProgressBarIndeterminateVisibility(false); 
 		if (!requests.isEmpty())
 			requests.remove().execute();
 		else {
@@ -341,5 +347,10 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 	@Override
 	public void OnProgress() {
 		mStoriesAdapter.notifyDataSetChanged();
+	}
+
+	@Override
+	public void OnStart() {
+		setProgressBarIndeterminateVisibility(true); 
 	}
 }
