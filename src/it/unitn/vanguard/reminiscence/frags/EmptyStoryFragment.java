@@ -1,5 +1,6 @@
 package it.unitn.vanguard.reminiscence.frags;
 
+import it.unitn.vanguard.reminiscence.CheckBoxAmici;
 import it.unitn.vanguard.reminiscence.R;
 
 import java.io.ByteArrayOutputStream;
@@ -63,6 +64,7 @@ public class EmptyStoryFragment extends Fragment {
 		mDescriptionEt = (EditText) getView().findViewById(
 				R.id.emptystory_desc_et);
 		mAddBtn = (Button) getView().findViewById(R.id.emptystory_add_btn);
+		
 
 		String s = String.format(getResources().getString(R.string.no_story),
 				getArguments().getInt(YEAR_PASSED_KEY));
@@ -80,5 +82,6 @@ public class EmptyStoryFragment extends Fragment {
 						Toast.LENGTH_LONG).show();
 			}
 		});
+		
 	}
 }

@@ -114,4 +114,7 @@
     <string name="settings_label">Settings:</string>
     <string name="change_locale">Change language</string>
 
+    <!-- Story Fragment -->
+    <string name="chiedi_aiuto_btn">Chiedi aiuto</string>
+    
 </resources>
