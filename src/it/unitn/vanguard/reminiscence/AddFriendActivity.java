@@ -6,16 +6,19 @@ import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+@SuppressLint("NewApi")
 public class AddFriendActivity extends Activity implements OnTaskFinished {
 
 	private EditText editTextName;
@@ -29,6 +32,12 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		try {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		} catch (Exception e) {
+			// TODO: non farlo
+			// sarebbe meglio implementare actionbarsherlock!
+		}
 		setContentView(R.layout.activity_add_friend);
 		initializeButtons();
 		initializeListeners();
@@ -40,7 +49,7 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 		editTextMail = (EditText) findViewById(R.id.add_friend_mail_et);
 		confirmBtn = (Button) findViewById(R.id.add_friend_confirm_button);
 		backBtn = (Button) findViewById(R.id.add_friend_back_button);
-		
+
 		name = editTextName.getText().toString();
 		surname = editTextSurname.getText().toString();
 		mail = editTextMail.getText().toString();
@@ -55,7 +64,7 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 
 			@Override
 			public void onClick(View arg0) {
-				if(nameOk && surnameOk && mailOk) {
+				if (nameOk && surnameOk && mailOk) {
 					new AddFriendTask(AddFriendActivity.this).execute(name,
 							surname, mail);
 				}
@@ -185,28 +194,33 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
-	}
-
-	@Override
 	public void onTaskFinished(JSONObject res) {
 		String result = "";
-		
+
 		try {
 			result = res.getString("success");
 		} catch (Exception e) {
 		}
-		
+
 		if (result.equals("true")) {
 			finish();
-			Toast.makeText(this.getApplicationContext(), R.string.add_friend_successful, Toast.LENGTH_LONG).show();
+			Toast.makeText(this.getApplicationContext(),
+					R.string.add_friend_successful, Toast.LENGTH_LONG).show();
 		} else {
 			finish();
-			Toast.makeText(this.getApplicationContext(), R.string.registration_failed, Toast.LENGTH_LONG).show();
+			Toast.makeText(this.getApplicationContext(),
+					R.string.registration_failed, Toast.LENGTH_LONG).show();
 		}
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 }

@@ -17,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -42,10 +43,17 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 	private ImageView imageView;
 	protected ProgressDialog dialog;
 
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = getApplicationContext();
+		try {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		} catch (Exception e) {
+			// TODO: non farlo
+			//sarebbe meglio implementare actionbarsherlock!
+		}
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_profile_image);
@@ -149,7 +157,7 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 		else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.en);
 		}
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 	
 	@Override
@@ -158,6 +166,7 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 		switch (item.getItemId()) {
 		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
 		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
+		    case android.R.id.home: this.finish();break;
 	    }
 		
 		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {

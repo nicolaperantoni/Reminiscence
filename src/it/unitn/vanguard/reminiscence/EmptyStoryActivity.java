@@ -40,7 +40,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class EmptyStoryActivity extends Activity implements OnTaskFinished {
+public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 
 	public static final String YEAR_PASSED_KEY = "emptyStoryYear";
 
@@ -51,7 +51,7 @@ public class EmptyStoryActivity extends Activity implements OnTaskFinished {
 	private Button mAddBtn;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_emptystory);
 		mNoStoryTv = (TextView) findViewById(R.id.emptystory_nostory_tv);
