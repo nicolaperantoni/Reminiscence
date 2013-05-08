@@ -132,5 +132,7 @@
     <!-- stringhe per zen da sistemare -->
     <string name="title_activity_add_friend">AddFriendActivity</string>
     <string name="add_friend_successful">Your friend was successfully added!</string>
+    <string name="no_friends_a">No </string>
+    <string name="no_friends_b">friends</string>
 
 </resources>

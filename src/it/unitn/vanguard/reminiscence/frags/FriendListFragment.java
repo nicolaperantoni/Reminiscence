@@ -93,7 +93,8 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 		int count = 10;
 		boolean success = false;
 
-		// ottengo se l'operazione ha avuto successo e il numero di valori dal json
+		// ottengo se l'operazione ha avuto successo e il numero di valori dal
+		// json
 		try {
 			success = res.getString("success").equals("true");
 			if (success) {
@@ -104,25 +105,34 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 		}
 
 		if (success) {
-			// inizializzo i nuovi valori
-			names = new String[count];
-			surnames = new String[count];
-			ids = new int[count];
-
 			// scorro il json
-			for (int i = 0; i < count; i++) {
-				String ct = "f" + i;
-				JSONObject json = null;
-				try {
-					json = new JSONObject(res.getString(ct));
-					names[i] = json.getString("Nome");
-					surnames[i] = json.getString("Cognome");
-					ids[i] = Integer.parseInt(json.getString("Id"));
-				} catch (Exception e) {
-					Log.e("tuamadre", e.toString());
+			if (count < 1) {
+				names = new String[1];
+				surnames = new String[1];
+				ids = new int[1];
+				names[0] = getString(R.string.no_friends_a);
+				surnames[0] = getString(R.string.no_friends_b);
+				ids[0] = -1;
+			} else {
+				names = new String[count];
+				surnames = new String[count];
+				ids = new int[count];
+				for (int i = 0; i < count; i++) {
+					String ct = "f" + i;
+					JSONObject json = null;
+					try {
+						json = new JSONObject(res.getString(ct));
+						names[i] = json.getString("Nome");
+						surnames[i] = json.getString("Cognome");
+						ids[i] = Integer.parseInt(json.getString("Id"));
+					} catch (Exception e) {
+						Log.e("tuamadre", e.toString());
+					}
 				}
 			}
 			setAdapter();
+			((ViewFriendsProfileFragmentActivity) getActivity()).onItemSelect(
+					names[0], surnames[0]);
 		} else {
 			Log.e("json", "errore nell operazione success:false");
 		}
