@@ -5,7 +5,7 @@
     <dimen name="default_margin">20dp</dimen>
     <dimen name="default_margin_double">40dp</dimen>
     <dimen name="default_textSize_smaller">20sp</dimen>
-    <dimen name="default_textSize_small">25sp</dimen>
+    <dimen name="default_textSize_small">30sp</dimen>
     <dimen name="default_textSize">35sp</dimen>
     <dimen name="default_textSize_large">50sp</dimen>
     <dimen name="default_textSize_larger">60sp</dimen>

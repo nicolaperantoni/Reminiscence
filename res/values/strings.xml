@@ -8,11 +8,11 @@
     <string name="connection_fail">You must be connected to the internet</string>
 
     <!-- SlidingMenu -->
-    <string name="menu_profile">Account</string>
+    <string name="menu_profile">ACCOUNT</string>
     <string name="menu_friends">Friends</string>
     <string name="menu_profile_image">Profile Image</string>
     <string name="menu_add_friend">Add Friend</string>
-    <string name="menu_settings">Settings</string>
+    <string name="menu_settings">SETTINGS</string>
     <string name="menu_change_password">Change Password</string>
     <string name="menu_language">Change Language</string>
     <string name="menu_logout">Logout</string>
