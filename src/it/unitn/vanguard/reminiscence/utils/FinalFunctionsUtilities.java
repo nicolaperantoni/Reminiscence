@@ -1,6 +1,9 @@
 package it.unitn.vanguard.reminiscence.utils;
 
+import it.unitn.vanguard.reminiscence.frags.StoryFragment;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Locale;
 
 import android.content.Context;
@@ -15,7 +18,15 @@ public final class FinalFunctionsUtilities {
 
 	public static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 	
-	public static ArrayList<Fragment> stories = new ArrayList<Fragment>();
+	public static ArrayList<StoryFragment> stories = new ArrayList<StoryFragment>(){
+
+		public boolean add(StoryFragment object) {
+			boolean out= super.add(object);
+			Collections.sort(this);
+			return out;
+		}
+		
+	};
 	
 	/**
 	 * Validates an email address

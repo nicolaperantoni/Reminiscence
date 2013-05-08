@@ -11,6 +11,8 @@ import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +26,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -51,66 +54,63 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 	private ViewPager mViewPager;
 	private TimeLineView mTimeLine;
-	protected ProgressDialog dialog;
+	private ProgressDialog dialog;
 
 	private TextView mQuestionTv;
 	private ImageView mCloseQuestionImgV;
 
 	private StoriesAdapter mStoriesAdapter;
 
-	public static int initialYear;
+	private int initialYear;
+
+	private PriorityQueue<GetStoriesTask> requests;
 
 	@Override
 	public void onCreate(Bundle arg0) {
+
 		super.onCreate(arg0);
+
 		setContentView(R.layout.activity_viewstories);
-		
+
 		context = getApplicationContext();
 		String language = FinalFunctionsUtilities.getSharedPreferences(
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 
 		setContentView(R.layout.activity_viewstories);
-		
 
 		mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
-		
+		requests = new PriorityQueue<GetStoriesTask>();
 
 		FragmentManager fm = getSupportFragmentManager();
 		mStoriesAdapter = new StoriesAdapter(fm);
 		mViewPager.setAdapter(mStoriesAdapter);
-		
-		//e' per avere lo 0 alla fine degli anni.(per avere la decade insomma)
-		String year =FinalFunctionsUtilities
+
+		// e' per avere lo 0 alla fine degli anni.(per avere la decade insomma)
+		String year = FinalFunctionsUtilities
 				.getSharedPreferences("year", this);
-		year=year.substring(0,year.length()-1);		
-		initialYear = Integer.parseInt(year+'0');
-		
+		year = year.substring(0, year.length() - 1);
+		initialYear = Integer.parseInt(year + '0');
+
 		mTimeLine.setStartYear(initialYear);
-		//TODO this is shit!
+		// TODO this is shit!
 		Fragment f = new BornFragment();
 		Bundle b = new Bundle();
-		b.putString(BornFragment.BORN_CITY_PASSED_KEY,
-				FinalFunctionsUtilities.getSharedPreferences(
+		b.putString(BornFragment.BORN_CITY_PASSED_KEY, FinalFunctionsUtilities
+				.getSharedPreferences(
 						Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
 						ViewStoriesFragmentActivity.this));
 		f.setArguments(b);
-		FinalFunctionsUtilities.stories.add(f);
-		f = new EmptyStoryFragment();
-		b = new Bundle();
-		b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY,initialYear);
-		f.setArguments(b);
-		FinalFunctionsUtilities.stories.add(f);
-		
+
 		mTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				int year = ((YearView) arg1).getYear();
-				new GetStoriesTask(ViewStoriesFragmentActivity.this,
-						initialYear).execute(year);
+				requests.add(new GetStoriesTask(
+						ViewStoriesFragmentActivity.this, year));
 				// initialYear=year;
 			}
 		});
@@ -134,10 +134,12 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 		});
 		// TODO rename b1
 		Bundle b1 = new Bundle();
-		b1.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY, "Sei mai andato in crociera?");
+		b1.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY,
+				"Sei mai andato in crociera?");
 		Message msg = new Message();
 		msg.setData(b1);
-		new QuestionPopUpHandler(this).sendMessageDelayed(msg, Constants.QUESTION_INTERVAL);
+		new QuestionPopUpHandler(this).sendMessageDelayed(msg,
+				Constants.QUESTION_INTERVAL);
 		new GetStoriesTask(this, initialYear).execute(initialYear);
 	}
 
@@ -149,7 +151,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 		@Override
 		public Fragment getItem(int arg0) {
-			Fragment f = new BornFragment();
+			Fragment f = new Fragment();
 			Bundle b = new Bundle();
 			if (arg0 == 0) {
 				f = new BornFragment();
@@ -159,20 +161,14 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 								ViewStoriesFragmentActivity.this));
 				f.setArguments(b);
 			}
-			else if(arg0==FinalFunctionsUtilities.stories.size()-1){
-				f = new EmptyStoryFragment();
-				b.putInt(EmptyStoryFragment.YEAR_PASSED_KEY, initialYear);
-				f.setArguments(b);
-				
-			}
-			else 
-				FinalFunctionsUtilities.stories.get(arg0-1);
+			else
+				FinalFunctionsUtilities.stories.get(arg0 - 1);
 			return f;
 		}
 
 		@Override
 		public int getCount() {
-			return FinalFunctionsUtilities.stories.size();
+			return 1+FinalFunctionsUtilities.stories.size();
 		}
 
 	}
@@ -216,9 +212,9 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 		}
 		case R.id.action_settings: {
 			/*
-			Intent changePasswd = new Intent(getApplicationContext(),
-					ChangePassword.class);
-			startActivityForResult(changePasswd, 0);*/
+			 * Intent changePasswd = new Intent(getApplicationContext(),
+			 * ChangePassword.class); startActivityForResult(changePasswd, 0);
+			 */
 			Intent changePasswd = new Intent(getApplicationContext(),
 					ProfileImageActivity.class);
 			startActivityForResult(changePasswd, 0);
@@ -245,11 +241,11 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 										dialog.show();
 
 										String email = FinalFunctionsUtilities
-												.getSharedPreferences("email",
+												.getSharedPreferences(Constants.MAIL_KEY,
 														context);
 										String password = FinalFunctionsUtilities
 												.getSharedPreferences(
-														"password", context);
+														Constants.PASSWORD_KEY, context);
 
 										new LogoutTask(
 												ViewStoriesFragmentActivity.this)
@@ -287,7 +283,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 			finish();
 			startActivity(getIntent());
 		}
-		return true;
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -296,6 +292,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 			dialog.dismiss();
 		}
 		try {
+			Log.e("", res.toString());
 			if (res.getString("success").equals("true")) {
 				Toast.makeText(getApplicationContext(),
 						getResources().getString(R.string.logout_success),
@@ -339,8 +336,12 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 	public void OnFinish(Boolean result) {
 		// TODO display a toast in case of error
 		// TODO call it for the the next year
-		initialYear++;
-		new GetStoriesTask(this, initialYear).execute(initialYear);
+		if (!requests.isEmpty())
+			requests.remove().execute();
+		else{
+			initialYear++;
+			new GetStoriesTask(this, initialYear).execute(initialYear);
+		}
 	}
 
 	@Override

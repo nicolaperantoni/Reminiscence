@@ -45,13 +45,11 @@ public class GetProfilePhotoTask extends AsyncTask<Integer, JSONObject, Boolean>
 		Log.e("token", "->"+token);
 
 		if (!token.equals("") && FinalFunctionsUtilities.isDeviceConnected(context)) {
-			Log.e("asd","invioooo richiestaaa");
+			
 			params.add(new BasicNameValuePair("token", token));
-
 			HttpClient client = new DefaultHttpClient();
 			HttpPost post = new HttpPost(Constants.SERVER_URL + "getProfileImage.php");
 			try {
-				Log.e("asd","inviataaaaaaaaaaaaa");
 				post.setEntity(new UrlEncodedFormEntity(params));
 			} catch (UnsupportedEncodingException e1) {
 				e1.printStackTrace();
@@ -59,7 +57,6 @@ public class GetProfilePhotoTask extends AsyncTask<Integer, JSONObject, Boolean>
 			json = null;
 			String jsonString;
 			try {
-				Log.e("asd","ora il jsoooooooooooon");
 				jsonString = EntityUtils.toString(client.execute(post).getEntity());
 				json = new JSONObject(jsonString);
 				if (json != null && json.getString("success").equals("true")) {

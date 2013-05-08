@@ -73,12 +73,13 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 	
 	private void getProfileImage(){
 		try {
-			dialog = new ProgressDialog(ProfileImageActivity.this);
-			dialog.setTitle(getResources().getString(R.string.please));
-			dialog.setMessage(getResources().getString(R.string.wait));
-			dialog.setCancelable(false);
-			dialog.show();
-			Log.e("asd","GetProfilePhotoTask");
+			if(dialog == null) {
+				dialog = new ProgressDialog(ProfileImageActivity.this);
+				dialog.setTitle(getResources().getString(R.string.please));
+				dialog.setMessage(getResources().getString(R.string.wait));
+				dialog.setCancelable(false);
+				dialog.show();
+			}
 			new GetProfilePhotoTask(this, context).execute();
 		}catch(Exception e){
 			Log.e("log_tag", "Error in http connection "+ e.toString());
@@ -118,8 +119,7 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 					dialog.setMessage(getResources().getString(R.string.wait));
 					dialog.setCancelable(false);
 					dialog.show();
-					new UploadPhotoTask(this, Constants.imageType.PROFILE, context).execute(encodedImage, "4");
-					imageView.setImageBitmap(mBitmap);
+					new UploadPhotoTask(this, Constants.imageType.PROFILE, context).execute(encodedImage);
 				}catch(Exception e){
 					Log.e("log_tag", "Error in http connection "+ e.toString());
 					e.printStackTrace();
@@ -181,6 +181,7 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 			}
 			else if(res.getString("operation").equals("AddProfileImage")){
 				if (res.getString("success").equals("true")) {
+					getProfileImage();
 					Toast.makeText(this, getResources().getString(R.string.profile_image_change_success), Toast.LENGTH_LONG).show();
 				} else {
 					Toast.makeText(this, getResources().getString(R.string.profile_image_change_failed), Toast.LENGTH_LONG).show();

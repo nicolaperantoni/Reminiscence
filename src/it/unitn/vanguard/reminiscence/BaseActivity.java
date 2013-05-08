@@ -4,8 +4,10 @@ import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 	private TextView mChangeLocale;
 	private TextView mFriendList;
 
+	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,6 +30,13 @@ public class BaseActivity extends SlidingFragmentActivity {
 		initializeMenu();
 
 		initializeTextViews();
+		
+		setSlidingActionBarEnabled(false);
+		try{
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}catch (Exception e) {
+			// TODO: non farlo
+		}
 	}
 
 	private void initializeTextViews() {
@@ -80,6 +90,18 @@ public class BaseActivity extends SlidingFragmentActivity {
 			}
 		});
 
+	}
+	
+	
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+		case android.R.id.home:
+			getSlidingMenu().toggle();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void initializeMenu() {

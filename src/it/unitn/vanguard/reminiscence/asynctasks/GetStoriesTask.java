@@ -33,18 +33,22 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean> {
 	private OnTaskExecuted caller;
 	private Exception ex;
 	private JSONObject json;
-	private int lastYear;
+	private int year;
 
-	public GetStoriesTask(OnTaskExecuted caller,int lastYear) {
+	public GetStoriesTask(OnTaskExecuted caller, Integer year) {
 		this.caller = caller;
-		this.lastYear=lastYear;
+		if (year != null)
+			this.year = year;
 	}
 
 	@Override
-	protected Boolean doInBackground(Integer... arg0) {
+	protected Boolean doInBackground(Integer... arg) {
 
-		if (arg0.length < 1) {
-			throw new IllegalStateException("You should pass at least 1 params");
+		if (arg.length > 0) {
+			if (arg[0] != null)
+				this.year = arg[0];
+			else
+				throw new IllegalStateException("You should provide a year");
 		}
 
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
@@ -55,8 +59,8 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean> {
 						.getApplicationContext());
 		String token = prefs.getString(Constants.TOKEN_KEY, "");
 
-		if (!token.equals("") && arg0[0]>=lastYear) {
-			params.add(new BasicNameValuePair("year",""+ arg0[0]));
+		if (!token.equals("")) {
+			params.add(new BasicNameValuePair("year", "" + year));
 			params.add(new BasicNameValuePair("token", token));
 
 			HttpClient client = new DefaultHttpClient();
@@ -93,6 +97,7 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean> {
 			Bundle b = new Bundle();
 			b.putString(StoryFragment.TITLE_PASSED_KEY, title);
 			b.putString(StoryFragment.DESCRIPTION_PASSED_KEY, desc);
+			b.putInt(StoryFragment.YEAR_PASSED_KEY, year);
 			story.setArguments(b);
 			FinalFunctionsUtilities.stories.add(story);
 			caller.OnProgress();

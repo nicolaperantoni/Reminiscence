@@ -3,6 +3,7 @@ package it.unitn.vanguard.reminiscence;
 import it.unitn.vanguard.reminiscence.asynctasks.ChangePasswordTask;
 import it.unitn.vanguard.reminiscence.asynctasks.RegistrationTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
@@ -30,6 +31,7 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 	protected ProgressDialog dialog;
 	private Button btnChangePassword, btnChangePasswordBack;
 	private EditText txtNewPassword, txtConfirmPassword;
+	private String new_pass1;
 	
 	// Controllo sintassi password e conferma
 	private boolean passwordOk, confirmOk;
@@ -58,7 +60,7 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 			@Override
 			public void onClick(View v) {
 				
-				String new_pass1 = txtNewPassword.getText().toString();
+				new_pass1 = txtNewPassword.getText().toString();
 				String new_pass2 = txtConfirmPassword.getText().toString();
 				boolean isEmptyNewPassword = new_pass1.trim().equals("");
 				boolean isEmptyConfPassword = new_pass2.trim().equals("");
@@ -151,7 +153,9 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 		if(dialog!=null && dialog.isShowing())
 			dialog.dismiss();
 		try {
+			Log.e("", FinalFunctionsUtilities.getSharedPreferences(Constants.PASSWORD_KEY, context));
 			if (res.getString("success").equals("true")) {
+				FinalFunctionsUtilities.setSharedPreferences(Constants.PASSWORD_KEY, new_pass1, context);
 				Toast.makeText(ChangePassword.this, getResources().getString(R.string.correct_password),
 						Toast.LENGTH_LONG).show();
 			}
