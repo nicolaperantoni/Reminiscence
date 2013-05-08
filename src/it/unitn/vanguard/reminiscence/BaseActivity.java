@@ -28,7 +28,7 @@ import android.widget.Toast;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 
-public class BaseActivity extends SlidingFragmentActivity{
+public class BaseActivity extends SlidingFragmentActivity {
 
 	private TextView mChangeProfile;
 	private TextView mChangePasswd;
@@ -36,7 +36,7 @@ public class BaseActivity extends SlidingFragmentActivity{
 	private TextView mChangeLocale;
 	private TextView mFriendList;
 	protected TextView mLogout;
-	
+
 	private ProgressDialog dialog;
 
 	@SuppressLint("NewApi")
@@ -113,8 +113,8 @@ public class BaseActivity extends SlidingFragmentActivity{
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				Toast.makeText(BaseActivity.this, "not yet", Toast.LENGTH_SHORT)
-						.show();
+				startActivity(new Intent(BaseActivity.this,
+						AddFriendActivity.class));
 			}
 		});
 	}
