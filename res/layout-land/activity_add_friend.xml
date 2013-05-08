@@ -21,46 +21,58 @@
         android:shadowRadius="5"
         android:text="@string/add_friend_label"
         android:textColor="@color/white"
-        android:textSize="@dimen/default_textSize_huge" />
+        android:textSize="@dimen/default_textSize_larger" />
 
-    <EditText
-        android:id="@+id/add_friend_name_et"
+    <LinearLayout
+        android:id="@+id/add_friend_ll"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/add_friend_header"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/default_margin"
-        android:background="@drawable/txt_input_bordered"
-        android:ems="10"
-        android:hint="@string/user_name_label"
-        android:inputType="textPersonName"
-        android:selectAllOnFocus="true"
-        android:textSize="@dimen/default_textSize_large" >
+        android:layout_marginTop="@dimen/default_margin_double"
+        android:orientation="horizontal"
+        android:padding="0dp" >
 
-        <requestFocus />
-    </EditText>
+        <EditText
+            android:id="@+id/add_friend_name_et"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:background="@drawable/txt_input_bordered"
+            android:layout_marginLeft="0dp"
+            android:layout_weight="0.5"
+            android:layout_marginRight="@dimen/default_margin"
+            android:ems="10"
+            android:hint="@string/user_name_label"
+            android:inputType="textPersonName"
+            android:selectAllOnFocus="true"
+            android:textSize="@dimen/default_textSize_large" >
 
-    <EditText
-        android:id="@+id/add_friend_surname_et"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/add_friend_name_et"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/default_margin"
-        android:background="@drawable/txt_input_bordered"
-        android:ems="10"
-        android:hint="@string/user_surname_label"
-        android:inputType="textPersonName"
-        android:selectAllOnFocus="true"
-        android:textSize="@dimen/default_textSize_large" />
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/add_friend_surname_et"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:background="@drawable/txt_input_bordered"
+            android:layout_marginRight="0dp"
+            android:layout_weight="0.5"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:ems="10"
+            android:hint="@string/user_surname_label"
+            android:inputType="textPersonName"
+            android:selectAllOnFocus="true"
+            android:textSize="@dimen/default_textSize_large" />
+    </LinearLayout>
 
     <EditText
         android:id="@+id/add_friend_mail_et"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/add_friend_surname_et"
+        android:layout_below="@+id/add_friend_ll"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin_double"
         android:background="@drawable/txt_input_bordered"
         android:ems="10"
         android:hint="@string/user_mail_label"
@@ -71,31 +83,34 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/add_friend_mail_et"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/default_margin"
         android:orientation="horizontal"
         android:padding="0dp" >
 
         <Button
             android:id="@+id/add_friend_confirm_button"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/default_margin_double"
-            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="@dimen/default_margin"
+            android:layout_weight="0.5"
             android:background="@drawable/btn_default_selector"
             android:text="@string/confirm_button_label"
             android:textSize="@dimen/default_textSize_larger" />
-        
+
         <Button
             android:id="@+id/add_friend_back_button"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/default_margin_double"
             android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="0dp"
+            android:layout_weight="0.5"
             android:background="@drawable/btn_default_selector"
             android:text="@string/back_button_label"
             android:textSize="@dimen/default_textSize_larger" />
-
     </LinearLayout>
 
 </RelativeLayout>
