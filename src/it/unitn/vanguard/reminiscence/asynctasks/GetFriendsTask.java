@@ -77,7 +77,6 @@ public class GetFriendsTask extends AsyncTask<Integer, JSONObject, Boolean> {
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
-
 		caller.onTaskFinished(json);
 	}
 	
