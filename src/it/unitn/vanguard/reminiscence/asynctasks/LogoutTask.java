@@ -38,32 +38,36 @@ public class LogoutTask extends AsyncTask<String, Void, Boolean> {
 			throw new IllegalStateException("You should pass at least 2 params");
 		}
 
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
-		params.add(new BasicNameValuePair("email", arg0[0]));
-		params.add(new BasicNameValuePair("password", arg0[1]));
+		if (FinalFunctionsUtilities.isDeviceConnected(((Activity) caller))) {
 
-		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(Constants.SERVER_URL + "logout.php");
-		try {
-			post.setEntity(new UrlEncodedFormEntity(params));
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		}
-		json = null;
-		String jsonString;
-		try {
-			jsonString = EntityUtils.toString(client.execute(post).getEntity());
-			json = new JSONObject(jsonString);
-			if (json != null && json.getString("success").equals("true")) {
-				FinalFunctionsUtilities.setSharedPreferences("token", "", ((Activity) caller).getApplicationContext());
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("email", arg0[0]));
+			params.add(new BasicNameValuePair("password", arg0[1]));
+
+			HttpClient client = new DefaultHttpClient();
+			HttpPost post = new HttpPost(Constants.SERVER_URL + "logout.php");
+			try {
+				post.setEntity(new UrlEncodedFormEntity(params));
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
 			}
+			json = null;
+			String jsonString;
+			try {
+				jsonString = EntityUtils.toString(client.execute(post).getEntity());
+				json = new JSONObject(jsonString);
+				if (json != null && json.getString("success").equals("true")) {
+					FinalFunctionsUtilities.setSharedPreferences("token", "", ((Activity) caller));
+					return true;
+				}
 
-		} catch (Exception e) {
-			this.ex = e;
-			return false;
-		} 
+			} catch (Exception e) {
+				this.ex = e;
+				return false;
+			}
+		}
 
-		return true;
+		return false;
 	}
 
 	@Override
@@ -75,5 +79,3 @@ public class LogoutTask extends AsyncTask<String, Void, Boolean> {
 		caller.onTaskFinished(json);
 	}
 }
-
-

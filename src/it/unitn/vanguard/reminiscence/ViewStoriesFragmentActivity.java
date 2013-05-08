@@ -90,27 +90,28 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 		String year = FinalFunctionsUtilities
 				.getSharedPreferences("year", this);
 		year = year.substring(0, year.length() - 1);
-		//initialYear = Integer.parseInt(year + '0');
-		initialYear=1950;
+		// initialYear = Integer.parseInt(year + '0');
+		initialYear = 1950;
 		mTimeLine.setStartYear(initialYear);
 		// TODO this is shit!
-//		Fragment f = new BornFragment();
-//		Bundle b = new Bundle();
-//		b.putString(BornFragment.BORN_CITY_PASSED_KEY, FinalFunctionsUtilities
-//				.getSharedPreferences(
-//						Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
-//						ViewStoriesFragmentActivity.this));
-//		f.setArguments(b);
-		
+		// Fragment f = new BornFragment();
+		// Bundle b = new Bundle();
+		// b.putString(BornFragment.BORN_CITY_PASSED_KEY,
+		// FinalFunctionsUtilities
+		// .getSharedPreferences(
+		// Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
+		// ViewStoriesFragmentActivity.this));
+		// f.setArguments(b);
+
 		if (FinalFunctionsUtilities.stories.isEmpty()) {
 			Fragment f = new BornFragment();
 			Bundle b = new Bundle();
-			b.putString(BornFragment.BORN_CITY_PASSED_KEY, FinalFunctionsUtilities
-					.getSharedPreferences(
+			b.putString(BornFragment.BORN_CITY_PASSED_KEY,
+					FinalFunctionsUtilities.getSharedPreferences(
 							Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
 							ViewStoriesFragmentActivity.this));
 			f.setArguments(b);
-			FinalFunctionsUtilities.stories.add(f);
+			// FinalFunctionsUtilities.stories.add(f);
 		}
 
 		mTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -142,6 +143,70 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 				OnHide();
 			}
 		});
+		mLogout = (TextView) findViewById(R.id.hiddebmenu_logout_tv);
+		mLogout.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (FinalFunctionsUtilities
+						.isDeviceConnected(getApplicationContext())) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(ViewStoriesFragmentActivity.this);
+
+					builder.setMessage(R.string.exit_message)
+							.setPositiveButton(R.string.yes,
+									new DialogInterface.OnClickListener() {
+										public void onClick(
+												DialogInterface dialogInterface,
+												int id) {
+											dialog = new ProgressDialog(
+													ViewStoriesFragmentActivity.this);
+											dialog.setTitle(getResources()
+													.getString(R.string.please));
+											dialog.setMessage(getResources()
+													.getString(R.string.wait));
+											dialog.setCancelable(false);
+											dialog.show();
+
+											String email = FinalFunctionsUtilities
+													.getSharedPreferences(
+															Constants.MAIL_KEY,
+															ViewStoriesFragmentActivity.this);
+											String password = FinalFunctionsUtilities
+													.getSharedPreferences(
+															Constants.PASSWORD_KEY,
+															ViewStoriesFragmentActivity.this);
+
+											new LogoutTask(
+													ViewStoriesFragmentActivity.this)
+													.execute(email, password);
+										}
+									})
+							.setNegativeButton(R.string.no,
+									new DialogInterface.OnClickListener() {
+										public void onClick(
+												DialogInterface dialog, int id) {
+
+										}
+									});
+
+					AlertDialog alert = builder.create();
+					alert.show();
+					((TextView) alert.findViewById(android.R.id.message))
+							.setGravity(Gravity.CENTER);
+					((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
+							.setBackgroundResource(R.drawable.bottone_logout);
+					((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
+							.setTextColor(Color.WHITE);
+
+				} else {
+					Toast.makeText(getApplicationContext(),
+							getResources().getString(R.string.connection_fail),
+							Toast.LENGTH_LONG).show();
+				}
+			}
+		});
+		
+		
 		// TODO rename b1
 		Bundle b1 = new Bundle();
 		b1.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY,
@@ -219,59 +284,61 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 			return true;
 		}
 		case R.id.action_logout: {
-			if (FinalFunctionsUtilities
-					.isDeviceConnected(getApplicationContext())) {
-				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-				builder.setMessage(R.string.exit_message)
-						.setPositiveButton(R.string.yes,
-								new DialogInterface.OnClickListener() {
-									public void onClick(
-											DialogInterface dialogInterface,
-											int id) {
-										dialog = new ProgressDialog(
-												ViewStoriesFragmentActivity.this);
-										dialog.setTitle(getResources()
-												.getString(R.string.please));
-										dialog.setMessage(getResources()
-												.getString(R.string.wait));
-										dialog.setCancelable(false);
-										dialog.show();
-
-										String email = FinalFunctionsUtilities
-												.getSharedPreferences(Constants.MAIL_KEY,
-														context);
-										String password = FinalFunctionsUtilities
-												.getSharedPreferences(
-														Constants.PASSWORD_KEY, context);
-
-										new LogoutTask(
-												ViewStoriesFragmentActivity.this)
-												.execute(email, password);
-									}
-								})
-						.setNegativeButton(R.string.no,
-								new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,
-											int id) {
-
-									}
-								});
-
-				AlertDialog alert = builder.create();
-				alert.show();
-				((TextView) alert.findViewById(android.R.id.message))
-						.setGravity(Gravity.CENTER);
-				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
-						.setBackgroundResource(R.drawable.bottone_logout);
-				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
-						.setTextColor(Color.WHITE);
-
-			} else {
-				Toast.makeText(getApplicationContext(),
-						getResources().getString(R.string.connection_fail),
-						Toast.LENGTH_LONG).show();
-			}
+//			if (FinalFunctionsUtilities
+//					.isDeviceConnected(getApplicationContext())) {
+//				AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//
+//				builder.setMessage(R.string.exit_message)
+//						.setPositiveButton(R.string.yes,
+//								new DialogInterface.OnClickListener() {
+//									public void onClick(
+//											DialogInterface dialogInterface,
+//											int id) {
+//										dialog = new ProgressDialog(
+//												ViewStoriesFragmentActivity.this);
+//										dialog.setTitle(getResources()
+//												.getString(R.string.please));
+//										dialog.setMessage(getResources()
+//												.getString(R.string.wait));
+//										dialog.setCancelable(false);
+//										dialog.show();
+//
+//										String email = FinalFunctionsUtilities
+//												.getSharedPreferences(
+//														Constants.MAIL_KEY,
+//														context);
+//										String password = FinalFunctionsUtilities
+//												.getSharedPreferences(
+//														Constants.PASSWORD_KEY,
+//														context);
+//
+//										new LogoutTask(
+//												ViewStoriesFragmentActivity.this)
+//												.execute(email, password);
+//									}
+//								})
+//						.setNegativeButton(R.string.no,
+//								new DialogInterface.OnClickListener() {
+//									public void onClick(DialogInterface dialog,
+//											int id) {
+//
+//									}
+//								});
+//
+//				AlertDialog alert = builder.create();
+//				alert.show();
+//				((TextView) alert.findViewById(android.R.id.message))
+//						.setGravity(Gravity.CENTER);
+//				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
+//						.setBackgroundResource(R.drawable.bottone_logout);
+//				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
+//						.setTextColor(Color.WHITE);
+//
+//			} else {
+//				Toast.makeText(getApplicationContext(),
+//						getResources().getString(R.string.connection_fail),
+//						Toast.LENGTH_LONG).show();
+//			}
 		}
 		}
 
@@ -286,6 +353,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
+		
 		if (dialog != null && dialog.isShowing()) {
 			dialog.dismiss();
 		}
@@ -336,9 +404,9 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 		// TODO call it for the the next year
 		if (!requests.isEmpty())
 			requests.remove().execute();
-		else{
+		else {
 			initialYear++;
-			new GetStoriesTask(this,initialYear).execute();
+			new GetStoriesTask(this, initialYear).execute();
 		}
 	}
 
