@@ -104,12 +104,12 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 		if (FinalFunctionsUtilities.stories.isEmpty()) {
 			Fragment f = new BornFragment();
 			Bundle b = new Bundle();
-			/*b.putString(BornFragment.BORN_CITY_PASSED_KEY,
+			b.putString(BornFragment.BORN_CITY_PASSED_KEY,
 					FinalFunctionsUtilities.getSharedPreferences(
 							Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
 							ViewStoriesFragmentActivity.this));
 			f.setArguments(b);
-			FinalFunctionsUtilities.stories.add(f);*/
+			FinalFunctionsUtilities.stories.add(f);
 		}
 		//Comincia a chiedere al server le storie
 		new GetStoriesTask(this, initialYear).execute();
