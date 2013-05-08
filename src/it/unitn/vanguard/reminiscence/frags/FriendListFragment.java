@@ -1,16 +1,12 @@
 package it.unitn.vanguard.reminiscence.frags;
 
 import it.unitn.vanguard.reminiscence.R;
-import it.unitn.vanguard.reminiscence.asynctasks.GetFriendsTask;
 import it.unitn.vanguard.reminiscence.ViewFriendsProfileFragmentActivity;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -51,7 +47,7 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		new GetFriendsTask(this, getActivity()).execute();
+		//new GetFriendsTask(this, getActivity()).execute();
 	}
 
 	private void setAdapter() {

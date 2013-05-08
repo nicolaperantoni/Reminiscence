@@ -241,11 +241,11 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 										dialog.show();
 
 										String email = FinalFunctionsUtilities
-												.getSharedPreferences("email",
+												.getSharedPreferences(Constants.MAIL_KEY,
 														context);
 										String password = FinalFunctionsUtilities
 												.getSharedPreferences(
-														"password", context);
+														Constants.PASSWORD_KEY, context);
 
 										new LogoutTask(
 												ViewStoriesFragmentActivity.this)
@@ -292,6 +292,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 			dialog.dismiss();
 		}
 		try {
+			Log.e("", res.toString());
 			if (res.getString("success").equals("true")) {
 				Toast.makeText(getApplicationContext(),
 						getResources().getString(R.string.logout_success),
