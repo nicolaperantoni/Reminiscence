@@ -2,23 +2,45 @@ package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.QuestionPopUpHandler.QuestionPopUp;
 import it.unitn.vanguard.reminiscence.asynctasks.GetStoriesTask;
+import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
+import it.unitn.vanguard.reminiscence.frags.BornFragment;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskExecuted;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.Constants;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
+import java.util.Locale;
 import java.util.PriorityQueue;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
+import eu.giovannidefrancesco.DroidTimeline.view.YearView;
+
+
 
 public class ViewStoriesFragmentActivity extends BaseActivity implements
 		OnTaskFinished, QuestionPopUp, OnTaskExecuted {
@@ -59,23 +81,23 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 		FragmentManager fm = getSupportFragmentManager();
 		mStoriesAdapter = new StoriesAdapter(fm);
 		mViewPager.setAdapter(mStoriesAdapter);
-		// e' per avere lo 0 alla fine degli anni.(per avere la decade insomma)
+		
+		// e' per avere lo 0 alla fine degli anni.(per avere l'intera decade, praticmanete)
 		String year = FinalFunctionsUtilities
 				.getSharedPreferences("year", this);
 		year = year.substring(0, year.length() - 1);
-		// initialYear = Integer.parseInt(year + '0');
-		initialYear = 1950;
+		initialYear = Integer.parseInt(year + '0');
 		mTimeLine.setStartYear(initialYear);
-		// TODO this is shit!
-		// Fragment f = new BornFragment();
-		// Bundle b = new Bundle();
-		// b.putString(BornFragment.BORN_CITY_PASSED_KEY,
-		// FinalFunctionsUtilities
-		// .getSharedPreferences(
-		// Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
-		// ViewStoriesFragmentActivity.this));
-		// f.setArguments(b);
 
+		setListeners();
+
+		initializePopUps();
+		
+		initializeStoryList();
+		
+	}
+	
+	private void initializeStoryList() {
 		if (FinalFunctionsUtilities.stories.isEmpty()) {
 			Fragment f = new BornFragment();
 			Bundle b = new Bundle();
@@ -84,22 +106,21 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 							Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
 							ViewStoriesFragmentActivity.this));
 			f.setArguments(b);
-			// FinalFunctionsUtilities.stories.add(f);
+			FinalFunctionsUtilities.stories.add(f);
 		}
+	}
 
-		setListeners();
-
-		// TODO rename b1
-		Bundle b1 = new Bundle();
-		b1.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY,
+	private void initializePopUps(){
+		Bundle b = new Bundle();
+		b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY,
 				"Sei mai andato in crociera?");
 		Message msg = new Message();
-		msg.setData(b1);
+		msg.setData(b);
 		new QuestionPopUpHandler(this).sendMessageDelayed(msg,
 				Constants.QUESTION_INTERVAL);
 		new GetStoriesTask(this, initialYear).execute(initialYear);
 	}
-
+	
 	private void setListeners() {
 		mTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -213,10 +234,6 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 	}
 
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
