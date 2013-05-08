@@ -39,19 +39,18 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		context = getApplicationContext();
+		context = LoginActivity.this;
 	
 		// Se l'utente aveva già affettuato il login in precedenza salta dirett nella timeline
 		if(FinalFunctionsUtilities.isLoggedIn(getApplicationContext())) { 
-			Intent timeline = new Intent(getApplicationContext(),
+			Intent timeline = new Intent(context,
 					ViewStoriesFragmentActivity.class);
 			startActivityForResult(timeline, 0);
 			finish();
 		}
-		String language = FinalFunctionsUtilities.getSharedPreferences(
-				"language", this);
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language),
-				this);
+				context);
 		setContentView(R.layout.activity_login);
 		initializeButtons();
 		initializeListeners();
@@ -90,7 +89,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 					Toast.makeText(context, getResources().getString(R.string.login_empty_password), Toast.LENGTH_LONG).show();
 				}
 				else if(FinalFunctionsUtilities.isDeviceConnected(context)) {
-					dialog = new ProgressDialog(LoginActivity.this);
+					dialog = new ProgressDialog(context);
 					dialog.setTitle(getResources().getString(R.string.please));
 					dialog.setMessage(getResources().getString(R.string.wait));
 					dialog.setCancelable(false);
@@ -143,10 +142,10 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		if(dialog!=null && dialog.isShowing()) dialog.dismiss();
 		try {
 			if (res.getString("success").equals("true")) {
-				startActivity(new Intent(LoginActivity.this, ViewStoriesFragmentActivity.class));
+				startActivity(new Intent(context, ViewStoriesFragmentActivity.class));
 				finish();
 			} else {
-				Toast.makeText(this, getResources().getString(R.string.login_failed), Toast.LENGTH_LONG).show();
+				Toast.makeText(context, getResources().getString(R.string.login_failed), Toast.LENGTH_LONG).show();
 			}
 		} catch (JSONException e) {
 			Log.e(LoginActivity.class.getName(), e.toString());
@@ -158,7 +157,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		Locale locale = new Locale(language);
 
 		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {

@@ -19,7 +19,7 @@
         android:shadowDx="3"
         android:shadowDy="3"
         android:shadowRadius="5"
-        android:text="@string/add_friend_label"
+        android:text="@string/menu_add_friend"
         android:textColor="@color/white"
         android:textSize="@dimen/default_textSize_larger" />
 

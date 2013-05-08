@@ -1,12 +1,11 @@
 package it.unitn.vanguard.reminiscence.frags;
 
 
+import it.unitn.vanguard.reminiscence.CheckBoxAmici;
+import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+
 import org.json.JSONObject;
 
-import it.unitn.vanguard.reminiscence.CheckBoxAmici;
-import it.unitn.vanguard.reminiscence.R;
-import it.unitn.vanguard.reminiscence.R.id;
-import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import eu.giovannidefrancesco.DroidTimeline.R;
 
 public class BornFragment extends Fragment implements OnTaskFinished {
 	
@@ -22,16 +22,17 @@ public class BornFragment extends Fragment implements OnTaskFinished {
 	private TextView mTv;
 	private Button btn_aiuto_amico;
 	
+	/*
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_born, container,false);
 		return v;
-	}
+	}*/
 
 	@Override
 	public void onStart() {
-		super.onStart();
+		super.onStart();/*
 		btn_aiuto_amico = (Button) getView().findViewById(R.id.btn_aiuto_amico);
 		btn_aiuto_amico.setOnClickListener(new View.OnClickListener() {
 
@@ -49,14 +50,12 @@ public class BornFragment extends Fragment implements OnTaskFinished {
 			mTv.setText(String.format(getString(R.string.born), b.getString(BORN_CITY_PASSED_KEY)));
 		else{
 			mTv.setText(mTv.getText().toString().substring(0, 5));
-		}
+		}*/
 	}
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		mTv.setText(mTv.getText().toString().substring(0, 5));	
+		//mTv.setText(mTv.getText().toString().substring(0, 5));	
 	}
-	
-	
 	
 }
