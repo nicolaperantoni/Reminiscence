@@ -41,10 +41,16 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean>
 		if (year != null)
 			this.year = year;
 	}
+	
+	@Override
+	protected void onPreExecute() {
+		super.onPreExecute();
+		caller.OnStart();
+	}
 
 	@Override
 	protected Boolean doInBackground(Integer... arg) {
-		caller.OnStart();
+		
 		if (arg.length > 0) {
 			if (arg[0] != null)
 				this.year = arg[0];
