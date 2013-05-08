@@ -115,4 +115,8 @@
     <string name="profile_label">Profilo:</string>
     <string name="settings_label">Impostazioni:</string>
     <string name="change_locale">Cambia lingua</string>
+    <string name="add_friend_label">Aggiungi un amico</string>
+    
+    <!-- Story Fragment -->
+    <string name="chiedi_aiuto_btn">Chiedi aiuto</string>
 </resources>

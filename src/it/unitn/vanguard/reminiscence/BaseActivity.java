@@ -19,8 +19,10 @@ public class BaseActivity extends SlidingFragmentActivity {
 
 	private TextView mChangeProfile;
 	private TextView mChangePasswd;
+	private TextView mAddFriend;
 	private TextView mChangeLocale;
 	private TextView mFriendList;
+	private TextView mLogout;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -89,7 +91,24 @@ public class BaseActivity extends SlidingFragmentActivity {
 						ViewFriendsProfileFragmentActivity.class));
 			}
 		});
-
+		mAddFriend = (TextView) findViewById(R.id.hiddebmenu_addfriend_tv);
+		mAddFriend.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Toast.makeText(BaseActivity.this, "not yet", Toast.LENGTH_SHORT).show();
+			}
+		});
+		mLogout = (TextView) findViewById(R.id.hiddebmenu_logout_tv);
+		mLogout.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Toast.makeText(BaseActivity.this, "not yet", Toast.LENGTH_SHORT).show();
+			}
+		});
 	}
 	
 	

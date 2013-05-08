@@ -11,15 +11,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/profile_label"
-        android:textSize="@dimen/default_textSize_small"
-        android:textColor="@color/timeline_light_grey" />
+        android:textColor="@color/timeline_light_grey"
+        android:textSize="@dimen/default_textSize_small" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingRight="10dp"
         android:layout_marginLeft="@dimen/default_margin"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingRight="10dp" >
 
         <TextView
             android:id="@+id/hiddenmenu_friendList_tv"
@@ -28,8 +28,8 @@
             android:background="@drawable/menu_btn"
             android:clickable="true"
             android:text="@string/friend_list_label"
-            android:textSize="@dimen/default_textSize_smaller"
-            android:textColor="@color/timeline_lighter_grey" />
+            android:textColor="@color/timeline_lighter_grey"
+            android:textSize="@dimen/default_textSize_smaller" />
 
         <View
             android:layout_width="fill_parent"
@@ -43,8 +43,24 @@
             android:background="@drawable/menu_btn"
             android:clickable="true"
             android:text="@string/profile_image_desc"
-            android:textSize="@dimen/default_textSize_smaller"
-            android:textColor="@color/timeline_lighter_grey" />
+            android:textColor="@color/timeline_lighter_grey"
+            android:textSize="@dimen/default_textSize_smaller" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/darker_midnight_blue" />
+
+        <TextView
+            android:id="@+id/hiddebmenu_addfriend_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_btn"
+            android:clickable="true"
+            android:text="@string/add_friend_label"
+            android:textColor="@color/timeline_lighter_grey"
+            android:textSize="@dimen/default_textSize_smaller" />
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="2dp"
@@ -56,16 +72,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/settings_label"
-
-        android:textSize="@dimen/default_textSize_small"
-        android:textColor="@color/timeline_light_grey" />
+        android:textColor="@color/timeline_light_grey"
+        android:textSize="@dimen/default_textSize_small" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/default_margin"
-        android:paddingRight="10dp"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:paddingRight="10dp" >
 
         <TextView
             android:id="@+id/hiddenmenu_changepasswd_tv"
@@ -74,8 +89,9 @@
             android:background="@drawable/menu_btn"
             android:clickable="true"
             android:text="@string/change_password_suggest_label"
-            android:textSize="@dimen/default_textSize_smaller"
-            android:textColor="@color/timeline_lighter_grey" />
+            android:textColor="@color/timeline_lighter_grey"
+            android:textSize="@dimen/default_textSize_smaller" />
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="2dp"
@@ -88,8 +104,24 @@
             android:background="@drawable/menu_btn"
             android:clickable="true"
             android:text="@string/change_locale"
-            android:textSize="@dimen/default_textSize_smaller"
-            android:textColor="@color/timeline_lighter_grey" />
+            android:textColor="@color/timeline_lighter_grey"
+            android:textSize="@dimen/default_textSize_smaller" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="@color/darker_midnight_blue" />
+
+        <TextView
+            android:id="@+id/hiddebmenu_logout_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_btn"
+            android:clickable="true"
+            android:text="@string/action_logout"
+            android:textColor="@color/timeline_lighter_grey"
+            android:textSize="@dimen/default_textSize_smaller" />
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="2dp"
