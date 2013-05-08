@@ -118,7 +118,9 @@
 
     <!-- Story Fragment -->
     <string name="chiedi_aiuto_btn">Ask for help</string>
-    
-<!--     stringhe per zen da sistemare -->
+
+    <!-- stringhe per zen da sistemare -->
+
+    <string name="title_activity_add_friend">AddFriendActivity</string>
 
 </resources>

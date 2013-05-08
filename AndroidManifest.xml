@@ -89,9 +89,12 @@
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.CheckBoxAmici"
-             android:configChanges="locale|orientation" >
+            android:configChanges="locale|orientation" >
         </activity>
-        
+        <activity
+            android:name="it.unitn.vanguard.reminiscence.AddFriendActivity"
+            android:label="@string/title_activity_add_friend" >
+        </activity>
     </application>
 
 </manifest>

@@ -28,7 +28,7 @@ import android.widget.Toast;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 
-public class BaseActivity extends SlidingFragmentActivity /*implements OnTaskFinished*/{
+public class BaseActivity extends SlidingFragmentActivity{
 
 	private TextView mChangeProfile;
 	private TextView mChangePasswd;
@@ -135,28 +135,4 @@ public class BaseActivity extends SlidingFragmentActivity /*implements OnTaskFin
 		menu.setFadeDegree(0.35f);
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 	}
-
-//	@Override
-//	public void onTaskFinished(JSONObject res) {
-//		if (dialog != null && dialog.isShowing()) {
-//			dialog.dismiss();
-//		}
-//		try {
-//			Log.e("", res.toString());
-//			if (res.getString("success").equals("true")) {
-//				Toast.makeText(getApplicationContext(),
-//						getResources().getString(R.string.logout_success),
-//						Toast.LENGTH_LONG).show();
-//				startActivity(new Intent(BaseActivity.this,
-//						LoginActivity.class));
-//				this.finish();
-//			} else {
-//				Toast.makeText(this,
-//						getResources().getString(R.string.logout_failed),
-//						Toast.LENGTH_LONG).show();
-//			}
-//		} catch (JSONException e) {
-//			Log.e(LoginActivity.class.getName(), e.toString());
-//		}
-//	}
 }
