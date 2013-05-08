@@ -1,12 +1,12 @@
 package it.unitn.vanguard.reminiscence.frags;
 
 
+import it.unitn.vanguard.reminiscence.CheckBoxAmici;
+import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+
 import org.json.JSONObject;
 
-import it.unitn.vanguard.reminiscence.CheckBoxAmici;
-import it.unitn.vanguard.reminiscence.R;
-import it.unitn.vanguard.reminiscence.R.id;
-import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import android.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

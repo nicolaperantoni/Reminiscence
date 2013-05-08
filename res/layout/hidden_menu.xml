@@ -10,7 +10,7 @@
         android:id="@+id/TextView02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/profile_label"
+        android:text="@string/menu_profile"
         android:textColor="@color/timeline_light_grey"
         android:textSize="@dimen/default_textSize_small" />
 
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/menu_btn"
             android:clickable="true"
-            android:text="@string/friend_list_label"
+            android:text="@string/menu_friends"
             android:textColor="@color/timeline_lighter_grey"
             android:textSize="@dimen/default_textSize_smaller" />
 
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/menu_btn"
             android:clickable="true"
-            android:text="@string/profile_image_desc"
+            android:text="@string/menu_profile_image"
             android:textColor="@color/timeline_lighter_grey"
             android:textSize="@dimen/default_textSize_smaller" />
 
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/menu_btn"
             android:clickable="true"
-            android:text="@string/add_friend_label"
+            android:text="@string/menu_add_friend"
             android:textColor="@color/timeline_lighter_grey"
             android:textSize="@dimen/default_textSize_smaller" />
 
@@ -71,7 +71,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/settings_label"
+        android:text="@string/menu_settings"
         android:textColor="@color/timeline_light_grey"
         android:textSize="@dimen/default_textSize_small" />
 
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/menu_btn"
             android:clickable="true"
-            android:text="@string/change_password_suggest_label"
+            android:text="@string/menu_change_password"
             android:textColor="@color/timeline_lighter_grey"
             android:textSize="@dimen/default_textSize_smaller" />
 
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/menu_btn"
             android:clickable="true"
-            android:text="@string/change_locale"
+            android:text="@string/menu_language"
             android:textColor="@color/timeline_lighter_grey"
             android:textSize="@dimen/default_textSize_smaller" />
 
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/menu_btn"
             android:clickable="true"
-            android:text="@string/action_logout"
+            android:text="@string/menu_logout"
             android:textColor="@color/timeline_lighter_grey"
             android:textSize="@dimen/default_textSize_smaller" />
 

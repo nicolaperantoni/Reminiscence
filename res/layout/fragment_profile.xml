@@ -10,7 +10,7 @@
 
     <ImageView
         android:id="@+id/profile_image"
-        android:contentDescription="@string/profile_image_desc"
+        android:contentDescription="@string/menu_profile_image"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_alignParentLeft="true"

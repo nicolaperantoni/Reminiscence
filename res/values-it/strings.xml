@@ -3,14 +3,19 @@
     
     <!-- General -->
     <string name="app_name">Reminiscence</string>
-    <string name="hello_world">Ciao mondo!</string>
     <string name="please">Per Favore</string>
     <string name="wait">attendi...</string>
     <string name="connection_fail">Devi essere connesso alla rete internet</string>
     
-    <!-- Menus -->
-    <string name="action_settings">Impostazioni</string>
-    <string name="action_logout">Logout</string>
+    <!-- SlidingMenu -->
+    <string name="menu_profile">Profilo</string>
+    <string name="menu_friends">Lista Amici</string>
+    <string name="menu_profile_image">Immagine Profilo</string>
+    <string name="menu_add_friend">Aggiungi Amico</string>
+    <string name="menu_settings">Impostazioni</string>
+    <string name="menu_change_password">Cambia Password</string>
+    <string name="menu_language">Cambia Lingua</string>
+    <string name="menu_logout">Esci</string>
     <string name="action_language_italian">Italian</string>
     <string name="action_language_english">English</string>
     
@@ -23,8 +28,15 @@
     <string name="login_empty_username">Inserisci la tua e-mail.</string>
     <string name="login_empty_password">Inserisci la password.</string>
     <string name="login_empty_both">Inserisci la tua e-mail e la tua password.</string>
-    <string name="login_failed">Email e Password errati! Riprova.</string>
-    <string name="login_succes">Evviva! Ora sei loggato!</string>
+    <string name="login_failed">Email o Password errati. Riprova!</string>
+    <string name="login_succes">Ora sei loggato!</string>
+    
+    <!-- Logout Popup -->
+    <string name="exit_message">Sei sicuro di voler uscire?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="logout_failed">Logout fallito</string>
+    <string name="logout_success">Logout riuscito con successo</string>
     
     <!-- Registration_Activity -->    
     <string name="title_activity_registration">Registrati</string>
@@ -41,7 +53,6 @@
     <string name="registration_name_contains_spaces">Il Nome non può iniziare o terminare con spazi</string>
     <string name="registration_email_empty">L\' e-mail non può rimanere vuota</string>
     
-    
     <!-- DataNascita_Activity -->
     <string name="data_nascita_activity_title">Data di nascita</string>
     <string name="data_nascita_activity_header">Inserisci la tua data di nascita.</string>
@@ -53,7 +64,7 @@
     <string name="registration_password_contains_spaces">La password non può contenere spazi.</string>
     <string name="registration_password_wrong">La password deve contenere solo lettere e numeri.</string>
     <string name="registration_failed">No! Qualcosa è andato storto!</string>
-    <string name="registration_succes">Evviva! ti sei registrato!</string>
+    <string name="registration_succes">Evviva! Ti sei registrato!</string>
     
     <!-- ViewStoriesFragmentActivity -->
     <string name="story_title_placeholder">Titolo</string>
@@ -76,8 +87,6 @@
          Vivamus et turpis ipsum, quis tristique orci. Vestibulum egestas 
          felis at justo aliquet sollicitudin.</string>
     <string name="no_story">Raccontaci una storia sul %1$s</string>
-    <string name="logout_failed">Logout fallito</string>
-    <string name="logout_success">Logout riuscito con successo</string>
 
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">Pagina Principale</string>
@@ -90,20 +99,15 @@
     <string name="empty_password">Inserisci password e conferma.</string>
     <string name="wrong_password">Le due password inserite non corrispondono.</string>
     <string name="correct_password">La tua nuova password è stata cambiata!</string>
-    <string name="yes">Si</string>
-    <string name="exit_message">Sei sicuro di voler uscire?</string>
-    <string name="no">No</string>
     
     <!-- LuogoNascita Activity -->
     <string name="label_luogo_nascita">Dove sei nato?</string>
     <string name="hint_luogo_nascita">Luogo di nascita</string>
     <string name="birthplace_empty">Il Luogo di nascita non può rimanere vuoto</string>
     <string name="birthplace_contains_spaces">Il Luogo di nascita non può iniziare o terminare con spazi</string>
-    <string name="title_activity_profile_fragment">FragmentProfilo</string>
-    <string name="profile_image_desc">Immagine profilo</string>
-    <string name="friend_list_label">Lista amici</string>
     
     <!-- ProfileImage Activity -->
+    <string name="title_activity_profile_fragment">FragmentProfilo</string>
    	<string name="label_change_profile_image">Cambia la tua immagine profilo</string>
     <string name="profile_image_change_button">Scegli un\'immagine</string>
     <string name="profile_image_change_success">La tua immagine profilo è stata cambiata!</string>
@@ -111,11 +115,6 @@
     
     <!-- Born Fragment -->
     <string name="born">Nato a %1$s</string>
-    <string name="title_activity_profile_image">ImmagineProfilo</string>
-    <string name="profile_label">Profilo:</string>
-    <string name="settings_label">Impostazioni:</string>
-    <string name="change_locale">Cambia lingua</string>
-    <string name="add_friend_label">Aggiungi un amico</string>
     
     <!-- Story Fragment -->
     <string name="chiedi_aiuto_btn">Chiedi aiuto</string>
