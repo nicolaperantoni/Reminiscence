@@ -336,8 +336,10 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 		// TODO display a toast in case of error
 		// TODO call it for the the next year
 		setProgressBarIndeterminateVisibility(false); 
-		if (!requests.isEmpty())
+		if (!requests.isEmpty()){
+			setProgressBarIndeterminateVisibility(true); 
 			requests.remove().execute();
+		}
 		else {
 			initialYear++;
 			new GetStoriesTask(this, initialYear).execute();
@@ -346,11 +348,12 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 	@Override
 	public void OnProgress() {
+		setProgressBarIndeterminateVisibility(true); 
 		mStoriesAdapter.notifyDataSetChanged();
 	}
 
 	@Override
 	public void OnStart() {
-		setProgressBarIndeterminateVisibility(true); 
+		//setProgressBarIndeterminateVisibility(true); 
 	}
 }
