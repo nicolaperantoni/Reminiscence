@@ -18,6 +18,7 @@
     <string name="menu_logout">Logout</string>
     <string name="action_language_italian">Italian</string>
     <string name="action_language_english">English</string>
+    <string name="action_addStory">Add a story</string>
     
     <!-- Login_Activity -->
     <string name="login_activity_title">Sign in</string>
@@ -86,8 +87,13 @@
          nunc. Praesent ultrices sem at enim eleifend interdum. 
          Vivamus et turpis ipsum, quis tristique orci. Vestibulum egestas 
          felis at justo aliquet sollicitudin.</string>
-    <string name="no_story">Tell us a story about %1$s</string>
-
+         
+    <!-- EmptyStoryActivity -->
+    <string name="no_story">Tell us a story about</string>
+    <string name="year_hint">Year</string>
+    <string name="story_add_ok">Story added succesfully</string>
+    <string name="story_add_fail">Some errors occured</string>
+    
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">MainPageActivity</string>
 
@@ -125,5 +131,6 @@
     
     <!-- stringhe per zen da sistemare -->
     <string name="title_activity_add_friend">AddFriendActivity</string>
+    <string name="add_friend_successful">Your friend was successfully added!</string>
 
 </resources>

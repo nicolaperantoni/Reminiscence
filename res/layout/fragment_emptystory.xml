@@ -2,50 +2,70 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_background_red"
     android:padding="10dp" >
 
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+    <TextView
+        android:id="@+id/emptystory_nostory_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:shadowColor="#000000"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="5"
+        android:text="@string/no_story"
+        android:textColor="@color/white"
+        android:textSize="@dimen/default_textSize_huge" />
 
-        <LinearLayout
+    <EditText
+        android:id="@+id/emptystory_year_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emptystory_nostory_tv"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/addstory_hint_background"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/year_hint"
+        android:inputType="number"
+        android:maxLength="4"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/emptystory_add_btn"
+        android:layout_below="@+id/emptystory_year_et"
+        android:layout_centerInParent="true"
+        android:background="@drawable/addstory_hint_background"
+        android:padding="10dp" >
+
+        <EditText
+            android:id="@+id/emptystory_title_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/story_title_placeholder" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/emptystory_desc_et"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="vertical" >
+            android:layout_centerInParent="true"
+            android:ems="10"
+            android:hint="@string/story_description_placeholder"
+            android:inputType="textMultiLine"
+            android:padding="10dp" />
 
-            <TextView
-                android:id="@+id/emptystory_nostory_tv"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="center"
-                android:text="@string/no_story"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <EditText
-                android:id="@+id/emptystory_title_et"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:ems="10"
-                android:hint="@string/story_title_placeholder" >
-            </EditText>
-
-            <EditText
-                android:id="@+id/emptystory_desc_et"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:ems="10"
-                android:hint="@string/story_description_placeholder"
-                android:inputType="textMultiLine"
-                android:padding="10dp" />
-        </LinearLayout>
-    </ScrollView>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/emptystory_add_btn"
@@ -53,8 +73,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@android:drawable/ic_input_add" />
-
- 
+        android:background="@drawable/btn_default_selector"
+        android:text="@string/action_addStory"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

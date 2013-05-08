@@ -60,7 +60,7 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name="it.unitn.vanguard.reminiscence.ViewStoriesFragmentActivity"
+            android:name="it.unitn.vanguard.reminiscence.ViewStoriesActivity"
             android:configChanges="locale|orientation"
             android:windowSoftInputMode="adjustPan" >
         </activity>
@@ -95,6 +95,8 @@
             android:name="it.unitn.vanguard.reminiscence.AddFriendActivity"
             android:label="@string/title_activity_add_friend" >
         </activity>
+        <activity android:name="EmptyStoryActivity" 
+            android:windowSoftInputMode="adjustPan" ></activity>
     </application>
 
 </manifest>

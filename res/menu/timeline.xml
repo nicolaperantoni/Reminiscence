@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    
-        <item
+    <item
+        android:id="@+id/action_add_story"
+        android:icon="@drawable/add_story"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_addStory"/>
+    <item
         android:id="@+id/action_languages"
-        android:orderInCategory="100"
+        android:icon="@drawable/it"
         android:showAsAction="always"
-        android:title="@string/menu_settings"
-        android:icon="@drawable/it" >
-        
-          	 <menu>
-		        <item
-		        android:id="@+id/action_language_it"
-		        android:orderInCategory="100"
-		        android:showAsAction="ifRoom"
-		        android:title="@string/action_language_italian"
-		        android:icon="@drawable/it" />
-		        
-		        <item
-		        android:id="@+id/action_language_en"
-		        android:orderInCategory="100"
-		        android:showAsAction="ifRoom"
-		        android:title="@string/action_language_english"
-		        android:icon="@drawable/en" />
-			</menu>
-       </item>
-        
+        android:title="@string/menu_settings">
+        <menu>
+            <item
+                android:id="@+id/action_language_it"
+                android:icon="@drawable/it"
+                android:title="@string/action_language_italian"/>
+            <item
+                android:id="@+id/action_language_en"
+                android:icon="@drawable/en"
+                android:title="@string/action_language_english"/>
+        </menu>
+    </item>
+    
+
 </menu>
