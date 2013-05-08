@@ -23,10 +23,10 @@
         android:id="@+id/profile_name_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/profile_image"
+        android:layout_below="@+id/profile_image"
         android:textSize="@dimen/default_textSize_large"
-        android:layout_alignTop="@+id/profile_image"
-        android:layout_marginLeft="@dimen/default_margin_double"
+        android:layout_alignLeft="@+id/profile_image"
+        android:layout_marginTop="@dimen/default_margin"
         android:layout_centerHorizontal="true"
         android:text="@string/user_name_label" />
 
@@ -35,12 +35,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 		android:layout_centerHorizontal="true"
-		android:gravity="bottom"
+        android:layout_alignLeft="@+id/profile_image"
+		android:gravity="center"
 		android:textSize="@dimen/default_textSize_large"
-		android:layout_alignBottom="@+id/profile_image"
         android:layout_below="@+id/profile_name_textview"
-        android:layout_toRightOf="@+id/profile_image"
-        android:layout_marginLeft="@dimen/default_margin_double"
+        android:layout_marginTop="@dimen/default_margin"
         android:text="@string/user_surname_label" />
 
 </RelativeLayout>

@@ -87,6 +87,11 @@
             android:name="it.unitn.vanguard.reminiscence.ProfileImageActivity"
             android:label="@string/title_activity_profile_image" >
         </activity>
+        <activity
+            android:name="it.unitn.vanguard.reminiscence.CheckBoxAmici"
+             android:configChanges="locale|orientation" >
+        </activity>
+        
     </application>
 
 </manifest>

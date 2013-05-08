@@ -2,6 +2,7 @@ package it.unitn.vanguard.reminiscence.asynctasks;
 
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -56,22 +57,19 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 			jsonString = EntityUtils.toString(client.execute(post).getEntity());
 			json = new JSONObject(jsonString);
 			if (json != null && json.getString("success").equals("true")) {
-				SharedPreferences prefs = PreferenceManager
-						.getDefaultSharedPreferences(((Activity) caller)
-								.getApplicationContext());
-				SharedPreferences.Editor editor = prefs.edit();
-				editor.putString(Constants.MAIL_KEY, arg0[0]);
-				editor.putString(Constants.PASSWORD_KEY, arg0[1]);
-				editor.putString(Constants.TOKEN_KEY, json.getString("token"));
-				editor.commit();
+				FinalFunctionsUtilities.setSharedPreferences(
+						Constants.MAIL_KEY, arg0[0], (Activity) caller);
+				FinalFunctionsUtilities.setSharedPreferences(
+						Constants.PASSWORD_KEY, arg0[1], (Activity) caller);
+				FinalFunctionsUtilities.setSharedPreferences(
+						Constants.TOKEN_KEY, json.getString("token"),
+						(Activity) caller);
 			}
 
 		} catch (Exception e) {
 			this.ex = e;
 			return false;
 		}
-		
-		caller.onTaskFinished(json);
 
 		return true;
 	}

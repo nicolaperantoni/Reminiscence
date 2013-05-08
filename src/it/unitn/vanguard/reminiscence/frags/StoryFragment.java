@@ -1,5 +1,6 @@
 package it.unitn.vanguard.reminiscence.frags;
 
+import it.unitn.vanguard.reminiscence.CheckBoxAmici;
 import it.unitn.vanguard.reminiscence.R;
 import it.unitn.vanguard.reminiscence.asynctasks.UploadPhotoTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
@@ -45,6 +46,7 @@ public class StoryFragment extends Fragment implements OnTaskFinished{
 	// Image
 	private ImageView view;
 	private Button btnPhoto;
+	private Button btn_aiuto_amico;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +66,7 @@ public class StoryFragment extends Fragment implements OnTaskFinished{
 		mDescTv = (TextView) getView().findViewById(R.id.story_description_tv);
 		
 		btnPhoto = (Button) getView().findViewById(R.id.btnPhoto);
+		btn_aiuto_amico = (Button) getView().findViewById(R.id.btn_aiuto_amico);
 		view = (ImageView) getView().findViewById(R.id.photo);
 
 		initializeTexts();
@@ -94,7 +97,17 @@ public class StoryFragment extends Fragment implements OnTaskFinished{
 			mDescTv.setText(b.getString(DESCRIPTION_PASSED_KEY));
 		}
 
+		
+		btn_aiuto_amico.setOnClickListener(new View.OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				Intent checkbox_amici = new Intent(getActivity(), CheckBoxAmici.class );
+				startActivity(checkbox_amici);
+				
+				
+			}
+		});
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
