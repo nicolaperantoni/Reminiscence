@@ -8,6 +8,7 @@
     <dimen name="default_textSize_small">25sp</dimen>
     <dimen name="default_textSize">35sp</dimen>
     <dimen name="default_textSize_large">50sp</dimen>
+    <dimen name="default_textSize_larger">60sp</dimen>
     <dimen name="default_textSize_huge">75sp</dimen>
     <dimen name="registration_header_font_size">48sp</dimen>
     <dimen name="registration_edittext_font_size">25sp</dimen>

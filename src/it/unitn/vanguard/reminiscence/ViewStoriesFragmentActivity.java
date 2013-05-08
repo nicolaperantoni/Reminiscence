@@ -4,7 +4,6 @@ import it.unitn.vanguard.reminiscence.QuestionPopUpHandler.QuestionPopUp;
 import it.unitn.vanguard.reminiscence.asynctasks.GetStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
 import it.unitn.vanguard.reminiscence.frags.BornFragment;
-import it.unitn.vanguard.reminiscence.frags.EmptyStoryFragment;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskExecuted;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
@@ -12,13 +11,9 @@ import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
 import java.util.PriorityQueue;
-import java.util.Queue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.slidingmenu.lib.SlidingMenu;
-import com.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -26,11 +21,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -46,6 +39,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
 import eu.giovannidefrancesco.DroidTimeline.view.YearView;
+
+
 
 public class ViewStoriesFragmentActivity extends BaseActivity implements
 		OnTaskFinished, QuestionPopUp, OnTaskExecuted {
@@ -86,34 +81,47 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 		FragmentManager fm = getSupportFragmentManager();
 		mStoriesAdapter = new StoriesAdapter(fm);
 		mViewPager.setAdapter(mStoriesAdapter);
-		// e' per avere lo 0 alla fine degli anni.(per avere la decade insomma)
+		
+		// e' per avere lo 0 alla fine degli anni.(per avere l'intera decade, praticmanete)
 		String year = FinalFunctionsUtilities
 				.getSharedPreferences("year", this);
 		year = year.substring(0, year.length() - 1);
-		// initialYear = Integer.parseInt(year + '0');
-		initialYear = 1950;
+		initialYear = Integer.parseInt(year + '0');
 		mTimeLine.setStartYear(initialYear);
-		// TODO this is shit!
-		// Fragment f = new BornFragment();
-		// Bundle b = new Bundle();
-		// b.putString(BornFragment.BORN_CITY_PASSED_KEY,
-		// FinalFunctionsUtilities
-		// .getSharedPreferences(
-		// Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
-		// ViewStoriesFragmentActivity.this));
-		// f.setArguments(b);
 
+		setListeners();
+
+		initializePopUps();
+		
+		initializeStoryList();
+		
+	}
+	
+	private void initializeStoryList() {
 		if (FinalFunctionsUtilities.stories.isEmpty()) {
 			Fragment f = new BornFragment();
 			Bundle b = new Bundle();
-			b.putString(BornFragment.BORN_CITY_PASSED_KEY,
+			/*b.putString(BornFragment.BORN_CITY_PASSED_KEY,
 					FinalFunctionsUtilities.getSharedPreferences(
 							Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
 							ViewStoriesFragmentActivity.this));
 			f.setArguments(b);
-			// FinalFunctionsUtilities.stories.add(f);
+			FinalFunctionsUtilities.stories.add(f);*/
 		}
+	}
 
+	private void initializePopUps(){
+		Bundle b = new Bundle();
+		b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY,
+				"Sei mai andato in crociera?");
+		Message msg = new Message();
+		msg.setData(b);
+		new QuestionPopUpHandler(this).sendMessageDelayed(msg,
+				Constants.QUESTION_INTERVAL);
+		new GetStoriesTask(this, initialYear).execute(initialYear);
+	}
+	
+	private void setListeners() {
 		mTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
@@ -150,7 +158,8 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 			public void onClick(View v) {
 				if (FinalFunctionsUtilities
 						.isDeviceConnected(getApplicationContext())) {
-					AlertDialog.Builder builder = new AlertDialog.Builder(ViewStoriesFragmentActivity.this);
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							ViewStoriesFragmentActivity.this);
 
 					builder.setMessage(R.string.exit_message)
 							.setPositiveButton(R.string.yes,
@@ -205,17 +214,6 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 				}
 			}
 		});
-		
-		
-		// TODO rename b1
-		Bundle b1 = new Bundle();
-		b1.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY,
-				"Sei mai andato in crociera?");
-		Message msg = new Message();
-		msg.setData(b1);
-		new QuestionPopUpHandler(this).sendMessageDelayed(msg,
-				Constants.QUESTION_INTERVAL);
-		new GetStoriesTask(this, initialYear).execute(initialYear);
 	}
 
 	private class StoriesAdapter extends FragmentPagerAdapter {
@@ -236,10 +234,6 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 	}
 
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -252,9 +246,9 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 		if (locale.toString().equals(Locale.ITALIAN.getLanguage())
 				|| locale.toString().equals(locale.ITALY.getLanguage())) {
-			menu.getItem(2).setIcon(R.drawable.it);
+			menu.getItem(0).setIcon(R.drawable.it);
 		} else if (locale.toString().equals(Locale.ENGLISH.getLanguage())) {
-			menu.getItem(2).setIcon(R.drawable.en);
+			menu.getItem(0).setIcon(R.drawable.en);
 		}
 		return true;
 	}
@@ -273,73 +267,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 			locale = Locale.ENGLISH;
 			break;
 		}
-		case R.id.action_settings: {
-			/*
-			 * Intent changePasswd = new Intent(getApplicationContext(),
-			 * ChangePassword.class); startActivityForResult(changePasswd, 0);
-			 */
-			Intent changePasswd = new Intent(getApplicationContext(),
-					ProfileImageActivity.class);
-			startActivityForResult(changePasswd, 0);
-			return true;
-		}
-		case R.id.action_logout: {
-//			if (FinalFunctionsUtilities
-//					.isDeviceConnected(getApplicationContext())) {
-//				AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//
-//				builder.setMessage(R.string.exit_message)
-//						.setPositiveButton(R.string.yes,
-//								new DialogInterface.OnClickListener() {
-//									public void onClick(
-//											DialogInterface dialogInterface,
-//											int id) {
-//										dialog = new ProgressDialog(
-//												ViewStoriesFragmentActivity.this);
-//										dialog.setTitle(getResources()
-//												.getString(R.string.please));
-//										dialog.setMessage(getResources()
-//												.getString(R.string.wait));
-//										dialog.setCancelable(false);
-//										dialog.show();
-//
-//										String email = FinalFunctionsUtilities
-//												.getSharedPreferences(
-//														Constants.MAIL_KEY,
-//														context);
-//										String password = FinalFunctionsUtilities
-//												.getSharedPreferences(
-//														Constants.PASSWORD_KEY,
-//														context);
-//
-//										new LogoutTask(
-//												ViewStoriesFragmentActivity.this)
-//												.execute(email, password);
-//									}
-//								})
-//						.setNegativeButton(R.string.no,
-//								new DialogInterface.OnClickListener() {
-//									public void onClick(DialogInterface dialog,
-//											int id) {
-//
-//									}
-//								});
-//
-//				AlertDialog alert = builder.create();
-//				alert.show();
-//				((TextView) alert.findViewById(android.R.id.message))
-//						.setGravity(Gravity.CENTER);
-//				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
-//						.setBackgroundResource(R.drawable.bottone_logout);
-//				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
-//						.setTextColor(Color.WHITE);
-//
-//			} else {
-//				Toast.makeText(getApplicationContext(),
-//						getResources().getString(R.string.connection_fail),
-//						Toast.LENGTH_LONG).show();
-//			}
-		}
+
 		}
 
 		if (locale != null
@@ -353,7 +281,7 @@ public class ViewStoriesFragmentActivity extends BaseActivity implements
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		
+
 		if (dialog != null && dialog.isShowing()) {
 			dialog.dismiss();
 		}

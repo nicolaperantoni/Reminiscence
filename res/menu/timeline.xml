@@ -2,20 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     
         <item
-        android:id="@+id/action_logout"
-        android:orderInCategory="100"
-        android:showAsAction="ifRoom"
-        android:title="@string/menu_logout"
-        android:icon="@drawable/logout"/>
-    
-        <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="ifRoom"
-        android:title="@string/menu_settings"
-        android:icon="@drawable/settings"/>
-        
-        <item
         android:id="@+id/action_languages"
         android:orderInCategory="100"
         android:showAsAction="always"
