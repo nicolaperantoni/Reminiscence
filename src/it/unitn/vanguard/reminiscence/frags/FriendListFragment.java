@@ -2,6 +2,7 @@ package it.unitn.vanguard.reminiscence.frags;
 
 import it.unitn.vanguard.reminiscence.R;
 import it.unitn.vanguard.reminiscence.ViewFriendsProfileFragmentActivity;
+import it.unitn.vanguard.reminiscence.asynctasks.GetFriendsTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
@@ -31,8 +32,8 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 
 	String[] surnames = new String[] { "Rossi", "Bacchi", "Padovan", "Cabella",
 			"Iacchini", "Zen", "Fabbri", "Radini", "Verdi", "Zago" };
-	
-	int[] ids = new int[] {1,2,3,4,5,6,7,8,9,10};
+
+	int[] ids = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 	@Override
 	public void onStart() {
@@ -47,7 +48,9 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		//new GetFriendsTask(this, getActivity()).execute();
+		if (FinalFunctionsUtilities.isDeviceConnected(getActivity())) {
+			new GetFriendsTask(this, getActivity()).execute();
+		}
 	}
 
 	private void setAdapter() {
@@ -74,7 +77,7 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		//super.onListItemClick(l, v, position, id);
+		// super.onListItemClick(l, v, position, id);
 
 		((ViewFriendsProfileFragmentActivity) getActivity()).onItemSelect(
 				names[position], surnames[position]);
@@ -83,34 +86,46 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 	public interface OnItemSelectListener {
 		public void onItemSelect(String name, String surname);
 	}
-	
+
 	@Override
 	public void onTaskFinished(JSONObject res) {
 		boolean status;
 		int count = 10;
+		boolean success = false;
+
+		// ottengo se l'operazione ha avuto successo e il numero di valori dal json
 		try {
-			count = Integer.parseInt(res.getString("numFriend"));
-		} catch (Exception e) {
-			Log.e("tuamadre", e.toString());
-		}
-		
-		names = new String[count];
-		surnames = new String[count];
-		ids = new int[count];
-		
-		for (int i = 0; i < count; i++) {
-			String ct = "f" + i;
-			JSONObject json = null;
-			try {
-				json = new JSONObject(res.getString(ct));
-				names[i] = json.getString("Nome");
-				surnames[i] = json.getString("Cognome");
-				ids[i] = Integer.parseInt(json.getString("Id"));
-			} catch (Exception e) {
-				Log.e("tuamadre", e.toString());
+			success = res.getString("success").equals("true");
+			if (success) {
+				count = Integer.parseInt(res.getString("numFriend"));
 			}
+		} catch (Exception e) {
+			Log.e("itemselected", e.toString());
 		}
-		setAdapter();
+
+		if (success) {
+			// inizializzo i nuovi valori
+			names = new String[count];
+			surnames = new String[count];
+			ids = new int[count];
+
+			// scorro il json
+			for (int i = 0; i < count; i++) {
+				String ct = "f" + i;
+				JSONObject json = null;
+				try {
+					json = new JSONObject(res.getString(ct));
+					names[i] = json.getString("Nome");
+					surnames[i] = json.getString("Cognome");
+					ids[i] = Integer.parseInt(json.getString("Id"));
+				} catch (Exception e) {
+					Log.e("tuamadre", e.toString());
+				}
+			}
+			setAdapter();
+		} else {
+			Log.e("json", "errore nell operazione success:false");
+		}
 	}
 
 	private class CustomAdapter extends ArrayAdapter<Friend> {
@@ -128,10 +143,14 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			View rowView = inflater.inflate(R.layout.friend_listview_item, parent, false);
-			TextView nameTextView = (TextView) rowView.findViewById(R.id.item_name);
-			TextView surnameTextView = (TextView) rowView.findViewById(R.id.item_surname);
-			ImageView imageView = (ImageView) rowView.findViewById(R.id.item_profile_image);
+			View rowView = inflater.inflate(R.layout.friend_listview_item,
+					parent, false);
+			TextView nameTextView = (TextView) rowView
+					.findViewById(R.id.item_name);
+			TextView surnameTextView = (TextView) rowView
+					.findViewById(R.id.item_surname);
+			ImageView imageView = (ImageView) rowView
+					.findViewById(R.id.item_profile_image);
 			nameTextView.setText(friend[position].name);
 			surnameTextView.setText(friend[position].surname);
 			imageView.setImageResource(R.drawable.default_profile_image);
@@ -152,6 +171,38 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 			super();
 			this.name = name;
 			this.surname = surname;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getSurname() {
+			return surname;
+		}
+
+		public void setSurname(String surname) {
+			this.surname = surname;
+		}
+
+		public ImageView getImage() {
+			return image;
+		}
+
+		public void setImage(ImageView image) {
+			this.image = image;
+		}
+
+		public boolean isRequest() {
+			return request;
+		}
+
+		public void setRequest(boolean request) {
+			this.request = request;
 		}
 	}
 }

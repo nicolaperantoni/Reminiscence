@@ -139,7 +139,8 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
+		boolean result = false;
+		if(dialog!=null && dialog.isShowing()) dialog.dismiss();
 		try {
 			if (res.getString("success").equals("true")) {
 				startActivity(new Intent(LoginActivity.this, ViewStoriesFragmentActivity.class));

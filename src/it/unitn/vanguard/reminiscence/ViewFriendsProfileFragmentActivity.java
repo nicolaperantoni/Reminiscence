@@ -35,7 +35,7 @@ public class ViewFriendsProfileFragmentActivity extends FragmentActivity impleme
 	
 	@Override
 	public void onItemSelect(String name, String surname) {
-		Log.e("tuamadre", name + " " + surname);
+		Log.e("selecteditem", name + " " + surname);
 		pf.update(name, surname);
 	}
 }
