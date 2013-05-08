@@ -1,7 +1,6 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.asynctasks.GetSuggLuogoNascita;
-import it.unitn.vanguard.reminiscence.asynctasks.LuogoNascitaTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
@@ -20,7 +19,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -96,51 +94,54 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 
 			@Override
 			public void afterTextChanged(Editable arg0) {
-
-				String h = txtLuogoNascita.getText().toString();
-				h = h.trim();
-				h = h.replace(" ", "+");
-
-				placeOk = !h.equals("");
-
-				if (!placeOk) {
-					Toast.makeText(getApplicationContext(),
-							getResources().getText(R.string.birthplace_empty),
-							Toast.LENGTH_SHORT).show();
-				} else if (!(placeOk = placeOk && !h.contains(" "))) {
-					Toast.makeText(
-							getApplicationContext(),
-							getResources().getText(
-									R.string.birthplace_contains_spaces),
-							Toast.LENGTH_SHORT).show();
-				} else if (FinalFunctionsUtilities
-						.isDeviceConnected(getApplicationContext())) {
-					new GetSuggLuogoNascita(LuogoNascitaActivity.this)
-							.execute(h);
-				} else {
-					Toast.makeText(getApplicationContext(),
-							getResources().getString(R.string.connection_fail),
-							Toast.LENGTH_LONG).show();
+				
+				String place = txtLuogoNascita.getText().toString();
+				placeOk = !place.trim().equals("");
+				if(!placeOk) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.birthplace_empty), Toast.LENGTH_SHORT).show();
+				}
+				else if (!(placeOk = placeOk && !place.startsWith(" ") && !place.endsWith(" "))) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.birthplace_contains_spaces), Toast.LENGTH_SHORT).show();
 				}
 
-				if (placeOk) {
-					txtLuogoNascita
-							.setBackgroundResource(R.drawable.txt_input_bordered);
-				} else {
-					txtLuogoNascita
-							.setBackgroundResource(R.drawable.txt_input_bordered_error);
+				if(!placeOk) {
+					txtLuogoNascita.setBackgroundResource(R.drawable.txt_input_bordered_error);
 				}
-
+				else {
+					txtLuogoNascita.setBackgroundResource(R.drawable.txt_input_bordered);
+				}
 			}
 		});
 
 		btnLuogoNascitaConfirm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				
+				String place = txtLuogoNascita.getText().toString();
+				placeOk = !place.trim().equals("");
+				if(!placeOk) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.birthplace_empty), Toast.LENGTH_SHORT).show();
+				}
+				else if (!(placeOk = placeOk && !place.startsWith(" ") && !place.endsWith(" "))) {
+					Toast.makeText(getApplicationContext(), getResources().getText(R.string.birthplace_contains_spaces), Toast.LENGTH_SHORT).show();
+				}
+				else if (FinalFunctionsUtilities
+							.isDeviceConnected(getApplicationContext())) {
+						new GetSuggLuogoNascita(LuogoNascitaActivity.this)
+								.execute(place /*.replace(" ", "+") */);
+					} else {
+						Toast.makeText(getApplicationContext(),
+								getResources().getString(R.string.connection_fail),
+								Toast.LENGTH_LONG).show();
+					}
 
-				new LuogoNascitaTask(LuogoNascitaActivity.this)
-						.execute(txtLuogoNascita.getText().toString());
-
+				if(!placeOk) {
+					txtLuogoNascita.setBackgroundResource(R.drawable.txt_input_bordered_error);
+				}
+				else {
+					txtLuogoNascita.setBackgroundResource(R.drawable.txt_input_bordered);
+				}
+				
 				FinalFunctionsUtilities.setSharedPreferences(
 						Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
 						txtLuogoNascita.getText().toString(),
