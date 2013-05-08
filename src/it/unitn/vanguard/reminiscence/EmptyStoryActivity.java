@@ -95,6 +95,7 @@ public class EmptyStoryActivity extends Activity implements OnTaskFinished {
 							n.equals("true") ? R.string.story_add_ok
 									: R.string.story_add_fail),
 					Toast.LENGTH_SHORT).show();
+			finish();
 		} catch (JSONException e) {
 			Toast.makeText(this,
 					getResources().getString(R.string.story_add_fail),
