@@ -1,6 +1,7 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.asynctasks.AddStoryTask;
+import it.unitn.vanguard.reminiscence.asynctasks.UploadPhotoTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
@@ -10,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -23,8 +26,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
+import android.support.v4.app.NotificationCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
@@ -35,13 +40,14 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 
 	private Context context;
-	
+
 	public static final String YEAR_PASSED_KEY = "emptyStoryYear";
 
 	private TextView mNoStoryTv;
@@ -53,15 +59,16 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	private HorizontalListView mMedias;
 	private ArrayList<ImageView> imgs;
 	private ImageViewAdapter mAdapter;
+	private int idStoria;
+	private Queue<UploadPhotoTask> toUpload;
+	private int totalimgs = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		context = this;
-		
 		setContentView(R.layout.fragment_emptystory);
-		
+		context = this;
+
 		mNoStoryTv = (TextView) findViewById(R.id.emptystory_nostory_tv);
 		mTitleEt = (EditText) findViewById(R.id.emptystory_title_et);
 		mDescriptionEt = (EditText) findViewById(R.id.emptystory_desc_et);
@@ -69,12 +76,16 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		mMediaButton = (ImageView) findViewById(R.id.emptystory_addMedia);
 		mYearEt = (EditText) findViewById(R.id.emptystory_year_et);
 		mYearEt.setText(getIntent().getExtras().getString(YEAR_PASSED_KEY));
-		
+
 		mMedias = (HorizontalListView) findViewById(R.id.emptystories_imgs_hlv);
 		imgs = new ArrayList<ImageView>();
 		mAdapter = new ImageViewAdapter();
-		//mMedias.setAdapter(mAdapter);
+		mMedias.setAdapter(mAdapter);
+
+		toUpload = new PriorityQueue<UploadPhotoTask>();
+
 		initializeListeners();
+
 	}
 
 	private void initializeListeners() {
@@ -106,8 +117,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 			@Override
 			public void onClick(View v) {
 				String year = mYearEt.getText().toString();
-				if (FinalFunctionsUtilities
-						.isDeviceConnected(context))
+				if (FinalFunctionsUtilities.isDeviceConnected(context))
 					if (checkYearInput(year))
 						new AddStoryTask(EmptyStoryActivity.this).execute(year,
 								mDescriptionEt.getText().toString(), mTitleEt
@@ -133,14 +143,42 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		String n;
+		String s;
 		try {
-			n = res.getString("success");
-			showToast(n.equals("true"));
+			s = res.getString("success");
+			if (s.equals(s.equals("true"))) {
+				sendPhotos();
+				try {
+					idStoria = res.getInt("idadded");
+					sendPhotos();
+				} catch (Exception e) {
+					if (idStoria > 0) {
+						sendPhotos();
+					}
+				}
+			}
 			finish();
 		} catch (JSONException e) {
 			showToast(false);
 		}
+	}
+
+	private void sendPhotos() {
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(
+				context);
+		builder.setAutoCancel(true);
+		builder.setContentTitle(String.format(
+				getString(R.string.story_notification_upload_title),
+				toUpload.size(), totalimgs));
+		builder.setSmallIcon(R.drawable.ic_launcher);
+		builder.setProgress(toUpload.size(), 0, true);
+
+		if (!toUpload.isEmpty()) {
+			FinalFunctionsUtilities.showNotification(context, 1234, builder);
+			toUpload.remove().execute();
+		} else
+			FinalFunctionsUtilities.removeNotification(context, 1234);
+
 	}
 
 	@Override
@@ -172,11 +210,12 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 
 				try {
 					// TODO upload and view of the photo
-					// new UploadPhotoTask(this, Constants.imageType.STORY,
-					// context).execute(encodedImage, story_id);
-					// view.setImageBitmap(mBitmap);
+					toUpload.add(new UploadPhotoTask(this,
+							Constants.imageType.STORY, encodedImage, context));
+					totalimgs++;
 					ImageView image = new ImageView(context);
 					image.setImageBitmap(mBitmap);
+					image.setAdjustViewBounds(true);
 					imgs.add(image);
 					mAdapter.notifyDataSetChanged();
 				} catch (Exception e) {
@@ -197,8 +236,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 
 	private boolean checkYearInput(String year) {
 		int bornyear = Integer.parseInt(FinalFunctionsUtilities
-				.getSharedPreferences(Constants.YEAR_KEY,
-						context));
+				.getSharedPreferences(Constants.YEAR_KEY, context));
 		int actualyear = Calendar.getInstance().get(Calendar.YEAR);
 
 		try {
@@ -222,8 +260,8 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		Toast.makeText(this.getApplicationContext(),
 				getResources().getString(resource), Toast.LENGTH_SHORT).show();
 	}
-	
-	private class ImageViewAdapter extends BaseAdapter{
+
+	private class ImageViewAdapter extends BaseAdapter {
 
 		@Override
 		public int getCount() {
@@ -244,6 +282,6 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		public View getView(int arg0, View arg1, ViewGroup arg2) {
 			return imgs.get(arg0);
 		}
-		
+
 	}
 }

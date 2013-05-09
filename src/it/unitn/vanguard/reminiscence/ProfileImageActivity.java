@@ -127,7 +127,7 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 					dialog.setMessage(getResources().getString(R.string.wait));
 					dialog.setCancelable(false);
 					dialog.show();
-					new UploadPhotoTask(this, Constants.imageType.PROFILE, context).execute(encodedImage);
+					new UploadPhotoTask(this, Constants.imageType.PROFILE,encodedImage, context).execute();
 				}catch(Exception e){
 					Log.e("log_tag", "Error in http connection "+ e.toString());
 					e.printStackTrace();

@@ -45,9 +45,9 @@
         android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/txt_input_bordered"
         android:layout_above="@+id/emptystory_add_btn"
         android:layout_below="@+id/emptystory_inner_ll"
+        android:background="@drawable/txt_input_bordered"
         android:fillViewport="true" >
 
         <RelativeLayout
@@ -72,22 +72,30 @@
                     android:gravity="center"
                     android:hint="@string/story_title_placeholder" />
 
-                <Button
+                <ImageView
                     android:id="@+id/emptystory_addMedia"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="@drawable/btn_default_selector"
-                    android:text="Photo" />
+                    android:src="@drawable/add_media" />
             </LinearLayout>
+
+            <eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView
+                android:id="@+id/emptystories_imgs_hlv"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_alignLeft="@+id/emptystory_very_inner_ll"
+                android:layout_below="@+id/emptystory_very_inner_ll"
+                android:layout_above="@+id/emptystory_desc_et" >
+            </eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView>
 
             <EditText
                 android:id="@+id/emptystory_desc_et"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/emptystory_very_inner_ll"
                 android:ems="10"
                 android:hint="@string/story_description_placeholder"
+                android:layout_alignParentBottom="true"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
                 android:singleLine="false" >
@@ -95,7 +103,6 @@
                 <requestFocus />
             </EditText>
         </RelativeLayout>
-
     </ScrollView>
 
     <Button

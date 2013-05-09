@@ -28,12 +28,15 @@ public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 	private Context context;
 	private Exception ex;
 	private JSONObject json;
+	private String image;
 
-	public UploadPhotoTask(OnTaskFinished caller, Constants.imageType imageType, Context context) {
+	public UploadPhotoTask(OnTaskFinished caller, 
+			Constants.imageType imageType,String image, Context context) {
 		super();
 		this.caller = caller;
 		this.imageType = imageType;
 		this.context = context;
+		this.image=image;
 	}
 
 	@Override
@@ -44,14 +47,14 @@ public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 		if (!token.equals("") && FinalFunctionsUtilities.isDeviceConnected(context)) {
 		
 			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("image", arg0[0]));
+			params.add(new BasicNameValuePair("image", image));
 			params.add(new BasicNameValuePair("token", token ));
 			
 			String serverPath;
 			if(imageType == Constants.imageType.PROFILE) { serverPath = "addProfileImage.php"; }
 			else {
 				serverPath = "addImage.php";
-				params.add(new BasicNameValuePair("story_id", arg0[1]));
+				params.add(new BasicNameValuePair("story_id", arg0[0]));
 			}
 			
 			HttpClient client = new DefaultHttpClient();

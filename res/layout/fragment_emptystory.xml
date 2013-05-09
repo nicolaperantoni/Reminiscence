@@ -71,7 +71,6 @@
             android:gravity="top"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_below="@+id/emptystories_imgs_hlv"
             android:ems="10"
             android:hint="@string/story_description_placeholder"
             android:inputType="textMultiLine"
@@ -79,10 +78,11 @@
 
         <eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView
             android:id="@+id/emptystories_imgs_hlv"
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
             android:layout_alignLeft="@+id/emptystory_very_inner_ll"
-            android:layout_below="@+id/emptystory_very_inner_ll" >
+            android:layout_below="@+id/emptystory_very_inner_ll"
+            android:layout_above="@+id/emptystory_desc_et" >
         </eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView>
 
     </RelativeLayout>
