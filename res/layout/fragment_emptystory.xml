@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_vertical_margin"
-    android:background="@drawable/login_background_red" >
+    android:background="@drawable/login_background_red"
+    android:padding="@dimen/activity_vertical_margin" >
 
     <TextView
         android:id="@+id/emptystory_nostory_tv"
@@ -31,7 +31,7 @@
         android:gravity="center"
         android:hint="@string/year_hint"
         android:inputType="number"
-        android:maxLength="4"/>
+        android:maxLength="4" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -56,25 +56,34 @@
                 android:ems="10"
                 android:gravity="center"
                 android:hint="@string/story_title_placeholder" />
-
-            <Button
-                android:id="@+id/emptystory_btnPhoto"
-                android:layout_width="wrap_content"
+            
+            <ImageView
+                android:id="@+id/emptystory_addMedia"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
-                android:background="@drawable/btn_default_selector"
-                android:text="Photo" />
+                android:src="@drawable/add_media" />
         </LinearLayout>
 
         <EditText
             android:id="@+id/emptystory_desc_et"
             android:layout_width="fill_parent"
+            android:gravity="top"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/emptystories_imgs_hlv"
             android:ems="10"
             android:hint="@string/story_description_placeholder"
             android:inputType="textMultiLine"
             android:padding="10dp" />
+
+        <eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView
+            android:id="@+id/emptystories_imgs_hlv"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_alignLeft="@+id/emptystory_very_inner_ll"
+            android:layout_below="@+id/emptystory_very_inner_ll" >
+        </eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView>
 
     </RelativeLayout>
 
