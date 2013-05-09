@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -30,6 +31,8 @@ import com.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class BaseActivity extends SlidingFragmentActivity {
 
+	private Context context;
+	
 	private TextView mChangeProfile;
 	private TextView mChangePasswd;
 	private TextView mAddFriend;
@@ -43,7 +46,8 @@ public class BaseActivity extends SlidingFragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		context = BaseActivity.this;
+		
 		initializeMenu();
 
 		initializeTextViews();
@@ -64,7 +68,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 			@Override
 			public void onClick(View v) {
 				String language = FinalFunctionsUtilities.getSharedPreferences(
-						"language", getApplicationContext());
+						"language", context);
 				Locale locale = new Locale(language);
 
 				if (locale.toString().equals(Locale.ITALIAN.getLanguage())
@@ -85,7 +89,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(BaseActivity.this,
+				startActivity(new Intent(context,
 						ChangePassword.class));
 			}
 		});
@@ -94,7 +98,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(BaseActivity.this,
+				startActivity(new Intent(context,
 						ProfileImageActivity.class));
 			}
 		});
@@ -103,7 +107,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(BaseActivity.this,
+				startActivity(new Intent(context,
 						ViewFriendsProfileFragmentActivity.class));
 			}
 		});
@@ -113,7 +117,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				startActivity(new Intent(BaseActivity.this,
+				startActivity(new Intent(context,
 						AddFriendActivity.class));
 			}
 		});
