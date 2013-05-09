@@ -21,19 +21,14 @@ public class ViewFriendsProfileFragmentActivity extends FragmentActivity impleme
 	private FriendListFragment fl;
 	private ProfileFragment pf;
 
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		context = ViewFriendsProfileFragmentActivity.this;
 
 		setContentView(R.layout.activity_friendlist_profile);
-		try {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		} catch (Exception e) {
-			// TODO: non farlo
-			//sarebbe meglio implementare actionbarsherlock!
-		}
+
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		pf = (ProfileFragment) getSupportFragmentManager().findFragmentById(
 				R.id.user_profile_fragment);

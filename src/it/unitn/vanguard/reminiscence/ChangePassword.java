@@ -26,7 +26,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-@SuppressLint("NewApi")
 public class ChangePassword extends Activity implements OnTaskFinished {
 	
 	private Context context;
@@ -44,12 +43,8 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 		super.onCreate(savedInstanceState);
 		context = ChangePassword.this;
 		
-		try {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		} catch (Exception e) {
-			// TODO: non farlo
-			//sarebbe meglio implementare actionbarsherlock!
-		}
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+			
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_change_password);

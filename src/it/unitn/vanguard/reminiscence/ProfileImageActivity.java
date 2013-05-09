@@ -43,18 +43,13 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 	private ImageView imageView;
 	protected ProgressDialog dialog;
 
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = ProfileImageActivity.this;
 		
-		try {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		} catch (Exception e) {
-			// TODO: non farlo
-			//sarebbe meglio implementare actionbarsherlock!
-		}
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_profile_image);

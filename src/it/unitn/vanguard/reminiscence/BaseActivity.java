@@ -42,23 +42,16 @@ public class BaseActivity extends SlidingFragmentActivity {
 
 	private ProgressDialog dialog;
 
-	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = BaseActivity.this;
 		
 		initializeMenu();
-
 		initializeTextViews();
-
 		setSlidingActionBarEnabled(false);
-		try {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		} catch (Exception e) {
-			// TODO: non farlo
-			//sarebbe meglio implementare actionbarsherlock!
-		}
+		
+	    getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	private void initializeTextViews() {
