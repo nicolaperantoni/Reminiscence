@@ -19,7 +19,7 @@
     <string name="action_language_italian">Italian</string>
     <string name="action_language_english">English</string>
     <string name="action_addStory">Add a story</string>
-    
+
     <!-- Login_Activity -->
     <string name="login_activity_title">Sign in</string>
     <string name="login_username_hint">User e-mail</string>
@@ -31,7 +31,7 @@
     <string name="login_empty_both">Insert your e-mail and password.</string>
     <string name="login_failed">Wrong Email or Password. Try again!</string>
     <string name="login_succes">Now you are logged in</string>
-    
+
     <!-- Logout Popup -->
     <string name="exit_message">Are you sure you want to exit?</string>
     <string name="yes">Yes</string>
@@ -87,13 +87,13 @@
          nunc. Praesent ultrices sem at enim eleifend interdum. 
          Vivamus et turpis ipsum, quis tristique orci. Vestibulum egestas 
          felis at justo aliquet sollicitudin.</string>
-         
+
     <!-- EmptyStoryActivity -->
     <string name="no_story">Tell us a story about</string>
     <string name="year_hint">Year</string>
     <string name="story_add_ok">Story added succesfully</string>
     <string name="story_add_fail">Some errors occured</string>
-    
+
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">MainPageActivity</string>
 
@@ -114,8 +114,7 @@
 
     <!-- ProfileImage Activity -->
     <string name="title_activity_profile_fragment">ProfileFragment</string>
-    
-    
+
     <!-- ChangeProfileImage Activity -->
     <string name="label_change_profile_image">Change your profile image</string>
     <string name="profile_image_change_button">Choose an image</string>
@@ -127,12 +126,14 @@
 
     <!-- Story Fragment -->
     <string name="chiedi_aiuto_btn">Ask for help</string>
-    
-    
+
     <!-- stringhe per zen da sistemare -->
     <string name="title_activity_add_friend">AddFriendActivity</string>
     <string name="add_friend_successful">Your friend was successfully added!</string>
     <string name="no_friends_a">No </string>
     <string name="no_friends_b">friends</string>
+    <string name="title_activity_friend_list">FriendListActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="send_mail">Send mail!</string>
 
 </resources>

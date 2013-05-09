@@ -95,8 +95,18 @@
             android:name="it.unitn.vanguard.reminiscence.AddFriendActivity"
             android:label="@string/title_activity_add_friend" >
         </activity>
-        <activity android:name="EmptyStoryActivity" 
-            android:windowSoftInputMode="adjustPan" ></activity>
+        <activity
+            android:name="it.unitn.vanguard.reminiscence.EmptyStoryActivity"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name="it.unitn.vanguard.reminiscence.FriendListActivity"
+            android:label="@string/title_activity_friend_list"
+            android:parentActivityName="android.app.ListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.app.ListActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -36,6 +36,9 @@ public class AddStoryTask extends AsyncTask<String, Void, JSONObject> {
 	 */
 	@Override
 	protected JSONObject doInBackground(String... arg) {
+		
+		
+		
 		if (arg.length < 2) {
 			throw new IllegalStateException("You should provide a year");
 		}

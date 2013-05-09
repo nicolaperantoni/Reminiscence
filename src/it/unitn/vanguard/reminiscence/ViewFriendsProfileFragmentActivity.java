@@ -47,9 +47,9 @@ public class ViewFriendsProfileFragmentActivity extends FragmentActivity impleme
 	}
 
 	@Override
-	public void onItemSelect(String name, String surname) {
-		Log.e("selecteditem", name + " " + surname);
-		pf.update(name, surname);
+	public void onItemSelect(Friend friend) {
+		Log.e("selecteditem", friend.getName() + " " + friend.getSurname());
+		pf.update(friend);
 	}
 
 	@Override

@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:gravity="center"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@color/red_background_light"
->
-    <ImageView
-        android:id="@+id/item_profile_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:contentDescription="ciaoo"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-    />
- 
+    android:gravity="center"
+    android:orientation="vertical" >
+    	
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-    >
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:orientation="horizontal" >
+
         <TextView
             android:id="@+id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:paddingRight="@dimen/default_margin"
             android:text="@string/user_name_label"
-        />
- 
+            android:textSize="@dimen/default_textSize_small" />
+
         <TextView
             android:id="@+id/item_surname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
             android:text="@string/user_surname_label"
-        />
+            android:textSize="@dimen/default_textSize_small" />
     </LinearLayout>
+    
+        <TextView
+        android:id="@+id/item_mail_tv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/default_textSize_small"
+        android:gravity="left"
+        android:text="@string/login_username_hint" />
+
 </LinearLayout>

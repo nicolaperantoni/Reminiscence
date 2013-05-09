@@ -34,16 +34,16 @@ public class BornFragment extends Fragment implements OnTaskFinished {
 	public void onStart() {
 		super.onStart();
 		btn_aiuto_amico = (Button) getView().findViewById(R.id.btn_aiuto_amico);
-//		btn_aiuto_amico.setOnClickListener(new View.OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				Intent checkbox_amici = new Intent(getActivity(), CheckBoxAmici.class );
-//				startActivity(checkbox_amici);
-//				
-//				
-//			}
-//		});
+		btn_aiuto_amico.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent checkbox_amici = new Intent(getActivity(), CheckBoxAmici.class );
+				startActivity(checkbox_amici);
+				
+				
+			}
+		});
 		mTv = (TextView) getView().findViewById(R.id.born_bornTv);
 		Bundle b = getArguments();
 		if(b!=null)

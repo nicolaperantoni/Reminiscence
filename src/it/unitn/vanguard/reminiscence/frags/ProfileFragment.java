@@ -1,5 +1,6 @@
 package it.unitn.vanguard.reminiscence.frags;
 
+import it.unitn.vanguard.reminiscence.Friend;
 import it.unitn.vanguard.reminiscence.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,8 @@ public class ProfileFragment extends Fragment {
 	
 	public static final String NAME_PASSED_KEY = "name";
 	public static final String SURNAME_PASSED_KEY = "surname";
+	
+	private Friend friend;
 	
 	private TextView nameTextView;
 	private TextView surnameTextView;
@@ -36,9 +39,10 @@ public class ProfileFragment extends Fragment {
 		surnameTextView = (TextView) getView().findViewById(R.id.profile_surname_textview);
 	}
 
-	public void update(String name, String surname) {
-		nameTextView.setText(name);
-		surnameTextView.setText(surname);
+	public void update(Friend friend) {
+		this.friend = friend;
+		nameTextView.setText(friend.getName());
+		surnameTextView.setText(friend.getSurname());
 	}	
 
 }
