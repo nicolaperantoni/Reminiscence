@@ -1,0 +1,50 @@
+package it.unitn.vanguard.reminiscence;
+
+import android.widget.ImageView;
+
+public class Friend {
+
+	private String name;
+	private String surname;
+	private int id;
+	private boolean request = false;
+
+	public Friend(String name, String surname, int id) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public boolean isRequest() {
+		return request;
+	}
+
+	public void setRequest(boolean request) {
+		this.request = request;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+}
