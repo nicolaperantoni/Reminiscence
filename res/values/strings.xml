@@ -92,6 +92,7 @@
     <string name="no_story">Tell us a story about</string>
     <string name="year_hint">Year</string>
     <string name="story_add_ok">Story added succesfully</string>
+    <string name="story_year_broken">year invalid</string>
     <string name="story_add_fail">Some errors occured</string>
 
     <!-- MainPageActivity -->

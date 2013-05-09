@@ -3,12 +3,16 @@ package it.unitn.vanguard.reminiscence;
 import it.unitn.vanguard.reminiscence.R;
 import it.unitn.vanguard.reminiscence.asynctasks.AddStoryTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.Constants;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -29,6 +33,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,16 +78,45 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	}
 
 	private void initializeListeners() {
+
+		mYearEt.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void afterTextChanged(Editable s) {
+
+				if (!checkYearInput(s.toString())) {
+					mYearEt.setBackgroundResource(R.drawable.txt_input_bordered_error);
+				} else {
+					mYearEt.setBackgroundResource(R.drawable.txt_input_bordered);
+				}
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+			}
+		});
+
 		mAddBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				new AddStoryTask(EmptyStoryActivity.this).execute(mYearEt.getText().toString(),
-						mDescriptionEt.getText().toString(), mTitleEt.getText()
-								.toString());
+				String year = mYearEt.getText().toString();
+				if (checkYearInput(year))
+					if(FinalFunctionsUtilities.isDeviceConnected(EmptyStoryActivity.this))
+					new AddStoryTask(EmptyStoryActivity.this).execute(year,
+							mDescriptionEt.getText().toString(), mTitleEt
+									.getText().toString());
+					else
+						showToast(false);
+				else
+					showToast(R.string.story_year_broken);
 			}
 		});
-
 	}
 
 	@Override
@@ -89,18 +124,38 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		String n;
 		try {
 			n = res.getString("success");
-			Toast.makeText(
-					this,
-					getResources().getString(
-							n.equals("true") ? R.string.story_add_ok
-									: R.string.story_add_fail),
-					Toast.LENGTH_SHORT).show();
+			showToast(n.equals("true"));
 			finish();
 		} catch (JSONException e) {
-			Toast.makeText(this,
-					getResources().getString(R.string.story_add_fail),
-					Toast.LENGTH_SHORT).show();
+			showToast(false);
 		}
+	}
 
+	private boolean checkYearInput(String year) {
+		int bornyear = Integer.parseInt(FinalFunctionsUtilities
+				.getSharedPreferences(Constants.YEAR_KEY,
+						EmptyStoryActivity.this));
+		int actualyear = Calendar.getInstance().get(Calendar.YEAR);
+
+		try {
+			int iyear = Integer.parseInt(year);
+			return (iyear >= bornyear && iyear <= actualyear);
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	private void showToast(boolean success) {
+		Toast.makeText(
+				this.getApplicationContext(),
+				getResources().getString(
+						success ? R.string.story_add_ok
+								: R.string.story_add_fail), Toast.LENGTH_SHORT)
+				.show();
+	}
+
+	private void showToast(int resource) {
+		Toast.makeText(this.getApplicationContext(),
+				getResources().getString(resource), Toast.LENGTH_SHORT).show();
 	}
 }

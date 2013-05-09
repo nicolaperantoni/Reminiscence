@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:background="@drawable/addstory_hint_background"
+            android:background="@drawable/txt_input_bordered"
             android:ems="10"
             android:gravity="center"
             android:hint="@string/year_hint"
@@ -45,7 +45,7 @@
         android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/addstory_hint_background"
+        android:background="@drawable/txt_input_bordered"
         android:layout_above="@+id/emptystory_add_btn"
         android:layout_below="@+id/emptystory_inner_ll"
         android:fillViewport="true" >
