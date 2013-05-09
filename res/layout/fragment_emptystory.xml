@@ -42,18 +42,29 @@
         android:background="@drawable/txt_input_bordered"
         android:padding="10dp" >
 
-        <EditText
-            android:id="@+id/emptystory_title_et"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/emptystory_very_inner_ll"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="@string/story_title_placeholder" >
+            android:gravity="center" >
 
-            <requestFocus />
-        </EditText>
+            <EditText
+                android:id="@+id/emptystory_title_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/story_title_placeholder" />
+
+            <Button
+                android:id="@+id/emptystory_btnPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:background="@drawable/btn_default_selector"
+                android:text="Photo" />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/emptystory_desc_et"

@@ -45,7 +45,6 @@ public class StoryFragment extends Fragment implements OnTaskFinished{
 	
 	// Image
 	private ImageView view;
-	private Button btnPhoto;
 	private Button btn_aiuto_amico;
 
 	@Override
@@ -65,21 +64,10 @@ public class StoryFragment extends Fragment implements OnTaskFinished{
 
 		mDescTv = (TextView) getView().findViewById(R.id.story_description_tv);
 		
-		btnPhoto = (Button) getView().findViewById(R.id.btnPhoto);
 		btn_aiuto_amico = (Button) getView().findViewById(R.id.btn_aiuto_amico);
 		view = (ImageView) getView().findViewById(R.id.photo);
 
 		initializeTexts();
-		
-		btnPhoto.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
-				photoPickerIntent.setType("image/*");
-				startActivityForResult(photoPickerIntent, 1);
-			}
-		});
 
 	}
 	
@@ -108,51 +96,6 @@ public class StoryFragment extends Fragment implements OnTaskFinished{
 				
 			}
 		});
-	}
-	
-	public void onActivityResult(int requestCode, int resultCode, Intent data)
-	{	
-	    super.onActivityResult(requestCode, resultCode, data);
-	    if (resultCode == Activity.RESULT_OK)
-	    {
-	    	
-	        Uri chosenImageUri = data.getData();
-	        
-	        Bitmap mBitmap = null;
-	        try {
-
-				Bitmap bm = Media.getBitmap(getView().getContext().getContentResolver(), chosenImageUri);
-				mBitmap = Media.getBitmap(getView().getContext().getContentResolver(), chosenImageUri);
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-				bm.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-				bm.recycle();
-				byte[] b = baos.toByteArray();
-				
-				baos.close();
-				baos = null;
-				
-				String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-
-				ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-				nameValuePairs.add(new BasicNameValuePair("image",encodedImage));
-
-				try{
-					new UploadPhotoTask(this, Constants.imageType.STORY, getActivity().getApplicationContext()).execute(encodedImage, story_id);
-					view.setImageBitmap(mBitmap);
-				}catch(Exception e){
-
-					Log.e("log_tag", "Error in http connection "+ e.toString());
-					e.printStackTrace();
-				}
-				
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-       	}
 	}
 
 	public Integer getYear() {

@@ -54,28 +54,46 @@
             android:id="@+id/emptystory_inner_rl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            
+            android:layout_gravity="center_horizontal"
             android:padding="10dp" >
 
-            <EditText
-                android:id="@+id/emptystory_title_et"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/emptystory_very_inner_ll"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/story_title_placeholder" />
+                android:gravity="center" >
+
+                <EditText
+                    android:id="@+id/emptystory_title_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="@string/story_title_placeholder" />
+
+                <Button
+                    android:id="@+id/emptystory_btnPhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/btn_default_selector"
+                    android:text="Photo" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/emptystory_desc_et"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/emptystory_title_et"
+                android:layout_below="@+id/emptystory_very_inner_ll"
                 android:ems="10"
                 android:hint="@string/story_description_placeholder"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
-                android:singleLine="false" />
+                android:singleLine="false" >
+
+                <requestFocus />
+            </EditText>
         </RelativeLayout>
 
     </ScrollView>
