@@ -244,35 +244,14 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.timeline, menu);
-
-		String language = FinalFunctionsUtilities.getSharedPreferences(
-				"language", context);
-		Locale locale = new Locale(language);
-
-		if (locale.toString().equals(Locale.ITALIAN.getLanguage())
-				|| locale.toString().equals(locale.ITALY.getLanguage())) {
-			menu.getItem(0).setIcon(R.drawable.it);
-		} else if (locale.toString().equals(Locale.ENGLISH.getLanguage())) {
-			menu.getItem(0).setIcon(R.drawable.en);
-		}
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Locale locale = null;
-
 		switch (item.getItemId()) {
-		// Languages
-		case R.id.action_language_it:
-			locale = Locale.ITALY;
-			break;
-		case R.id.action_language_en:
-			locale = Locale.ENGLISH;
-			break;
+
 		case R.id.action_add_story:
 			Intent i = new Intent(this, EmptyStoryActivity.class);
 			i.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY,startYear+10*selectedItemIndex+"");
@@ -280,12 +259,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 			break;
 		}
 
-		if (locale != null
-				&& FinalFunctionsUtilities.switchLanguage(locale, context)) {
-			// Refresh activity
-			finish();
-			startActivity(getIntent());
-		}
 		return super.onOptionsItemSelected(item);
 	}
 
