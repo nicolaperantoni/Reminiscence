@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-@SuppressLint("NewApi")
 public class AddFriendActivity extends Activity implements OnTaskFinished {
 	
 	private Context context;
@@ -37,12 +36,8 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 		super.onCreate(savedInstanceState);
 		context = AddFriendActivity.this;
 		
-		try {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		} catch (Exception e) {
-			// TODO: non farlo
-			// sarebbe meglio implementare actionbarsherlock!
-		}
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		setContentView(R.layout.activity_add_friend);
 		initializeButtons();
 		initializeListeners();
