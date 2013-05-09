@@ -92,7 +92,8 @@
     <string name="no_story">Raccontaci una storia su</string>
     <string name="year_hint">Anno</string>
     <string name="story_add_ok">Storia aggiunta con successo</string>
-    <string name="story_add_fail">E\' avvenuto quelche errore</string>
+    <string name="story_year_broken">anno errato</string>
+    <string name="story_add_fail">E\' avvenuto qualche errore</string>
 
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">Pagina Principale</string>

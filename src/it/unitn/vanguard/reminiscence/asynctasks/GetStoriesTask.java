@@ -59,11 +59,13 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean>
 		}
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 
-		// ottiene il token se presente
-		SharedPreferences prefs = PreferenceManager
+		// ottiene il token se presente 
+		/*SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(((Activity) caller)
 						.getApplicationContext());
-		String token = prefs.getString(Constants.TOKEN_KEY, "");
+		String token = prefs.getString(Constants.TOKEN_KEY, "");*/
+		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, ((Activity) caller)
+				.getApplicationContext());
 
 		if (!token.equals("")) {
 			params.add(new BasicNameValuePair("year", "" + year));

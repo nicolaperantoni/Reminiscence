@@ -2,6 +2,7 @@ package it.unitn.vanguard.reminiscence.asynctasks;
 
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -43,10 +44,15 @@ public class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 		
 		//ottiene il token se presente
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(((Activity) caller).getApplicationContext());
+		/*SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(((Activity) caller).getApplicationContext());
 		String token = prefs.getString(Constants.TOKEN_KEY, "");
-		String old = prefs.getString(Constants.PASSWORD_KEY, "");
-
+		String old = prefs.getString(Constants.PASSWORD_KEY, "");*/
+		
+		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, ((Activity) caller)
+				.getApplicationContext());
+		String old = FinalFunctionsUtilities.getSharedPreferences(Constants.PASSWORD_KEY, ((Activity) caller)
+				.getApplicationContext());
+		
 		Log.e("token", token);
 		Log.e("old pass",old);
 		Log.e("new pass",arg0[0]);
@@ -70,9 +76,11 @@ public class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
 				jsonString = EntityUtils.toString(client.execute(post).getEntity());
 				json = new JSONObject(jsonString);
 				if (json != null && json.getString("success").equals("true")) {
-					SharedPreferences.Editor editor = prefs.edit();
-					editor.putString("password", arg0[0]);
-					editor.commit();
+					FinalFunctionsUtilities.setSharedPreferences(Constants.PASSWORD_KEY, arg0[0], ((Activity) caller)
+							.getApplicationContext());
+					/*SharedPreferences.Editor editor = prefs.edit();
+					editor.putString("password" , arg0[0]);
+					editor.commit();*/
 					return true;
 				}
 			} catch (Exception e) {

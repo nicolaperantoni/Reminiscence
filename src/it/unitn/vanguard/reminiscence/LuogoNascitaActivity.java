@@ -104,6 +104,10 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 				else if (!(placeOk = placeOk && !place.startsWith(" ") && !place.endsWith(" "))) {
 					Toast.makeText(context, getResources().getText(R.string.birthplace_contains_spaces), Toast.LENGTH_SHORT).show();
 				}
+				else if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+					new GetSuggLuogoNascita(LuogoNascitaActivity.this)
+					.execute(place.replace(" ", "+"));
+				}
 
 				if(!placeOk) {
 					txtLuogoNascita.setBackgroundResource(R.drawable.txt_input_bordered_error);
@@ -126,10 +130,18 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 				else if (!(placeOk = placeOk && !place.startsWith(" ") && !place.endsWith(" "))) {
 					Toast.makeText(context, getResources().getText(R.string.birthplace_contains_spaces), Toast.LENGTH_SHORT).show();
 				}
-				else if (FinalFunctionsUtilities
-							.isDeviceConnected(context)) {
-						new GetSuggLuogoNascita(LuogoNascitaActivity.this)
-								.execute(place /*.replace(" ", "+") */);
+				else if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+					
+						FinalFunctionsUtilities.setSharedPreferences(
+								Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
+								txtLuogoNascita.getText().toString(),
+								LuogoNascitaActivity.this);
+						// intent
+						Intent loginIntent = new Intent(context,
+								ViewStoriesActivity.class);
+						loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivityForResult(loginIntent, 0);
+						finish();
 					} else {
 						Toast.makeText(context,
 								getResources().getString(R.string.connection_fail),
@@ -142,17 +154,6 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 				else {
 					txtLuogoNascita.setBackgroundResource(R.drawable.txt_input_bordered);
 				}
-				
-				FinalFunctionsUtilities.setSharedPreferences(
-						Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
-						txtLuogoNascita.getText().toString(),
-						LuogoNascitaActivity.this);
-				// intent
-				Intent loginIntent = new Intent(context,
-						ViewStoriesActivity.class);
-				loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivityForResult(loginIntent, 0);
-				finish();
 			}
 		});
 	}

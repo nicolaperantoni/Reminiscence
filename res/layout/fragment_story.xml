@@ -10,13 +10,6 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentBottom="true">
-	    	    
-	    <Button
-	        android:id="@+id/btnPhoto"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:background="@drawable/btn_default_selector"
-	        android:text="Photo" />
 
 	    <Button
 	        android:id="@+id/btn_aiuto_amico"

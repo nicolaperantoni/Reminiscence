@@ -2,6 +2,7 @@ package it.unitn.vanguard.reminiscence.asynctasks;
 
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.ArrayList;
 
@@ -45,11 +46,15 @@ public class AddStoryTask extends AsyncTask<String, Void, JSONObject> {
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 
 		// ottiene il token se presente
+		/*
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(((Activity) caller)
 						.getApplicationContext());
-		String token = prefs.getString(Constants.TOKEN_KEY, "");
-
+		String token = prefs.getString(Constants.TOKEN_KEY, "");*/
+		
+		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, ((Activity) caller)
+				.getApplicationContext());
+		
 		if (!token.equals("")) {
 
 			params.add(new BasicNameValuePair("year", "" + arg[0]));
