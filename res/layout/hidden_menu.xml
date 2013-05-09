@@ -80,7 +80,7 @@
         android:background="@color/lighter_midnight_blue" />
       
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/card_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/menu_header"

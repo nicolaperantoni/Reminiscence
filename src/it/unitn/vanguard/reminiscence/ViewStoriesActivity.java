@@ -4,7 +4,7 @@ import it.unitn.vanguard.reminiscence.QuestionPopUpHandler.QuestionPopUp;
 import it.unitn.vanguard.reminiscence.asynctasks.GetStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
 import it.unitn.vanguard.reminiscence.frags.BornFragment;
-import it.unitn.vanguard.reminiscence.interfaces.OnTask;
+import it.unitn.vanguard.reminiscence.interfaces.OnGetStoryTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
@@ -39,27 +39,31 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.fima.cardsui.objects.Card;
+
 import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
 import eu.giovannidefrancesco.DroidTimeline.view.YearView;
 
 public class ViewStoriesActivity extends BaseActivity implements
-		OnTaskFinished, QuestionPopUp, OnTask {
+		OnTaskFinished, QuestionPopUp, OnGetStoryTask {
 
 	private Context context;
 
-	private ViewPager mViewPager;
+	 private ViewPager mViewPager;
 	private TimeLineView mTimeLine;
 	private ProgressDialog dialog;
 
 	private TextView mQuestionTv;
 	private ImageView mCloseQuestionImgV;
 
-	private StoriesAdapter mStoriesAdapter;
+	 private StoriesAdapter mStoriesAdapter;
+	//private CardUI mCardUi;
 	private int startYear;
 	private int selectedItemIndex;
 	private int requestYear;
 
-	private Queue<GetStoriesTask> requests;
+	 private Queue<GetStoriesTask> requests;
 
 	@Override
 	public void onCreate(Bundle arg0) {
@@ -67,18 +71,19 @@ public class ViewStoriesActivity extends BaseActivity implements
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_viewstories);
 		context = ViewStoriesActivity.this;
-		
+
 		String language = FinalFunctionsUtilities.getSharedPreferences(
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 
-		mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
+		 mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
-		requests = new PriorityQueue<GetStoriesTask>();
+		//mCardUi = (CardUI) findViewById(R.id.viewstories_cards);
+		 requests = new PriorityQueue<GetStoriesTask>();
 
 		FragmentManager fm = getSupportFragmentManager();
-		mStoriesAdapter = new StoriesAdapter(fm);
-		mViewPager.setAdapter(mStoriesAdapter);
+		 mStoriesAdapter = new StoriesAdapter(fm);
+		 mViewPager.setAdapter(mStoriesAdapter);
 
 		// e' per avere lo 0 alla fine degli anni.(per avere l'intera decade,
 		// praticmanete)
@@ -87,7 +92,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		year = year.substring(0, year.length() - 1);
 		requestYear = Integer.parseInt(year + '0');
 		startYear = requestYear;
-		selectedItemIndex=0;
+		selectedItemIndex = 0;
 		mTimeLine.setStartYear(requestYear);
 
 		setListeners();
@@ -110,12 +115,13 @@ public class ViewStoriesActivity extends BaseActivity implements
 			f.setArguments(b);
 			FinalFunctionsUtilities.stories.add(f);
 		}
-		
+
 		// Comincia a chiedere al server le storie
 		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
 			new GetStoriesTask(this, requestYear).execute();
 		} else {
-			Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
+			Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
+					.show();
 		}
 	}
 
@@ -127,7 +133,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 		msg.setData(b);
 		new QuestionPopUpHandler(this).sendMessageDelayed(msg,
 				Constants.QUESTION_INTERVAL);
-		new GetStoriesTask(this, requestYear).execute(requestYear);
 	}
 
 	private void setListeners() {
@@ -137,8 +142,10 @@ public class ViewStoriesActivity extends BaseActivity implements
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				int year = ((YearView) arg1).getYear();
-				selectedItemIndex=arg2;
-				requests.add(new GetStoriesTask(ViewStoriesActivity.this, year));
+				selectedItemIndex = arg2;
+				 requests.add(new GetStoriesTask(ViewStoriesActivity.this,
+				 year));
+				//new GetStoriesTask(ViewStoriesActivity.this, year).execute();
 			}
 		});
 
@@ -164,8 +171,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 			@Override
 			public void onClick(View v) {
-				if (FinalFunctionsUtilities
-						.isDeviceConnected(context)) {
+				if (FinalFunctionsUtilities.isDeviceConnected(context)) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							ViewStoriesActivity.this);
 
@@ -254,7 +260,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 		case R.id.action_add_story:
 			Intent i = new Intent(this, EmptyStoryActivity.class);
-			i.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY,startYear+10*selectedItemIndex+"");
+			i.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, startYear + 10
+					* selectedItemIndex + "");
 			startActivity(i);
 			break;
 		}
@@ -321,16 +328,20 @@ public class ViewStoriesActivity extends BaseActivity implements
 			requestYear++;
 			new GetStoriesTask(this, requestYear).execute();
 		}
+		//mCardUi.refresh();
 	}
 
 	@Override
-	public void OnProgress() {
-		setProgressBarIndeterminateVisibility(true);
-		mStoriesAdapter.notifyDataSetChanged();
+	public void OnProgress(Card card) {
+		 //setProgressBarIndeterminateVisibility(true);
+		 mStoriesAdapter.notifyDataSetChanged();
+//			mCardUi = (CardUI) findViewById(R.id.viewstories_cardui);
+		//mCardUi.addCard(card);
+		
 	}
 
 	@Override
 	public void OnStart() {
-		// setProgressBarIndeterminateVisibility(true);
+		setProgressBarIndeterminateVisibility(true);
 	}
 }

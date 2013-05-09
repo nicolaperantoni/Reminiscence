@@ -46,14 +46,15 @@
 	        
 	        <ImageView
 	            android:id="@+id/photo"
-	            android:padding="5dp"
 	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" 
+	            android:layout_height="wrap_content"
+	            android:layout_below="@id/story_title_tv"
 	            android:layout_centerHorizontal="true"
 	            android:adjustViewBounds="true"
-	            android:scaleType="center"	            
-	            android:layout_below="@id/story_title_tv"
-	            android:background="@color/white"/>
+	            android:background="@color/white"
+	            android:padding="5dp"
+	            android:scaleType="center"
+	            android:visibility="gone" />
 	
 	        <TextView
 	            android:id="@+id/story_description_tv"

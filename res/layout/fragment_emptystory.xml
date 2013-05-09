@@ -50,19 +50,18 @@
 
             <EditText
                 android:id="@+id/emptystory_title_et"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:ems="10"
                 android:gravity="center"
                 android:hint="@string/story_title_placeholder" />
-            
+
             <ImageView
-                android:id="@+id/emptystory_addMedia"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.3"
-                android:src="@drawable/add_media" />
+                    android:id="@+id/emptystory_addmedia_imv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/add_media" />
         </LinearLayout>
 
         <EditText

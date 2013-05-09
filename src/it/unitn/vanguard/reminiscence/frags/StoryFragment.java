@@ -32,17 +32,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class StoryFragment extends Fragment implements OnTaskFinished{
+public class StoryFragment extends Fragment implements OnTaskFinished {
 
 	public static final String TITLE_PASSED_KEY = "storyTitle";
 	public static final String DESCRIPTION_PASSED_KEY = "descriptionTitle";
 	public static final String YEAR_PASSED_KEY = "year";
-	
+
 	private TextView mTitleTv;
 	private TextView mDescTv;
 	private Integer mYear;
 	private String story_id;
-	
+
 	// Image
 	private ImageView view;
 	private Button btn_aiuto_amico;
@@ -50,7 +50,7 @@ public class StoryFragment extends Fragment implements OnTaskFinished{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.fragment_story, container,false);
+		View v = inflater.inflate(R.layout.fragment_story, container, false);
 		return v;
 	}
 
@@ -63,14 +63,13 @@ public class StoryFragment extends Fragment implements OnTaskFinished{
 		mTitleTv = (TextView) getView().findViewById(R.id.story_title_tv);
 
 		mDescTv = (TextView) getView().findViewById(R.id.story_description_tv);
-		
+
 		btn_aiuto_amico = (Button) getView().findViewById(R.id.btn_aiuto_amico);
 		view = (ImageView) getView().findViewById(R.id.photo);
 
 		initializeTexts();
 
 	}
-	
 
 	@Override
 	public void onResume() {
@@ -85,15 +84,14 @@ public class StoryFragment extends Fragment implements OnTaskFinished{
 			mDescTv.setText(b.getString(DESCRIPTION_PASSED_KEY));
 		}
 
-		
 		btn_aiuto_amico.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent checkbox_amici = new Intent(getActivity(), CheckBoxAmici.class );
+				Intent checkbox_amici = new Intent(getActivity(),
+						CheckBoxAmici.class);
 				startActivity(checkbox_amici);
-				
-				
+
 			}
 		});
 	}
@@ -105,7 +103,7 @@ public class StoryFragment extends Fragment implements OnTaskFinished{
 	@Override
 	public void onTaskFinished(JSONObject res) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
