@@ -98,7 +98,8 @@
             android:layout_weight="0.5"
             android:background="@drawable/btn_default_selector"
             android:text="@string/confirm_button_label"
-            android:textSize="@dimen/default_textSize_larger" />
+            android:textSize="@dimen/default_textSize_larger"
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/add_friend_back_button"
@@ -110,7 +111,8 @@
             android:layout_weight="0.5"
             android:background="@drawable/btn_default_selector"
             android:text="@string/back_button_label"
-            android:textSize="@dimen/default_textSize_larger" />
+            android:textSize="@dimen/default_textSize_larger"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </RelativeLayout>

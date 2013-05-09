@@ -48,6 +48,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 			startActivityForResult(timeline, 0);
 			finish();
 		}
+		
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language),
 				context);

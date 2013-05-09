@@ -17,6 +17,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:gravity="center"
+        android:shadowColor="#000000"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="5"
+        android:layout_marginTop="5dp"
         android:text="@string/registration_activity_header"
         android:textColor="@color/white"
         android:textSize="@dimen/registration_header_font_size" />

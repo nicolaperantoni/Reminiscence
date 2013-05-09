@@ -77,7 +77,8 @@
         android:layout_marginBottom="@dimen/default_margin_double"
         android:background="@drawable/btn_default_selector"
         android:text="@string/back_button_label"
-        android:textSize="@dimen/default_textSize_larger" />
+        android:textSize="@dimen/default_textSize_larger"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/add_friend_confirm_button"
@@ -88,6 +89,7 @@
         android:layout_marginBottom="@dimen/default_margin"
         android:background="@drawable/btn_default_selector"
         android:text="@string/confirm_button_label" 
-        android:textSize="@dimen/default_textSize_larger" />
+        android:textSize="@dimen/default_textSize_larger"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

@@ -2,17 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context=".FriendListActivity" >
-
-    <ListView
-        android:id="@+id/friendlistview"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/friendlist_send_mail"
-        android:layout_alignRight="@+id/friendlistview_txt"
-        android:background="@color/red_background_dark" >
-
-    </ListView>
+    tools:context=".FriendListActivity"
+    android:padding="10dp"
+    android:background="@color/red_background_dark" >
 
     <TextView
         android:id="@+id/friendlistview_txt"
@@ -20,19 +12,37 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_below="@+id/friendlistview"
+        android:gravity="center_horizontal"
+        android:shadowColor="#000000"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="5"
         android:background="@color/red_background_dark"
         android:text="@string/menu_friends"
-        android:textColor="@color/white" />
-
-    <Button
+        android:textColor="@color/white"
+        android:textSize="@dimen/default_textSize_huge" />
+    
+        <Button
         android:id="@+id/friendlist_send_mail"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/btn_default_selector"
+        android:textColor="@color/white"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="@string/send_mail" />
+    
+    <ListView
+        android:id="@+id/friendlistview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/friendlistview_txt"
+        android:layout_above="@+id/friendlist_send_mail"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/addstory_hint_background">
+        
+    </ListView>
 
 </RelativeLayout>
