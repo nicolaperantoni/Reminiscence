@@ -110,8 +110,13 @@ public class ViewStoriesActivity extends BaseActivity implements
 			f.setArguments(b);
 			FinalFunctionsUtilities.stories.add(f);
 		}
+		
 		// Comincia a chiedere al server le storie
-		new GetStoriesTask(this, requestYear).execute();
+		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+			new GetStoriesTask(this, requestYear).execute();
+		} else {
+			Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
+		}
 	}
 
 	private void initializePopUps() {

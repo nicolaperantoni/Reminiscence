@@ -65,8 +65,11 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 			@Override
 			public void onClick(View arg0) {
 				if (nameOk && surnameOk && mailOk) {
-					new AddFriendTask(AddFriendActivity.this).execute(name,
-							surname, mail);
+					if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+						new AddFriendTask(AddFriendActivity.this).execute(name, surname, mail);
+					} else {
+						Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
+					}
 				}
 			}
 		};

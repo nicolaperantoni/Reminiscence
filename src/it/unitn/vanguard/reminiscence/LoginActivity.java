@@ -95,7 +95,11 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 					dialog.setMessage(getResources().getString(R.string.wait));
 					dialog.setCancelable(false);
 					dialog.show();
-					new LoginTask(LoginActivity.this).execute(username, password);
+					if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+						new LoginTask(LoginActivity.this).execute(username, password);
+					} else {
+						Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
+					}
 				}
 				else {
 					if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }

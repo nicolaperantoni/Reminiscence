@@ -57,7 +57,7 @@ public class LogoutTask extends AsyncTask<String, Void, Boolean> {
 				jsonString = EntityUtils.toString(client.execute(post).getEntity());
 				json = new JSONObject(jsonString);
 				if (json != null && json.getString("success").equals("true")) {
-					FinalFunctionsUtilities.setSharedPreferences("token", "", ((Activity) caller));
+					FinalFunctionsUtilities.setSharedPreferences(Constants.TOKEN_KEY, "", ((Activity) caller));
 					return true;
 				}
 

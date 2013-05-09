@@ -84,7 +84,11 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 				dialog.setCancelable(false);
 				dialog.show();
 			}
-			new GetProfilePhotoTask(this, context).execute();
+			if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+				new GetProfilePhotoTask(this, context).execute();
+			} else {
+				Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
+			}
 		}catch(Exception e){
 			Log.e("log_tag", "Error in http connection "+ e.toString());
 			e.printStackTrace();

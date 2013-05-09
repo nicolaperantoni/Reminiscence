@@ -116,14 +116,26 @@ public final class FinalFunctionsUtilities {
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(context);
 
-		if (key.equals("day")) {
+		if (key.equals(Constants.DAY_KEY)) {
 			retVal = "1";
 		}
-		if (key.equals("month")) {
+		if (key.equals(Constants.MONTH_KEY)) {
 			retVal = "Gennaio";
 		}
-		if (key.equals("year")) {
+		if (key.equals(Constants.YEAR_KEY)) {
 			retVal = "1940";
+		}
+		if (key.equals(Constants.NAME_KEY)) {
+			retVal = "";
+		}
+		if (key.equals(Constants.SURNAME_KEY)) {
+				retVal = "";
+		}
+		if (key.equals(Constants.MAIL_KEY)) {
+			retVal = "";
+		}
+		if (key.equals(Constants.PASSWORD_KEY)) {
+			retVal = "";
 		}
 		if (key.equals(Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY)) {
 			retVal = "Trento";
