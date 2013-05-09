@@ -36,7 +36,8 @@ public class RegistrationActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = getApplicationContext();
+        context = RegistrationActivity.this;
+        
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
         setContentView(R.layout.activity_registration);
@@ -125,10 +126,10 @@ public class RegistrationActivity extends Activity {
 				name = editTextName.getText().toString();
 				nameOk = !name.trim().equals("");
 				if(!nameOk) {
-					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_surname_empty), Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, getResources().getText(R.string.registration_surname_empty), Toast.LENGTH_SHORT).show();
 				}
 				else if (!(nameOk = nameOk && !name.startsWith(" ") && !name.endsWith(" "))) {
-					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_surname_contains_spaces), Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, getResources().getText(R.string.registration_surname_contains_spaces), Toast.LENGTH_SHORT).show();
 				}
 
 				if(!nameOk) {
@@ -152,10 +153,10 @@ public class RegistrationActivity extends Activity {
 				surname = editTextSurname.getText().toString();
 				surnameOk = !surname.trim().equals("");
 				if(!surnameOk) {
-					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_surname_empty), Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, getResources().getText(R.string.registration_surname_empty), Toast.LENGTH_SHORT).show();
 				}
 				else if (!(surnameOk = surnameOk && !surname.startsWith(" ") && !surname.endsWith(" "))) {
-					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_surname_contains_spaces), Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, getResources().getText(R.string.registration_surname_contains_spaces), Toast.LENGTH_SHORT).show();
 				}
 				
 				if(!surnameOk) {
@@ -199,7 +200,7 @@ public class RegistrationActivity extends Activity {
 		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		Locale locale = new Locale(language);
 
 		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {

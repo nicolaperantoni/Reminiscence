@@ -41,8 +41,8 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		super.onCreate(savedInstanceState);
 		context = LoginActivity.this;
 	
-		// Se l'utente aveva già affettuato il login in precedenza salta dirett nella timeline
-		if(FinalFunctionsUtilities.isLoggedIn(getApplicationContext())) { 
+		// Se l'utente aveva gia' affettuato il login in precedenza salta dirett nella timeline
+		if(FinalFunctionsUtilities.isLoggedIn(context)) { 
 			Intent timeline = new Intent(context,
 					ViewStoriesActivity.class);
 			startActivityForResult(timeline, 0);

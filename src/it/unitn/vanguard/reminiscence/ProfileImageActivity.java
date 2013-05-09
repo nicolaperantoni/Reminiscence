@@ -47,7 +47,8 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		context = getApplicationContext();
+		context = ProfileImageActivity.this;
+		
 		try {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		} catch (Exception e) {
@@ -106,8 +107,8 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 	        Bitmap mBitmap = null;
 	        try {
 
-				Bitmap bm = Media.getBitmap(getApplicationContext().getContentResolver(), chosenImageUri);
-				mBitmap = Media.getBitmap(getApplicationContext().getContentResolver(), chosenImageUri);
+				Bitmap bm = Media.getBitmap(context.getContentResolver(), chosenImageUri);
+				mBitmap = Media.getBitmap(context.getContentResolver(), chosenImageUri);
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();  
 				bm.compress(Bitmap.CompressFormat.JPEG, 80, baos);
 				bm.recycle();
@@ -148,7 +149,7 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		Locale locale = new Locale(language);
 
 		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
@@ -191,9 +192,9 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 			else if(res.getString("operation").equals("AddProfileImage")){
 				if (res.getString("success").equals("true")) {
 					getProfileImage();
-					Toast.makeText(this, getResources().getString(R.string.profile_image_change_success), Toast.LENGTH_LONG).show();
+					Toast.makeText(context, getResources().getString(R.string.profile_image_change_success), Toast.LENGTH_LONG).show();
 				} else {
-					Toast.makeText(this, getResources().getString(R.string.profile_image_change_failed), Toast.LENGTH_LONG).show();
+					Toast.makeText(context, getResources().getString(R.string.profile_image_change_failed), Toast.LENGTH_LONG).show();
 				}
 			}
 		}

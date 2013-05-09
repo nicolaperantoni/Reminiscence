@@ -51,7 +51,8 @@ public class DataNascitaActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		context = getApplicationContext();
+		context = DataNascitaActivity.this;
+		
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_data_nascita);
@@ -67,8 +68,6 @@ public class DataNascitaActivity extends Activity {
 	}
 	
 	private void initializeVars() {
-
-		Context context = getApplicationContext();
 		day = FinalFunctionsUtilities.getSharedPreferences(Constants.DAY_KEY, context);
 		month = FinalFunctionsUtilities.getSharedPreferences(Constants.MONTH_KEY, context);
 		year = FinalFunctionsUtilities.getSharedPreferences(Constants.YEAR_KEY, context);
@@ -227,9 +226,6 @@ public class DataNascitaActivity extends Activity {
 			public void onClick(View v) {
 				Intent passwordIntent = new Intent(v.getContext(), PasswordActivity.class);
 				
-				// Get shared preferences
-				Context context = getApplicationContext();
-				
 				FinalFunctionsUtilities.setSharedPreferences(Constants.DAY_KEY, txtDay.getText().toString(), context);
 				FinalFunctionsUtilities.setSharedPreferences(Constants.MONTH_KEY, txtMonth.getText().toString(), context);
 				FinalFunctionsUtilities.setSharedPreferences(Constants.YEAR_KEY, txtYear.getText().toString(), context);
@@ -251,7 +247,6 @@ public class DataNascitaActivity extends Activity {
 	
 	//control on current date (easter egg toast)
 	void currentDateMsg(){
-			Context context = getApplicationContext();
 			CharSequence text = "Davvero? Sei nato nel futuro?";
 			Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
 			toast.show();
@@ -262,7 +257,7 @@ public class DataNascitaActivity extends Activity {
 		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		Locale locale = new Locale(language);
 
 		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {

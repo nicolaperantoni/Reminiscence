@@ -55,7 +55,8 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		context = getApplicationContext();
+		context = PasswordActivity.this;
+		
 		String language = FinalFunctionsUtilities.getSharedPreferences(
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
@@ -67,8 +68,6 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	}
 
 	private void initializeVars() {
-
-		Context context = getApplicationContext();
 		name = FinalFunctionsUtilities.getSharedPreferences(Constants.NAME_KEY, context);
 
 		surname = FinalFunctionsUtilities.getSharedPreferences(Constants.SURNAME_KEY, context);
@@ -113,18 +112,18 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 
 			if (!passwordOk) {
 				Toast.makeText(
-						getApplicationContext(),
+						context,
 						getResources().getText(
 								R.string.registration_password_empty),
 						Toast.LENGTH_SHORT).show();
 			} else if (!(passwordOk = passwordOk && !password.contains(" "))) {
 				Toast.makeText(
-						getApplicationContext(),
+						context,
 						getResources().getText(
 								R.string.registration_password_contains_spaces),
 						Toast.LENGTH_SHORT).show();
 			} else if (FinalFunctionsUtilities
-					.isDeviceConnected(getApplicationContext())) {
+					.isDeviceConnected(context)) {
 				dialog = new ProgressDialog(PasswordActivity.this);
 				dialog.setTitle(getResources().getString(R.string.please));
 				dialog.setMessage(getResources().getString(R.string.wait));
@@ -133,7 +132,7 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 				new RegistrationTask(PasswordActivity.this).execute(name,
 						surname, mail, password, day, month, year);
 			} else {
-				Toast.makeText(getApplicationContext(),
+				Toast.makeText(context,
 						getResources().getString(R.string.connection_fail),
 						Toast.LENGTH_LONG).show();
 			}
@@ -141,7 +140,6 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	};
 
 	private void initializeListeners() {
-
 		btnBack.setOnClickListener(onclickback);
 		btnFrecciaBack.setOnClickListener(onclickback);
 		btnConfirm.setOnClickListener(onclickconf);
@@ -166,13 +164,13 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 
 				if (!passwordOk) {
 					Toast.makeText(
-							getApplicationContext(),
+							context,
 							getResources().getText(
 									R.string.registration_password_empty),
 							Toast.LENGTH_SHORT).show();
 				} else if (!(passwordOk = passwordOk && !password.contains(" "))) {
 					Toast.makeText(
-							getApplicationContext(),
+							context,
 							getResources()
 									.getText(
 											R.string.registration_password_contains_spaces),
@@ -222,12 +220,12 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 			ret = res.getString("success"); // +res.getString("err1")+res.getString("err2")+res.getString("err3")+res.getString("err4")+res.getString("err5");
 			if (ret.startsWith("true")) {
 				
-				FinalFunctionsUtilities.setSharedPreferences(Constants.TOKEN_KEY, res.getString("token"), getApplicationContext());
+				FinalFunctionsUtilities.setSharedPreferences(Constants.TOKEN_KEY, res.getString("token"), context);
 				Toast.makeText(this, getResources().getText(R.string.registration_succes), Toast.LENGTH_SHORT).show();
-				FinalFunctionsUtilities.setSharedPreferences(Constants.PASSWORD_KEY, password, getApplicationContext());
+				FinalFunctionsUtilities.setSharedPreferences(Constants.PASSWORD_KEY, password, context);
 				//Log.e("token", FinalFunctionsUtilities.getSharedPreferences("token", getApplicationContext()));
 				// intent
-				Intent intent = new Intent(getApplicationContext(), LuogoNascitaActivity.class);
+				Intent intent = new Intent(context, LuogoNascitaActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivityForResult(intent, 0);
 				finish();
@@ -248,7 +246,7 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
 		String language = FinalFunctionsUtilities.getSharedPreferences(
-				"language", getApplicationContext());
+				"language", context);
 		Locale locale = new Locale(language);
 
 		if (locale.toString().equals(Locale.ITALIAN.getLanguage())

@@ -65,10 +65,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 	public void onCreate(Bundle arg0) {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(arg0);
-
 		setContentView(R.layout.activity_viewstories);
-
-		context = getApplicationContext();
+		context = ViewStoriesActivity.this;
+		
 		String language = FinalFunctionsUtilities.getSharedPreferences(
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
@@ -161,7 +160,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 			@Override
 			public void onClick(View v) {
 				if (FinalFunctionsUtilities
-						.isDeviceConnected(getApplicationContext())) {
+						.isDeviceConnected(context)) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							ViewStoriesActivity.this);
 
@@ -212,7 +211,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 							.setTextColor(Color.WHITE);
 
 				} else {
-					Toast.makeText(getApplicationContext(),
+					Toast.makeText(context,
 							getResources().getString(R.string.connection_fail),
 							Toast.LENGTH_LONG).show();
 				}
@@ -245,7 +244,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		getMenuInflater().inflate(R.menu.timeline, menu);
 
 		String language = FinalFunctionsUtilities.getSharedPreferences(
-				"language", getApplicationContext());
+				"language", context);
 		Locale locale = new Locale(language);
 
 		if (locale.toString().equals(Locale.ITALIAN.getLanguage())
@@ -294,7 +293,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		try {
 			Log.e("", res.toString());
 			if (res.getString("success").equals("true")) {
-				Toast.makeText(getApplicationContext(),
+				Toast.makeText(context,
 						getResources().getString(R.string.logout_success),
 						Toast.LENGTH_LONG).show();
 				startActivity(new Intent(ViewStoriesActivity.this,

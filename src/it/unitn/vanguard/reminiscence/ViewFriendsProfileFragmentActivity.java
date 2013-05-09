@@ -25,6 +25,7 @@ public class ViewFriendsProfileFragmentActivity extends FragmentActivity impleme
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
+		context = ViewFriendsProfileFragmentActivity.this;
 
 		setContentView(R.layout.activity_friendlist_profile);
 		try {
@@ -39,7 +40,6 @@ public class ViewFriendsProfileFragmentActivity extends FragmentActivity impleme
 		fl = (FriendListFragment) getSupportFragmentManager().findFragmentById(
 				R.id.friend_list_fragment);
 
-		context = getApplicationContext();
 		String language = FinalFunctionsUtilities.getSharedPreferences(
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);

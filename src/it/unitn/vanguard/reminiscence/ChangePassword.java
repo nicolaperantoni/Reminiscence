@@ -42,7 +42,8 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		context = getApplicationContext();
+		context = ChangePassword.this;
+		
 		try {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		} catch (Exception e) {
@@ -74,7 +75,7 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 				boolean isEmptyConfPassword = new_pass2.trim().equals("");
 				
 				if(isEmptyNewPassword || isEmptyConfPassword) {
-					Toast.makeText(getApplicationContext(), getResources().getString(R.string.empty_password),
+					Toast.makeText(context, getResources().getString(R.string.empty_password),
 							Toast.LENGTH_LONG).show();
 				}
 				else {
@@ -82,8 +83,8 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 						Toast.makeText(ChangePassword.this, getResources().getString(R.string.wrong_password),
 								Toast.LENGTH_LONG).show();
 					}
-					else if(!FinalFunctionsUtilities.isDeviceConnected(getApplicationContext())) {
-						Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show();
+					else if(!FinalFunctionsUtilities.isDeviceConnected(context)) {
+						Toast.makeText(context, getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show();
 					}
 					else {
 						dialog = new ProgressDialog(ChangePassword.this);
@@ -113,10 +114,10 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 				passwordOk = !password.equals("");
 				
 				if(!passwordOk) {
-					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_empty), Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, getResources().getText(R.string.registration_password_empty), Toast.LENGTH_SHORT).show();
 				}
 				else if (!(passwordOk = passwordOk && !password.contains(" "))) {
-					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_contains_spaces), Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, getResources().getText(R.string.registration_password_contains_spaces), Toast.LENGTH_SHORT).show();
 				}
 				
 				if(passwordOk) { txtNewPassword.setBackgroundResource(R.drawable.txt_input_bordered); }
@@ -138,10 +139,10 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 				confirmOk = !confirm.equals("");
 				
 				if(!confirmOk) {
-					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_empty), Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, getResources().getText(R.string.registration_password_empty), Toast.LENGTH_SHORT).show();
 				}
 				else if (!(confirmOk = confirmOk && !confirm.contains(" "))) {
-					Toast.makeText(getApplicationContext(), getResources().getText(R.string.registration_password_contains_spaces), Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, getResources().getText(R.string.registration_password_contains_spaces), Toast.LENGTH_SHORT).show();
 				}
 				
 				if(confirmOk) { txtConfirmPassword.setBackgroundResource(R.drawable.txt_input_bordered); }
@@ -164,11 +165,11 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 			Log.e("", FinalFunctionsUtilities.getSharedPreferences(Constants.PASSWORD_KEY, context));
 			if (res.getString("success").equals("true")) {
 				FinalFunctionsUtilities.setSharedPreferences(Constants.PASSWORD_KEY, new_pass1, context);
-				Toast.makeText(ChangePassword.this, getResources().getString(R.string.correct_password),
+				Toast.makeText(context, getResources().getString(R.string.correct_password),
 						Toast.LENGTH_LONG).show();
 			}
 			else
-				Toast.makeText(this, getResources().getString(R.string.login_failed),
+				Toast.makeText(context, getResources().getString(R.string.login_failed),
 						Toast.LENGTH_LONG).show();
 		} catch (JSONException e) {
 			Log.e(ChangePassword.class.getName(), e.toString());
@@ -180,7 +181,7 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		Locale locale = new Locale(language);
 
 		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {

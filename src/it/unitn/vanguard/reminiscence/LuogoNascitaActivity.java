@@ -46,7 +46,8 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		context = getApplicationContext();
+		context = LuogoNascitaActivity.this;
+		
 		String language = FinalFunctionsUtilities.getSharedPreferences(
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
@@ -98,10 +99,10 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 				String place = txtLuogoNascita.getText().toString();
 				placeOk = !place.trim().equals("");
 				if(!placeOk) {
-					Toast.makeText(getApplicationContext(), getResources().getText(R.string.birthplace_empty), Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, getResources().getText(R.string.birthplace_empty), Toast.LENGTH_SHORT).show();
 				}
 				else if (!(placeOk = placeOk && !place.startsWith(" ") && !place.endsWith(" "))) {
-					Toast.makeText(getApplicationContext(), getResources().getText(R.string.birthplace_contains_spaces), Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, getResources().getText(R.string.birthplace_contains_spaces), Toast.LENGTH_SHORT).show();
 				}
 
 				if(!placeOk) {
@@ -120,17 +121,17 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 				String place = txtLuogoNascita.getText().toString();
 				placeOk = !place.trim().equals("");
 				if(!placeOk) {
-					Toast.makeText(getApplicationContext(), getResources().getText(R.string.birthplace_empty), Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, getResources().getText(R.string.birthplace_empty), Toast.LENGTH_SHORT).show();
 				}
 				else if (!(placeOk = placeOk && !place.startsWith(" ") && !place.endsWith(" "))) {
-					Toast.makeText(getApplicationContext(), getResources().getText(R.string.birthplace_contains_spaces), Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, getResources().getText(R.string.birthplace_contains_spaces), Toast.LENGTH_SHORT).show();
 				}
 				else if (FinalFunctionsUtilities
-							.isDeviceConnected(getApplicationContext())) {
+							.isDeviceConnected(context)) {
 						new GetSuggLuogoNascita(LuogoNascitaActivity.this)
 								.execute(place /*.replace(" ", "+") */);
 					} else {
-						Toast.makeText(getApplicationContext(),
+						Toast.makeText(context,
 								getResources().getString(R.string.connection_fail),
 								Toast.LENGTH_LONG).show();
 					}
@@ -147,7 +148,7 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 						txtLuogoNascita.getText().toString(),
 						LuogoNascitaActivity.this);
 				// intent
-				Intent loginIntent = new Intent(getApplicationContext(),
+				Intent loginIntent = new Intent(context,
 						ViewStoriesActivity.class);
 				loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivityForResult(loginIntent, 0);
@@ -175,7 +176,7 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 			e.printStackTrace();
 		}
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-				getApplicationContext(), R.layout.my_item_view,
+				context, R.layout.my_item_view,
 				removeDuplicate(sugg));
 		txtLuogoNascita.setThreshold(2);
 		txtLuogoNascita.setAdapter(adapter);
@@ -188,7 +189,7 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
 		String language = FinalFunctionsUtilities.getSharedPreferences(
-				"language", getApplicationContext());
+				"language", context);
 		Locale locale = new Locale(language);
 
 		if (locale.toString().equals(Locale.ITALIAN.getLanguage())

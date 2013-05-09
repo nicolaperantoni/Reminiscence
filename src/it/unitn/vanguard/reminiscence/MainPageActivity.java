@@ -17,7 +17,8 @@ public class MainPageActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		context = getApplicationContext();
+		context = MainPageActivity.this;
+		
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_main_page);
@@ -28,7 +29,7 @@ public class MainPageActivity extends Activity {
 		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", getApplicationContext());
+		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		Locale locale = new Locale(language);
 
 		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {

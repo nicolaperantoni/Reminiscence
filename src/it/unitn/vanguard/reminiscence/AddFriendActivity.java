@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,7 +21,9 @@ import android.widget.Toast;
 
 @SuppressLint("NewApi")
 public class AddFriendActivity extends Activity implements OnTaskFinished {
-
+	
+	private Context context;
+	
 	private EditText editTextName;
 	private EditText editTextSurname;
 	private EditText editTextMail;
@@ -32,6 +35,8 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		context = AddFriendActivity.this;
+		
 		try {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		} catch (Exception e) {
@@ -88,14 +93,14 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 				nameOk = !name.trim().equals("");
 				if (!nameOk) {
 					Toast.makeText(
-							getApplicationContext(),
+							context,
 							getResources().getText(
 									R.string.registration_surname_empty),
 							Toast.LENGTH_SHORT).show();
 				} else if (!(nameOk = nameOk && !name.startsWith(" ")
 						&& !name.endsWith(" "))) {
 					Toast.makeText(
-							getApplicationContext(),
+							context,
 							getResources()
 									.getText(
 											R.string.registration_surname_contains_spaces),
@@ -130,14 +135,14 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 				surnameOk = !surname.trim().equals("");
 				if (!surnameOk) {
 					Toast.makeText(
-							getApplicationContext(),
+							context,
 							getResources().getText(
 									R.string.registration_surname_empty),
 							Toast.LENGTH_SHORT).show();
 				} else if (!(surnameOk = surnameOk && !surname.startsWith(" ")
 						&& !surname.endsWith(" "))) {
 					Toast.makeText(
-							getApplicationContext(),
+							context,
 							getResources()
 									.getText(
 											R.string.registration_surname_contains_spaces),
@@ -204,11 +209,11 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 
 		if (result.equals("true")) {
 			finish();
-			Toast.makeText(this.getApplicationContext(),
+			Toast.makeText(context,
 					R.string.add_friend_successful, Toast.LENGTH_LONG).show();
 		} else {
 			finish();
-			Toast.makeText(this.getApplicationContext(),
+			Toast.makeText(context,
 					R.string.registration_failed, Toast.LENGTH_LONG).show();
 		}
 	}
