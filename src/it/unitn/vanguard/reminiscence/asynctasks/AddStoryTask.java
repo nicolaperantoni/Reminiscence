@@ -79,7 +79,5 @@ public class AddStoryTask extends AsyncTask<String, Void, JSONObject> {
 		super.onPostExecute(res);
 		caller.onTaskFinished(res);
 	}
-	
-	
 
 }

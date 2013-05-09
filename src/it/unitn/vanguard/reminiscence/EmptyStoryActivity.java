@@ -3,6 +3,7 @@ package it.unitn.vanguard.reminiscence;
 import it.unitn.vanguard.reminiscence.R;
 import it.unitn.vanguard.reminiscence.asynctasks.AddStoryTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -42,6 +43,8 @@ import android.widget.Toast;
 
 public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 
+	private Context context;
+	
 	public static final String YEAR_PASSED_KEY = "emptyStoryYear";
 
 	private TextView mNoStoryTv;
@@ -53,6 +56,9 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		context = EmptyStoryActivity.this;
+		
 		setContentView(R.layout.fragment_emptystory);
 		mNoStoryTv = (TextView) findViewById(R.id.emptystory_nostory_tv);
 		mTitleEt = (EditText) findViewById(R.id.emptystory_title_et);
@@ -76,9 +82,13 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 
 			@Override
 			public void onClick(View v) {
+				if (FinalFunctionsUtilities.isDeviceConnected(context)) {
 				new AddStoryTask(EmptyStoryActivity.this).execute(mYearEt.getText().toString(),
 						mDescriptionEt.getText().toString(), mTitleEt.getText()
 								.toString());
+				} else {
+					Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 

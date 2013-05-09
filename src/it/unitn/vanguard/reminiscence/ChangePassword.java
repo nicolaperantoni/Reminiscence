@@ -87,7 +87,11 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 						dialog.setMessage(getResources().getString(R.string.wait));
 						dialog.setCancelable(false);
 						dialog.show();
-						new ChangePasswordTask(ChangePassword.this).execute(new_pass1, new_pass2);
+						if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+							new ChangePasswordTask(ChangePassword.this).execute(new_pass1, new_pass2);
+						} else {
+							Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
+						}
 						finish();
 					}
 				}
