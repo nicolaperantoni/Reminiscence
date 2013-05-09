@@ -10,6 +10,8 @@ import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +26,8 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -37,7 +41,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fima.cardsui.objects.Card;
-import com.fima.cardsui.views.CardUI;
 
 import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
 import eu.giovannidefrancesco.DroidTimeline.view.YearView;
@@ -47,20 +50,20 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 	private Context context;
 
-	// private ViewPager mViewPager;
+	 private ViewPager mViewPager;
 	private TimeLineView mTimeLine;
 	private ProgressDialog dialog;
 
 	private TextView mQuestionTv;
 	private ImageView mCloseQuestionImgV;
 
-	// private StoriesAdapter mStoriesAdapter;
-	private CardUI mCardUi;
+	 private StoriesAdapter mStoriesAdapter;
+	//private CardUI mCardUi;
 	private int startYear;
 	private int selectedItemIndex;
 	private int requestYear;
 
-	// private Queue<GetStoriesTask> requests;
+	 private Queue<GetStoriesTask> requests;
 
 	@Override
 	public void onCreate(Bundle arg0) {
@@ -73,14 +76,14 @@ public class ViewStoriesActivity extends BaseActivity implements
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 
-		// mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
+		 mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
-		mCardUi = (CardUI) findViewById(R.id.viewstories_cards);
-		// requests = new PriorityQueue<GetStoriesTask>();
+		//mCardUi = (CardUI) findViewById(R.id.viewstories_cards);
+		 requests = new PriorityQueue<GetStoriesTask>();
 
 		FragmentManager fm = getSupportFragmentManager();
-		// mStoriesAdapter = new StoriesAdapter(fm);
-		// mViewPager.setAdapter(mStoriesAdapter);
+		 mStoriesAdapter = new StoriesAdapter(fm);
+		 mViewPager.setAdapter(mStoriesAdapter);
 
 		// e' per avere lo 0 alla fine degli anni.(per avere l'intera decade,
 		// praticmanete)
@@ -140,9 +143,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 					long arg3) {
 				int year = ((YearView) arg1).getYear();
 				selectedItemIndex = arg2;
-				// requests.add(new GetStoriesTask(ViewStoriesActivity.this,
-				// year));
-				new GetStoriesTask(ViewStoriesActivity.this, year).execute();
+				 requests.add(new GetStoriesTask(ViewStoriesActivity.this,
+				 year));
+				//new GetStoriesTask(ViewStoriesActivity.this, year).execute();
 			}
 		});
 
@@ -227,23 +230,23 @@ public class ViewStoriesActivity extends BaseActivity implements
 		});
 	}
 
-	// private class StoriesAdapter extends FragmentPagerAdapter {
-	//
-	// public StoriesAdapter(FragmentManager fm) {
-	// super(fm);
-	// }
-	//
-	// @Override
-	// public Fragment getItem(int arg0) {
-	// return FinalFunctionsUtilities.stories.get(arg0);
-	// }
-	//
-	// @Override
-	// public int getCount() {
-	// return FinalFunctionsUtilities.stories.size();
-	// }
-	//
-	// }
+	private class StoriesAdapter extends FragmentPagerAdapter {
+
+		public StoriesAdapter(FragmentManager fm) {
+			super(fm);
+		}
+
+		@Override
+		public Fragment getItem(int arg0) {
+			return FinalFunctionsUtilities.stories.get(arg0);
+		}
+
+		@Override
+		public int getCount() {
+			return FinalFunctionsUtilities.stories.size();
+		}
+
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -318,26 +321,22 @@ public class ViewStoriesActivity extends BaseActivity implements
 		// TODO display a toast in case of error
 		// TODO call it for the the next year
 		setProgressBarIndeterminateVisibility(false);
-		// if (!requests.isEmpty()) {
-		// setProgressBarIndeterminateVisibility(true);
-		// requests.remove().execute();
-		// } else {
-		// requestYear++;
-		// new GetStoriesTask(this, requestYear).execute();
-		// }
-		if(mCardUi==null)
-			return;
-		mCardUi.refresh();
+		if (!requests.isEmpty()) {
+			setProgressBarIndeterminateVisibility(true);
+			requests.remove().execute();
+		} else {
+			requestYear++;
+			new GetStoriesTask(this, requestYear).execute();
+		}
+		//mCardUi.refresh();
 	}
 
 	@Override
 	public void OnProgress(Card card) {
-		// setProgressBarIndeterminateVisibility(true);
-		// mStoriesAdapter.notifyDataSetChanged();
-		if(mCardUi==null)
-			return;
-			//mCardUi = (CardUI) findViewById(R.id.viewstories_cardui);
-		mCardUi.addCard(card);
+		 //setProgressBarIndeterminateVisibility(true);
+		 mStoriesAdapter.notifyDataSetChanged();
+//			mCardUi = (CardUI) findViewById(R.id.viewstories_cardui);
+		//mCardUi.addCard(card);
 		
 	}
 
