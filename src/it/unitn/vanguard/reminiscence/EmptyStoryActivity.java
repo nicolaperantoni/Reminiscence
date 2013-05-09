@@ -30,6 +30,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	private EditText mDescriptionEt;
 	private EditText mYearEt;
 	private Button mAddBtn;
-	private Button mMediaButton;
+	private ImageView mMediaButton;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		mTitleEt = (EditText) findViewById(R.id.emptystory_title_et);
 		mDescriptionEt = (EditText) findViewById(R.id.emptystory_desc_et);
 		mAddBtn = (Button) findViewById(R.id.emptystory_add_btn);
-		mMediaButton = (Button) findViewById(R.id.emptystory_btnPhoto);
+		mMediaButton = (ImageView) findViewById(R.id.emptystory_addmedia_imv);
 		mYearEt = (EditText) findViewById(R.id.emptystory_year_et);
 		mYearEt.setText(getIntent().getExtras().getString(YEAR_PASSED_KEY));
 

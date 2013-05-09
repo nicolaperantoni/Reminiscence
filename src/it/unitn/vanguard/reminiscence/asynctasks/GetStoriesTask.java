@@ -1,18 +1,14 @@
 package it.unitn.vanguard.reminiscence.asynctasks;
 
-import it.unitn.vanguard.reminiscence.frags.StoryFragment;
-import it.unitn.vanguard.reminiscence.interfaces.OnTask;
-import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.StoryCard;
+import it.unitn.vanguard.reminiscence.interfaces.OnGetStoryTask;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -22,21 +18,20 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.fima.cardsui.objects.Card;
+
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 
 public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean> 
-	implements Comparable<GetStoriesTask> {
+	/*implements Comparable<GetStoriesTask> */{
 
-	private OnTask caller;
+	private OnGetStoryTask caller;
 	private Exception ex;
 	private JSONObject json;
 	private int year;
 
-	public GetStoriesTask(OnTask caller, Integer year) {
+	public GetStoriesTask(OnGetStoryTask caller, Integer year) {
 		this.caller = caller;
 		if (year != null)
 			this.year = year;
@@ -99,18 +94,19 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean>
 	@Override
 	protected void onProgressUpdate(JSONObject... values) {
 		super.onProgressUpdate(values);
-		StoryFragment story = new StoryFragment();
+		//StoryFragment story = new StoryFragment();
 		String title;
 		try {
 			title = values[0].getString("Title");
 			String desc = values[0].getString("Text");
-			Bundle b = new Bundle();
-			b.putString(StoryFragment.TITLE_PASSED_KEY, title);
-			b.putString(StoryFragment.DESCRIPTION_PASSED_KEY, desc);
-			b.putInt(StoryFragment.YEAR_PASSED_KEY, year);
-			story.setArguments(b);
-			FinalFunctionsUtilities.stories.add(story);
-			caller.OnProgress();
+//			Bundle b = new Bundle();
+//			b.putString(StoryFragment.TITLE_PASSED_KEY, title);
+//			b.putString(StoryFragment.DESCRIPTION_PASSED_KEY, desc);
+//			b.putInt(StoryFragment.YEAR_PASSED_KEY, year);
+//			story.setArguments(b);
+//			FinalFunctionsUtilities.stories.add(story);
+			Card card = new StoryCard(title, desc);
+			caller.OnProgress(card);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -123,13 +119,13 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean>
 		caller.OnFinish(result);
 	}
 
-	@Override
-	public int compareTo(GetStoriesTask another) {
-		if (this.year>another.year)
-			return -1;
-		else if(this.year==another.year)
-			return 0;
-		return 1;
-	}
+//	@Override
+//	public int compareTo(GetStoriesTask another) {
+//		if (this.year>another.year)
+//			return -1;
+//		else if(this.year==another.year)
+//			return 0;
+//		return 1;
+//	}
 
 }
