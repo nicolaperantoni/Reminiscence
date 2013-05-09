@@ -67,17 +67,6 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 
 	private void initializeListeners() {
 
-		txtLuogoNascita.setOnKeyListener(new OnKeyListener() {
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-
-				// new
-				// GetSuggLuogoNascita(LuogoNascitaActivity.this).execute(txtLuogoNascita.getText().toString());
-
-				return false;
-			}
-		});
-
 		txtLuogoNascita.addTextChangedListener(new TextWatcher() {
 
 			@Override

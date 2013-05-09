@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background_red"
-    android:padding="10dp" >
+    android:padding="@dimen/activity_vertical_margin"
+    android:background="@drawable/login_background_red" >
 
     <TextView
         android:id="@+id/emptystory_nostory_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
@@ -22,7 +22,7 @@
 
     <EditText
         android:id="@+id/emptystory_year_et"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/emptystory_nostory_tv"
         android:layout_centerHorizontal="true"

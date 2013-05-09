@@ -8,9 +8,9 @@
         android:id="@+id/viewstories_tlv"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        app:backgroundColor="@color/red_background_dark"
-        app:linesColor="@color/white"
-        app:yearColor="@color/white" />
+        app:backgroundColor="#bdc3c7"
+        app:linesColor="@color/black"
+        app:yearColor="@color/black" />
 
     <View
         android:id="@+id/viewstories_shadow"
@@ -25,8 +25,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/viewstories_tlv"
-        android:padding="10dp" />
+        android:layout_below="@+id/viewstories_tlv"/>
 
     <TextView
         android:id="@+id/viewtories_addstory_hint"
