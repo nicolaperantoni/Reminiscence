@@ -147,7 +147,6 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		try {
 			s = res.getString("success");
 			if (s.equals(s.equals("true"))) {
-				sendPhotos();
 				try {
 					idStoria = res.getInt("idadded");
 					sendPhotos();
