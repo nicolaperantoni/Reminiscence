@@ -41,6 +41,9 @@ public class RegistrationActivity extends Activity {
 		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
         setContentView(R.layout.activity_registration);
+        
+        //FinalFunctionsUtilities.clearSharedPreferences(context);
+        
 		initializeButtons();
 		initializeListeners();
     }

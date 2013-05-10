@@ -149,6 +149,16 @@ public final class FinalFunctionsUtilities {
 		String r = prefs.getString(key, retVal);
 		return r;
 	}
+	
+	//pulisce le shared preferences
+	public static void clearSharedPreferences(Context context)
+	{
+	     SharedPreferences prefs = PreferenceManager
+					.getDefaultSharedPreferences(context);
+	     SharedPreferences.Editor editor = prefs.edit();
+	     editor.clear();
+	     editor.commit();
+	}
 
 	/**
 	 * Controlla se e' presente la connessione ad internet, sia mobile che wi-fi
