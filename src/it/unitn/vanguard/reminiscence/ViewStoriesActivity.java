@@ -10,6 +10,7 @@ import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 import it.unitn.vanguard.reminiscence.utils.Story;
 
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -54,7 +55,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 	private Context context;
 
-//	private ViewPager mViewPager;
+	// private ViewPager mViewPager;
 	private GridView mCards;
 	private TimeLineView mTimeLine;
 	private ProgressDialog dialog;
@@ -79,14 +80,14 @@ public class ViewStoriesActivity extends BaseActivity implements
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 
-//		mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
+		// mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
 		mCards = (GridView) findViewById(R.id.viewstroies_cards_gw);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
 		requests = new PriorityQueue<GetStoriesTask>();
 
 		FragmentManager fm = getSupportFragmentManager();
 		mStoriesAdapter = new StoriesAdapter();
-//		mViewPager.setAdapter(mStoriesAdapter);
+		// mViewPager.setAdapter(mStoriesAdapter);
 		mCards.setAdapter(mStoriesAdapter);
 
 		// e' per avere lo 0 alla fine degli anni.(per avere l'intera decade,
@@ -110,12 +111,14 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private void initializeStoryList() {
 		// Mette dentro il fragment della data di nascita
 		if (FinalFunctionsUtilities.stories.isEmpty()) {
-			String title=getString(R.string.born_title);
-			String desc =String.format(getString(R.string.born),FinalFunctionsUtilities.getSharedPreferences(
-					Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
-					ViewStoriesActivity.this));
-			Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.baby);
-			Story s = new Story(startYear,title,desc);
+			String title = getString(R.string.born_title);
+			String desc = String.format(getString(R.string.born),
+					FinalFunctionsUtilities.getSharedPreferences(
+							Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
+							ViewStoriesActivity.this));
+			Bitmap img = BitmapFactory.decodeResource(getResources(),
+					R.drawable.baby);
+			Story s = new Story(startYear, title, desc);
 			s.setBackground(img);
 			FinalFunctionsUtilities.stories.add(s);
 		}
@@ -147,8 +150,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 					long arg3) {
 				int year = ((YearView) arg1).getYear();
 				selectedItemIndex = arg2;
-				 requests.add(new GetStoriesTask(ViewStoriesActivity.this,
-				 year));
+				requests.add(new GetStoriesTask(ViewStoriesActivity.this, year));
 			}
 		});
 
@@ -241,26 +243,29 @@ public class ViewStoriesActivity extends BaseActivity implements
 		}
 
 		@Override
+		public Object getItem(int arg0) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
 		public long getItemId(int arg0) {
 			return arg0;
 		}
 
 		@Override
 		public View getView(int arg0, View arg1, ViewGroup arg2) {
-			View v = getLayoutInflater().inflate(R.layout.card_story, arg2,false);
+			View v = getLayoutInflater().inflate(R.layout.card_story, arg2,
+					false);
 			ImageView back = (ImageView) v.findViewById(R.id.cardstory_img);
 			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
 			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
-			if(FinalFunctionsUtilities.stories.get(arg0).getBackground()!=null)
-				back.setImageBitmap(FinalFunctionsUtilities.stories.get(arg0).getBackground());
+			if (FinalFunctionsUtilities.stories.get(arg0).getBackground() != null)
+				back.setImageBitmap(FinalFunctionsUtilities.stories.get(arg0)
+						.getBackground());
 			title.setText(FinalFunctionsUtilities.stories.get(arg0).getTitle());
 			desc.setText(FinalFunctionsUtilities.stories.get(arg0).getDesc());
 			return v;
-		}
-
-		@Override
-		public Object getItem(int position) {
-			return FinalFunctionsUtilities.stories.get(position);
 		}
 
 	}
@@ -342,7 +347,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 			requests.remove().execute();
 		} else {
 			requestYear++;
-			new GetStoriesTask(this, requestYear).execute();
+			int year = Calendar.getInstance().get(Calendar.YEAR);
+			if (requestYear < year)
+				new GetStoriesTask(this, requestYear).execute();
 		}
 	}
 

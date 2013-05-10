@@ -8,9 +8,9 @@
         android:id="@+id/viewstories_tlv"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        app:backgroundColor="#bdc3c7"
-        app:linesColor="@color/black"
-        app:yearColor="@color/black" />
+        app:backgroundColor="@color/red_background_dark"
+        app:linesColor="@color/white"
+        app:yearColor="@color/white" />
 
     <View
         android:id="@+id/viewstories_shadow"
@@ -19,20 +19,17 @@
         android:layout_alignBottom="@+id/viewstories_tlv"
         android:background="@drawable/shadow" />
 
-    <!-- <android.support.v4.view.ViewPager -->
-    <!-- android:id="@+id/viewstories_pager" -->
-    <!-- android:layout_width="fill_parent" -->
-    <!-- android:layout_height="fill_parent" -->
-    <!-- android:layout_alignParentLeft="true" -->
-    <!-- android:layout_below="@+id/viewstories_tlv" -->
-    <!-- android:visibility="invisible" /> -->
-
     <GridView
         android:id="@+id/viewstroies_cards_gw"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/viewstories_tlv">
+        android:layout_below="@+id/viewstories_tlv"
+        android:horizontalSpacing="2dp"
+        android:verticalSpacing="2dp"
+       android:stretchMode="spacingWidthUniform"
+        android:padding="10dp"
+        android:numColumns="2" >
     </GridView>
 
     <TextView
