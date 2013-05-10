@@ -40,8 +40,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fima.cardsui.objects.Card;
-import com.fima.cardsui.views.CardUI;
 
 import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
 import eu.giovannidefrancesco.DroidTimeline.view.YearView;
@@ -59,7 +57,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private ImageView mCloseQuestionImgV;
 
 	 private StoriesAdapter mStoriesAdapter;
-//	private CardUI mCardUi;
 	private int startYear;
 	private int selectedItemIndex;
 	private int requestYear;
@@ -79,8 +76,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 		 mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
-//		mCardUi = (CardUI) findViewById(R.id.viewstories_cards);
-//		mCardUi.setSwipeable(true);
 		 requests = new PriorityQueue<GetStoriesTask>();
 
 		FragmentManager fm = getSupportFragmentManager();
@@ -147,7 +142,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 				selectedItemIndex = arg2;
 				 requests.add(new GetStoriesTask(ViewStoriesActivity.this,
 				 year));
-//				new GetStoriesTask(ViewStoriesActivity.this, year).execute();
 			}
 		});
 
@@ -324,7 +318,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 		// TODO call it for the the next year
 		setProgressBarIndeterminateVisibility(false);
 		if (!requests.isEmpty()) {
-			//setProgressBarIndeterminateVisibility(true);
 			requests.remove().execute();
 		} else {
 			requestYear++;
@@ -334,11 +327,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void OnProgress(Card card) {
-//		 setProgressBarIndeterminateVisibility(true);
+	public void OnProgress() {
 		 mStoriesAdapter.notifyDataSetChanged();
-//		mCardUi.addCard(card);
-//		mCardUi.refresh();
 	}
 
 	@Override

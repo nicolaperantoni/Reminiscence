@@ -1,6 +1,5 @@
 package it.unitn.vanguard.reminiscence.asynctasks;
 
-import it.unitn.vanguard.reminiscence.StoryCard;
 import it.unitn.vanguard.reminiscence.frags.StoryFragment;
 import it.unitn.vanguard.reminiscence.interfaces.OnGetStoryTask;
 import it.unitn.vanguard.reminiscence.utils.Constants;
@@ -18,8 +17,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.fima.cardsui.objects.Card;
 
 import android.app.Activity;
 import android.os.AsyncTask;
