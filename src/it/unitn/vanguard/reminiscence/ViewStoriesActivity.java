@@ -8,6 +8,7 @@ import it.unitn.vanguard.reminiscence.interfaces.OnGetStoryTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+import it.unitn.vanguard.reminiscence.utils.Story;
 
 import java.util.Locale;
 import java.util.PriorityQueue;
@@ -21,6 +22,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
@@ -33,14 +36,15 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.fima.cardsui.objects.Card;
 
 import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
 import eu.giovannidefrancesco.DroidTimeline.view.YearView;
@@ -50,20 +54,19 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 	private Context context;
 
-	 private ViewPager mViewPager;
+//	private ViewPager mViewPager;
+	private GridView mCards;
 	private TimeLineView mTimeLine;
 	private ProgressDialog dialog;
 
 	private TextView mQuestionTv;
 	private ImageView mCloseQuestionImgV;
-
-	 private StoriesAdapter mStoriesAdapter;
-	//private CardUI mCardUi;
+	private StoriesAdapter mStoriesAdapter;
 	private int startYear;
 	private int selectedItemIndex;
 	private int requestYear;
 
-	 private Queue<GetStoriesTask> requests;
+	private Queue<GetStoriesTask> requests;
 
 	@Override
 	public void onCreate(Bundle arg0) {
@@ -76,14 +79,15 @@ public class ViewStoriesActivity extends BaseActivity implements
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 
-		 mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
+//		mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
+		mCards = (GridView) findViewById(R.id.viewstroies_cards_gw);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
-		//mCardUi = (CardUI) findViewById(R.id.viewstories_cards);
-		 requests = new PriorityQueue<GetStoriesTask>();
+		requests = new PriorityQueue<GetStoriesTask>();
 
 		FragmentManager fm = getSupportFragmentManager();
-		 mStoriesAdapter = new StoriesAdapter(fm);
-		 mViewPager.setAdapter(mStoriesAdapter);
+		mStoriesAdapter = new StoriesAdapter();
+//		mViewPager.setAdapter(mStoriesAdapter);
+		mCards.setAdapter(mStoriesAdapter);
 
 		// e' per avere lo 0 alla fine degli anni.(per avere l'intera decade,
 		// praticmanete)
@@ -106,14 +110,14 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private void initializeStoryList() {
 		// Mette dentro il fragment della data di nascita
 		if (FinalFunctionsUtilities.stories.isEmpty()) {
-			Fragment f = new BornFragment();
-			Bundle b = new Bundle();
-			b.putString(BornFragment.BORN_CITY_PASSED_KEY,
-					FinalFunctionsUtilities.getSharedPreferences(
-							Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
-							ViewStoriesActivity.this));
-			f.setArguments(b);
-			FinalFunctionsUtilities.stories.add(f);
+			String title=getString(R.string.born_title);
+			String desc =String.format(getString(R.string.born),FinalFunctionsUtilities.getSharedPreferences(
+					Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
+					ViewStoriesActivity.this));
+			Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.baby);
+			Story s = new Story(startYear,title,desc);
+			s.setBackground(img);
+			FinalFunctionsUtilities.stories.add(s);
 		}
 
 		// Comincia a chiedere al server le storie
@@ -145,7 +149,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 				selectedItemIndex = arg2;
 				 requests.add(new GetStoriesTask(ViewStoriesActivity.this,
 				 year));
-				//new GetStoriesTask(ViewStoriesActivity.this, year).execute();
 			}
 		});
 
@@ -230,20 +233,34 @@ public class ViewStoriesActivity extends BaseActivity implements
 		});
 	}
 
-	private class StoriesAdapter extends FragmentPagerAdapter {
-
-		public StoriesAdapter(FragmentManager fm) {
-			super(fm);
-		}
-
-		@Override
-		public Fragment getItem(int arg0) {
-			return FinalFunctionsUtilities.stories.get(arg0);
-		}
+	private class StoriesAdapter extends BaseAdapter {
 
 		@Override
 		public int getCount() {
 			return FinalFunctionsUtilities.stories.size();
+		}
+
+		@Override
+		public long getItemId(int arg0) {
+			return arg0;
+		}
+
+		@Override
+		public View getView(int arg0, View arg1, ViewGroup arg2) {
+			View v = getLayoutInflater().inflate(R.layout.card_story, arg2,false);
+			ImageView back = (ImageView) v.findViewById(R.id.cardstory_img);
+			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
+			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
+			if(FinalFunctionsUtilities.stories.get(arg0).getBackground()!=null)
+				back.setImageBitmap(FinalFunctionsUtilities.stories.get(arg0).getBackground());
+			title.setText(FinalFunctionsUtilities.stories.get(arg0).getTitle());
+			desc.setText(FinalFunctionsUtilities.stories.get(arg0).getDesc());
+			return v;
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return FinalFunctionsUtilities.stories.get(position);
 		}
 
 	}
@@ -322,22 +339,17 @@ public class ViewStoriesActivity extends BaseActivity implements
 		// TODO call it for the the next year
 		setProgressBarIndeterminateVisibility(false);
 		if (!requests.isEmpty()) {
-			setProgressBarIndeterminateVisibility(true);
 			requests.remove().execute();
 		} else {
 			requestYear++;
 			new GetStoriesTask(this, requestYear).execute();
 		}
-		//mCardUi.refresh();
 	}
 
 	@Override
-	public void OnProgress(Card card) {
-		 //setProgressBarIndeterminateVisibility(true);
-		 mStoriesAdapter.notifyDataSetChanged();
-//			mCardUi = (CardUI) findViewById(R.id.viewstories_cardui);
-		//mCardUi.addCard(card);
-		
+	public void OnProgress() {
+		mStoriesAdapter.notifyDataSetChanged();
+		mCards.invalidate();
 	}
 
 	@Override

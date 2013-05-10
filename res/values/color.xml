@@ -4,7 +4,7 @@
     <!-- General -->
     <color name="white">#FFF</color>
     <color name="black">#000</color>
-    <color name="alphablack">#000000A6</color>
+    <color name="alphablack">#A6000000</color>
     <color name="panel">#ecf0f1</color>
     <color name="red_background_dark">#E54D3C</color>
     <color name="red_background_light">#E6B6A6</color>

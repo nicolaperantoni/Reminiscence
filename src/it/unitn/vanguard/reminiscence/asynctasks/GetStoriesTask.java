@@ -1,9 +1,9 @@
 package it.unitn.vanguard.reminiscence.asynctasks;
 
-import it.unitn.vanguard.reminiscence.StoryCard;
 import it.unitn.vanguard.reminiscence.interfaces.OnGetStoryTask;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+import it.unitn.vanguard.reminiscence.utils.Story;
 
 import java.util.ArrayList;
 
@@ -18,13 +18,12 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.fima.cardsui.objects.Card;
-
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Bundle;
 
 public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean> 
-	/*implements Comparable<GetStoriesTask> */{
+	implements Comparable<GetStoriesTask>{
 
 	private OnGetStoryTask caller;
 	private Exception ex;
@@ -55,10 +54,6 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean>
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 
 		// ottiene il token se presente 
-		/*SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(((Activity) caller)
-						.getApplicationContext());
-		String token = prefs.getString(Constants.TOKEN_KEY, "");*/
 		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, ((Activity) caller)
 				.getApplicationContext());
 
@@ -94,19 +89,11 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean>
 	@Override
 	protected void onProgressUpdate(JSONObject... values) {
 		super.onProgressUpdate(values);
-		//StoryFragment story = new StoryFragment();
 		String title;
 		try {
 			title = values[0].getString("Title");
 			String desc = values[0].getString("Text");
-//			Bundle b = new Bundle();
-//			b.putString(StoryFragment.TITLE_PASSED_KEY, title);
-//			b.putString(StoryFragment.DESCRIPTION_PASSED_KEY, desc);
-//			b.putInt(StoryFragment.YEAR_PASSED_KEY, year);
-//			story.setArguments(b);
-//			FinalFunctionsUtilities.stories.add(story);
-			Card card = new StoryCard(title, desc);
-			caller.OnProgress(card);
+			FinalFunctionsUtilities.stories.add(new Story(year, title, desc));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -119,13 +106,13 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean>
 		caller.OnFinish(result);
 	}
 
-//	@Override
-//	public int compareTo(GetStoriesTask another) {
-//		if (this.year>another.year)
-//			return -1;
-//		else if(this.year==another.year)
-//			return 0;
-//		return 1;
-//	}
+	@Override
+	public int compareTo(GetStoriesTask another) {
+		if (this.year>another.year)
+			return -1;
+		else if(this.year==another.year)
+			return 0;
+		return 1;
+	}
 
 }

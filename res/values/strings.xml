@@ -124,6 +124,7 @@
 
     <!-- Born Fragment -->
     <string name="born">Born in %1$s</string>
+    <string name="born_title">Born</string>
 
     <!-- Story Fragment -->
     <string name="chiedi_aiuto_btn">Ask for help</string>

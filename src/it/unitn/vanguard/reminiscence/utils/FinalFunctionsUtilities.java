@@ -20,27 +20,7 @@ public final class FinalFunctionsUtilities {
 
 	public static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
-	public static ArrayList<Fragment> stories = new ArrayList<Fragment>() {
-
-		public boolean add(Fragment object) {
-			boolean out = super.add(object);
-			Collections.sort(this, new Comparator<Fragment>() {
-
-				@Override
-				public int compare(Fragment lhsf, Fragment rhsf) {
-					try {
-						StoryFragment lhs = (StoryFragment) lhsf;
-						StoryFragment rhs = (StoryFragment) rhsf;
-						return rhs.getYear().compareTo(lhs.getYear());
-					} catch (Exception e) {
-						return 1;
-					}
-				}
-			});
-			return out;
-		}
-
-	};
+	public static ArrayList<Story> stories = new ArrayList<Story>();
 
 	/**
 	 * Validates an email address

@@ -19,14 +19,6 @@
         android:layout_alignBottom="@+id/viewstories_tlv"
         android:background="@drawable/shadow" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewstories_pager"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/viewstories_tlv"
-        android:padding="10dp" />
-
     <TextView
         android:id="@+id/viewtories_addstory_hint"
         android:layout_width="250dp"
@@ -48,5 +40,15 @@
         android:layout_toRightOf="@+id/viewtories_addstory_hint"
         android:src="@drawable/close"
         android:visibility="gone" />
+
+    <GridView
+        android:id="@+id/viewstroies_cards_gw"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/viewstories_tlv"
+        android:padding="10dp"
+        android:numColumns="2" >
+    </GridView>
 
 </RelativeLayout>

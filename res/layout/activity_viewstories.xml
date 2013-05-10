@@ -19,20 +19,21 @@
         android:layout_alignBottom="@+id/viewstories_tlv"
         android:background="@drawable/shadow" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewstories_pager"
+    <!-- <android.support.v4.view.ViewPager -->
+    <!-- android:id="@+id/viewstories_pager" -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="fill_parent" -->
+    <!-- android:layout_alignParentLeft="true" -->
+    <!-- android:layout_below="@+id/viewstories_tlv" -->
+    <!-- android:visibility="invisible" /> -->
+
+    <GridView
+        android:id="@+id/viewstroies_cards_gw"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/viewstories_tlv"
-        android:visibility="invisible" />
-
-    <com.fima.cardsui.views.CardUI
-        android:id="@+id/viewstories_cards"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/viewstories_tlv" />
+        android:layout_below="@+id/viewstories_tlv">
+    </GridView>
 
     <TextView
         android:id="@+id/viewtories_addstory_hint"
