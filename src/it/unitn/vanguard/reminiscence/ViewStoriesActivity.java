@@ -67,8 +67,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private int selectedItemIndex;
 	private int requestYear;
 
-	private Queue<GetStoriesTask> requests;
-
 	@Override
 	public void onCreate(Bundle arg0) {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
@@ -80,14 +78,10 @@ public class ViewStoriesActivity extends BaseActivity implements
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 
-		// mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
 		mCards = (GridView) findViewById(R.id.viewstroies_cards_gw);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
-		requests = new PriorityQueue<GetStoriesTask>();
 
-		FragmentManager fm = getSupportFragmentManager();
 		mStoriesAdapter = new StoriesAdapter();
-		// mViewPager.setAdapter(mStoriesAdapter);
 		mCards.setAdapter(mStoriesAdapter);
 
 		// e' per avere lo 0 alla fine degli anni.(per avere l'intera decade,
@@ -97,7 +91,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		year = year.substring(0, year.length() - 1);
 		requestYear = Integer.parseInt(year + '0');
 		startYear = requestYear;
-		selectedItemIndex = 0;
+		selectedItemIndex = requestYear;
 		mTimeLine.setStartYear(requestYear);
 
 		setListeners();
@@ -109,19 +103,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 	}
 
 	private void initializeStoryList() {
-		// Mette dentro il fragment della data di nascita
-		if (FinalFunctionsUtilities.stories.isEmpty()) {
-			String title = getString(R.string.born_title);
-			String desc = String.format(getString(R.string.born),
-					FinalFunctionsUtilities.getSharedPreferences(
-							Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
-							ViewStoriesActivity.this));
-			Bitmap img = BitmapFactory.decodeResource(getResources(),
-					R.drawable.baby);
-			Story s = new Story(startYear, title, desc);
-			s.setBackground(img);
-			FinalFunctionsUtilities.stories.add(s);
-		}
 
 		// Comincia a chiedere al server le storie
 		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
@@ -148,9 +129,12 @@ public class ViewStoriesActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				int year = ((YearView) arg1).getYear();
-				selectedItemIndex = arg2;
-				requests.add(new GetStoriesTask(ViewStoriesActivity.this, year));
+				requestYear = ((YearView) arg1).getYear();
+				selectedItemIndex = requestYear;
+				FinalFunctionsUtilities.stories.clear();
+				mStoriesAdapter.notifyDataSetChanged();
+				new GetStoriesTask(ViewStoriesActivity.this, requestYear)
+						.execute();
 			}
 		});
 
@@ -244,8 +228,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 		@Override
 		public Object getItem(int arg0) {
-			// TODO Auto-generated method stub
-			return null;
+			return FinalFunctionsUtilities.stories.get(arg0);
 		}
 
 		@Override
@@ -260,11 +243,15 @@ public class ViewStoriesActivity extends BaseActivity implements
 			ImageView back = (ImageView) v.findViewById(R.id.cardstory_img);
 			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
 			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
-			if (FinalFunctionsUtilities.stories.get(arg0).getBackground() != null)
-				back.setImageBitmap(FinalFunctionsUtilities.stories.get(arg0)
-						.getBackground());
-			title.setText(FinalFunctionsUtilities.stories.get(arg0).getTitle());
-			desc.setText(FinalFunctionsUtilities.stories.get(arg0).getDesc());
+			if (FinalFunctionsUtilities.stories.get(arg0) != null) {
+				if (FinalFunctionsUtilities.stories.get(arg0).getBackground() != null)
+					back.setImageBitmap(FinalFunctionsUtilities.stories.get(
+							arg0).getBackground());
+				title.setText(FinalFunctionsUtilities.stories.get(arg0)
+						.getTitle());
+				desc.setText(FinalFunctionsUtilities.stories.get(arg0)
+						.getDesc());
+			}
 			return v;
 		}
 
@@ -279,11 +266,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-
 		case R.id.action_add_story:
 			Intent i = new Intent(this, EmptyStoryActivity.class);
-			i.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, startYear + 10
-					* selectedItemIndex + "");
+			i.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, selectedItemIndex);
 			startActivity(i);
 			break;
 		}
@@ -339,28 +324,42 @@ public class ViewStoriesActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void OnFinish(Boolean result) {
-		// TODO display a toast in case of error
-		// TODO call it for the the next year
-		setProgressBarIndeterminateVisibility(false);
-		if (!requests.isEmpty()) {
-			requests.remove().execute();
-		} else {
-			requestYear++;
-			int year = Calendar.getInstance().get(Calendar.YEAR);
-			if (requestYear < year)
-				new GetStoriesTask(this, requestYear).execute();
-		}
+	public void OnStart() {
+		setProgressBarIndeterminateVisibility(true);
 	}
 
 	@Override
 	public void OnProgress() {
 		mStoriesAdapter.notifyDataSetChanged();
-		mCards.invalidate();
 	}
 
 	@Override
-	public void OnStart() {
-		setProgressBarIndeterminateVisibility(true);
+	public void OnFinish(Boolean result) {
+		// TODO display a toast in case of error
+		setProgressBarIndeterminateVisibility(false);
+		if (requestYear == startYear) {
+			addBornStory();
+
+		}
+		if (requestYear <= selectedItemIndex + 10) {
+			requestYear++;
+			new GetStoriesTask(this, requestYear).execute();
+		}
+
+		mStoriesAdapter.notifyDataSetChanged();
+		// TODO empystory!
+	}
+
+	private void addBornStory() {
+		String title = getString(R.string.born_title);
+		String desc = String.format(getString(R.string.born),
+				FinalFunctionsUtilities.getSharedPreferences(
+						Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
+						ViewStoriesActivity.this));
+		Bitmap img = BitmapFactory.decodeResource(getResources(),
+				R.drawable.baby);
+		Story s = new Story(startYear, title, desc);
+		s.setBackground(img);
+		FinalFunctionsUtilities.stories.addFirst(s);
 	}
 }

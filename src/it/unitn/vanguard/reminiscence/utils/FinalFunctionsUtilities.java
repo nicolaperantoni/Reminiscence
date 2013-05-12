@@ -6,6 +6,8 @@ import it.unitn.vanguard.reminiscence.frags.StoryFragment;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 import android.content.Context;
@@ -20,7 +22,7 @@ public final class FinalFunctionsUtilities {
 
 	public static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
-	public static ArrayList<Story> stories = new ArrayList<Story>();
+	public static LinkedList<Story> stories = new LinkedList<Story>();
 
 	/**
 	 * Validates an email address

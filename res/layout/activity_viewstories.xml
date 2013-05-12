@@ -17,7 +17,7 @@
         android:layout_width="fill_parent"
         android:layout_height="5dp"
         android:layout_alignBottom="@+id/viewstories_tlv"
-        android:background="@drawable/shadow" />
+        android:background="@drawable/bar_shadow" />
 
     <GridView
         android:id="@+id/viewstroies_cards_gw"
@@ -26,10 +26,11 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/viewstories_tlv"
         android:horizontalSpacing="10dp"
-        android:verticalSpacing="10dp"
-       android:stretchMode="spacingWidthUniform"
+        android:numColumns="2"
         android:padding="10dp"
-        android:numColumns="2" >
+        android:scrollingCache="true"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dp" >
     </GridView>
 
     <TextView
