@@ -57,7 +57,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private StoriesAdapter mStoriesAdapter;
 	private View selected;
 	private int startYear;
-	private int selectedItemIndex;
 	private int requestYear;
 
 	@Override
@@ -84,7 +83,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 		year = year.substring(0, year.length() - 1);
 		requestYear = Integer.parseInt(year + '0');
 		startYear = requestYear;
-		selectedItemIndex = requestYear;
 
 		mTimeLine.setStartYear(requestYear);
 
@@ -130,7 +128,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 				arg1.setBackgroundColor(getResources().getColor(
 						R.color.pomegranate));
 				requestYear = ((YearView) arg1).getYear();
-				selectedItemIndex = requestYear;
 				FinalFunctionsUtilities.stories.clear();
 				mStoriesAdapter.notifyDataSetChanged();
 				new GetStoriesTask(ViewStoriesActivity.this, requestYear)
@@ -277,7 +274,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		switch (item.getItemId()) {
 		case R.id.action_add_story:
 			Intent i = new Intent(this, EmptyStoryActivity.class);
-			i.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, selectedItemIndex);
+			i.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, requestYear);
 			startActivity(i);
 			break;
 		}
@@ -348,18 +345,13 @@ public class ViewStoriesActivity extends BaseActivity implements
 		if (requestYear == startYear) {
 			addBornStory();
 		}
-		if (requestYear <= selectedItemIndex + 10) {
-			requestYear++;
-			new GetStoriesTask(this, requestYear).execute();
+		View no_res = findViewById(R.id.no_result_tv);
+		if (FinalFunctionsUtilities.stories.isEmpty()) {
+			no_res.setVisibility(View.VISIBLE);
+			mCards.setVisibility(View.INVISIBLE);
 		} else {
-			View no_res = findViewById(R.id.no_result_tv);
-			if (FinalFunctionsUtilities.stories.isEmpty()) {
-				no_res.setVisibility(View.VISIBLE);
-				mCards.setVisibility(View.INVISIBLE);
-			} else {
-				no_res.setVisibility(View.INVISIBLE);
-				mCards.setVisibility(View.VISIBLE);
-			}
+			no_res.setVisibility(View.INVISIBLE);
+			mCards.setVisibility(View.VISIBLE);
 		}
 		OnProgress();
 	}

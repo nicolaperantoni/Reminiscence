@@ -57,7 +57,7 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean>
 				.getApplicationContext());
 
 		if (!token.equals("")) {
-			params.add(new BasicNameValuePair("year", "" + year));
+			params.add(new BasicNameValuePair("initdecade", "" + year));
 			params.add(new BasicNameValuePair("token", token));
 
 			HttpClient client = new DefaultHttpClient();
