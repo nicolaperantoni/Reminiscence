@@ -95,6 +95,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		selectedItemIndex = requestYear;
 
 		mTimeLine.setStartYear(requestYear);
+		
 			
 
 		setListeners();
@@ -103,6 +104,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 		initializeStoryList();
 		
+		selected = ((View) mTimeLine.getAdapter().getItem(0));
 		selected.setBackgroundColor(getResources()
 				.getColor(R.color.pomegranate));	
 	}
