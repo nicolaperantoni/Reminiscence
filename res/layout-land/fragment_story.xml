@@ -46,6 +46,7 @@
 	            android:layout_marginTop="30dp"
 	            android:padding="10dp"
 	            android:singleLine="false"
+	            android:visibility="gone"
 	            android:text="@string/story_title_placeholder"
 	            android:textAppearance="?android:attr/textAppearanceLarge" />
 	        
@@ -55,7 +56,7 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content" 
 	            android:layout_centerHorizontal="true"
-	            android:layout_below="@id/story_title_tv"
+	            android:layout_alignParentTop="true"
 	            android:background="@color/white"/>
 	
 	        <TextView

@@ -4,6 +4,7 @@ import it.unitn.vanguard.reminiscence.QuestionPopUpHandler.QuestionPopUp;
 import it.unitn.vanguard.reminiscence.asynctasks.GetStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
 import it.unitn.vanguard.reminiscence.frags.BornFragment;
+import it.unitn.vanguard.reminiscence.frags.StoryFragment;
 import it.unitn.vanguard.reminiscence.interfaces.OnGetStoryTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
@@ -95,18 +96,13 @@ public class ViewStoriesActivity extends BaseActivity implements
 		selectedItemIndex = requestYear;
 
 		mTimeLine.setStartYear(requestYear);
-		
-			
 
 		setListeners();
 
 		initializePopUps();
 
 		initializeStoryList();
-		
-		selected = ((View) mTimeLine.getAdapter().getItem(0));
-		selected.setBackgroundColor(getResources()
-				.getColor(R.color.pomegranate));	
+
 	}
 
 	private void initializeStoryList() {
@@ -136,9 +132,10 @@ public class ViewStoriesActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				selected.setBackgroundColor(getResources().getColor(
-						R.color.red_background_dark));
-				selected=arg1;
+				if (selected != null)
+					selected.setBackgroundColor(getResources().getColor(
+							R.color.red_background_dark));
+				selected = arg1;
 				arg1.setBackgroundColor(getResources().getColor(
 						R.color.pomegranate));
 				requestYear = ((YearView) arg1).getYear();
@@ -249,24 +246,33 @@ public class ViewStoriesActivity extends BaseActivity implements
 		}
 
 		@Override
-		public View getView(int arg0, View arg1, ViewGroup arg2) {
+		public View getView(final int arg0, View arg1, ViewGroup arg2) {
 			View v = getLayoutInflater().inflate(R.layout.card_story, arg2,
 					false);
+			Story story = FinalFunctionsUtilities.stories.get(arg0);
 			ImageView back = (ImageView) v.findViewById(R.id.cardstory_img);
 			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
 			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
-			if (FinalFunctionsUtilities.stories.get(arg0) != null) {
-				if (FinalFunctionsUtilities.stories.get(arg0).getBackground() != null)
+			if (story != null) {
+				if (story.getBackground() != null)
 					back.setImageBitmap(FinalFunctionsUtilities.stories.get(
 							arg0).getBackground());
-				title.setText(FinalFunctionsUtilities.stories.get(arg0)
-						.getTitle());
-				desc.setText(FinalFunctionsUtilities.stories.get(arg0)
-						.getDesc());
+				title.setText(story.getTitle());
+				desc.setText(story.getDesc());
 			}
+			v.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View clicked) {
+					Story story = FinalFunctionsUtilities.stories.get(arg0);
+					StoryFragment sf = StoryFragment.newIstance(
+							story.getTitle(), story.getDesc(),
+							"" + story.getAnno());
+					sf.show(getSupportFragmentManager(), "visualized");
+				}
+			});
 			return v;
 		}
-
 	}
 
 	@Override
@@ -295,7 +301,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 			dialog.dismiss();
 		}
 		try {
-			Log.e("", res.toString());
 			if (res.getString("success").equals("true")) {
 				Toast.makeText(context,
 						getResources().getString(R.string.logout_success),
@@ -351,13 +356,20 @@ public class ViewStoriesActivity extends BaseActivity implements
 		setProgressBarIndeterminateVisibility(false);
 		if (requestYear == startYear) {
 			addBornStory();
-
 		}
 		if (requestYear <= selectedItemIndex + 10) {
 			requestYear++;
 			new GetStoriesTask(this, requestYear).execute();
+		} else {
+			View no_res = findViewById(R.id.no_result_tv);
+			if (FinalFunctionsUtilities.stories.isEmpty()) {
+				no_res.setVisibility(View.VISIBLE);
+				mCards.setVisibility(View.INVISIBLE);
+			} else {
+				no_res.setVisibility(View.INVISIBLE);
+				mCards.setVisibility(View.VISIBLE);
+			}
 		}
-
 		mStoriesAdapter.notifyDataSetChanged();
 		// TODO empystory!
 	}
