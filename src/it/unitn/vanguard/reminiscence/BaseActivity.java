@@ -73,6 +73,8 @@ public class BaseActivity extends SlidingFragmentActivity {
 				}
 				FinalFunctionsUtilities.switchLanguage(locale,
 						BaseActivity.this);
+				//this is an hotfix!
+				FinalFunctionsUtilities.stories.clear();
 				BaseActivity.this.finish();
 				startActivity(getIntent());
 			}

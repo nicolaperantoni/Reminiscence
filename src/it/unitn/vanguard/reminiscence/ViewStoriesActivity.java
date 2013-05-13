@@ -3,15 +3,14 @@ package it.unitn.vanguard.reminiscence;
 import it.unitn.vanguard.reminiscence.QuestionPopUpHandler.QuestionPopUp;
 import it.unitn.vanguard.reminiscence.asynctasks.GetStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
-import it.unitn.vanguard.reminiscence.frags.BornFragment;
+import it.unitn.vanguard.reminiscence.frags.StoryFragment;
 import it.unitn.vanguard.reminiscence.interfaces.OnGetStoryTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+import it.unitn.vanguard.reminiscence.utils.Story;
 
 import java.util.Locale;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,26 +20,25 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
 import eu.giovannidefrancesco.DroidTimeline.view.YearView;
 
@@ -49,19 +47,18 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 	private Context context;
 
-	 private ViewPager mViewPager;
+	// private ViewPager mViewPager;
+	private GridView mCards;
 	private TimeLineView mTimeLine;
 	private ProgressDialog dialog;
 
 	private TextView mQuestionTv;
 	private ImageView mCloseQuestionImgV;
-
-	 private StoriesAdapter mStoriesAdapter;
+	private StoriesAdapter mStoriesAdapter;
+	private View selected;
 	private int startYear;
 	private int selectedItemIndex;
 	private int requestYear;
-
-	 private Queue<GetStoriesTask> requests;
 
 	@Override
 	public void onCreate(Bundle arg0) {
@@ -74,13 +71,11 @@ public class ViewStoriesActivity extends BaseActivity implements
 				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 
-		 mViewPager = (ViewPager) findViewById(R.id.viewstories_pager);
+		mCards = (GridView) findViewById(R.id.viewstroies_cards_gw);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
-		 requests = new PriorityQueue<GetStoriesTask>();
 
-		FragmentManager fm = getSupportFragmentManager();
-		 mStoriesAdapter = new StoriesAdapter(fm);
-		 mViewPager.setAdapter(mStoriesAdapter);
+		mStoriesAdapter = new StoriesAdapter();
+		mCards.setAdapter(mStoriesAdapter);
 
 		// e' per avere lo 0 alla fine degli anni.(per avere l'intera decade,
 		// praticmanete)
@@ -89,7 +84,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 		year = year.substring(0, year.length() - 1);
 		requestYear = Integer.parseInt(year + '0');
 		startYear = requestYear;
-		selectedItemIndex = 0;
+		selectedItemIndex = requestYear;
+
 		mTimeLine.setStartYear(requestYear);
 
 		setListeners();
@@ -101,17 +97,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 	}
 
 	private void initializeStoryList() {
-		// Mette dentro il fragment della data di nascita
-		if (FinalFunctionsUtilities.stories.isEmpty()) {
-			Fragment f = new BornFragment();
-			Bundle b = new Bundle();
-			b.putString(BornFragment.BORN_CITY_PASSED_KEY,
-					FinalFunctionsUtilities.getSharedPreferences(
-							Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
-							ViewStoriesActivity.this));
-			f.setArguments(b);
-			FinalFunctionsUtilities.stories.add(f);
-		}
 
 		// Comincia a chiedere al server le storie
 		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
@@ -138,10 +123,18 @@ public class ViewStoriesActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				int year = ((YearView) arg1).getYear();
-				selectedItemIndex = arg2;
-				 requests.add(new GetStoriesTask(ViewStoriesActivity.this,
-				 year));
+				if (selected != null)
+					selected.setBackgroundColor(getResources().getColor(
+							R.color.red_background_dark));
+				selected = arg1;
+				arg1.setBackgroundColor(getResources().getColor(
+						R.color.pomegranate));
+				requestYear = ((YearView) arg1).getYear();
+				selectedItemIndex = requestYear;
+				FinalFunctionsUtilities.stories.clear();
+				mStoriesAdapter.notifyDataSetChanged();
+				new GetStoriesTask(ViewStoriesActivity.this, requestYear)
+						.execute();
 			}
 		});
 
@@ -226,22 +219,51 @@ public class ViewStoriesActivity extends BaseActivity implements
 		});
 	}
 
-	private class StoriesAdapter extends FragmentPagerAdapter {
-
-		public StoriesAdapter(FragmentManager fm) {
-			super(fm);
-		}
-
-		@Override
-		public Fragment getItem(int arg0) {
-			return FinalFunctionsUtilities.stories.get(arg0);
-		}
+	private class StoriesAdapter extends BaseAdapter {
 
 		@Override
 		public int getCount() {
 			return FinalFunctionsUtilities.stories.size();
 		}
 
+		@Override
+		public Object getItem(int arg0) {
+			return FinalFunctionsUtilities.stories.get(arg0);
+		}
+
+		@Override
+		public long getItemId(int arg0) {
+			return arg0;
+		}
+
+		@Override
+		public View getView(final int arg0, View arg1, ViewGroup arg2) {
+			View v = getLayoutInflater().inflate(R.layout.card_story, arg2,
+					false);
+			Story story = FinalFunctionsUtilities.stories.get(arg0);
+			ImageView back = (ImageView) v.findViewById(R.id.cardstory_img);
+			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
+			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
+			if (story != null) {
+				if (story.getBackground() != null)
+					back.setImageBitmap(FinalFunctionsUtilities.stories.get(
+							arg0).getBackground());
+				title.setText(story.getTitle());
+				desc.setText(story.getDesc());
+			}
+			v.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View clicked) {
+					Story story = FinalFunctionsUtilities.stories.get(arg0);
+					StoryFragment sf = StoryFragment.newIstance(
+							story.getTitle(), story.getDesc(),
+							"" + story.getAnno());
+					sf.show(getSupportFragmentManager(), "visualized");
+				}
+			});
+			return v;
+		}
 	}
 
 	@Override
@@ -253,11 +275,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-
 		case R.id.action_add_story:
 			Intent i = new Intent(this, EmptyStoryActivity.class);
-			i.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, startYear + 10
-					* selectedItemIndex + "");
+			i.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, selectedItemIndex);
 			startActivity(i);
 			break;
 		}
@@ -272,7 +292,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 			dialog.dismiss();
 		}
 		try {
-			Log.e("", res.toString());
 			if (res.getString("success").equals("true")) {
 				Toast.makeText(context,
 						getResources().getString(R.string.logout_success),
@@ -313,26 +332,47 @@ public class ViewStoriesActivity extends BaseActivity implements
 	}
 
 	@Override
-	public void OnFinish(Boolean result) {
-		// TODO display a toast in case of error
-		// TODO call it for the the next year
-		setProgressBarIndeterminateVisibility(false);
-		if (!requests.isEmpty()) {
-			requests.remove().execute();
-		} else {
-			requestYear++;
-			new GetStoriesTask(this, requestYear).execute();
-		}
-		
+	public void OnStart() {
+		setProgressBarIndeterminateVisibility(true);
 	}
 
 	@Override
 	public void OnProgress() {
-		 mStoriesAdapter.notifyDataSetChanged();
+		mStoriesAdapter.notifyDataSetChanged();
 	}
 
 	@Override
-	public void OnStart() {
-		 setProgressBarIndeterminateVisibility(true);
+	public void OnFinish(Boolean result) {
+		// TODO display a toast in case of error
+		setProgressBarIndeterminateVisibility(false);
+		if (requestYear == startYear) {
+			addBornStory();
+		}
+		if (requestYear <= selectedItemIndex + 10) {
+			requestYear++;
+			new GetStoriesTask(this, requestYear).execute();
+		} else {
+			View no_res = findViewById(R.id.no_result_tv);
+			if (FinalFunctionsUtilities.stories.isEmpty()) {
+				no_res.setVisibility(View.VISIBLE);
+				mCards.setVisibility(View.INVISIBLE);
+			} else {
+				no_res.setVisibility(View.INVISIBLE);
+				mCards.setVisibility(View.VISIBLE);
+			}
+		}
+	}
+
+	private void addBornStory() {
+		String title = getString(R.string.born_title);
+		String desc = String.format(getString(R.string.born),
+				FinalFunctionsUtilities.getSharedPreferences(
+						Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
+						ViewStoriesActivity.this));
+		Bitmap img = BitmapFactory.decodeResource(getResources(),
+				R.drawable.baby);
+		Story s = new Story(startYear, title, desc);
+		s.setBackground(img);
+		FinalFunctionsUtilities.stories.addFirst(s);
 	}
 }

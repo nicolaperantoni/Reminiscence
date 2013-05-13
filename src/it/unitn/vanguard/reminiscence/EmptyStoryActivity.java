@@ -75,7 +75,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		mAddBtn = (Button) findViewById(R.id.emptystory_add_btn);
 		mMediaButton = (ImageView) findViewById(R.id.emptystory_addmedia_imv);
 		mYearEt = (EditText) findViewById(R.id.emptystory_year_et);
-		mYearEt.setText(getIntent().getExtras().getString(YEAR_PASSED_KEY));
+		mYearEt.setText(""+getIntent().getExtras().getInt(YEAR_PASSED_KEY));
 
 		mMedias = (HorizontalListView) findViewById(R.id.emptystories_imgs_hlv);
 		imgs = new ArrayList<ImageView>();

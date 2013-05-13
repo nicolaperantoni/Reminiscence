@@ -22,6 +22,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
 import android.util.Log;
@@ -32,13 +33,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class StoryFragment extends Fragment implements OnTaskFinished {
+public class StoryFragment extends DialogFragment implements OnTaskFinished {
 
 	public static final String TITLE_PASSED_KEY = "storyTitle";
 	public static final String DESCRIPTION_PASSED_KEY = "descriptionTitle";
 	public static final String YEAR_PASSED_KEY = "year";
 
-	private TextView mTitleTv;
+	//private TextView mTitleTv;
 	private TextView mDescTv;
 	private Integer mYear;
 	private String story_id;
@@ -46,6 +47,16 @@ public class StoryFragment extends Fragment implements OnTaskFinished {
 	// Image
 	private ImageView view;
 	private Button btn_aiuto_amico;
+	
+	public static StoryFragment newIstance(String title,String desc,String year){
+		StoryFragment sf = new StoryFragment();
+		Bundle b = new Bundle();
+		b.putString(TITLE_PASSED_KEY, title);
+		b.putString(DESCRIPTION_PASSED_KEY, desc);
+		b.putString(YEAR_PASSED_KEY, year);
+		sf.setArguments(b);
+		return sf;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +71,7 @@ public class StoryFragment extends Fragment implements OnTaskFinished {
 
 		mYear = getArguments().getInt(YEAR_PASSED_KEY);
 
-		mTitleTv = (TextView) getView().findViewById(R.id.story_title_tv);
+		//mTitleTv = (TextView) getView().findViewById(R.id.story_title_tv);
 
 		mDescTv = (TextView) getView().findViewById(R.id.story_description_tv);
 
@@ -68,7 +79,7 @@ public class StoryFragment extends Fragment implements OnTaskFinished {
 		view = (ImageView) getView().findViewById(R.id.photo);
 
 		initializeTexts();
-
+		
 	}
 
 	@Override
@@ -80,7 +91,8 @@ public class StoryFragment extends Fragment implements OnTaskFinished {
 	private void initializeTexts() {
 		if (getArguments() != null) {
 			Bundle b = getArguments();
-			mTitleTv.setText(b.getString(TITLE_PASSED_KEY));
+			//mTitleTv.setText(b.getString(TITLE_PASSED_KEY));
+			getDialog().setTitle(b.getString(TITLE_PASSED_KEY));
 			mDescTv.setText(b.getString(DESCRIPTION_PASSED_KEY));
 		}
 
@@ -103,7 +115,6 @@ public class StoryFragment extends Fragment implements OnTaskFinished {
 	@Override
 	public void onTaskFinished(JSONObject res) {
 		// TODO Auto-generated method stub
-
 	}
 
 }

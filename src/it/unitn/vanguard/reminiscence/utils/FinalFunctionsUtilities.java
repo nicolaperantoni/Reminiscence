@@ -6,6 +6,8 @@ import it.unitn.vanguard.reminiscence.frags.StoryFragment;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 import android.app.NotificationManager;
@@ -22,27 +24,7 @@ public final class FinalFunctionsUtilities {
 
 	public static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
-	public static ArrayList<Fragment> stories = new ArrayList<Fragment>() {
-
-		public boolean add(Fragment object) {
-			boolean out = super.add(object);
-			Collections.sort(this, new Comparator<Fragment>() {
-
-				@Override
-				public int compare(Fragment lhsf, Fragment rhsf) {
-					try {
-						StoryFragment lhs = (StoryFragment) lhsf;
-						StoryFragment rhs = (StoryFragment) rhsf;
-						return rhs.getYear().compareTo(lhs.getYear());
-					} catch (Exception e) {
-						return 1;
-					}
-				}
-			});
-			return out;
-		}
-
-	};
+	public static LinkedList<Story> stories = new LinkedList<Story>();
 
 	/**
 	 * Validates an email address
