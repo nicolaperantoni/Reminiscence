@@ -63,6 +63,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private TextView mQuestionTv;
 	private ImageView mCloseQuestionImgV;
 	private StoriesAdapter mStoriesAdapter;
+	private View selected;
 	private int startYear;
 	private int selectedItemIndex;
 	private int requestYear;
@@ -92,14 +93,18 @@ public class ViewStoriesActivity extends BaseActivity implements
 		requestYear = Integer.parseInt(year + '0');
 		startYear = requestYear;
 		selectedItemIndex = requestYear;
+
 		mTimeLine.setStartYear(requestYear);
+			
 
 		setListeners();
 
 		initializePopUps();
 
 		initializeStoryList();
-
+		
+		selected.setBackgroundColor(getResources()
+				.getColor(R.color.pomegranate));	
 	}
 
 	private void initializeStoryList() {
@@ -129,6 +134,11 @@ public class ViewStoriesActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				selected.setBackgroundColor(getResources().getColor(
+						R.color.red_background_dark));
+				selected=arg1;
+				arg1.setBackgroundColor(getResources().getColor(
+						R.color.pomegranate));
 				requestYear = ((YearView) arg1).getYear();
 				selectedItemIndex = requestYear;
 				FinalFunctionsUtilities.stories.clear();
