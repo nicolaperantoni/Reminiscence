@@ -361,6 +361,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 				mCards.setVisibility(View.VISIBLE);
 			}
 		}
+		OnProgress();
 	}
 
 	private void addBornStory() {
