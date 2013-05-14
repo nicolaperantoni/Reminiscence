@@ -12,34 +12,38 @@ import java.util.Locale;
 import org.json.JSONObject;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class FriendListActivity extends ListActivity implements OnTaskFinished {
 
 	private ArrayList<Friend> friends = new ArrayList<Friend>();
 	protected ProgressDialog dialog;
+	private Context context;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		context = FriendListActivity.this;
 		setContentView(R.layout.activity_friend_list);
 		// Show the Up button in the action bar.
 		setupActionBar();
-		if (FinalFunctionsUtilities.isDeviceConnected(this)) {
-			dialog = new ProgressDialog(FriendListActivity.this);
+		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+			dialog = new ProgressDialog(context);
 			dialog.setTitle(getResources().getString(R.string.please));
 			dialog.setMessage(getResources().getString(R.string.wait));
 			dialog.setCancelable(false);
@@ -53,7 +57,7 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 	protected void onStart() {
 		super.onStart();
 		String language = FinalFunctionsUtilities.getSharedPreferences(
-				"language", this);
+				"language", context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), this);
 	}
 
@@ -67,8 +71,60 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		// LayoutInflater inflater = (LayoutInflater) this
-		// .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		
+		final int pos = position;
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+		String delFriend = "";
+		delFriend += getResources().getString(R.string.deleteFriendPopupMessage1);
+		delFriend += "\n\n" + friends.get(position).getName() + " ";
+		delFriend += friends.get(position).getSurname() + " (";
+		delFriend += friends.get(position).getEmail() + ")\n\n";
+		delFriend += getResources().getString(R.string.deleteFriendPopupMessage2);
+		
+		builder.setMessage(delFriend)
+				.setPositiveButton(R.string.yes,
+						new DialogInterface.OnClickListener() {
+							public void onClick(
+									DialogInterface dialogInterface,
+									int id) {
+								
+								if(FinalFunctionsUtilities.isDeviceConnected(context)) {
+									dialog = new ProgressDialog(
+											context);
+									dialog.setTitle(getResources()
+											.getString(R.string.please));
+									dialog.setMessage(getResources()
+											.getString(R.string.wait));
+									dialog.setCancelable(false);
+									dialog.show();
+									
+									deleteFriend(pos);
+								}
+								else {
+									Toast.makeText(context,
+											getResources().getString(R.string.connection_fail),
+											Toast.LENGTH_LONG).show();
+								}
+							}
+						})
+				.setNegativeButton(R.string.no,
+						new DialogInterface.OnClickListener() {
+							public void onClick(
+									DialogInterface dialog, int id) {
+
+							}
+						});
+
+		AlertDialog alert = builder.create();
+		alert.show();
+		((TextView) alert.findViewById(android.R.id.message))
+				.setGravity(Gravity.CENTER);
+		((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
+				.setBackgroundResource(R.drawable.bottone_logout);
+		((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
+				.setTextColor(Color.WHITE);
 	}
 
 	/**
@@ -104,24 +160,23 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 
 	private void deleteFriend(int position) {
 		Friend fr = friends.get(position);
-		if (FinalFunctionsUtilities.isDeviceConnected(this)) {
-			dialog = new ProgressDialog(this);
+		if(dialog == null) {
+			dialog = new ProgressDialog(context);
 			dialog.setTitle(getResources().getString(R.string.please));
 			dialog.setMessage(getResources().getString(R.string.wait));
 			dialog.setCancelable(false);
 			dialog.show();
 		}
-		new DeleteFriendTask(this, position).execute(Integer.toString(fr.getId()));
+		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+			new DeleteFriendTask(this, position).execute(Integer.toString(fr.getId()));
+		}
 	}
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
 		
-		if(dialog!=null && dialog.isShowing()) dialog.dismiss();
-		
 		int count = 10;
 		boolean success = false;
-		String op = null;
 		
 		if(dialog!=null && dialog.isShowing()) dialog.dismiss();
 
@@ -131,21 +186,13 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		 * json: {"success":true, "numFriend":2 "f0":{"Nome":asd, "Cognome":asd,
 		 * "Id":1} "f1":{"Nome":ciccio, "Cognome":ciccia, "Id":2}}
 		 */
+		
 		try {
 			success = res.getString("success").equals("true");
-			op = res.getString("operation");
 			if (success) {
 				count = Integer.parseInt(res.getString("numFriend"));
-			}
-		} catch (Exception e) {
-			Log.e("itemselected", e.toString());
-		}
-
-		if (success) {
-			if (op != null && op.equals("getFriends")) {
 				friends.clear();
-				// scorro il json
-				// caso normale
+				
 				for (int i = 0; i < count; i++) {
 					String ct = "f" + i;
 					JSONObject json = null;
@@ -158,10 +205,10 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 						Log.e("flf", e.toString());
 					}
 				}
+				setAdapter();
 			}
-			setAdapter();
-		} else {
-			Log.e("json", "errore nell operazione success:false");
+		} catch (Exception e) {
+			Log.e("Error: " + FriendListActivity.class.getName(), "success = false, " + e.toString());
 		}
 	}
 }

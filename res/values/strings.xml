@@ -139,6 +139,8 @@
     <string name="title_activity_friend_list">FriendListActivity</string>
     <string name="action_settings">Settings</string>
     <string name="send_mail">Send mail!</string>
+    <string name="deleteFriendPopupMessage1">Are you sure you want to remove</string>
+    <string name="deleteFriendPopupMessage2">from friends?</string>
 
     <!-- stringhe per Zen della ActionBar -->
     <string name="dropdown_public_stories">Public Stories</string>

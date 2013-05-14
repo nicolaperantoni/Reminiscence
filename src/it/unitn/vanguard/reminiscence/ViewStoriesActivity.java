@@ -210,7 +210,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 			@Override
 			public void onClick(View v) {
-				if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+				
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							ViewStoriesActivity.this);
 
@@ -220,27 +220,35 @@ public class ViewStoriesActivity extends BaseActivity implements
 										public void onClick(
 												DialogInterface dialogInterface,
 												int id) {
-											dialog = new ProgressDialog(
-													ViewStoriesActivity.this);
-											dialog.setTitle(getResources()
-													.getString(R.string.please));
-											dialog.setMessage(getResources()
-													.getString(R.string.wait));
-											dialog.setCancelable(false);
-											dialog.show();
-
-											String email = FinalFunctionsUtilities
-													.getSharedPreferences(
-															Constants.MAIL_KEY,
-															ViewStoriesActivity.this);
-											String password = FinalFunctionsUtilities
-													.getSharedPreferences(
-															Constants.PASSWORD_KEY,
-															ViewStoriesActivity.this);
-
-											new LogoutTask(
-													ViewStoriesActivity.this)
-													.execute(email, password);
+											
+											if(FinalFunctionsUtilities.isDeviceConnected(context)) {
+												dialog = new ProgressDialog(
+														ViewStoriesActivity.this);
+												dialog.setTitle(getResources()
+														.getString(R.string.please));
+												dialog.setMessage(getResources()
+														.getString(R.string.wait));
+												dialog.setCancelable(false);
+												dialog.show();
+	
+												String email = FinalFunctionsUtilities
+														.getSharedPreferences(
+																Constants.MAIL_KEY,
+																ViewStoriesActivity.this);
+												String password = FinalFunctionsUtilities
+														.getSharedPreferences(
+																Constants.PASSWORD_KEY,
+																ViewStoriesActivity.this);
+	
+												new LogoutTask(
+														ViewStoriesActivity.this)
+														.execute(email, password);
+											}
+											else {
+												Toast.makeText(context,
+														getResources().getString(R.string.connection_fail),
+														Toast.LENGTH_LONG).show();
+											}
 										}
 									})
 							.setNegativeButton(R.string.no,
@@ -260,11 +268,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 					((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
 							.setTextColor(Color.WHITE);
 
-				} else {
-					Toast.makeText(context,
-							getResources().getString(R.string.connection_fail),
-							Toast.LENGTH_LONG).show();
-				}
 			}
 		});
 	}

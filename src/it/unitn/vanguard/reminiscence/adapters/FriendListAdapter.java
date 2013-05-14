@@ -3,8 +3,10 @@ package it.unitn.vanguard.reminiscence.adapters;
 import it.unitn.vanguard.reminiscence.Friend;
 import it.unitn.vanguard.reminiscence.R;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -26,7 +28,7 @@ public class FriendListAdapter extends ArrayAdapter<Friend> {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
 		View rowView = inflater.inflate(R.layout.friend_listview_item,
-				parent, false);
+				parent, false);	
 		
 		TextView nameTextView = (TextView) rowView
 				.findViewById(R.id.item_name);
