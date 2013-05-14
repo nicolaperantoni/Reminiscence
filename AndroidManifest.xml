@@ -61,7 +61,7 @@
         </activity>
         <activity
             android:name="it.unitn.vanguard.reminiscence.ViewStoriesActivity"
-            android:configChanges="locale|orientation|screenSize"
+            android:configChanges="locale"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity

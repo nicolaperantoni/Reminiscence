@@ -46,6 +46,8 @@ import eu.giovannidefrancesco.DroidTimeline.view.YearView;
 public class ViewStoriesActivity extends BaseActivity implements
 		OnTaskFinished, QuestionPopUp, OnGetStoryTask {
 
+	private static final String SAVE_INDEX = "saved_index";
+
 	private Context context;
 
 	// private ViewPager mViewPager;
@@ -56,7 +58,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private TextView mQuestionTv;
 	private ImageView mCloseQuestionImgV;
 	private StoriesAdapter mStoriesAdapter;
-	private View selected;
+	private int selectedIndex;
+	// private View selected;
 	private int startYear;
 	private int requestYear;
 
@@ -84,21 +87,27 @@ public class ViewStoriesActivity extends BaseActivity implements
 		year = year.substring(0, year.length() - 1);
 		requestYear = Integer.parseInt(year + '0');
 		startYear = requestYear;
-
-		mTimeLine.setStartYear(requestYear);
+		
+		YearView selected = (YearView) mTimeLine.getItemAtPosition(selectedIndex);
+		selected.setBackgroundColor(getResources().getColor(
+				R.color.pomegranate));
+		
+		if (arg0 != null){
+			selectedIndex = arg0.getInt(SAVE_INDEX);
+			requestYear = selected.getYear();
+			mTimeLine.setStartYear(startYear);
+		}
+		else{
+			selectedIndex = 0;
+			mTimeLine.setStartYear(requestYear);
+		}
+		
 
 		setListeners();
 
 		initializePopUps();
 
 		initializeStoryList();
-
-	}
-
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		mTimeLine.forceLayout();
 	}
 
 	private void initializeStoryList() {
@@ -128,10 +137,10 @@ public class ViewStoriesActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if (selected != null)
-					selected.setBackgroundColor(getResources().getColor(
-							R.color.red_background_dark));
-				selected = arg1;
+				View selected = (View) arg0.getItemAtPosition(selectedIndex);
+				selected.setBackgroundColor(getResources().getColor(
+						R.color.red_background_dark));
+				selectedIndex = arg2;
 				arg1.setBackgroundColor(getResources().getColor(
 						R.color.pomegranate));
 				requestYear = ((YearView) arg1).getYear();
@@ -374,4 +383,11 @@ public class ViewStoriesActivity extends BaseActivity implements
 		s.setBackground(img);
 		FinalFunctionsUtilities.stories.addFirst(s);
 	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putInt(SAVE_INDEX, selectedIndex);
+	}
+
 }
