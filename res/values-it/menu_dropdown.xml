@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        name="stories_dropdown">
+        
+        <item>Storie Private</item>
+        <item>Storie Pubbliche</item>
+        
+    </string-array>
+</resources>

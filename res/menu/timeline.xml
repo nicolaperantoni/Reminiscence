@@ -5,16 +5,5 @@
         android:icon="@android:drawable/ic_menu_add"
         android:showAsAction="ifRoom"
         android:title="@string/action_addStory"/>
-    
-	<item android:id="@+id/stories_dropdown"
-        android:title="Switch Timeline"
-        android:showAsAction="always|withText"
-        android:icon="@android:drawable/ic_menu_more">
-        
-        <menu>
-            <item android:id="@+id/show_private_stories" android:title="@string/dropdown_private_stories"/>
-            <item android:id="@+id/show_public_stories" android:title="@string/dropdown_public_stories"/>
-        </menu>
-    </item>
 	    
 </menu>
