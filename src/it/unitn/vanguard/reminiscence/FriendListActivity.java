@@ -119,7 +119,7 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 	}
 
 	private void deleteFriend(int position) {
-		
+
 	}
 
 	@Override
@@ -127,6 +127,7 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		boolean status;
 		int count = 10;
 		boolean success = false;
+		String op = null;
 
 		// ottengo se l'operazione ha avuto successo e il numero di valori dal
 		// json
@@ -136,6 +137,7 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		 */
 		try {
 			success = res.getString("success").equals("true");
+			op = res.getString("operation");
 			if (success) {
 				count = Integer.parseInt(res.getString("numFriend"));
 			}
@@ -144,32 +146,35 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		}
 
 		if (success) {
-			//todo another if dinstinzione fra asynctask
 			friends.clear();
-			// scorro il json
-			if (count < 1) {
-				// caso in cui non ci siano amici LAMER
-				friends.add(new Friend(getString(R.string.no_friends_a),
-						getString(R.string.no_friends_b),"", -1));
-			} else {
-				// caso normale
-				for (int i = 0; i < count; i++) {
-					String ct = "f" + i;
-					JSONObject json = null;
-					try {
-						json = new JSONObject(res.getString(ct));
-						friends.add(new Friend(json.getString("Nome"), json
-								.getString("Cognome"),json.getString("Email"), Integer.parseInt(json
-								.getString("Id"))));
-					} catch (Exception e) {
-						Log.e("flf", e.toString());
+			if (op != null && op.equals("getFriends")) {
+				// scorro il json
+				if (count < 1) {
+					// caso in cui non ci siano amici LAMER
+					friends.add(new Friend(getString(R.string.no_friends_a),
+							getString(R.string.no_friends_b), "", -1));
+				} else {
+					// caso normale
+					for (int i = 0; i < count; i++) {
+						String ct = "f" + i;
+						JSONObject json = null;
+						try {
+							json = new JSONObject(res.getString(ct));
+							friends.add(new Friend(json.getString("Nome"), json
+									.getString("Cognome"), json
+									.getString("Email"), Integer.parseInt(json
+									.getString("Id"))));
+						} catch (Exception e) {
+							Log.e("flf", e.toString());
+						}
 					}
 				}
+			} else {
+
 			}
 			setAdapter();
 		} else {
 			Log.e("json", "errore nell operazione success:false");
 		}
 	}
-
 }
