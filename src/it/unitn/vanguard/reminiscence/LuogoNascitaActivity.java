@@ -155,22 +155,25 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 	@Override
 	public void onTaskFinished(JSONObject res) {
 
-		Log.e("asd", res.toString());
-		ArrayList<String> sugg = new ArrayList<String>();
-		try {
-			sugg.add(res.getString("mun0"));
-			sugg.add(res.getString("mun1"));
-			sugg.add(res.getString("mun2"));
-			sugg.add(res.getString("mun3"));
-		} catch (JSONException e) {
-			e.printStackTrace();
+		Log.e("Lista suggerimenti", res.toString());
+		if(res != null) {
+			ArrayList<String> sugg = new ArrayList<String>();
+			try {
+				
+				sugg.add(res.getString("mun0"));
+				sugg.add(res.getString("mun1"));
+				sugg.add(res.getString("mun2"));
+				sugg.add(res.getString("mun3"));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+					context, R.layout.my_item_view,
+					removeDuplicate(sugg));
+			txtLuogoNascita.setThreshold(2);
+			txtLuogoNascita.setAdapter(adapter);
+			txtLuogoNascita.showDropDown();
 		}
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-				context, R.layout.my_item_view,
-				removeDuplicate(sugg));
-		txtLuogoNascita.setThreshold(2);
-		txtLuogoNascita.setAdapter(adapter);
-		txtLuogoNascita.showDropDown();
 	}
 
 	@Override
