@@ -1,6 +1,7 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.adapters.FriendListAdapter;
+import it.unitn.vanguard.reminiscence.asynctasks.DeleteFriendTask;
 import it.unitn.vanguard.reminiscence.asynctasks.GetFriendsTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
@@ -117,13 +118,15 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 			return super.onContextItemSelected(item);
 		}
 	}
-	
+
 	public void friendDeleted(int position) {
-		
+
 	}
 
 	private void deleteFriend(int position) {
-		
+		Friend fr = friends.get(position);
+//		new DeleteFriendTask(this, position).execute(fr.getName(),
+	//			fr.getSurname(), fr.getEmail(), fr.getId());
 	}
 
 	@Override
@@ -153,27 +156,20 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 			friends.clear();
 			if (op != null && op.equals("getFriends")) {
 				// scorro il json
-				if (count < 1) {
-					// caso in cui non ci siano amici LAMER
-					friends.add(new Friend(getString(R.string.no_friends_a),
-							getString(R.string.no_friends_b), "", -1));
-				} else {
-					// caso normale
-					for (int i = 0; i < count; i++) {
-						String ct = "f" + i;
-						JSONObject json = null;
-						try {
-							json = new JSONObject(res.getString(ct));
-							friends.add(new Friend(json.getString("Nome"), json
-									.getString("Cognome"), json
-									.getString("Email"), Integer.parseInt(json
-									.getString("Id"))));
-						} catch (Exception e) {
-							Log.e("flf", e.toString());
-						}
+				// caso normale
+				for (int i = 0; i < count; i++) {
+					String ct = "f" + i;
+					JSONObject json = null;
+					try {
+						json = new JSONObject(res.getString(ct));
+						friends.add(new Friend(json.getString("Nome"), json
+								.getString("Cognome"), json.getString("Email"),
+								Integer.parseInt(json.getString("Id"))));
+					} catch (Exception e) {
+						Log.e("flf", e.toString());
 					}
 				}
-			} 
+			}
 			setAdapter();
 		} else {
 			Log.e("json", "errore nell operazione success:false");

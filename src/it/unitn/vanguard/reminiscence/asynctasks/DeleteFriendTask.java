@@ -29,7 +29,7 @@ public class DeleteFriendTask extends AsyncTask<String, Void, Boolean> {
 		String token = FinalFunctionsUtilities.getSharedPreferences("token",
 				(Activity) caller);
 		
-		if (arg0.length != 3) {
+		if (arg0.length != 4) {
 			throw new IllegalStateException(
 					"Error too few arguments passed in the AddFriendTask");
 		}
