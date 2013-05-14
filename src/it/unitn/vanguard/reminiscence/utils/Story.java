@@ -10,10 +10,10 @@ public class Story {
 	private String desc;
 	private Bitmap background;
 	public ArrayList<String> urls;
-	
-	public Story(int anno,String title, String desc) {
+
+	public Story(int anno, String title, String desc) {
 		super();
-		this.anno=anno;
+		this.anno = anno;
 		this.title = title;
 		this.desc = desc;
 	}
@@ -22,11 +22,9 @@ public class Story {
 		return background;
 	}
 
-
 	public void setBackground(Bitmap background) {
 		this.background = background;
 	}
-
 
 	public int getAnno() {
 		return anno;
@@ -43,5 +41,5 @@ public class Story {
 	public ArrayList<String> getUrls() {
 		return urls;
 	}
-	
+
 }

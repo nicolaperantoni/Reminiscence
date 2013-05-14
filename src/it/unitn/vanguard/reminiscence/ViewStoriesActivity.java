@@ -86,7 +86,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		actionBar = getActionBar();
-		//actionBar.setDisplayOptions(ActionBar.DISPLAY_USE_LOGO|ActionBar.NAVIGATION_MODE_LIST);
+		// actionBar.setDisplayOptions(ActionBar.DISPLAY_USE_LOGO|ActionBar.NAVIGATION_MODE_LIST);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		actionBar.setListNavigationCallbacks(adapter,
 				new ActionBar.OnNavigationListener() {
@@ -117,21 +117,20 @@ public class ViewStoriesActivity extends BaseActivity implements
 		year = year.substring(0, year.length() - 1);
 		requestYear = Integer.parseInt(year + '0');
 		startYear = requestYear;
-		
-		YearView selected = (YearView) mTimeLine.getItemAtPosition(selectedIndex);
-		selected.setBackgroundColor(getResources().getColor(
-				R.color.pomegranate));
-		
-		if (arg0 != null){
+		mTimeLine.setStartYear(startYear);
+		if (arg0 != null) {
 			selectedIndex = arg0.getInt(SAVE_INDEX);
-			requestYear = selected.getYear();
-			mTimeLine.setStartYear(startYear);
-		}
-		else{
+			FinalFunctionsUtilities.stories.clear();
+			mStoriesAdapter.notifyDataSetChanged();
+		} else {
 			selectedIndex = 0;
-			mTimeLine.setStartYear(requestYear);
 		}
-		
+		YearView selected = (YearView) mTimeLine.getAdapter().getView(
+				selectedIndex, null, null);
+		requestYear = selected.getYear();
+
+//		selected.setBackgroundColor(getResources()
+//				.getColor(R.color.pomegranate));
 
 		setListeners();
 
@@ -167,9 +166,10 @@ public class ViewStoriesActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				View selected = (View) arg0.getItemAtPosition(selectedIndex);
-				selected.setBackgroundColor(getResources().getColor(
-						R.color.red_background_dark));
+				View selected = (View) arg0.getChildAt(selectedIndex);
+				if (selected != null)
+					selected.setBackgroundColor(getResources().getColor(
+							R.color.red_background_dark));
 				selectedIndex = arg2;
 				arg1.setBackgroundColor(getResources().getColor(
 						R.color.pomegranate));
