@@ -33,8 +33,10 @@ public class FriendListAdapter extends ArrayAdapter<Friend> {
 				.findViewById(R.id.item_name);
 		TextView surnameTextView = (TextView) rowView
 				.findViewById(R.id.item_surname);
+		TextView mailTextView = (TextView) rowView.findViewById(R.id.item_mail_tv);
 		nameTextView.setText(friend[position].getName());
 		surnameTextView.setText(friend[position].getSurname());
+		mailTextView.setText(friend[position].getEmail());
 
 		return rowView;
 	}
