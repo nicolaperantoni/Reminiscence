@@ -97,6 +97,12 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 									.getString("Cognome"), json
 									.getString("Email"), Integer.parseInt(json
 									.getString("Id"))));
+							
+							
+							friends.add(new Friend(json.getString("Nome"), json
+									.getString("Cognome"), json
+									.getString("Email"), Integer.parseInt(json
+									.getString("Id"))));
 						} catch (Exception e) {
 							Log.e("flf", e.toString());
 						}
