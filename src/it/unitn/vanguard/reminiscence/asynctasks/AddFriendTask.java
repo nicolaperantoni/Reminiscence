@@ -44,7 +44,7 @@ public class AddFriendTask extends AsyncTask<String, Void, Boolean> {
 
 		if (FinalFunctionsUtilities.isDeviceConnected((Activity) caller)) {
 
-			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(6);
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(4);
 			params.add(new BasicNameValuePair("nome", arg0[0]));
 			params.add(new BasicNameValuePair("cognome", arg0[1]));
 			params.add(new BasicNameValuePair("email", arg0[2]));

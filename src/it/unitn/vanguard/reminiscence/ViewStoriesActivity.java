@@ -1,6 +1,7 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.QuestionPopUpHandler.QuestionPopUp;
+import it.unitn.vanguard.reminiscence.asynctasks.GetPublicStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.GetStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
 import it.unitn.vanguard.reminiscence.frags.StoryFragment;
@@ -21,7 +22,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -95,10 +95,22 @@ public class ViewStoriesActivity extends BaseActivity implements
 							long itemId) {
 						switch (itemPosition) {
 						case 0:
-							Log.e("ACTIONBAR", "Elemento: " + itemPosition);
+							if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+								FinalFunctionsUtilities.stories.clear();
+								new GetStoriesTask(ViewStoriesActivity.this, requestYear).execute();
+							} else {
+								Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
+										.show();
+							}
 							break;
 						case 1:
-							Log.e("ACTIONBAR", "Elemento: " + itemPosition);
+							if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+								FinalFunctionsUtilities.stories.clear();
+								new GetPublicStoriesTask(ViewStoriesActivity.this, requestYear).execute();
+							} else {
+								Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
+										.show();
+							}
 							break;
 						}
 						return true;

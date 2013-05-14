@@ -2,11 +2,6 @@ package it.unitn.vanguard.reminiscence.asynctasks;
 
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;

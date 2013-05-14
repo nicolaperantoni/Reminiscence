@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import android.annotation.TargetApi;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -28,7 +29,8 @@ import android.widget.ListView;
 
 public class FriendListActivity extends ListActivity implements OnTaskFinished {
 
-	ArrayList<Friend> friends = new ArrayList<Friend>();
+	private ArrayList<Friend> friends = new ArrayList<Friend>();
+	protected ProgressDialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,11 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		if (FinalFunctionsUtilities.isDeviceConnected(this)) {
+			dialog = new ProgressDialog(FriendListActivity.this);
+			dialog.setTitle(getResources().getString(R.string.please));
+			dialog.setMessage(getResources().getString(R.string.wait));
+			dialog.setCancelable(false);
+			dialog.show();
 			new GetFriendsTask(this, this).execute();
 		}
 		registerForContextMenu(this.getListView());
@@ -92,7 +99,7 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
-			NavUtils.navigateUpFromSameTask(this);
+			this.finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -120,21 +127,31 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 	}
 
 	public void friendDeleted(int position) {
-
+		friends.remove(position);
 	}
 
 	private void deleteFriend(int position) {
 		Friend fr = friends.get(position);
-//		new DeleteFriendTask(this, position).execute(fr.getName(),
-	//			fr.getSurname(), fr.getEmail(), fr.getId());
+		if (FinalFunctionsUtilities.isDeviceConnected(this)) {
+			dialog = new ProgressDialog(this);
+			dialog.setTitle(getResources().getString(R.string.please));
+			dialog.setMessage(getResources().getString(R.string.wait));
+			dialog.setCancelable(false);
+			dialog.show();
+		}
+		new DeleteFriendTask(this, position).execute(Integer.toString(fr.getId()));
 	}
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		boolean status;
+		
+		if(dialog!=null && dialog.isShowing()) dialog.dismiss();
+		
 		int count = 10;
 		boolean success = false;
 		String op = null;
+		
+		if(dialog!=null && dialog.isShowing()) dialog.dismiss();
 
 		// ottengo se l'operazione ha avuto successo e il numero di valori dal
 		// json
@@ -153,8 +170,8 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		}
 
 		if (success) {
-			friends.clear();
 			if (op != null && op.equals("getFriends")) {
+				friends.clear();
 				// scorro il json
 				// caso normale
 				for (int i = 0; i < count; i++) {

@@ -19,14 +19,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
 import android.support.v4.app.NotificationCompat;
@@ -40,9 +37,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 import android.widget.Toast;
+import eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView;
 
 public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 

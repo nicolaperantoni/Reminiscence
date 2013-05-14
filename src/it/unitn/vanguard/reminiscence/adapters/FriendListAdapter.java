@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class FriendListAdapter extends ArrayAdapter<Friend> {
@@ -33,8 +32,10 @@ public class FriendListAdapter extends ArrayAdapter<Friend> {
 				.findViewById(R.id.item_name);
 		TextView surnameTextView = (TextView) rowView
 				.findViewById(R.id.item_surname);
+		TextView mailTextView = (TextView) rowView.findViewById(R.id.item_mail_tv);
 		nameTextView.setText(friend[position].getName());
 		surnameTextView.setText(friend[position].getSurname());
+		mailTextView.setText(friend[position].getEmail());
 
 		return rowView;
 	}

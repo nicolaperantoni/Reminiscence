@@ -1,6 +1,5 @@
 package it.unitn.vanguard.reminiscence.asynctasks;
 
-import it.unitn.vanguard.reminiscence.LuogoNascitaActivity;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
