@@ -121,18 +121,24 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 				ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 				nameValuePairs.add(new BasicNameValuePair("image",encodedImage));
 
-				try{
+				try {
+					// Show dialog
 					dialog = new ProgressDialog(ProfileImageActivity.this);
 					dialog.setTitle(getResources().getString(R.string.please));
 					dialog.setMessage(getResources().getString(R.string.wait));
 					dialog.setCancelable(false);
 					dialog.show();
-					new UploadPhotoTask(this, Constants.imageType.PROFILE,encodedImage, context).execute();
-				}catch(Exception e){
+					
+					if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+						new UploadPhotoTask(this, Constants.imageType.PROFILE,encodedImage, context).execute();
+					} else {
+						Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
+					}
+				}
+				catch(Exception e) {
 					Log.e("log_tag", "Error in http connection "+ e.toString());
 					e.printStackTrace();
 				}
-				
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -198,6 +204,9 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 			}
 		}
 		catch (JSONException e) {
+			Log.e(ProfileImageActivity.class.getName(), e.toString());
+		}
+		catch (NullPointerException e) {
 			Log.e(ProfileImageActivity.class.getName(), e.toString());
 		}
 	}
