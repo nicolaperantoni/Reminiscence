@@ -143,5 +143,6 @@
     <!-- stringhe per Zen della ActionBar -->
     <string name="dropdown_public_stories">Public Stories</string>
     <string name="dropdown_private_stories">Private Stories</string>
+    <string name="fli_removefriend">Remove Friend</string>
 
 </resources>
