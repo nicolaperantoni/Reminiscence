@@ -8,19 +8,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ProfileImageActivity" >
-
-        
-    <ImageView
-        android:id="@+id/imgProfile"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
-        android:src="@drawable/default_profile_image"
-        android:background="#000000"
-		android:padding="1dp" />
     
    	<TextView
         android:id="@+id/changeProfileImage_header"
@@ -28,7 +15,6 @@
         android:layout_height="wrap_content"        
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"        
-        android:layout_above="@id/imgProfile"
         android:gravity="center_horizontal"
         android:shadowColor="#000000"
         android:shadowDx="3"
@@ -42,13 +28,34 @@
         android:id="@+id/btnChangeImgProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/imgProfile"
+        android:layout_alignParentBottom="true"        
         android:background="@drawable/btn_default_selector"
         android:textColor="@color/white"
         android:textSize="60sp"
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:text="@string/profile_image_change_button" />
+
+   	<RelativeLayout
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content"
+   	    android:layout_alignParentLeft="true"
+   	    android:layout_alignParentRight="true"
+   	    android:background="@drawable/login_background_red"
+    	android:paddingBottom="@dimen/activity_vertical_margin"
+   	 	android:paddingLeft="@dimen/activity_horizontal_margin"
+   		android:paddingRight="@dimen/activity_horizontal_margin"
+   		android:paddingTop="@dimen/activity_vertical_margin"
+   	    android:layout_above="@+id/btnChangeImgProfile"   	    
+   	    android:layout_below="@+id/changeProfileImage_header" >
+
+   	    <ImageView
+   	        android:id="@+id/imgProfile"
+   	        android:layout_width="wrap_content"
+   	        android:layout_height="wrap_content"
+   	        android:layout_centerHorizontal="true"
+   	        android:layout_centerVertical="true"   	          	        
+   	        android:src="@drawable/default_profile_image" />
+   	</RelativeLayout>
 
 </RelativeLayout>
