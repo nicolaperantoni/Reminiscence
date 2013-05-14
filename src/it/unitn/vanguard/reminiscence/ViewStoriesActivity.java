@@ -1,6 +1,7 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.QuestionPopUpHandler.QuestionPopUp;
+import it.unitn.vanguard.reminiscence.asynctasks.GetPublicStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.GetStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
 import it.unitn.vanguard.reminiscence.frags.StoryFragment;
@@ -86,7 +87,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 		actionBar = getActionBar();
-		// actionBar.setDisplayOptions(ActionBar.DISPLAY_USE_LOGO|ActionBar.NAVIGATION_MODE_LIST);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		actionBar.setListNavigationCallbacks(adapter,
 				new ActionBar.OnNavigationListener() {
@@ -96,9 +96,23 @@ public class ViewStoriesActivity extends BaseActivity implements
 							long itemId) {
 						switch (itemPosition) {
 						case 0:
+							if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+								new GetStoriesTask(ViewStoriesActivity.this, requestYear).execute();
+							} else {
+								Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
+										.show();
+							}
+							
 							Log.e("ACTIONBAR", "Elemento: " + itemPosition);
 							break;
 						case 1:
+							if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+								new GetPublicStoriesTask(ViewStoriesActivity.this, requestYear).execute();
+							} else {
+								Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
+										.show();
+							}
+							
 							Log.e("ACTIONBAR", "Elemento: " + itemPosition);
 							break;
 						}
