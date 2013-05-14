@@ -1,35 +1,21 @@
 package it.unitn.vanguard.reminiscence;
 
-import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
-import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
-import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 
-public class BaseActivity extends SlidingFragmentActivity {
+public abstract class BaseActivity extends SlidingFragmentActivity {
 
 	private Context context;
 	
@@ -40,19 +26,26 @@ public class BaseActivity extends SlidingFragmentActivity {
 	private TextView mFriendList;
 	protected TextView mLogout;
 
-	private ProgressDialog dialog;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = BaseActivity.this;
-		
 		initializeMenu();
 		initializeTextViews();
 		setSlidingActionBarEnabled(false);
-		
 	    getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
+	
+	
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		initializeMenu();
+		initializeTextViews();
+	}
+
+
 
 	private void initializeTextViews() {
 		mChangeLocale = (TextView) findViewById(R.id.hiddenmenu_changelocale_tv);
@@ -103,7 +96,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(context,
-						ViewFriendsProfileFragmentActivity.class));
+						FriendListActivity.class));
 			}
 		});
 		mAddFriend = (TextView) findViewById(R.id.hiddebmenu_addfriend_tv);
@@ -131,6 +124,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 	private void initializeMenu() {
 		setBehindContentView(R.layout.hidden_menu);
 		SlidingMenu menu = getSlidingMenu();
+		menu.invalidate();
 		menu.setBehindWidthRes(R.dimen.menu_offset);
 		menu.setFadeDegree(0.35f);
 		menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);

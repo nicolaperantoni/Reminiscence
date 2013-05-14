@@ -89,7 +89,7 @@
         android:padding="0dp" >
 
         <Button
-            android:id="@+id/add_friend_confirm_button"
+            android:id="@+id/add_friend_back_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/default_margin_double"
@@ -97,12 +97,12 @@
             android:layout_marginRight="@dimen/default_margin"
             android:layout_weight="0.5"
             android:background="@drawable/btn_default_selector"
-            android:text="@string/confirm_button_label"
+            android:text="@string/back_button_label"
             android:textSize="@dimen/default_textSize_larger"
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/add_friend_back_button"
+            android:id="@+id/add_friend_confirm_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/default_margin_double"
@@ -110,7 +110,7 @@
             android:layout_marginRight="0dp"
             android:layout_weight="0.5"
             android:background="@drawable/btn_default_selector"
-            android:text="@string/back_button_label"
+            android:text="@string/confirm_button_label"
             android:textSize="@dimen/default_textSize_larger"
             android:textColor="@color/white" />
     </LinearLayout>
