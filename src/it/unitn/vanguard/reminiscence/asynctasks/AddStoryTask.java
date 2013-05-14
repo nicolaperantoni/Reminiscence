@@ -17,9 +17,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 
 public class AddStoryTask extends AsyncTask<String, Void, JSONObject> {
 

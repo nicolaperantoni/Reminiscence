@@ -39,6 +39,11 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		if (FinalFunctionsUtilities.isDeviceConnected(this)) {
+			dialog = new ProgressDialog(FriendListActivity.this);
+			dialog.setTitle(getResources().getString(R.string.please));
+			dialog.setMessage(getResources().getString(R.string.wait));
+			dialog.setCancelable(false);
+			dialog.show();
 			new GetFriendsTask(this, this).execute();
 		}
 		registerForContextMenu(this.getListView());
@@ -139,7 +144,9 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		boolean status;
+		
+		if(dialog!=null && dialog.isShowing()) dialog.dismiss();
+		
 		int count = 10;
 		boolean success = false;
 		String op = null;

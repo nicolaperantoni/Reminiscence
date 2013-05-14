@@ -1,29 +1,27 @@
 package it.unitn.vanguard.reminiscence;
 
+import it.unitn.vanguard.reminiscence.adapters.Checkbox_adapter;
+import it.unitn.vanguard.reminiscence.asynctasks.GetFriendsTask;
+import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+
 import java.util.ArrayList;
 
 import org.json.JSONObject;
 
-import it.unitn.vanguard.reminiscence.adapters.Checkbox_adapter;
-import it.unitn.vanguard.reminiscence.adapters.FriendListAdapter;
-import it.unitn.vanguard.reminiscence.asynctasks.GetFriendsTask;
-import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
-import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
-import android.app.Activity;
 import android.app.ListActivity;
-import android.content.Intent;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 
 	private Button invia_mail;
+	protected ProgressDialog dialog;
+	
 	ArrayList<Friend> friends = new ArrayList<Friend>();
 
 	@Override
@@ -31,6 +29,11 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.checkbox_amici);
 		if (FinalFunctionsUtilities.isDeviceConnected(this)) {
+			dialog = new ProgressDialog(CheckBoxAmici.this);
+			dialog.setTitle(getResources().getString(R.string.please));
+			dialog.setMessage(getResources().getString(R.string.wait));
+			dialog.setCancelable(false);
+			dialog.show();
 			new GetFriendsTask(this, this).execute();
 		}
 		
@@ -38,7 +41,7 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 	}
 
 	private void initializeButtons() {
-		invia_mail = (Button) findViewById(R.id.btn_invia_mail);
+		invia_mail = (Button) findViewById(R.id.choosefriend_send_mail);
 		invia_mail.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -57,7 +60,9 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		boolean status;
+		
+		if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
+		
 		int count = 10;
 		boolean success = false;
 		String op = null;

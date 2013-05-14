@@ -1,13 +1,6 @@
 package it.unitn.vanguard.reminiscence.utils;
 
-import it.unitn.vanguard.reminiscence.frags.BornFragment;
-import it.unitn.vanguard.reminiscence.frags.StoryFragment;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Locale;
 
 import android.app.NotificationManager;
@@ -17,7 +10,6 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 
 public final class FinalFunctionsUtilities {

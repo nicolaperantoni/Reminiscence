@@ -2,30 +2,13 @@ package it.unitn.vanguard.reminiscence.frags;
 
 import it.unitn.vanguard.reminiscence.CheckBoxAmici;
 import it.unitn.vanguard.reminiscence.R;
-import it.unitn.vanguard.reminiscence.asynctasks.UploadPhotoTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
-import it.unitn.vanguard.reminiscence.utils.Constants;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore.Images.Media;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

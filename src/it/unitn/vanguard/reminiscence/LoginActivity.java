@@ -2,7 +2,6 @@ package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.asynctasks.LoginTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
-import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
@@ -96,11 +95,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 					dialog.setMessage(getResources().getString(R.string.wait));
 					dialog.setCancelable(false);
 					dialog.show();
-					if (FinalFunctionsUtilities.isDeviceConnected(context)) {
-						new LoginTask(LoginActivity.this).execute(username, password);
-					} else {
-						Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
-					}
+					new LoginTask(LoginActivity.this).execute(username, password);
 				}
 				else {
 					if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }

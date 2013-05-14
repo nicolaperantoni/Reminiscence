@@ -22,7 +22,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -97,23 +96,21 @@ public class ViewStoriesActivity extends BaseActivity implements
 						switch (itemPosition) {
 						case 0:
 							if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+								FinalFunctionsUtilities.stories.clear();
 								new GetStoriesTask(ViewStoriesActivity.this, requestYear).execute();
 							} else {
 								Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
 										.show();
 							}
-							
-							Log.e("ACTIONBAR", "Elemento: " + itemPosition);
 							break;
 						case 1:
 							if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+								FinalFunctionsUtilities.stories.clear();
 								new GetPublicStoriesTask(ViewStoriesActivity.this, requestYear).execute();
 							} else {
 								Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
 										.show();
 							}
-							
-							Log.e("ACTIONBAR", "Elemento: " + itemPosition);
 							break;
 						}
 						return true;
