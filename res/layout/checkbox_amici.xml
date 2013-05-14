@@ -27,7 +27,7 @@
         android:id="@+id/bottomPanel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/friendlistview_txt"
+        android:layout_above="@id/friendlistview_txt"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
     
@@ -38,6 +38,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_default_selector"
         android:textColor="@color/white"
+        android:shadowColor="#000000"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="5"
+        android:layout_marginRight="10dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:text="@string/send_mail" />
@@ -49,6 +54,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_default_selector"
         android:textColor="@color/white"
+        android:shadowColor="#000000"
+       	android:shadowDx="3"
+       	android:shadowDy="3"
+       	android:shadowRadius="5"
+        android:layout_marginLeft="10dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:text="@string/menu_add_friend" />
