@@ -94,7 +94,7 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
-			NavUtils.navigateUpFromSameTask(this);
+			this.finish();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
