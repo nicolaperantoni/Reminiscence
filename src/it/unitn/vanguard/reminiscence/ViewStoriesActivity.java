@@ -20,6 +20,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -92,6 +93,12 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 		initializeStoryList();
 
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mTimeLine.forceLayout();
 	}
 
 	private void initializeStoryList() {
@@ -284,7 +291,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-
 		if (dialog != null && dialog.isShowing()) {
 			dialog.dismiss();
 		}
