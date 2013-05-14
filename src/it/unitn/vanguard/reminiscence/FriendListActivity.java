@@ -10,21 +10,20 @@ import java.util.Locale;
 
 import org.json.JSONObject;
 
-import android.os.Bundle;
-import android.app.Activity;
+import android.annotation.TargetApi;
 import android.app.ListActivity;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
-import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
-import android.content.Context;
-import android.os.Build;
 
 public class FriendListActivity extends ListActivity implements OnTaskFinished {
 
@@ -40,14 +39,6 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 			new GetFriendsTask(this, this).execute();
 		}
 		registerForContextMenu(this.getListView());
-	}
-	
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.friend_list, menu);
 	}
 
 	@Override
@@ -67,10 +58,9 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
-	//	LayoutInflater inflater = (LayoutInflater) this
-	//			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		// LayoutInflater inflater = (LayoutInflater) this
+		// .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	/**
@@ -108,6 +98,31 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 	}
 
 	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.friend_list, menu);
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+		switch (item.getItemId()) {
+		case R.id.action_remove_friend:
+			deleteFriend(info.position);
+			return true;
+		default:
+			return super.onContextItemSelected(item);
+		}
+	}
+
+	private void deleteFriend(int position) {
+		
+	}
+
+	@Override
 	public void onTaskFinished(JSONObject res) {
 		boolean status;
 		int count = 10;
@@ -129,12 +144,13 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		}
 
 		if (success) {
+			//todo another if dinstinzione fra asynctask
 			friends.clear();
 			// scorro il json
 			if (count < 1) {
 				// caso in cui non ci siano amici LAMER
 				friends.add(new Friend(getString(R.string.no_friends_a),
-						getString(R.string.no_friends_b), -1));
+						getString(R.string.no_friends_b),"", -1));
 			} else {
 				// caso normale
 				for (int i = 0; i < count; i++) {
@@ -143,7 +159,7 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 					try {
 						json = new JSONObject(res.getString(ct));
 						friends.add(new Friend(json.getString("Nome"), json
-								.getString("Cognome"), Integer.parseInt(json
+								.getString("Cognome"),json.getString("Email"), Integer.parseInt(json
 								.getString("Id"))));
 					} catch (Exception e) {
 						Log.e("flf", e.toString());
