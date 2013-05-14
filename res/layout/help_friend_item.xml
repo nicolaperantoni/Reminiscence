@@ -3,18 +3,15 @@
     android:id="@+id/row_checkbox"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/red_background_light"
     android:gravity="left"
     android:orientation="horizontal"
-    android:layout_marginTop="3dp"
-    android:layout_marginBottom="3dp">
+    android:padding="4dp" >
     
     <LinearLayout 
     android:paddingLeft="10dp"
     android:layout_weight="0.9"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:background="@color/red_background_light"
     android:layout_gravity="center_vertical"
     android:orientation="vertical" >
     	
@@ -27,7 +24,7 @@
             android:id="@+id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="@dimen/default_margin"
+            android:paddingRight="8dp"
             android:text="@string/user_name_label"
             android:textSize="@dimen/default_textSize_small" />
 
@@ -43,7 +40,6 @@
         android:id="@+id/item_mail_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
         android:textSize="@dimen/default_textSize_small"
         android:gravity="left"
         android:text="@string/login_username_hint" />
