@@ -117,9 +117,13 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 			return super.onContextItemSelected(item);
 		}
 	}
+	
+	public void friendDeleted(int position) {
+		
+	}
 
 	private void deleteFriend(int position) {
-
+		
 	}
 
 	@Override
@@ -169,9 +173,7 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 						}
 					}
 				}
-			} else {
-
-			}
+			} 
 			setAdapter();
 		} else {
 			Log.e("json", "errore nell operazione success:false");
