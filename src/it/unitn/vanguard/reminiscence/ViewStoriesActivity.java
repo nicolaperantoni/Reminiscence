@@ -137,8 +137,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 			selectedIndex = 0;
 		}
 		
-		YearView selected = (YearView) mTimeLine.getAdapter().getItem(
-				selectedIndex);
+		YearView selected = (YearView) mTimeLine.getAdapter().getView(
+				selectedIndex, null, null);
 		requestYear = selected.getYear();
 
 		setListeners();
@@ -345,6 +345,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 				Toast.makeText(context,
 						getResources().getString(R.string.logout_success),
 						Toast.LENGTH_LONG).show();
+				
+				FinalFunctionsUtilities.clearSharedPreferences(context);
 				startActivity(new Intent(ViewStoriesActivity.this,
 						LoginActivity.class));
 				this.finish();

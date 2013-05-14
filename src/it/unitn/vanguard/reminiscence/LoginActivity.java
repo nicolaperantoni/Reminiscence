@@ -2,6 +2,7 @@ package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.asynctasks.LoginTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
@@ -144,16 +145,13 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		try {
 			if (res.getString("success").equals("true")) {
 				
-				/* in attesa delle chiavi
-				 
-				FinalFunctionsUtilities.setSharedPreferences(Constants.NAME_KEY, res.getString("name"), context);
-				FinalFunctionsUtilities.setSharedPreferences(Constants.SURNAME_KEY, res.getString("surname"), context);
+				FinalFunctionsUtilities.setSharedPreferences(Constants.NAME_KEY, res.getString("nome"), context);
+				FinalFunctionsUtilities.setSharedPreferences(Constants.SURNAME_KEY, res.getString("cognome"), context);
 				FinalFunctionsUtilities.setSharedPreferences(Constants.DAY_KEY, res.getString("day"), context);
 				FinalFunctionsUtilities.setSharedPreferences(Constants.MONTH_KEY, res.getString("month"), context);
 				FinalFunctionsUtilities.setSharedPreferences(Constants.YEAR_KEY, res.getString("year"), context);
-				FinalFunctionsUtilities.setSharedPreferences(Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY, res.getString("luogo"), context);
+				FinalFunctionsUtilities.setSharedPreferences(Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY, res.getString("luogonascita"), context);
 				
-				*/
 				startActivity(new Intent(context, ViewStoriesActivity.class));
 				finish();
 			} else {
