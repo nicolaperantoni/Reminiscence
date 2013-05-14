@@ -6,8 +6,6 @@ import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;

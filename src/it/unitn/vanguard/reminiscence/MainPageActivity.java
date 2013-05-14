@@ -4,9 +4,9 @@ import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 

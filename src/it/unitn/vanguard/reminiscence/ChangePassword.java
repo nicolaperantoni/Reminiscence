@@ -1,7 +1,6 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.asynctasks.ChangePasswordTask;
-import it.unitn.vanguard.reminiscence.asynctasks.RegistrationTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
@@ -11,7 +10,6 @@ import java.util.Locale;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
