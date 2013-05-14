@@ -104,6 +104,7 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 				// caso in cui non ci siano amici LAMER
 				friends.add(new Friend(getString(R.string.no_friends_a),
 						getString(R.string.no_friends_b),"", -1));
+
 			} else {
 				// caso normale
 				for (int i = 0; i < count; i++) {
