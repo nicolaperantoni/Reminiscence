@@ -10,12 +10,12 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/btn_invia_mail"
         android:orientation="vertical" >
-    
-    	<ListView
-    	   android:id="@+id/lista_amici_checkbox"
-    	   android:layout_width="fill_parent"
-    	   android:layout_height="wrap_content" >
-    	</ListView>
+
+		<ListView
+		    android:id="@+id/lista_amici_checkbox"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content" >
+		</ListView>
     
  	</LinearLayout>
  	

@@ -1,5 +1,6 @@
 package it.unitn.vanguard.reminiscence;
 
+import it.unitn.vanguard.reminiscence.adapters.Checkbox_adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +8,14 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CheckBoxAmici extends Activity {
 
 	private Button invia_mail;
+	Friend amici[]; 
+	Friend amico1 = new Friend("lol", "pippo", 123);
 	String[] genre = { "party lol", "toni champa", "lollosissimo lui",
 			"san girolamo", "peter pan", "lol", "lol", "lol", "lol", "lol",
 			"lol", "lol", "lol", "lol", "lol", "lol", "lol" };
@@ -20,11 +24,13 @@ public class CheckBoxAmici extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.checkbox_amici);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_checked, genre);
+		amici[0] = amico1;
+		Checkbox_adapter adapter_checkbox = new Checkbox_adapter(this,amici);
+		
 		ListView lv = (ListView) findViewById(R.id.lista_amici_checkbox);
-		lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-		lv.setAdapter(adapter);
+		//lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		lv.setAdapter(adapter_checkbox);
+		
 
 		initializeButtons();
 	}
