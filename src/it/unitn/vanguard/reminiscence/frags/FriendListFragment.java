@@ -103,7 +103,8 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 			if (count < 1) {
 				// caso in cui non ci siano amici LAMER
 				friends.add(new Friend(getString(R.string.no_friends_a),
-						getString(R.string.no_friends_b), "", -1));
+						getString(R.string.no_friends_b),"", -1));
+
 			} else {
 				// caso normale
 				for (int i = 0; i < count; i++) {
@@ -112,7 +113,7 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 					try {
 						json = new JSONObject(res.getString(ct));
 						friends.add(new Friend(json.getString("Nome"), json
-								.getString("Cognome"), "", Integer.parseInt(json
+								.getString("Cognome"),"", Integer.parseInt(json
 								.getString("Id"))));
 					} catch (Exception e) {
 						Log.e("flf", e.toString());
