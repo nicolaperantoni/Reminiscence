@@ -36,6 +36,7 @@ public class Checkbox_adapter extends ArrayAdapter<Friend> {
 				.findViewById(R.id.item_mail_tv);
 		nameTextView.setText(friend[position].getName());
 		surnameTextView.setText(friend[position].getSurname());
+		mailTextView.setText(friend[position].getEmail());
 
 		return rowView;
 	}

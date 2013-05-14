@@ -15,7 +15,7 @@ public class CheckBoxAmici extends Activity {
 
 	private Button invia_mail;
 	Friend amici[]; 
-	Friend amico1 = new Friend("lol", "pippo", "asdsa@asdad.com", 123);
+	Friend amico1 = new Friend("lol", "pippo", "lol@lol.lol", 123);
 	String[] genre = { "party lol", "toni champa", "lollosissimo lui",
 			"san girolamo", "peter pan", "lol", "lol", "lol", "lol", "lol",
 			"lol", "lol", "lol", "lol", "lol", "lol", "lol" };
