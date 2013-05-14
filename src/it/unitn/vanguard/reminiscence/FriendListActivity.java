@@ -82,13 +82,6 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.friend_list, menu);
-		return true;
-	}
-
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
@@ -103,27 +96,6 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.friend_list, menu);
-	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-				.getMenuInfo();
-		switch (item.getItemId()) {
-		case R.id.action_remove_friend:
-			deleteFriend(info.position);
-			return true;
-		default:
-			return super.onContextItemSelected(item);
-		}
 	}
 
 	public void friendDeleted(int position) {
