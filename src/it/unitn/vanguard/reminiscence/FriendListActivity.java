@@ -10,21 +10,19 @@ import java.util.Locale;
 
 import org.json.JSONObject;
 
-import android.os.Bundle;
-import android.app.Activity;
+import android.annotation.TargetApi;
 import android.app.ListActivity;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
-import android.content.Context;
-import android.os.Build;
 
 public class FriendListActivity extends ListActivity implements OnTaskFinished {
 
