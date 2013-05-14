@@ -38,7 +38,7 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 	}
 
 	private void initializeButtons() {
-		invia_mail = (Button) findViewById(R.id.btn_invia_mail);
+		invia_mail = (Button) findViewById(R.id.choosefriend_send_mail);
 		invia_mail.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

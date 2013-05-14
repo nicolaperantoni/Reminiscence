@@ -32,7 +32,7 @@
         android:orientation="horizontal">
     
         <Button
-        android:id="@+id/friendlist_send_mail"
+        android:id="@+id/choosefriend_send_mail"
         android:layout_weight="0.5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
