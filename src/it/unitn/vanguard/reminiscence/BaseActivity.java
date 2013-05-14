@@ -96,7 +96,7 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(context,
-						ViewFriendsProfileFragmentActivity.class));
+						FriendListActivity.class));
 			}
 		});
 		mAddFriend = (TextView) findViewById(R.id.hiddebmenu_addfriend_tv);

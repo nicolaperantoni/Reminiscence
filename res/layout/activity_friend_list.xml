@@ -35,8 +35,9 @@
         android:text="@string/send_mail" />
     
     <ListView
-        android:id="@+id/friendlistview"
+        android:id="@android:id/list"
         android:layout_width="fill_parent"
+        android:padding="6dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/friendlistview_txt"
         android:layout_above="@+id/friendlist_send_mail"

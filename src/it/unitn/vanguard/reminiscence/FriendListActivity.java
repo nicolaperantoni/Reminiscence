@@ -1,14 +1,32 @@
 package it.unitn.vanguard.reminiscence;
 
+import it.unitn.vanguard.reminiscence.adapters.FriendListAdapter;
+import it.unitn.vanguard.reminiscence.asynctasks.GetFriendsTask;
+import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+
+import java.util.ArrayList;
+import java.util.Locale;
+
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ListActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.Build;
 
-public class FriendListActivity extends Activity {
+public class FriendListActivity extends ListActivity implements OnTaskFinished {
+
+	ArrayList<Friend> friends = new ArrayList<Friend>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +34,32 @@ public class FriendListActivity extends Activity {
 		setContentView(R.layout.activity_friend_list);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		if (FinalFunctionsUtilities.isDeviceConnected(this)) {
+			new GetFriendsTask(this, this).execute();
+		}
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		String language = FinalFunctionsUtilities.getSharedPreferences(
+				"language", this);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), this);
+	}
+
+	private void setAdapter() {
+		Friend fr[] = new Friend[friends.size()];
+		friends.toArray(fr);
+		FriendListAdapter t = new FriendListAdapter(this, fr);
+		setListAdapter(t);
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		// TODO Auto-generated method stub
+		super.onListItemClick(l, v, position, id);
+	//	LayoutInflater inflater = (LayoutInflater) this
+	//			.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	/**
@@ -50,6 +94,55 @@ public class FriendListActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onTaskFinished(JSONObject res) {
+		boolean status;
+		int count = 10;
+		boolean success = false;
+
+		// ottengo se l'operazione ha avuto successo e il numero di valori dal
+		// json
+		/*
+		 * json: {"success":true, "numFriend":2 "f0":{"Nome":asd, "Cognome":asd,
+		 * "Id":1} "f1":{"Nome":ciccio, "Cognome":ciccia, "Id":2}}
+		 */
+		try {
+			success = res.getString("success").equals("true");
+			if (success) {
+				count = Integer.parseInt(res.getString("numFriend"));
+			}
+		} catch (Exception e) {
+			Log.e("itemselected", e.toString());
+		}
+
+		if (success) {
+			friends.clear();
+			// scorro il json
+			if (count < 1) {
+				// caso in cui non ci siano amici LAMER
+				friends.add(new Friend(getString(R.string.no_friends_a),
+						getString(R.string.no_friends_b), -1));
+			} else {
+				// caso normale
+				for (int i = 0; i < count; i++) {
+					String ct = "f" + i;
+					JSONObject json = null;
+					try {
+						json = new JSONObject(res.getString(ct));
+						friends.add(new Friend(json.getString("Nome"), json
+								.getString("Cognome"), Integer.parseInt(json
+								.getString("Id"))));
+					} catch (Exception e) {
+						Log.e("flf", e.toString());
+					}
+				}
+			}
+			setAdapter();
+		} else {
+			Log.e("json", "errore nell operazione success:false");
+		}
 	}
 
 }

@@ -120,8 +120,6 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 				}
 			}
 			setAdapter();
-			((ViewFriendsProfileFragmentActivity) getActivity())
-					.onItemSelect(friends.get(0));
 		} else {
 			Log.e("json", "errore nell operazione success:false");
 		}
