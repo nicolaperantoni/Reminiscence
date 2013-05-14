@@ -22,7 +22,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -63,7 +62,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private ImageView mCloseQuestionImgV;
 	private StoriesAdapter mStoriesAdapter;
 	private int selectedIndex;
-	// private View selected;
+	// private YearView selected;
 	private int startYear;
 	private int requestYear;
 
@@ -124,8 +123,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 		// e' per avere lo 0 alla fine degli anni.(per avere l'intera decade,
 		// praticmanete)
-		String year = FinalFunctionsUtilities
-				.getSharedPreferences(Constants.YEAR_KEY, this);
+		String year = FinalFunctionsUtilities.getSharedPreferences(
+				Constants.YEAR_KEY, this);
 		year = year.substring(0, year.length() - 1);
 		requestYear = Integer.parseInt(year + '0');
 		startYear = requestYear;
@@ -137,12 +136,10 @@ public class ViewStoriesActivity extends BaseActivity implements
 		} else {
 			selectedIndex = 0;
 		}
-		YearView selected = (YearView) mTimeLine.getAdapter().getView(
-				selectedIndex, null, null);
+		
+		YearView selected = (YearView) mTimeLine.getAdapter().getItem(
+				selectedIndex);
 		requestYear = selected.getYear();
-
-//		selected.setBackgroundColor(getResources()
-//				.getColor(R.color.pomegranate));
 
 		setListeners();
 
@@ -178,14 +175,12 @@ public class ViewStoriesActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				View selected = (View) arg0.getChildAt(selectedIndex);
-				if (selected != null)
-					selected.setBackgroundColor(getResources().getColor(
-							R.color.red_background_dark));
+				// Cambio il background della vecchia selezione
+				updateSelected(false);
+				// aggiorno gli indici
 				selectedIndex = arg2;
-				arg1.setBackgroundColor(getResources().getColor(
-						R.color.pomegranate));
-				requestYear = ((YearView) arg1).getYear();
+				requestYear = ((YearView)arg1).getYear();
+				// tolgo le vecchie e chiedo le nuove
 				FinalFunctionsUtilities.stories.clear();
 				mStoriesAdapter.notifyDataSetChanged();
 				new GetStoriesTask(ViewStoriesActivity.this, requestYear)
@@ -410,6 +405,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 			no_res.setVisibility(View.INVISIBLE);
 			mCards.setVisibility(View.VISIBLE);
 		}
+		updateSelected(true);
 		OnProgress();
 	}
 
@@ -430,6 +426,19 @@ public class ViewStoriesActivity extends BaseActivity implements
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putInt(SAVE_INDEX, selectedIndex);
+	}
+	
+	private void updateSelected(boolean selected){
+		YearView v=(YearView) mTimeLine.getChildAt(selectedIndex);
+		if(v==null)
+			v= (YearView) mTimeLine.getAdapter().getView(
+					selectedIndex, null, null);
+		if(selected)
+		v.setBackgroundColor(getResources()
+				.getColor(R.color.pomegranate));
+		else
+			v.setBackgroundColor(getResources().getColor(
+					R.color.red_background_dark));
 	}
 
 }

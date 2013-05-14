@@ -1,6 +1,5 @@
 package it.unitn.vanguard.reminiscence;
 
-import android.widget.ImageView;
 
 public class Friend {
 

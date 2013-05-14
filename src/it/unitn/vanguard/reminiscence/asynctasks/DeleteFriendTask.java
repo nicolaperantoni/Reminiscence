@@ -1,6 +1,5 @@
 package it.unitn.vanguard.reminiscence.asynctasks;
 
-import it.unitn.vanguard.reminiscence.Friend;
 import it.unitn.vanguard.reminiscence.FriendListActivity;
 import it.unitn.vanguard.reminiscence.R;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
