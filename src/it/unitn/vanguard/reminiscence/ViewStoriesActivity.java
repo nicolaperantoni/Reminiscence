@@ -15,6 +15,7 @@ import java.util.Locale;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -33,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
@@ -51,6 +53,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private GridView mCards;
 	private TimeLineView mTimeLine;
 	private ProgressDialog dialog;
+	private ActionBar actionBar;
 
 	private TextView mQuestionTv;
 	private ImageView mCloseQuestionImgV;
@@ -72,6 +75,33 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 		mCards = (GridView) findViewById(R.id.viewstroies_cards_gw);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
+
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+				getApplicationContext(), R.array.stories_dropdown,
+				android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		actionBar = getActionBar();
+		//actionBar.setDisplayOptions(ActionBar.DISPLAY_USE_LOGO|ActionBar.NAVIGATION_MODE_LIST);
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		actionBar.setListNavigationCallbacks(adapter,
+				new ActionBar.OnNavigationListener() {
+
+					@Override
+					public boolean onNavigationItemSelected(int itemPosition,
+							long itemId) {
+						switch (itemPosition) {
+						case 0:
+							Log.e("ACTIONBAR", "Elemento: " + itemPosition);
+							break;
+						case 1:
+							Log.e("ACTIONBAR", "Elemento: " + itemPosition);
+							break;
+						}
+						return true;
+					}
+
+				});
 
 		mStoriesAdapter = new StoriesAdapter();
 		mCards.setAdapter(mStoriesAdapter);
