@@ -113,7 +113,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		// e' per avere lo 0 alla fine degli anni.(per avere l'intera decade,
 		// praticmanete)
 		String year = FinalFunctionsUtilities
-				.getSharedPreferences("year", this);
+				.getSharedPreferences(Constants.YEAR_KEY, this);
 		year = year.substring(0, year.length() - 1);
 		requestYear = Integer.parseInt(year + '0');
 		startYear = requestYear;
