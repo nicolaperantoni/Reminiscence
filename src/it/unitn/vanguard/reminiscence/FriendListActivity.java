@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +39,15 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		if (FinalFunctionsUtilities.isDeviceConnected(this)) {
 			new GetFriendsTask(this, this).execute();
 		}
+		registerForContextMenu(this.getListView());
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.friend_list, menu);
 	}
 
 	@Override
