@@ -90,7 +90,7 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 						} else {
 							Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
 						}
-						finish();
+						//finish();
 					}
 				}
 			} 
@@ -155,7 +155,6 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-
 		if(dialog!=null && dialog.isShowing())
 			dialog.dismiss();
 		try {
@@ -164,6 +163,7 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 				FinalFunctionsUtilities.setSharedPreferences(Constants.PASSWORD_KEY, new_pass1, context);
 				Toast.makeText(context, getResources().getString(R.string.correct_password),
 						Toast.LENGTH_LONG).show();
+				finish();
 			}
 			else
 				Toast.makeText(context, getResources().getString(R.string.login_failed),

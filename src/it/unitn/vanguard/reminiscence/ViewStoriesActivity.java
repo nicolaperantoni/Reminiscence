@@ -65,7 +65,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 	// private YearView selected;
 	private int startYear;
 	private int requestYear;
-	
+
 	private YearView lastSelected;
 
 	@Override
@@ -97,21 +97,28 @@ public class ViewStoriesActivity extends BaseActivity implements
 							long itemId) {
 						switch (itemPosition) {
 						case 0:
-							if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+							if (FinalFunctionsUtilities
+									.isDeviceConnected(context)) {
 								FinalFunctionsUtilities.stories.clear();
-								new GetStoriesTask(ViewStoriesActivity.this, requestYear).execute();
+								new GetStoriesTask(ViewStoriesActivity.this,
+										requestYear).execute();
 							} else {
-								Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
-										.show();
+								Toast.makeText(context,
+										R.string.connection_fail,
+										Toast.LENGTH_LONG).show();
 							}
 							break;
 						case 1:
-							if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+							if (FinalFunctionsUtilities
+									.isDeviceConnected(context)) {
 								FinalFunctionsUtilities.stories.clear();
-								new GetPublicStoriesTask(ViewStoriesActivity.this, requestYear).execute();
+								new GetPublicStoriesTask(
+										ViewStoriesActivity.this, requestYear)
+										.execute();
 							} else {
-								Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
-										.show();
+								Toast.makeText(context,
+										R.string.connection_fail,
+										Toast.LENGTH_LONG).show();
 							}
 							break;
 						}
@@ -128,7 +135,12 @@ public class ViewStoriesActivity extends BaseActivity implements
 		String year = FinalFunctionsUtilities.getSharedPreferences(
 				Constants.YEAR_KEY, this);
 		year = year.substring(0, year.length() - 1);
-		requestYear = Integer.parseInt(year + '0');
+		//hotfix
+		try {
+			requestYear = Integer.parseInt(year + '0');
+		} catch (Exception ex) {
+			requestYear = 1920;
+		}
 		startYear = requestYear;
 		mTimeLine.setStartYear(startYear);
 		if (arg0 != null) {
@@ -138,10 +150,10 @@ public class ViewStoriesActivity extends BaseActivity implements
 		} else {
 			selectedIndex = 0;
 		}
-		
+
 		YearView selected = (YearView) mTimeLine.getAdapter().getView(
 				selectedIndex, null, null);
-		
+
 		requestYear = selected.getYear();
 		lastSelected = selected;
 
@@ -153,17 +165,17 @@ public class ViewStoriesActivity extends BaseActivity implements
 	}
 
 	private void initializeStoryList() {
-		
-		/*doppie storie perchè doppia richiesta, richiesta che avviene già con l'inizializzazione della
-		 * barra privato/pubblico
 
-		// Comincia a chiedere al server le storie
-		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
-			new GetStoriesTask(this, requestYear).execute();
-		} else {
-			Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
-					.show();
-		}*/
+		/*
+		 * doppie storie perchï¿½ doppia richiesta, richiesta che avviene giï¿½ con
+		 * l'inizializzazione della barra privato/pubblico
+		 * 
+		 * // Comincia a chiedere al server le storie if
+		 * (FinalFunctionsUtilities.isDeviceConnected(context)) { new
+		 * GetStoriesTask(this, requestYear).execute(); } else {
+		 * Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
+		 * .show(); }
+		 */
 	}
 
 	private void initializePopUps() {
@@ -182,21 +194,21 @@ public class ViewStoriesActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				((YearView)arg1).setBackgroundColor(getResources().getColor(
+				((YearView) arg1).setBackgroundColor(getResources().getColor(
 						R.color.pomegranate));
-				
+
 				lastSelected.setBackgroundColor(getResources().getColor(
 						R.color.red_background_dark));
-				lastSelected =(YearView) arg1;
-				
-				/* vecchio codice di giovanni
-				// Cambio il background della vecchia selezione
-				updateSelected(false);
-				*/
-				
+				lastSelected = (YearView) arg1;
+
+				/*
+				 * vecchio codice di giovanni // Cambio il background della
+				 * vecchia selezione updateSelected(false);
+				 */
+
 				// aggiorno gli indici
 				selectedIndex = arg2;
-				requestYear = ((YearView)arg1).getYear();
+				requestYear = ((YearView) arg1).getYear();
 				// tolgo le vecchie e chiedo le nuove
 				FinalFunctionsUtilities.stories.clear();
 				mStoriesAdapter.notifyDataSetChanged();
@@ -227,63 +239,66 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 			@Override
 			public void onClick(View v) {
-				
-					AlertDialog.Builder builder = new AlertDialog.Builder(
-							ViewStoriesActivity.this);
 
-					builder.setMessage(R.string.exit_message)
-							.setPositiveButton(R.string.yes,
-									new DialogInterface.OnClickListener() {
-										public void onClick(
-												DialogInterface dialogInterface,
-												int id) {
-											
-											if(FinalFunctionsUtilities.isDeviceConnected(context)) {
-												dialog = new ProgressDialog(
-														ViewStoriesActivity.this);
-												dialog.setTitle(getResources()
-														.getString(R.string.please));
-												dialog.setMessage(getResources()
-														.getString(R.string.wait));
-												dialog.setCancelable(false);
-												dialog.show();
-	
-												String email = FinalFunctionsUtilities
-														.getSharedPreferences(
-																Constants.MAIL_KEY,
-																ViewStoriesActivity.this);
-												String password = FinalFunctionsUtilities
-														.getSharedPreferences(
-																Constants.PASSWORD_KEY,
-																ViewStoriesActivity.this);
-	
-												new LogoutTask(
-														ViewStoriesActivity.this)
-														.execute(email, password);
-											}
-											else {
-												Toast.makeText(context,
-														getResources().getString(R.string.connection_fail),
-														Toast.LENGTH_LONG).show();
-											}
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+						ViewStoriesActivity.this);
+
+				builder.setMessage(R.string.exit_message)
+						.setPositiveButton(R.string.yes,
+								new DialogInterface.OnClickListener() {
+									public void onClick(
+											DialogInterface dialogInterface,
+											int id) {
+
+										if (FinalFunctionsUtilities
+												.isDeviceConnected(context)) {
+											dialog = new ProgressDialog(
+													ViewStoriesActivity.this);
+											dialog.setTitle(getResources()
+													.getString(R.string.please));
+											dialog.setMessage(getResources()
+													.getString(R.string.wait));
+											dialog.setCancelable(false);
+											dialog.show();
+
+											String email = FinalFunctionsUtilities
+													.getSharedPreferences(
+															Constants.MAIL_KEY,
+															ViewStoriesActivity.this);
+											String password = FinalFunctionsUtilities
+													.getSharedPreferences(
+															Constants.PASSWORD_KEY,
+															ViewStoriesActivity.this);
+
+											new LogoutTask(
+													ViewStoriesActivity.this)
+													.execute(email, password);
+										} else {
+											Toast.makeText(
+													context,
+													getResources()
+															.getString(
+																	R.string.connection_fail),
+													Toast.LENGTH_LONG).show();
 										}
-									})
-							.setNegativeButton(R.string.no,
-									new DialogInterface.OnClickListener() {
-										public void onClick(
-												DialogInterface dialog, int id) {
+									}
+								})
+						.setNegativeButton(R.string.no,
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
 
-										}
-									});
+									}
+								});
 
-					AlertDialog alert = builder.create();
-					alert.show();
-					((TextView) alert.findViewById(android.R.id.message))
-							.setGravity(Gravity.CENTER);
-					((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
-							.setBackgroundResource(R.drawable.bottone_logout);
-					((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
-							.setTextColor(Color.WHITE);
+				AlertDialog alert = builder.create();
+				alert.show();
+				((TextView) alert.findViewById(android.R.id.message))
+						.setGravity(Gravity.CENTER);
+				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
+						.setBackgroundResource(R.drawable.bottone_logout);
+				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
+						.setTextColor(Color.WHITE);
 
 			}
 		});
@@ -365,7 +380,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 				Toast.makeText(context,
 						getResources().getString(R.string.logout_success),
 						Toast.LENGTH_LONG).show();
-				
+
 				FinalFunctionsUtilities.clearSharedPreferences(context);
 				startActivity(new Intent(ViewStoriesActivity.this,
 						LoginActivity.class));
@@ -427,7 +442,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 			no_res.setVisibility(View.INVISIBLE);
 			mCards.setVisibility(View.VISIBLE);
 		}
-		//updateSelected(true);
+		// updateSelected(true);
 		OnProgress();
 	}
 
@@ -449,15 +464,14 @@ public class ViewStoriesActivity extends BaseActivity implements
 		super.onSaveInstanceState(outState);
 		outState.putInt(SAVE_INDEX, selectedIndex);
 	}
-	
-	private void updateSelected(boolean selected){
-		YearView v=(YearView) mTimeLine.getChildAt(selectedIndex);
-		if(v==null)
-			v= (YearView) mTimeLine.getAdapter().getView(
-					selectedIndex, null, null);
-		if(selected)
-		v.setBackgroundColor(getResources()
-				.getColor(R.color.pomegranate));
+
+	private void updateSelected(boolean selected) {
+		YearView v = (YearView) mTimeLine.getChildAt(selectedIndex);
+		if (v == null)
+			v = (YearView) mTimeLine.getAdapter().getView(selectedIndex, null,
+					null);
+		if (selected)
+			v.setBackgroundColor(getResources().getColor(R.color.pomegranate));
 		else
 			v.setBackgroundColor(getResources().getColor(
 					R.color.red_background_dark));
