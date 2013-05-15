@@ -30,6 +30,7 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 	// Image
 	private ImageView view;
 	private Button btn_aiuto_amico;
+	private Button btn_upload_photo;
 	
 	public static StoryFragment newIstance(String title,String desc,String year){
 		StoryFragment sf = new StoryFragment();
@@ -59,6 +60,7 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 		mDescTv = (TextView) getView().findViewById(R.id.story_description_tv);
 
 		btn_aiuto_amico = (Button) getView().findViewById(R.id.btn_aiuto_amico);
+		btn_upload_photo = (Button) getView().findViewById(R.id.btn_upload_photo);
 		view = (ImageView) getView().findViewById(R.id.photo);
 
 		initializeTexts();
@@ -87,6 +89,16 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 						CheckBoxAmici.class);
 				startActivity(checkbox_amici);
 
+			}
+		});
+		
+		btn_upload_photo.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
+				photoPickerIntent.setType("image/*");
+				startActivityForResult(photoPickerIntent, 1);
 			}
 		});
 	}
