@@ -153,6 +153,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 	}
 
 	private void initializeStoryList() {
+		
+		/*doppie storie perchè doppia richiesta, richiesta che avviene già con l'inizializzazione della
+		 * barra privato/pubblico
 
 		// Comincia a chiedere al server le storie
 		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
@@ -160,7 +163,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		} else {
 			Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
 					.show();
-		}
+		}*/
 	}
 
 	private void initializePopUps() {
