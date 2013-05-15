@@ -65,6 +65,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 	// private YearView selected;
 	private int startYear;
 	private int requestYear;
+	
+	private YearView lastSelected;
 
 	@Override
 	public void onCreate(Bundle arg0) {
@@ -139,7 +141,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 		
 		YearView selected = (YearView) mTimeLine.getAdapter().getView(
 				selectedIndex, null, null);
+		
 		requestYear = selected.getYear();
+		lastSelected = selected;
 
 		setListeners();
 
@@ -175,8 +179,18 @@ public class ViewStoriesActivity extends BaseActivity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				((YearView)arg1).setBackgroundColor(getResources().getColor(
+						R.color.pomegranate));
+				
+				lastSelected.setBackgroundColor(getResources().getColor(
+						R.color.red_background_dark));
+				lastSelected =(YearView) arg1;
+				
+				/* vecchio codice di giovanni
 				// Cambio il background della vecchia selezione
 				updateSelected(false);
+				*/
+				
 				// aggiorno gli indici
 				selectedIndex = arg2;
 				requestYear = ((YearView)arg1).getYear();
@@ -410,7 +424,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 			no_res.setVisibility(View.INVISIBLE);
 			mCards.setVisibility(View.VISIBLE);
 		}
-		updateSelected(true);
+		//updateSelected(true);
 		OnProgress();
 	}
 
