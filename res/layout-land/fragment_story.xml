@@ -9,20 +9,29 @@
 	    android:id="@+id/panelButtonStory"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
+	    android:layout_margin="10dp"
 	    android:layout_alignParentBottom="true">
-	    	    
+
 	    <Button
-	        android:id="@+id/btnPhoto"
+	        android:id="@+id/btn_upload_photo"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="Photo" />
-	    
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="36dp"
+	        android:textColor="@color/white"
+	        android:layout_centerVertical="true"
+	        android:background="@drawable/btn_default_selector"
+	        android:text="@string/uploadPhoto" />
+
 	    <Button
 	        android:id="@+id/btn_aiuto_amico"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-	        android:layout_centerHorizontal="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:layout_marginRight="45dp"
+	        android:textColor="@color/white"
+	        android:background="@drawable/btn_default_selector"
 	        android:text="@string/chiedi_aiuto_btn" />
 	    
 	</RelativeLayout>
@@ -31,33 +40,37 @@
 	    android:id="@+id/scrollStory"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:layout_gravity="top"
-	    android:layout_above="@id/panelButtonStory" >
+	    android:layout_above="@id/panelButtonStory"
+	    android:layout_alignParentTop="true"
+	    android:layout_gravity="top" >
 	
 	    <RelativeLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content" >
 	
-	        <TextView
-	            android:id="@+id/story_title_tv"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_centerHorizontal="true"
-	            android:layout_marginTop="30dp"
-	            android:padding="10dp"
-	            android:singleLine="false"
-	            android:visibility="gone"
-	            android:text="@string/story_title_placeholder"
-	            android:textAppearance="?android:attr/textAppearanceLarge" />
+<!-- 	        <TextView -->
+<!-- 	            android:id="@+id/story_title_tv" -->
+<!-- 	            android:layout_width="wrap_content" -->
+<!-- 	            android:layout_height="wrap_content" -->
+<!-- 	            android:layout_centerHorizontal="true" -->
+<!-- 	            android:layout_marginTop="30dp" -->
+<!-- 	            android:padding="10dp" -->
+<!-- 	            android:singleLine="false" -->
+<!-- 	            android:text="@string/story_title_placeholder" -->
+<!-- 	            android:visibility="gone" -->
+<!-- 	            android:textAppearance="?android:attr/textAppearanceLarge" /> -->
 	        
 	        <ImageView
 	            android:id="@+id/photo"
-	            android:padding="5dp"
 	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" 
-	            android:layout_centerHorizontal="true"
+	            android:layout_height="wrap_content"
 	            android:layout_alignParentTop="true"
-	            android:background="@color/white"/>
+	            android:layout_centerHorizontal="true"
+	            android:adjustViewBounds="true"
+	            android:background="@color/white"
+	            android:padding="5dp"
+	            android:scaleType="center"
+	            android:visibility="gone" />
 	
 	        <TextView
 	            android:id="@+id/story_description_tv"
