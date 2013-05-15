@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.R.id;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +25,7 @@ import android.widget.Toast;
 public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 
 	private Button invia_mail;
-	private Button add_friend;
+	private Button btnAddFriend;
 	protected ProgressDialog dialog;
 	
 	ArrayList<Friend> friends = new ArrayList<Friend>();
@@ -41,19 +42,30 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 			dialog.show();
 			new GetFriendsTask(this, this).execute();
 		}
-		
+
 		initializeButtons();
 		initializeItemListener();
 	}
 
 	private void initializeButtons() {
-		add_friend = (Button) findViewById(R.id.friendlist_add_friend);
+		
+		btnAddFriend = (Button) findViewById(R.id.checklist_add_friend);
 		invia_mail = (Button) findViewById(R.id.choosefriend_send_mail);
+		
 		invia_mail.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getApplicationContext(),
 						"Funzione non disponibile!", Toast.LENGTH_LONG).show();
+			}
+		});
+		
+		btnAddFriend.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(CheckBoxAmici.this,
+						AddFriendActivity.class));
 			}
 		});
 	}

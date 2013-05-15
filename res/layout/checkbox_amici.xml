@@ -48,7 +48,7 @@
         android:text="@string/send_mail" />
         
         <Button
-        android:id="@+id/friendlist_add_friend"
+        android:id="@+id/checklist_add_friend"
         android:layout_weight="0.5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

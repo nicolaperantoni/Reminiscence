@@ -9,6 +9,7 @@
 	    android:id="@+id/panelButtonStory"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
+	    android:layout_margin="10dp"
 	    android:layout_alignParentBottom="true">
 
 	    <Button
@@ -16,18 +17,20 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
-	        android:layout_alignParentTop="true"
 	        android:layout_marginLeft="36dp"
+	        android:textColor="@color/white"
+	        android:layout_centerVertical="true"
 	        android:background="@drawable/btn_default_selector"
-	        android:text="Upload photo" />
+	        android:text="@string/uploadPhoto" />
 
 	    <Button
 	        android:id="@+id/btn_aiuto_amico"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentRight="true"
-	        android:layout_alignParentTop="true"
+	        android:layout_centerVertical="true"
 	        android:layout_marginRight="45dp"
+	        android:textColor="@color/white"
 	        android:background="@drawable/btn_default_selector"
 	        android:text="@string/chiedi_aiuto_btn" />
 	    
@@ -37,8 +40,9 @@
 	    android:id="@+id/scrollStory"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:layout_gravity="top"
-	    android:layout_above="@id/panelButtonStory" > 
+	    android:layout_above="@id/panelButtonStory"
+	    android:layout_alignParentTop="true"
+	    android:layout_gravity="top" >
 	
 	    <RelativeLayout
 	        android:layout_width="match_parent"
