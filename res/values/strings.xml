@@ -50,8 +50,10 @@
     <string name="user_mail_label">E-Mail</string>
     <string name="registration_surname_empty">Surname can\'t be blank</string>
     <string name="registration_surname_contains_spaces">Surname can\'t start or end with spaces</string>
+    <string name="registration_surname_invalid">Surname can\'t contain number or special characters</string>
     <string name="registration_name_empty">Name can\'t be blank</string>
     <string name="registration_name_contains_spaces">Name can\'t start or end with spaces</string>
+    <string name="registration_name_invalid">Name can\'t contain number or special characters</string>
     <string name="registration_email_empty">Email can\'t be blank</string>
 
     <!-- DataNascita_Activity -->

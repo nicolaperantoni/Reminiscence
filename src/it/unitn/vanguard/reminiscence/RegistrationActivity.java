@@ -127,16 +127,20 @@ public class RegistrationActivity extends Activity {
 			public void afterTextChanged(Editable s) {
 				
 				name = editTextName.getText().toString();
+				if(name.startsWith(" ") && name.length()>1)
+					name=name.substring(1,name.length()-1);
+				if(name.endsWith(" ")&& name.length()>1)
+					name=name.substring(0,name.length()-2);
+				
 				nameOk = !name.trim().equals("");
 				if(!nameOk) {
-					Toast.makeText(context, getResources().getText(R.string.registration_surname_empty), Toast.LENGTH_SHORT).show();
-				}
-				else if (!(nameOk = nameOk && !name.startsWith(" ") && !name.endsWith(" "))) {
-					Toast.makeText(context, getResources().getText(R.string.registration_surname_contains_spaces), Toast.LENGTH_SHORT).show();
-				}
-
-				if(!nameOk) {
 					editTextName.setBackgroundResource(R.drawable.txt_input_bordered_error);
+					Toast.makeText(context, getResources().getText(R.string.registration_name_empty), Toast.LENGTH_SHORT).show();
+				}
+				else if(!name.matches("[a-zA-Z]+")){
+					
+					editTextName.setBackgroundResource(R.drawable.txt_input_bordered_error);
+					Toast.makeText(context, getResources().getText(R.string.registration_name_invalid), Toast.LENGTH_SHORT).show();
 				}
 				else {
 					editTextName.setBackgroundResource(R.drawable.txt_input_bordered);
@@ -154,16 +158,19 @@ public class RegistrationActivity extends Activity {
 			public void afterTextChanged(Editable s) {
 				
 				surname = editTextSurname.getText().toString();
+
+				if(surname.startsWith(" ")&& surname.length()>1)
+					surname=surname.substring(1,surname.length()-1);
+				if(surname.endsWith(" ")&& surname.length()>1)
+					surname=surname.substring(0,surname.length()-2);
 				surnameOk = !surname.trim().equals("");
 				if(!surnameOk) {
+					editTextSurname.setBackgroundResource(R.drawable.txt_input_bordered_error);
 					Toast.makeText(context, getResources().getText(R.string.registration_surname_empty), Toast.LENGTH_SHORT).show();
 				}
-				else if (!(surnameOk = surnameOk && !surname.startsWith(" ") && !surname.endsWith(" "))) {
-					Toast.makeText(context, getResources().getText(R.string.registration_surname_contains_spaces), Toast.LENGTH_SHORT).show();
-				}
-				
-				if(!surnameOk) {
+				else if (!surname.matches("[a-zA-Z]+")) {
 					editTextSurname.setBackgroundResource(R.drawable.txt_input_bordered_error);
+					Toast.makeText(context, getResources().getText(R.string.registration_surname_invalid), Toast.LENGTH_SHORT).show();
 				}
 				else {
 					editTextSurname.setBackgroundResource(R.drawable.txt_input_bordered);
