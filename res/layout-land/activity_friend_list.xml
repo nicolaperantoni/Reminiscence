@@ -23,7 +23,7 @@
         android:textSize="@dimen/default_textSize_huge" />
     
         <Button
-        android:id="@+id/friendlist_send_mail"
+        android:id="@+id/friendlist_add_friend"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_default_selector"
@@ -32,7 +32,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/send_mail" />
+        android:text="@string/menu_add_friend" />
     
     <ListView
         android:id="@android:id/list"
@@ -40,7 +40,7 @@
         android:padding="6dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/friendlistview_txt"
-        android:layout_above="@+id/friendlist_send_mail"
+        android:layout_above="@+id/friendlist_add_friend"
         android:layout_marginBottom="10dp"
         android:background="@drawable/addstory_hint_background">
         

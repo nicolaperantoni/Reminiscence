@@ -11,6 +11,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -200,17 +201,23 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 
 		try {
 			result = res.getString("success");
-		} catch (Exception e) {
+			if(result.equals("true")) {
+				getIntent().putExtra("id", res.getString("id"));
+				getIntent().putExtra("name", res.getString("name"));
+				getIntent().putExtra("surname", res.getString("surname"));
+				getIntent().putExtra("email", res.getString("email"));
+				finish();
+				Toast.makeText(context,
+						R.string.add_friend_successful, Toast.LENGTH_LONG).show();
+			}
+			else {
+				finish();
+				Toast.makeText(context,
+						R.string.registration_failed, Toast.LENGTH_LONG).show();
+			}
 		}
-
-		if (result.equals("true")) {
-			finish();
-			Toast.makeText(context,
-					R.string.add_friend_successful, Toast.LENGTH_LONG).show();
-		} else {
-			finish();
-			Toast.makeText(context,
-					R.string.registration_failed, Toast.LENGTH_LONG).show();
+		catch (Exception e) {
+			Log.e("Error in"+AddFriendActivity.class.getName(), e.toString());
 		}
 	}
 

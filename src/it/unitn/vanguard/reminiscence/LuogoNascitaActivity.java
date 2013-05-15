@@ -157,20 +157,19 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 		if(res != null) {
 			ArrayList<String> sugg = new ArrayList<String>();
 			try {
-				
 				sugg.add(res.getString("mun0"));
 				sugg.add(res.getString("mun1"));
 				sugg.add(res.getString("mun2"));
 				sugg.add(res.getString("mun3"));
+				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+						context, R.layout.my_item_view,
+						removeDuplicate(sugg));
+				txtLuogoNascita.setThreshold(2);
+				txtLuogoNascita.setAdapter(adapter);
+				txtLuogoNascita.showDropDown();
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-					context, R.layout.my_item_view,
-					removeDuplicate(sugg));
-			txtLuogoNascita.setThreshold(2);
-			txtLuogoNascita.setAdapter(adapter);
-			txtLuogoNascita.showDropDown();
 		}
 	}
 
