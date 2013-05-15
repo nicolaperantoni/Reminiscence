@@ -48,6 +48,8 @@
 	
            <CheckBox
             android:id="@+id/check_friend"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:layout_weight="0.1"
    			android:layout_width="0dp"
             android:gravity="center"

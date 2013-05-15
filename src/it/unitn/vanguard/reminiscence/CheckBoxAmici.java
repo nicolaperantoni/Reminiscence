@@ -9,17 +9,22 @@ import java.util.ArrayList;
 
 import org.json.JSONObject;
 
+import android.R.id;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 
 	private Button invia_mail;
+	private Button add_friend;
 	protected ProgressDialog dialog;
 	
 	ArrayList<Friend> friends = new ArrayList<Friend>();
@@ -38,15 +43,32 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 		}
 		
 		initializeButtons();
+		initializeItemListener();
 	}
 
 	private void initializeButtons() {
+		add_friend = (Button) findViewById(R.id.friendlist_add_friend);
 		invia_mail = (Button) findViewById(R.id.choosefriend_send_mail);
 		invia_mail.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getApplicationContext(),
 						"Funzione non disponibile!", Toast.LENGTH_LONG).show();
+			}
+		});
+	}
+	
+	private void initializeItemListener(){
+		ListView lv = (ListView) findViewById(id.list);
+		lv.setOnItemClickListener(new ListView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				CheckBox cb = (CheckBox) arg1.findViewById(R.id.check_friend);
+				if( cb.isChecked()){
+				cb.setChecked(false);
+				}else{ cb.setChecked(true);}
 			}
 		});
 	}
@@ -103,12 +125,7 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 									.getString("Email"), Integer.parseInt(json
 									.getString("Id"))));
 							
-							
-							friends.add(new Friend(json.getString("Nome"), json
-									.getString("Cognome"), json
-									.getString("Email"), Integer.parseInt(json
-									.getString("Id"))));
-						} catch (Exception e) {
+							} catch (Exception e) {
 							Log.e("flf", e.toString());
 						}
 					}
