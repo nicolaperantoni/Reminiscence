@@ -12,12 +12,23 @@
 	    android:layout_alignParentBottom="true">
 
 	    <Button
+	        android:id="@+id/btn_upload_photo"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_marginLeft="36dp"
+	        android:background="@drawable/btn_default_selector"
+	        android:text="Upload photo" />
+
+	    <Button
 	        android:id="@+id/btn_aiuto_amico"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:background="@drawable/btn_default_selector"
+	        android:layout_alignParentRight="true"
 	        android:layout_alignParentTop="true"
-	        android:layout_centerHorizontal="true"
+	        android:layout_marginRight="45dp"
+	        android:background="@drawable/btn_default_selector"
 	        android:text="@string/chiedi_aiuto_btn" />
 	    
 	</RelativeLayout>

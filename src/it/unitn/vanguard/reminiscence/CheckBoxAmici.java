@@ -61,11 +61,10 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 	@Override
 	public void onTaskFinished(JSONObject res) {
 		
-		if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
-		
 		int count = 10;
 		boolean success = false;
-		String op = null;
+		
+		if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
 
 		// ottengo se l'operazione ha avuto successo e il numero di valori dal
 		// json
@@ -73,53 +72,35 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 		 * json: {"success":true, "numFriend":2 "f0":{"Nome":asd, "Cognome":asd,
 		 * "Id":1} "f1":{"Nome":ciccio, "Cognome":ciccia, "Id":2}}
 		 */
+		
 		try {
 			success = res.getString("success").equals("true");
-			op = res.getString("operation");
 			if (success) {
 				count = Integer.parseInt(res.getString("numFriend"));
-			}
-		} catch (Exception e) {
-			Log.e("itemselected", e.toString());
-		}
-
-		if (success) {
-			friends.clear();
-			if (op != null && op.equals("getFriends")) {
-				// scorro il json
+				friends.clear();
+				
 				if (count < 1) {
 					// caso in cui non ci siano amici LAMER
 					friends.add(new Friend(getString(R.string.no_friends_a),
 							getString(R.string.no_friends_b), "", -1));
 				} else {
-					// caso normale
 					for (int i = 0; i < count; i++) {
 						String ct = "f" + i;
 						JSONObject json = null;
 						try {
 							json = new JSONObject(res.getString(ct));
 							friends.add(new Friend(json.getString("Nome"), json
-									.getString("Cognome"), json
-									.getString("Email"), Integer.parseInt(json
-									.getString("Id"))));
-							
-							
-							friends.add(new Friend(json.getString("Nome"), json
-									.getString("Cognome"), json
-									.getString("Email"), Integer.parseInt(json
-									.getString("Id"))));
+									.getString("Cognome"), json.getString("Email"),
+									Integer.parseInt(json.getString("Id"))));
 						} catch (Exception e) {
 							Log.e("flf", e.toString());
 						}
 					}
+					setAdapter();
 				}
-			} else {
-
 			}
-			setAdapter();
-		} else {
-			Log.e("json", "errore nell operazione success:false");
+		} catch (Exception e) {
+			Log.e("Error: " + FriendListActivity.class.getName(), "success = false, " + e.toString());
 		}
 	}
-
 }

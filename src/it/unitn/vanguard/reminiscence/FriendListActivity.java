@@ -17,6 +17,7 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,7 +35,8 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 	private ArrayList<Friend> friends = new ArrayList<Friend>();
 	protected ProgressDialog dialog;
 	private Context context;
-
+	private Button btnAddFriend;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,17 +44,19 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		setContentView(R.layout.activity_friend_list);
 		// Show the Up button in the action bar.
 		setupActionBar();
-		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
-			dialog = new ProgressDialog(context);
-			dialog.setTitle(getResources().getString(R.string.please));
-			dialog.setMessage(getResources().getString(R.string.wait));
-			dialog.setCancelable(false);
-			dialog.show();
-			new GetFriendsTask(this, this).execute();
-		}
-		registerForContextMenu(this.getListView());
+		getFriendsList();
+		
+		btnAddFriend = (Button) findViewById(R.id.friendlist_add_friend);
+		btnAddFriend.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(context,
+						AddFriendActivity.class));
+			}
+		});
 	}
-
+	
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -66,6 +70,20 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		friends.toArray(fr);
 		FriendListAdapter t = new FriendListAdapter(this, fr);
 		setListAdapter(t);
+	}
+	
+	private void getFriendsList() {
+		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+			dialog = new ProgressDialog(context);
+			dialog.setTitle(getResources().getString(R.string.please));
+			dialog.setMessage(getResources().getString(R.string.wait));
+			dialog.setCancelable(false);
+			dialog.show();
+			new GetFriendsTask(this, this).execute();
+		} else {
+			Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
+			.show();
+		}
 	}
 
 	@Override
@@ -210,5 +228,10 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		} catch (Exception e) {
 			Log.e("Error: " + FriendListActivity.class.getName(), "success = false, " + e.toString());
 		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 }
