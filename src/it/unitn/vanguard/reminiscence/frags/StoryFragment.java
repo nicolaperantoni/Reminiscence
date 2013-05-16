@@ -90,6 +90,7 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 			public void onClick(View v) {
 				Intent checkbox_amici = new Intent(getActivity(),
 						CheckBoxAmici.class);
+				checkbox_amici.putExtra("id_story", story_id);
 				startActivity(checkbox_amici);
 
 			}

@@ -28,6 +28,8 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished {
 	private Button invia_mail;
 	private Button btnAddFriend;
 	protected ProgressDialog dialog;
+	private Bundle extras;
+	String iD;
 	
 	ArrayList<Friend> friends = new ArrayList<Friend>();
 
@@ -42,10 +44,14 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished {
 			dialog.setCancelable(false);
 			dialog.show();
 			new GetFriendsTask(this, this).execute();
+			
 		}
 
 		initializeButtons();
 		initializeItemListener();
+		extras = getIntent().getExtras();
+		iD = (extras.get("id_story").toString());
+		Log.e("id della story: ", iD);
 	}
 
 	private void initializeButtons() {
@@ -85,7 +91,7 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished {
 				   
 				   Log.e("RequestTask with: ", FinalFunctionsUtilities.getSharedPreferences("token", CheckBoxAmici.this).toString() +"    "+ids);
 				   
-				   new RequestHelpTask(CheckBoxAmici.this).execute(/* story id */ Integer.toString(33), ids);
+				   new RequestHelpTask(CheckBoxAmici.this).execute(iD, ids);
 			   }
 			}
 		});
