@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,9 +20,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class AddFriendActivity extends Activity implements OnTaskFinished {
-	
+
 	private Context context;
-	
+
 	private EditText editTextName;
 	private EditText editTextSurname;
 	private EditText editTextMail;
@@ -34,9 +35,9 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = AddFriendActivity.this;
-		
+
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 		setContentView(R.layout.activity_add_friend);
 		initializeButtons();
 		initializeListeners();
@@ -65,9 +66,11 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 			public void onClick(View arg0) {
 				if (nameOk && surnameOk && mailOk) {
 					if (FinalFunctionsUtilities.isDeviceConnected(context)) {
-						new AddFriendTask(AddFriendActivity.this).execute(name, surname, mail);
+						new AddFriendTask(AddFriendActivity.this).execute(name,
+								surname, mail);
 					} else {
-						Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
+						Toast.makeText(context, R.string.connection_fail,
+								Toast.LENGTH_LONG).show();
 					}
 				}
 			}
@@ -201,23 +204,28 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 
 		try {
 			result = res.getString("success");
-			if(result.equals("true")) {
+			if (result.equals("true")) {
+				String str = FinalFunctionsUtilities.getSharedPreferences(
+						"FriendListActivity", this);
 				getIntent().putExtra("id", res.getString("id"));
 				getIntent().putExtra("name", res.getString("name"));
 				getIntent().putExtra("surname", res.getString("surname"));
 				getIntent().putExtra("email", res.getString("email"));
 				finish();
-				Toast.makeText(context,
-						R.string.add_friend_successful, Toast.LENGTH_LONG).show();
-			}
-			else {
+				if (str.equals("true")) {
+					FinalFunctionsUtilities.setSharedPreferences("FriendListActivity", "false", this);
+					startActivity(new Intent(this, FriendListActivity.class));
+				}
+
+				Toast.makeText(context, R.string.add_friend_successful,
+						Toast.LENGTH_LONG).show();
+			} else {
 				finish();
-				Toast.makeText(context,
-						R.string.registration_failed, Toast.LENGTH_LONG).show();
+				Toast.makeText(context, R.string.registration_failed,
+						Toast.LENGTH_LONG).show();
 			}
-		}
-		catch (Exception e) {
-			Log.e("Error in"+AddFriendActivity.class.getName(), e.toString());
+		} catch (Exception e) {
+			Log.e("Error in" + AddFriendActivity.class.getName(), e.toString());
 		}
 	}
 

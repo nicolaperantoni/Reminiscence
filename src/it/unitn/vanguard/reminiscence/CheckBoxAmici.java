@@ -83,6 +83,7 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 			public void onClick(View v) {
 				startActivity(new Intent(CheckBoxAmici.this,
 						AddFriendActivity.class));
+				
 			}
 		});
 	}
