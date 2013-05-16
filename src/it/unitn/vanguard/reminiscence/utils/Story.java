@@ -6,16 +6,18 @@ import android.graphics.Bitmap;
 
 public class Story {
 	private int anno;
+	private String id;
 	private String title;
 	private String desc;
 	private Bitmap background;
 	public ArrayList<String> urls;
 
-	public Story(int anno, String title, String desc) {
+	public Story(int anno, String title, String desc, String id) {
 		super();
 		this.anno = anno;
 		this.title = title;
 		this.desc = desc;
+		this.id = id;
 	}
 
 	public Bitmap getBackground() {
@@ -36,6 +38,10 @@ public class Story {
 
 	public String getDesc() {
 		return desc;
+	}
+	
+	public String getId() {
+		return id;
 	}
 
 	public ArrayList<String> getUrls() {

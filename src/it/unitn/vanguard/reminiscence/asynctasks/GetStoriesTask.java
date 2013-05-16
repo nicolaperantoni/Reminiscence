@@ -79,24 +79,22 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean>
 			} catch (Exception e) {
 				ex = e;
 			}
-
 		}
-
 		return false;
 	}
 
 	@Override
 	protected void onProgressUpdate(JSONObject... values) {
 		super.onProgressUpdate(values);
-		String title;
+		String id, title, desc;
 		try {
+			id = values[0].getString("IdStory");
 			title = values[0].getString("Title");
-			String desc = values[0].getString("Text");
-			FinalFunctionsUtilities.stories.add(new Story(year, title, desc));
+			desc = values[0].getString("Text");
+			FinalFunctionsUtilities.stories.add(new Story(year, title, desc, id));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override

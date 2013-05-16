@@ -11,6 +11,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 	public static final String TITLE_PASSED_KEY = "storyTitle";
 	public static final String DESCRIPTION_PASSED_KEY = "descriptionTitle";
 	public static final String YEAR_PASSED_KEY = "year";
+	public static final String ID_PASSED_KEY = "id";
 
 	//private TextView mTitleTv;
 	private TextView mDescTv;
@@ -35,12 +37,13 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 	private Button btn_upload_photo;
 	protected ProgressDialog dialog;
 	
-	public static StoryFragment newIstance(String title,String desc,String year){
+	public static StoryFragment newIstance(String title,String desc,String year,String id){
 		StoryFragment sf = new StoryFragment();
 		Bundle b = new Bundle();
 		b.putString(TITLE_PASSED_KEY, title);
 		b.putString(DESCRIPTION_PASSED_KEY, desc);
 		b.putString(YEAR_PASSED_KEY, year);
+		b.putString(ID_PASSED_KEY, id);
 		sf.setArguments(b);
 		return sf;
 	}
@@ -57,7 +60,8 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 		super.onStart();
 
 		mYear = getArguments().getInt(YEAR_PASSED_KEY);
-
+		story_id = getArguments().getString(ID_PASSED_KEY);
+		
 		//mTitleTv = (TextView) getView().findViewById(R.id.story_title_tv);
 
 		mDescTv = (TextView) getView().findViewById(R.id.story_description_tv);
@@ -67,6 +71,8 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 		view = (ImageView) getView().findViewById(R.id.photo);
 
 		initializeTexts();
+		
+		Log.e("story_id:", story_id);
 		
 	}
 
@@ -90,9 +96,10 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 			public void onClick(View v) {
 				Intent checkbox_amici = new Intent(getActivity(),
 						CheckBoxAmici.class);
-				checkbox_amici.putExtra("id_story", story_id);
+				if(story_id != null) {
+					checkbox_amici.putExtra("id_story", "asd"); 
+				}
 				startActivity(checkbox_amici);
-
 			}
 		});
 		

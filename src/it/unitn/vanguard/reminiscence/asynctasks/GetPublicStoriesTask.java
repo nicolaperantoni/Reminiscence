@@ -78,11 +78,12 @@ public class GetPublicStoriesTask extends
 	@Override
 	protected void onProgressUpdate(JSONObject... values) {
 		super.onProgressUpdate(values);
-		String title;
+		String title, desc, id;
 		try {
+			id = values[0].getString("IdStory");
 			title = values[0].getString("Title");
-			String desc = values[0].getString("Text");
-			FinalFunctionsUtilities.stories.add(new Story(year, title, desc));
+			desc = values[0].getString("Text");
+			FinalFunctionsUtilities.stories.add(new Story(year, title, desc, id));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

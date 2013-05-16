@@ -67,13 +67,10 @@ public class AddStoryTask extends AsyncTask<String, Void, JSONObject> {
 				HttpResponse response = client.execute(post);
 				String s = EntityUtils.toString(response.getEntity());
 				return new JSONObject(s);
-				
 			} catch (Exception e) {
 				ex = e;
 			}
-
 		}
-
 		return null;
 	}
 
@@ -82,5 +79,4 @@ public class AddStoryTask extends AsyncTask<String, Void, JSONObject> {
 		super.onPostExecute(res);
 		caller.onTaskFinished(res);
 	}
-
 }

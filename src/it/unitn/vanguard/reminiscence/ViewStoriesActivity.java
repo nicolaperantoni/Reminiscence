@@ -346,7 +346,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 					Story story = FinalFunctionsUtilities.stories.get(arg0);
 					StoryFragment sf = StoryFragment.newIstance(
 							story.getTitle(), story.getDesc(),
-							"" + story.getAnno());
+							"" + story.getAnno(), story.getId());
 					sf.show(getSupportFragmentManager(), "visualized");
 				}
 			});
@@ -369,7 +369,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 			startActivityForResult(i, ADD_STORY_CODE);
 			break;
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -457,7 +456,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 						ViewStoriesActivity.this));
 		Bitmap img = BitmapFactory.decodeResource(getResources(),
 				R.drawable.baby);
-		Story s = new Story(startYear, title, desc);
+		Story s = new Story(startYear, title, desc, "");
 		s.setBackground(img);
 		FinalFunctionsUtilities.stories.addFirst(s);
 	}
@@ -493,7 +492,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 						Story s = new Story(
 								year,
 								data.getStringExtra(EmptyStoryActivity.TITLE_PASSED_KEY),
-								data.getStringExtra(EmptyStoryActivity.DESC_PASSED_KEY));
+								data.getStringExtra(EmptyStoryActivity.DESC_PASSED_KEY),
+								data.getStringExtra(EmptyStoryActivity.ID_PASSED_KEY));
 						FinalFunctionsUtilities.stories.add(s);
 						mStoriesAdapter.notifyDataSetChanged();
 					}

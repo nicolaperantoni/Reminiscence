@@ -49,6 +49,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	public static final String YEAR_PASSED_KEY = "emptyStoryYear";
 	public static final String TITLE_PASSED_KEY = "newstorytitle";
 	public static final String DESC_PASSED_KEY = "newstorydesc";
+	public static final String ID_PASSED_KEY = "newstoryid";
 
 	private TextView mNoStoryTv;
 	private EditText mTitleEt;
@@ -149,12 +150,11 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 			s = res.getString("success");
 			if (s.equals("true")) {
 				idStoria = res.getInt("idadded");
-				if (toUpload.size() > 0)
-					sendPhotos();
+				if (toUpload.size() > 0) { sendPhotos(); }
 				out.putExtra(TITLE_PASSED_KEY, mTitleEt.getText().toString());
-				out.putExtra(DESC_PASSED_KEY, mDescriptionEt.getText()
-						.toString());
+				out.putExtra(DESC_PASSED_KEY, mDescriptionEt.getText().toString());
 				out.putExtra(YEAR_PASSED_KEY, mYearEt.getText().toString());
+				out.putExtra(ID_PASSED_KEY, idStoria);
 				this.setResult(RESULT_OK, out);
 			} else
 				this.setResult(RESULT_CANCELED, out);
