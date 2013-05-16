@@ -12,7 +12,7 @@
     </item>
     <item>
         <shape>
-            <solid android:color="@color/darker_midnight_blue"/>
+            <solid android:color="@color/menu_background"/>
 			<padding
 			    android:left="15dp"
 			    android:top="10dp"
