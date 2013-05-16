@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
@@ -46,6 +47,8 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	private Context context;
 
 	public static final String YEAR_PASSED_KEY = "emptyStoryYear";
+	public static final String TITLE_PASSED_KEY = "newstorytitle";
+	public static final String DESC_PASSED_KEY = "newstorydesc";
 
 	private TextView mNoStoryTv;
 	private EditText mTitleEt;
@@ -72,7 +75,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		mAddBtn = (Button) findViewById(R.id.emptystory_add_btn);
 		mMediaButton = (ImageView) findViewById(R.id.emptystory_addmedia_imv);
 		mYearEt = (EditText) findViewById(R.id.emptystory_year_et);
-		mYearEt.setText(""+getIntent().getExtras().getInt(YEAR_PASSED_KEY));
+		mYearEt.setText("" + getIntent().getExtras().getInt(YEAR_PASSED_KEY));
 
 		mMedias = (HorizontalListView) findViewById(R.id.emptystories_imgs_hlv);
 		imgs = new ArrayList<ImageView>();
@@ -142,17 +145,19 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	public void onTaskFinished(JSONObject res) {
 		String s;
 		try {
+			Intent out = new Intent();
 			s = res.getString("success");
-			if (s.equals(s.equals("true"))) {
-				try {
-					idStoria = res.getInt("idadded");
+			if (s.equals("true")) {
+				idStoria = res.getInt("idadded");
+				if (toUpload.size() > 0)
 					sendPhotos();
-				} catch (Exception e) {
-					if (idStoria > 0) {
-						sendPhotos();
-					}
-				}
-			}
+				out.putExtra(TITLE_PASSED_KEY, mTitleEt.getText().toString());
+				out.putExtra(DESC_PASSED_KEY, mDescriptionEt.getText()
+						.toString());
+				out.putExtra(YEAR_PASSED_KEY, mYearEt.getText().toString());
+				this.setResult(RESULT_OK, out);
+			} else
+				this.setResult(RESULT_CANCELED, out);
 			finish();
 		} catch (JSONException e) {
 			showToast(false);
@@ -161,7 +166,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 
 	private void sendPhotos() {
 		NotificationCompat.Builder builder = new NotificationCompat.Builder(
-				context);
+				getApplicationContext());
 		builder.setAutoCancel(true);
 		builder.setContentTitle(String.format(
 				getString(R.string.story_notification_upload_title),
@@ -170,10 +175,12 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		builder.setProgress(toUpload.size(), 0, true);
 
 		if (!toUpload.isEmpty()) {
-			FinalFunctionsUtilities.showNotification(context, 1234, builder);
-			toUpload.remove().execute();
+			FinalFunctionsUtilities.showNotification(getApplicationContext(),
+					1234, builder);
+			toUpload.remove().execute(idStoria+"");
 		} else
-			FinalFunctionsUtilities.removeNotification(context, 1234);
+			FinalFunctionsUtilities.removeNotification(getApplicationContext(),
+					1234);
 
 	}
 
@@ -187,9 +194,10 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 			Bitmap mBitmap = null;
 			try {
 
-				Bitmap bm = Media.getBitmap(getContentResolver(),
-						chosenImageUri);
+//				Bitmap bm = Media.getBitmap(getContentResolver(),
+//						chosenImageUri);
 				mBitmap = Media.getBitmap(getContentResolver(), chosenImageUri);
+				Bitmap bm = mBitmap.copy(Config.RGB_565, false);
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				bm.compress(Bitmap.CompressFormat.JPEG, 80, baos);
 				bm.recycle();
