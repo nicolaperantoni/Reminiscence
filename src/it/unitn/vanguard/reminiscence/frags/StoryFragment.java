@@ -1,20 +1,40 @@
 package it.unitn.vanguard.reminiscence.frags;
 
-import it.unitn.vanguard.reminiscence.CheckBoxAmici;
-import it.unitn.vanguard.reminiscence.R;
-import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
+import it.unitn.vanguard.reminiscence.CheckBoxAmici;
+import it.unitn.vanguard.reminiscence.ProfileImageActivity;
+import it.unitn.vanguard.reminiscence.R;
+import it.unitn.vanguard.reminiscence.asynctasks.UploadPhotoTask;
+import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.Constants;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore.Images.Media;
 import android.support.v4.app.DialogFragment;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StoryFragment extends DialogFragment implements OnTaskFinished {
 
@@ -31,6 +51,7 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 	private ImageView view;
 	private Button btn_aiuto_amico;
 	private Button btn_upload_photo;
+	protected ProgressDialog dialog;
 	
 	public static StoryFragment newIstance(String title,String desc,String year){
 		StoryFragment sf = new StoryFragment();
@@ -101,6 +122,60 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 				startActivityForResult(photoPickerIntent, 1);
 			}
 		});
+	}
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{	
+	    super.onActivityResult(requestCode, resultCode, data);
+	    if (resultCode == Activity.RESULT_OK)
+	    {
+	    	/*
+	        Uri chosenImageUri = data.getData();
+	        
+	        Bitmap mBitmap = null;
+	        try {
+
+				Bitmap bm = Media.getBitmap(context.getContentResolver(), chosenImageUri);
+				mBitmap = Media.getBitmap(context.getContentResolver(), chosenImageUri);
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+				bm.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+				bm.recycle();
+				byte[] b = baos.toByteArray();
+				
+				baos.close();
+				baos = null;
+				
+				String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+
+				ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+				nameValuePairs.add(new BasicNameValuePair("image",encodedImage));
+
+				try {
+					// Show dialog
+					dialog = new ProgressDialog(ProfileImageActivity.this);
+					dialog.setTitle(getResources().getString(R.string.please));
+					dialog.setMessage(getResources().getString(R.string.wait));
+					dialog.setCancelable(false);
+					dialog.show();
+					
+					if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+						new UploadPhotoTask(this, Constants.imageType.PROFILE,encodedImage, context).execute();
+					} else {
+						Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
+					}
+				}
+				catch(Exception e) {
+					Log.e("log_tag", "Error in http connection "+ e.toString());
+					e.printStackTrace();
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
+       	}
 	}
 
 	public Integer getYear() {

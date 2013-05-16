@@ -34,4 +34,8 @@
     <color name="darker_midnight_blue">#132537</color>
     <color name="midnight_blue">#2C3E50</color>
     <color name="wet_asphalt">#34495E</color>
+    
+    <color name="menu_background">#333</color>
+    <color name="menu_background_light">#555555</color>
+    <color name="menu_background_header">#2d2d2d</color>
 </resources>
