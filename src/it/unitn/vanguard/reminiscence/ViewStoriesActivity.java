@@ -1,6 +1,7 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.QuestionPopUpHandler.QuestionPopUp;
+import it.unitn.vanguard.reminiscence.asynctasks.DeleteStoryTask;
 import it.unitn.vanguard.reminiscence.asynctasks.GetPublicStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.GetStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
@@ -357,6 +358,66 @@ public class ViewStoriesActivity extends BaseActivity implements
 					sf.show(getSupportFragmentManager(), "visualized");
 				}
 			});
+			
+v.setOnLongClickListener(new View.OnLongClickListener() {
+				
+				@Override
+				public boolean onLongClick(View longClicked) {
+					final int pos = arg0;
+					
+					AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+					String delStory = "";
+					delStory += getResources().getString(R.string.deleteStoryPopupMessage1);
+					delStory += "\n\n\"" + FinalFunctionsUtilities.stories.get(pos).getTitle() + "\"\n\n";
+					delStory += getResources().getString(R.string.deleteStoryPopupMessage2);
+					
+					builder.setMessage(delStory)
+							.setPositiveButton(R.string.yes,
+									new DialogInterface.OnClickListener() {
+										public void onClick(
+												DialogInterface dialogInterface,
+												int id) {
+											
+											if(FinalFunctionsUtilities.isDeviceConnected(context)) {
+												dialog = new ProgressDialog(
+														context);
+												dialog.setTitle(getResources()
+														.getString(R.string.please));
+												dialog.setMessage(getResources()
+														.getString(R.string.wait));
+												dialog.setCancelable(false);
+												dialog.show();												
+												deleteStory(arg0);												
+											}
+											else {
+												Toast.makeText(context,
+														getResources().getString(R.string.connection_fail),
+														Toast.LENGTH_LONG).show();
+											}
+										}
+									})
+							.setNegativeButton(R.string.no,
+									new DialogInterface.OnClickListener() {
+										public void onClick(
+												DialogInterface dialog, int id) {
+
+										}
+									});
+
+					AlertDialog alert = builder.create();
+					alert.show();
+					((TextView) alert.findViewById(android.R.id.message))
+							.setGravity(Gravity.CENTER);
+					((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
+							.setBackgroundResource(R.drawable.bottone_logout);
+					((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
+							.setTextColor(Color.WHITE);
+									
+					return true;
+				}
+			});
+
 			return v;
 		}
 	}
@@ -382,10 +443,11 @@ public class ViewStoriesActivity extends BaseActivity implements
 	@Override
 	public void onTaskFinished(JSONObject res) {
 		if (dialog != null && dialog.isShowing()) {
-			dialog.dismiss();
-		}
-		try {
-			if (res.getString("success").equals("true")) {
+		dialog.dismiss();
+	}
+	try {
+		if (res.getString("success").equals("true")) {
+			if(res.getString("Operation").equals("Logout")){
 				Toast.makeText(context,
 						getResources().getString(R.string.logout_success),
 						Toast.LENGTH_LONG).show();
@@ -394,15 +456,21 @@ public class ViewStoriesActivity extends BaseActivity implements
 				startActivity(new Intent(ViewStoriesActivity.this,
 						LoginActivity.class));
 				this.finish();
-			} else {
-				Toast.makeText(this,
-						getResources().getString(R.string.logout_failed),
-						Toast.LENGTH_LONG).show();
 			}
-		} catch (JSONException e) {
-			Log.e(LoginActivity.class.getName(), e.toString());
+			else if (res.get("Operation").equals("DelStory")){
+				Toast.makeText(context,
+						getResources().getString(R.string.deleteStorySucces),
+						Toast.LENGTH_LONG).show();					
+			}
+		} else {
+			Toast.makeText(this,
+					getResources().getString(R.string.logout_failed),
+					Toast.LENGTH_LONG).show();
 		}
+	} catch (JSONException e) {
+		Log.e(LoginActivity.class.getName(), e.toString());
 	}
+}
 
 	@Override
 	public void OnShow(String question) {
@@ -506,6 +574,25 @@ public class ViewStoriesActivity extends BaseActivity implements
 					}
 				}
 			}
+		}
+	}
+	
+	public void storyDeleted(int position) {
+		FinalFunctionsUtilities.stories.remove(position);
+	}
+
+	private void deleteStory(int position) {
+		Story story = FinalFunctionsUtilities.stories.get(position);
+		if(dialog == null) {
+			dialog = new ProgressDialog(context);
+			dialog.setTitle(getResources().getString(R.string.please));
+			dialog.setMessage(getResources().getString(R.string.wait));
+			dialog.setCancelable(false);
+			dialog.show();
+		}
+		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+			Log.e("asd", "" + story.getId());
+			new DeleteStoryTask(this, position).execute(story.getId());
 		}
 	}
 }

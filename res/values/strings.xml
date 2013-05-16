@@ -149,5 +149,10 @@
     <string name="dropdown_public_stories">Public Stories</string>
     <string name="dropdown_private_stories">Private Stories</string>
     <string name="fli_removefriend">Remove Friend</string>
+    <string name="dropdown_public_stories">Public Stories</string>
+    <string name="deleteStoryPopupMessage1">Are you sure you want to remove</string>
+    <string name="deleteStoryPopupMessage2">from your stories?</string>
+    <string name="deleteStorySucces">Story removed</string>
+    
 
 </resources>
