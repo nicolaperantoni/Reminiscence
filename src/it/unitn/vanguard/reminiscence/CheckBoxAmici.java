@@ -20,7 +20,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 
@@ -57,23 +57,27 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 			@Override
 			public void onClick(View v) {
 				//Toast.makeText(getApplicationContext(),
-						//"Funzione non disponibile!", Toast.LENGTH_LONG).show();
-			ListView lv = (ListView) findViewById(id.list);
-			ArrayList<String> nomi = new ArrayList<String>();
-			CheckBox cbox;
-			String nome;
+				//"Funzione non disponibile!", Toast.LENGTH_LONG).show();
+				ListView lv = (ListView) findViewById(id.list);
+				ArrayList<String> nomi = new ArrayList<String>();
+				
+				CheckBox cbox;
+				
+				String ids = "";
+				String s = "";
 			
 			   for (int i=0; i<lv.getCount(); i++){
+
+				   
 				   cbox = (CheckBox) lv.getChildAt(i).findViewById(R.id.check_friend);
-				   nome = (String) lv.getChildAt(i).findViewById(R.id.item_name).toString();
+
 				   
 				   if(cbox.isChecked()){
-					   nomi.add(nome);
+					   ids += (friends.get(i).getId()) + ",";
 				   }
 			   }
-			   for(int i=0; i<nomi.size(); i++){
-				   System.out.println(nomi.get(i).toString());
-			   }
+			   ids = ids.substring(0, ids.length());
+			   Log.e("invio mail a: ", ids);
 			}
 		});
 		
@@ -83,6 +87,7 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 			public void onClick(View v) {
 				startActivity(new Intent(CheckBoxAmici.this,
 						AddFriendActivity.class));
+				
 			}
 		});
 	}
