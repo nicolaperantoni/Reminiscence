@@ -3,7 +3,7 @@
     <item>
         <shape>
             <!-- darker_midnight_blue -->
-           	<solid android:color="#152B3F"/>
+           	<solid android:color="@color/menu_background_header"/>
             <padding
                 android:left="15dp"
                 android:top="6dp"
