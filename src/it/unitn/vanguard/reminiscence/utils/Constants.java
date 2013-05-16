@@ -21,5 +21,9 @@ public class Constants {
 	public final static String PASSWORD_KEY = "password";
 	public final static String TOKEN_KEY = "token";
 	
+	public final static String ACTIVE_STORIES = "ActiveStories";
+	public final static String PRIVATE_STORIES = "Private";
+	public final static String PUBLIC_STORIES = "Public";
+	
 	public static enum imageType { PROFILE, STORY };
 }
