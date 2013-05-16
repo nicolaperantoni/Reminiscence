@@ -52,11 +52,28 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 		btnAddFriend = (Button) findViewById(R.id.checklist_add_friend);
 		invia_mail = (Button) findViewById(R.id.choosefriend_send_mail);
 		
+		
 		invia_mail.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(),
-						"Funzione non disponibile!", Toast.LENGTH_LONG).show();
+				//Toast.makeText(getApplicationContext(),
+						//"Funzione non disponibile!", Toast.LENGTH_LONG).show();
+			ListView lv = (ListView) findViewById(id.list);
+			ArrayList<String> nomi = new ArrayList<String>();
+			CheckBox cbox;
+			String nome;
+			
+			   for (int i=0; i<lv.getCount(); i++){
+				   cbox = (CheckBox) lv.getAdapter().getView(i , null , lv).findViewById(R.id.check_friend);
+				   nome = (String) lv.getAdapter().getView(i , null , lv).findViewById(R.id.item_name).toString();
+				   
+				   if(cbox.isChecked()){
+					   nomi.add(nome);
+				   }
+			   }
+			   for(int i=0; i<nomi.size(); i++){
+				   System.out.println(nomi.get(i).toString());
+			   }
 			}
 		});
 		
