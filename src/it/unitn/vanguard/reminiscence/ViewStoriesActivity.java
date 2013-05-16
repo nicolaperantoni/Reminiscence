@@ -388,7 +388,11 @@ v.setOnLongClickListener(new View.OnLongClickListener() {
 														.getString(R.string.wait));
 												dialog.setCancelable(false);
 												dialog.show();												
-												deleteStory(arg0);												
+												deleteStory(arg0);/*
+												FinalFunctionsUtilities.stories.clear();
+												mStoriesAdapter.notifyDataSetChanged();
+												new GetStoriesTask(ViewStoriesActivity.this,
+														requestYear).execute();*/
 											}
 											else {
 												Toast.makeText(context,
@@ -463,9 +467,16 @@ v.setOnLongClickListener(new View.OnLongClickListener() {
 						Toast.LENGTH_LONG).show();					
 			}
 		} else {
-			Toast.makeText(this,
-					getResources().getString(R.string.logout_failed),
-					Toast.LENGTH_LONG).show();
+			if(res.getString("Operation").equals("Logout")){
+				Toast.makeText(this,
+						getResources().getString(R.string.logout_failed),
+						Toast.LENGTH_LONG).show();
+			}
+			else if (res.get("Operation").equals("DelStory")){
+				Toast.makeText(context,
+						getResources().getString(R.string.deleteStoryFail),
+						Toast.LENGTH_LONG).show();					
+			}
 		}
 	} catch (JSONException e) {
 		Log.e(LoginActivity.class.getName(), e.toString());
@@ -593,6 +604,7 @@ v.setOnLongClickListener(new View.OnLongClickListener() {
 		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
 			Log.e("asd", "" + story.getId());
 			new DeleteStoryTask(this, position).execute(story.getId());
+			
 		}
 	}
 }
