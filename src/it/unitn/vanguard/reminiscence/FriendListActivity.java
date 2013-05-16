@@ -51,6 +51,8 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 			
 			@Override
 			public void onClick(View v) {
+				FinalFunctionsUtilities.setSharedPreferences("FriendListActivity", "true", FriendListActivity.this);
+				FriendListActivity.this.finish();
 				startActivity(new Intent(context,
 						AddFriendActivity.class));
 			}
