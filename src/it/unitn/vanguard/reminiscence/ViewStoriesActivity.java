@@ -103,6 +103,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 								FinalFunctionsUtilities.stories.clear();
 								new GetStoriesTask(ViewStoriesActivity.this,
 										requestYear).execute();
+								
+								FinalFunctionsUtilities.setSharedPreferences(Constants.ACTIVE_STORIES, Constants.PRIVATE_STORIES, context);
+								
 							} else {
 								Toast.makeText(context,
 										R.string.connection_fail,
@@ -116,6 +119,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 								new GetPublicStoriesTask(
 										ViewStoriesActivity.this, requestYear)
 										.execute();
+								
+								FinalFunctionsUtilities.setSharedPreferences(Constants.ACTIVE_STORIES, Constants.PUBLIC_STORIES, context);
+								
 							} else {
 								Toast.makeText(context,
 										R.string.connection_fail,
@@ -170,7 +176,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private void initializeStoryList() {
 
 		/*
-		 * doppie storie perch��� doppia richiesta, richiesta che avviene gi���
+		 * doppie storie perche' doppia richiesta, richiesta che avviene gia'
 		 * con l'inizializzazione della barra privato/pubblico
 		 * 
 		 * // Comincia a chiedere al server le storie if
@@ -434,7 +440,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 	public void OnFinish(Boolean result) {
 		// TODO display a toast in case of error
 		setProgressBarIndeterminateVisibility(false);
-		if (requestYear == startYear) {
+		if ((requestYear == startYear) && (FinalFunctionsUtilities.getSharedPreferences(Constants.ACTIVE_STORIES, context).equals(Constants.PRIVATE_STORIES))) {
 			addBornStory();
 		}
 		View no_res = findViewById(R.id.no_result_tv);
