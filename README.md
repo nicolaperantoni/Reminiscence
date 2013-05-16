@@ -1,4 +1,4 @@
 Account di test:
 
-email:      g.forna@gmail.com\n
-password:   test
+<p>email:      g.forna@gmail.com</p>
+<p>password:   test</p>
