@@ -20,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 
@@ -52,7 +51,6 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 		btnAddFriend = (Button) findViewById(R.id.checklist_add_friend);
 		invia_mail = (Button) findViewById(R.id.choosefriend_send_mail);
 		
-		
 		invia_mail.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -62,22 +60,15 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 				ArrayList<String> nomi = new ArrayList<String>();
 				
 				CheckBox cbox;
-				
 				String ids = "";
-				String s = "";
 			
 			   for (int i=0; i<lv.getCount(); i++){
-
-				   
 				   cbox = (CheckBox) lv.getChildAt(i).findViewById(R.id.check_friend);
-
-				   
 				   if(cbox.isChecked()){
 					   ids += (friends.get(i).getId()) + ",";
 				   }
 			   }
 			   ids = ids.substring(0, ids.length());
-			   Log.e("invio mail a: ", ids);
 			}
 		});
 		
@@ -87,7 +78,6 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 			public void onClick(View v) {
 				startActivity(new Intent(CheckBoxAmici.this,
 						AddFriendActivity.class));
-				
 			}
 		});
 	}
@@ -134,7 +124,6 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 			if (success) {
 				count = Integer.parseInt(res.getString("numFriend"));
 				friends.clear();
-				
 				if (count < 1) {
 					// caso in cui non ci siano amici LAMER
 					friends.add(new Friend(getString(R.string.no_friends_a),
