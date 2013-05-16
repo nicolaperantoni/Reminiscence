@@ -97,7 +97,7 @@
     <string name="story_add_ok">Story added successfully</string>
     <string name="story_year_broken">year invalid</string>
     <string name="story_add_fail">Some errors occured</string>
-    <string name="story_notification_upload_title">Uploading image (%1$s/%21$s)</string>
+    <string name="story_notification_upload_title">Uploading image (%1$s / %2$s)</string>
 
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">MainPageActivity</string>

@@ -49,6 +49,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		OnTaskFinished, QuestionPopUp, OnGetStoryTask {
 
 	private static final String SAVE_INDEX = "saved_index";
+	public static final int ADD_STORY_CODE = 100;
 
 	private Context context;
 
@@ -135,7 +136,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		String year = FinalFunctionsUtilities.getSharedPreferences(
 				Constants.YEAR_KEY, this);
 		year = year.substring(0, year.length() - 1);
-		//hotfix
+		// hotfix
 		try {
 			requestYear = Integer.parseInt(year + '0');
 		} catch (Exception ex) {
@@ -167,8 +168,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private void initializeStoryList() {
 
 		/*
-		 * doppie storie perch� doppia richiesta, richiesta che avviene gi� con
-		 * l'inizializzazione della barra privato/pubblico
+		 * doppie storie perch��� doppia richiesta, richiesta che avviene gi���
+		 * con l'inizializzazione della barra privato/pubblico
 		 * 
 		 * // Comincia a chiedere al server le storie if
 		 * (FinalFunctionsUtilities.isDeviceConnected(context)) { new
@@ -363,7 +364,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		case R.id.action_add_story:
 			Intent i = new Intent(this, EmptyStoryActivity.class);
 			i.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, requestYear);
-			startActivity(i);
+			startActivityForResult(i, ADD_STORY_CODE);
 			break;
 		}
 
@@ -477,4 +478,25 @@ public class ViewStoriesActivity extends BaseActivity implements
 					R.color.red_background_dark));
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == ADD_STORY_CODE) {
+			if (resultCode == RESULT_OK) {
+				if (data.hasExtra(EmptyStoryActivity.YEAR_PASSED_KEY)) {
+					int year = Integer
+							.parseInt(data
+									.getStringExtra(EmptyStoryActivity.YEAR_PASSED_KEY));
+					if (year >= requestYear && year <= requestYear + 10) {
+						Story s = new Story(
+								year,
+								data.getStringExtra(EmptyStoryActivity.TITLE_PASSED_KEY),
+								data.getStringExtra(EmptyStoryActivity.DESC_PASSED_KEY));
+						FinalFunctionsUtilities.stories.add(s);
+						mStoriesAdapter.notifyDataSetChanged();
+					}
+				}
+			}
+		}
+	}
 }
