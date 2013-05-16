@@ -36,16 +36,12 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
 	    getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	
-	
-
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		initializeMenu();
 		initializeTextViews();
 	}
-
-
 
 	private void initializeTextViews() {
 		mChangeLocale = (TextView) findViewById(R.id.hiddenmenu_changelocale_tv);
@@ -58,7 +54,7 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
 				Locale locale = new Locale(language);
 
 				if (locale.toString().equals(Locale.ITALIAN.getLanguage())
-						|| locale.toString().equals(locale.ITALY.getLanguage())) {
+						|| locale.toString().equals(Locale.ITALY.getLanguage())) {
 					locale = Locale.ENGLISH;
 				} else if (locale.toString().equals(
 						Locale.ENGLISH.getLanguage())) {

@@ -350,6 +350,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 				@Override
 				public void onClick(View clicked) {
 					Story story = FinalFunctionsUtilities.stories.get(arg0);
+					Log.e("Showing story:", "id: " + story.getId());
 					StoryFragment sf = StoryFragment.newIstance(
 							story.getTitle(), story.getDesc(),
 							"" + story.getAnno(), story.getId());

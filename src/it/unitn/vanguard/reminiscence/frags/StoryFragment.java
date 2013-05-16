@@ -71,9 +71,6 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 		view = (ImageView) getView().findViewById(R.id.photo);
 
 		initializeTexts();
-		
-		Log.e("story_id:", story_id);
-		
 	}
 
 	@Override
@@ -97,7 +94,8 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 				Intent checkbox_amici = new Intent(getActivity(),
 						CheckBoxAmici.class);
 				if(story_id != null) {
-					checkbox_amici.putExtra("id_story", "asd"); 
+					checkbox_amici.putExtra("id_story", story_id);
+					Log.e("story_id:",story_id);
 				}
 				startActivity(checkbox_amici);
 			}
