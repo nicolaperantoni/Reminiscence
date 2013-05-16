@@ -142,7 +142,7 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 					startActivityForResult(loginIntent, 0);
 					new LuogoNascitaTask(LuogoNascitaActivity.this)
 							.execute(place);
-					// finish();
+					finish();
 				} else {
 					Toast.makeText(context,
 							getResources().getString(R.string.connection_fail),

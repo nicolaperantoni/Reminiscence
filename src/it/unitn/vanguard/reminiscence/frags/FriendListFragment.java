@@ -78,7 +78,7 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		boolean status;
+
 		int count = 10;
 		boolean success = false;
 

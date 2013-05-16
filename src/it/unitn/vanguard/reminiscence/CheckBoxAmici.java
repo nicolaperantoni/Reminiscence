@@ -2,6 +2,7 @@ package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.adapters.Checkbox_adapter;
 import it.unitn.vanguard.reminiscence.asynctasks.GetFriendsTask;
+import it.unitn.vanguard.reminiscence.asynctasks.RequestHelpTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
@@ -20,12 +21,15 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.Toast;
 
-public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
+public class CheckBoxAmici extends ListActivity implements OnTaskFinished {
 
 	private Button invia_mail;
 	private Button btnAddFriend;
 	protected ProgressDialog dialog;
+	private Bundle extras;
+	String iD;
 	
 	ArrayList<Friend> friends = new ArrayList<Friend>();
 
@@ -40,10 +44,14 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 			dialog.setCancelable(false);
 			dialog.show();
 			new GetFriendsTask(this, this).execute();
+			
 		}
 
 		initializeButtons();
 		initializeItemListener();
+		extras = getIntent().getExtras();
+		iD = (extras.get("id_story").toString());
+		Log.e("id della story: ", iD);
 	}
 
 	private void initializeButtons() {
@@ -68,7 +76,23 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 					   ids += (friends.get(i).getId()) + ",";
 				   }
 			   }
-			   ids = ids.substring(0, ids.length());
+
+			   // Elimino ultima virgola..
+			   if(ids.lastIndexOf(',') == (ids.length() - 1)) {
+				   ids = ids.substring(0, ids.length() - 1);
+			   }
+			     
+			   if(FinalFunctionsUtilities.isDeviceConnected(CheckBoxAmici.this)) {
+				   dialog = new ProgressDialog(CheckBoxAmici.this);
+				   dialog.setTitle(getResources().getString(R.string.please) + getResources().getString(R.string.wait));
+				   dialog.setMessage("We are sending an email for each friend selected..");
+				   dialog.setCancelable(false);
+				   dialog.show();
+				   
+				   Log.e("RequestTask with: ", FinalFunctionsUtilities.getSharedPreferences("token", CheckBoxAmici.this).toString() +"    "+ids);
+				   
+				   new RequestHelpTask(CheckBoxAmici.this).execute(iD, ids);
+			   }
 			}
 		});
 		
@@ -122,35 +146,52 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 		 * "Id":1} "f1":{"Nome":ciccio, "Cognome":ciccia, "Id":2}}
 		 */
 		
-		try {
-			success = res.getString("success").equals("true");
-			if (success) {
-				count = Integer.parseInt(res.getString("numFriend"));
-				friends.clear();
-				if (count < 1) {
-					// caso in cui non ci siano amici LAMER
-					friends.add(new Friend(getString(R.string.no_friends_a),
-							getString(R.string.no_friends_b), "", -1));
-				} else {
-					for (int i = 0; i < count; i++) {
-						String ct = "f" + i;
-						JSONObject json = null;
-						try {
-							json = new JSONObject(res.getString(ct));
-							friends.add(new Friend(
-									json.getString("Nome"),
-									json.getString("Cognome"), 
-									json.getString("Email"),
-									Integer.parseInt(json.getString("Id"))));
-							} catch (Exception e) {
-							Log.e("flf", e.toString());
+		if (res != null) {
+			try {
+				if (res.getString("success").equals("true")) {
+					if (res.getString("Operation").equals("getFriends")) {
+						count = Integer.parseInt(res.getString("numFriend"));
+						friends.clear();
+						if (count < 1) {
+							// caso in cui non ci siano amici LAMER
+							friends.add(new Friend(getString(R.string.no_friends_a),
+									getString(R.string.no_friends_b), "", -1));
+						} else {
+							for (int i = 0; i < count; i++) {
+								String ct = "f" + i;
+								JSONObject json = null;
+								try {
+									json = new JSONObject(res.getString(ct));
+									friends.add(new Friend(
+											json.getString("Nome"),
+											json.getString("Cognome"), 
+											json.getString("Email"),
+											Integer.parseInt(json.getString("Id"))));
+									} catch (Exception e) {
+									Log.e("flf", e.toString());
+								}
+							}
+							setAdapter();
 						}
 					}
-					setAdapter();
+					else if(res.getString("Operation").equals("requestHelp")) {
+						Toast.makeText(
+								CheckBoxAmici.this,
+								"Emails sent",
+								Toast.LENGTH_LONG).show();
+					}
 				}
+				else {
+					Toast.makeText(
+							CheckBoxAmici.this,
+							getResources().getString(
+									R.string.connection_fail),
+							Toast.LENGTH_LONG).show();
+				}
+			} 
+			catch (Exception e) {
+				Log.e("Error: " + FriendListActivity.class.getName(), "success = false, " + e.toString());
 			}
-		} catch (Exception e) {
-			Log.e("Error: " + FriendListActivity.class.getName(), "success = false, " + e.toString());
 		}
 	}
 }
