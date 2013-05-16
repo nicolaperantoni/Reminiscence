@@ -211,7 +211,7 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 		Locale locale = new Locale(language);
 
 		if (locale.toString().equals(Locale.ITALIAN.getLanguage())
-				|| locale.toString().equals(locale.ITALY.getLanguage())) {
+				|| locale.toString().equals(Locale.ITALY.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.it);
 		} else if (locale.toString().equals(Locale.ENGLISH.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.en);
