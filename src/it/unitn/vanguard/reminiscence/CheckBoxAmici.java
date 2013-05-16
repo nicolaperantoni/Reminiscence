@@ -64,8 +64,8 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 			String nome;
 			
 			   for (int i=0; i<lv.getCount(); i++){
-				   cbox = (CheckBox) lv.getAdapter().getView(i , null , lv).findViewById(R.id.check_friend);
-				   nome = (String) lv.getAdapter().getView(i , null , lv).findViewById(R.id.item_name).toString();
+				   cbox = (CheckBox) lv.getChildAt(i).findViewById(R.id.check_friend);
+				   nome = (String) lv.getChildAt(i).findViewById(R.id.item_name).toString();
 				   
 				   if(cbox.isChecked()){
 					   nomi.add(nome);
