@@ -76,6 +76,9 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished{
 			
 			@Override
 			public void onClick(View v) {
+				
+				FinalFunctionsUtilities.setSharedPreferences("CheckBoxAmici", "true", CheckBoxAmici.this);
+				CheckBoxAmici.this.finish();
 				startActivity(new Intent(CheckBoxAmici.this,
 						AddFriendActivity.class));
 			}

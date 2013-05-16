@@ -1,40 +1,22 @@
 package it.unitn.vanguard.reminiscence.frags;
 
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-
 import it.unitn.vanguard.reminiscence.CheckBoxAmici;
-import it.unitn.vanguard.reminiscence.ProfileImageActivity;
 import it.unitn.vanguard.reminiscence.R;
-import it.unitn.vanguard.reminiscence.asynctasks.UploadPhotoTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
-import it.unitn.vanguard.reminiscence.utils.Constants;
-import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore.Images.Media;
 import android.support.v4.app.DialogFragment;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class StoryFragment extends DialogFragment implements OnTaskFinished {
 

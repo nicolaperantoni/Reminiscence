@@ -231,16 +231,4 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 			Log.e("Error: " + FriendListActivity.class.getName(), "success = false, " + e.toString());
 		}
 	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		friends.clear();
-		friends.add(new Friend(
-				data.getStringExtra("name"),
-				data.getStringExtra("surname"),
-				data.getStringExtra("email"),
-				Integer.parseInt(data.getStringExtra("id"))));
-		setAdapter();
-	}
 }

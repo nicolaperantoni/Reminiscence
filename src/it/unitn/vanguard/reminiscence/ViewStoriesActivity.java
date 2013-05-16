@@ -153,7 +153,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 		}
 
 		YearView selected = (YearView) mTimeLine.getAdapter().getView(
-				selectedIndex, null, null);
+				selectedIndex, null, mTimeLine);
+		
+		selected.setBackgroundColor(getResources().getColor(R.color.pomegranate));
 
 		requestYear = selected.getYear();
 		lastSelected = selected;

@@ -7,6 +7,8 @@ import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +31,7 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 	private Button confirmBtn;
 	private Button backBtn;
 	private String name, surname, mail;
+	protected ProgressDialog dialog;
 	private boolean nameOk = false, surnameOk = false, mailOk = false;
 
 	@Override
@@ -66,6 +69,11 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 			public void onClick(View arg0) {
 				if (nameOk && surnameOk && mailOk) {
 					if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+						dialog = new ProgressDialog(context);
+						dialog.setTitle(getResources().getString(R.string.please));
+						dialog.setMessage(getResources().getString(R.string.wait));
+						dialog.setCancelable(false);
+						dialog.show();
 						new AddFriendTask(AddFriendActivity.this).execute(name,
 								surname, mail);
 					} else {
@@ -200,23 +208,27 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
+		
 		String result = "";
-
+		if(dialog!=null && dialog.isShowing()) dialog.dismiss();
+		
 		try {
 			result = res.getString("success");
 			if (result.equals("true")) {
-				String str = FinalFunctionsUtilities.getSharedPreferences(
-						"FriendListActivity", this);
 				getIntent().putExtra("id", res.getString("id"));
 				getIntent().putExtra("name", res.getString("name"));
 				getIntent().putExtra("surname", res.getString("surname"));
 				getIntent().putExtra("email", res.getString("email"));
 				finish();
-				if (str.equals("true")) {
+				if (FinalFunctionsUtilities.getSharedPreferences(
+						"FriendListActivity", this).equals("true")) {
 					FinalFunctionsUtilities.setSharedPreferences("FriendListActivity", "false", this);
 					startActivity(new Intent(this, FriendListActivity.class));
+				} else if (FinalFunctionsUtilities.getSharedPreferences(
+						"CheckBoxAmici", this).equals("true")) {
+					FinalFunctionsUtilities.setSharedPreferences("CheckBoxAmici", "false", this);
+					startActivity(new Intent(this, CheckBoxAmici.class));
 				}
-
 				Toast.makeText(context, R.string.add_friend_successful,
 						Toast.LENGTH_LONG).show();
 			} else {
