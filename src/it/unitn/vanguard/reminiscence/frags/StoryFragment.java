@@ -4,6 +4,7 @@ import it.unitn.vanguard.reminiscence.CheckBoxAmici;
 import it.unitn.vanguard.reminiscence.LoginActivity;
 import it.unitn.vanguard.reminiscence.R;
 import it.unitn.vanguard.reminiscence.ViewStoriesActivity;
+import it.unitn.vanguard.reminiscence.asynctasks.GetFriendsTask;
 import it.unitn.vanguard.reminiscence.asynctasks.GetStoryCoverTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
@@ -93,6 +94,11 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 		btn_aiuto_amico = (Button) getView().findViewById(R.id.btn_aiuto_amico);
 		btn_upload_photo = (Button) getView().findViewById(R.id.btn_upload_photo);
 		view = (ImageView) getView().findViewById(R.id.photo);
+		
+		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, getActivity());
+		if (FinalFunctionsUtilities.isDeviceConnected(getActivity())) {
+			new GetStoryCoverTask(this, getActivity()).execute(token,story_id);
+		}
 		
 		initializeTexts();
 	}

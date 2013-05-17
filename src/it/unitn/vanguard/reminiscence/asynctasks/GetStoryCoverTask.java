@@ -41,7 +41,7 @@ public class GetStoryCoverTask extends AsyncTask<String, Void, JSONObject> {
 			throw new IllegalStateException("You should provide a story id");
 		}
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
-		if (!arg[1].equals("")) {
+		if (!arg[0].equals("")) {
 			params.add(new BasicNameValuePair("token", arg[0]));
 			params.add(new BasicNameValuePair("story_id", "" + arg[1]));
 			HttpClient client = new DefaultHttpClient();
