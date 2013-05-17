@@ -5,13 +5,13 @@ Reminiscence Project
 
 composed by: 
 
-+Nicola Perantoni
-+Luca Zamboni
-+Giulio Fornasaro
-+Giovanni de Francesco
-+Mirko Zaffaroni
-+Giovanni Bonetta
-+Roberto Zen
++ Nicola Perantoni
++ Luca Zamboni
++ Giulio Fornasaro
++ Giovanni de Francesco
++ Mirko Zaffaroni
++ Giovanni Bonetta
++ Roberto Zen
 
 ### About the Project
 
@@ -23,15 +23,12 @@ We've got a bunch of videos filmed by us that show the current state of our proj
 
 <dl>
   <dt>First Sprint Video</dt>
-  <dd>[First Sprint Video] [1]</dd>
+  <dd>https://vimeo.com/62800001</dd>
   <dt>Second Sprint Video</dt>
-  <dd>[Second Sprint Video] [2]</dd>
+  <dd>http://www.youtube.com/watch?v=zOmBns9EdeI</dd>
   <dt>Final Presentation Video</dt>
   <dd>Coming sooner than what you can imagine :)</dd>
 </dl>
-
-[1]: https://vimeo.com/62800001        "First Sprint Video"
-[2]: http://www.youtube.com/watch?v=zOmBns9EdeI  "Second Sprint Video"
 
 ### Account to test our Application
 
