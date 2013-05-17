@@ -64,7 +64,7 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_story, container, false);
 		
-		if(FinalFunctionsUtilities.isDeviceConnected(v.getContext())) {
+		//if(FinalFunctionsUtilities.isDeviceConnected(v.getContext())) {
 			/*
 			dialog = new ProgressDialog(v.getContext());
 			dialog.setTitle(getResources().getString(R.string.please));
@@ -72,9 +72,9 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 			dialog.setCancelable(false);
 			dialog.show();
 			*/
-			String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, getActivity());
-			new GetStoryCoverTask(this, getActivity().getApplicationContext()).execute(token,story_id);
-		}
+			//String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, getActivity());
+			//new GetStoryCoverTask(this, getActivity().getApplicationContext()).execute(token,story_id);
+		//}
 		
 		return v;
 	}
