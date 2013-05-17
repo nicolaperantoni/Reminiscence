@@ -387,12 +387,9 @@ v.setOnLongClickListener(new View.OnLongClickListener() {
 												dialog.setMessage(getResources()
 														.getString(R.string.wait));
 												dialog.setCancelable(false);
-												dialog.show();												
-												deleteStory(arg0);/*
-												FinalFunctionsUtilities.stories.clear();
-												mStoriesAdapter.notifyDataSetChanged();
-												new GetStoriesTask(ViewStoriesActivity.this,
-														requestYear).execute();*/
+												dialog.show();	
+												deleteStory(arg0);																					
+												
 											}
 											else {
 												Toast.makeText(context,
@@ -461,10 +458,11 @@ v.setOnLongClickListener(new View.OnLongClickListener() {
 						LoginActivity.class));
 				this.finish();
 			}
-			else if (res.get("Operation").equals("DelStory")){
+			else if (res.get("Operation").equals("delStory")){
 				Toast.makeText(context,
 						getResources().getString(R.string.deleteStorySucces),
-						Toast.LENGTH_LONG).show();					
+						Toast.LENGTH_LONG).show();	
+				mStoriesAdapter.notifyDataSetChanged();	
 			}
 		} else {
 			if(res.getString("Operation").equals("Logout")){
