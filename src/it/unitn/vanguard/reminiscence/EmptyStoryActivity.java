@@ -149,16 +149,22 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 			Intent out = new Intent();
 			s = res.getString("success");
 			if (s.equals("true")) {
-				idStoria = res.getInt("idadded");
-				if (toUpload.size() > 0) { sendPhotos(); }
-				out.putExtra(TITLE_PASSED_KEY, mTitleEt.getText().toString());
-				out.putExtra(DESC_PASSED_KEY, mDescriptionEt.getText().toString());
-				out.putExtra(YEAR_PASSED_KEY, mYearEt.getText().toString());
-				out.putExtra(ID_PASSED_KEY, idStoria);
+				if(res.getString("Operation").equals("addStory")) {
+					idStoria = res.getInt("idadded");
+					if (toUpload.size() > 0) { sendPhotos(); }
+					out.putExtra(TITLE_PASSED_KEY, mTitleEt.getText().toString());
+					out.putExtra(DESC_PASSED_KEY, mDescriptionEt.getText().toString());
+					out.putExtra(YEAR_PASSED_KEY, mYearEt.getText().toString());
+					out.putExtra(ID_PASSED_KEY, idStoria);
+				}
+				else if(res.getString("Operation").equals("AddImage")) {
+					Log.e("immagine caricata","ok");
+				}
 				this.setResult(RESULT_OK, out);
-			} else
+				finish();
+			} else {
 				this.setResult(RESULT_CANCELED, out);
-			finish();
+			}
 		} catch (JSONException e) {
 			showToast(false);
 		}
@@ -174,14 +180,15 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		builder.setSmallIcon(R.drawable.ic_launcher);
 		builder.setProgress(toUpload.size(), 0, true);
 
-		if (!toUpload.isEmpty()) {
+		while (!toUpload.isEmpty()) {
 			FinalFunctionsUtilities.showNotification(getApplicationContext(),
 					1234, builder);
-			toUpload.remove().execute(idStoria+"");
-		} else
+			toUpload.remove().execute(idStoria + "");
+		}
+		/*
 			FinalFunctionsUtilities.removeNotification(getApplicationContext(),
 					1234);
-
+*/
 	}
 
 	@Override

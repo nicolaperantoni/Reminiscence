@@ -28,6 +28,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -602,7 +603,6 @@ v.setOnLongClickListener(new View.OnLongClickListener() {
 		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
 			Log.e("asd", "" + story.getId());
 			new DeleteStoryTask(this, position).execute(story.getId());
-			
 		}
 	}
 }

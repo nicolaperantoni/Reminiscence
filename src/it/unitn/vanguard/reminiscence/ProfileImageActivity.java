@@ -186,14 +186,14 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 	public void onTaskFinished(JSONObject res) {
 		if(dialog!=null && dialog.isShowing()) { dialog.dismiss(); }
 		try {
-			if(res.getString("operation").equals("GetProfileImage")) {
+			if(res.getString("Operation").equals("GetProfileImage")) {
 				if (res.getString("success").equals("true")) {
 					byte[] decodedString = Base64.decode(res.getString("photo"), Base64.DEFAULT);
 					Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
 					imageView.setImageBitmap(bitmap);
 				}
 			}
-			else if(res.getString("operation").equals("AddProfileImage")){
+			else if(res.getString("Operation").equals("AddProfileImage")){
 				if (res.getString("success").equals("true")) {
 					getProfileImage();
 					Toast.makeText(context, getResources().getString(R.string.profile_image_change_success), Toast.LENGTH_LONG).show();
