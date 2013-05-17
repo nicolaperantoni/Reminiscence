@@ -3,7 +3,7 @@ package it.unitn.vanguard.reminiscence;
 import it.unitn.vanguard.reminiscence.QuestionPopUpHandler.QuestionPopUp;
 import it.unitn.vanguard.reminiscence.asynctasks.DeleteStoryTask;
 import it.unitn.vanguard.reminiscence.asynctasks.GetPublicStoriesTask;
-import it.unitn.vanguard.reminiscence.asynctasks.GetStoriesTask;
+import it.unitn.vanguard.reminiscence.asynctasks.GetStoryCoverTask;
 import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
 import it.unitn.vanguard.reminiscence.frags.StoryFragment;
 import it.unitn.vanguard.reminiscence.interfaces.OnGetStoryTask;
@@ -70,6 +70,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private int requestYear;
 
 	private YearView lastSelected;
+	
+	private Bundle bundle;
 
 	@Override
 	public void onCreate(Bundle arg0) {
@@ -77,6 +79,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_viewstories);
 		context = ViewStoriesActivity.this;
+		bundle = arg0;
 
 		String language = FinalFunctionsUtilities.getSharedPreferences(
 				"language", context);
@@ -89,6 +92,39 @@ public class ViewStoriesActivity extends BaseActivity implements
 				getApplicationContext(), R.array.stories_dropdown,
 				android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		
+		mStoriesAdapter = new StoriesAdapter();
+		mCards.setAdapter(mStoriesAdapter);
+
+		// e' per avere lo 0 alla fine degli anni.(per avere l'intera decade,
+		// praticmanete)
+		String year = FinalFunctionsUtilities.getSharedPreferences(
+				Constants.YEAR_KEY, this);
+		year = year.substring(0, year.length() - 1);
+		// hotfix
+		try {
+			requestYear = Integer.parseInt(year + '0');
+		} catch (Exception ex) {
+			requestYear = 1920;
+		}
+		startYear = requestYear;
+		mTimeLine.setStartYear(startYear);
+		
+		if (bundle != null) {
+			selectedIndex = bundle.getInt(SAVE_INDEX);
+			FinalFunctionsUtilities.stories.clear();
+			mStoriesAdapter.notifyDataSetChanged();
+		} else {
+			selectedIndex = 0;
+		}
+
+		YearView selected = (YearView) mTimeLine.getAdapter().getView(
+				selectedIndex, null, mTimeLine);
+		
+		selected.setBackgroundColor(getResources().getColor(R.color.pomegranate));
+
+		requestYear = selected.getYear();
+		lastSelected = selected;
 
 		actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
@@ -103,7 +139,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 							if (FinalFunctionsUtilities
 									.isDeviceConnected(context)) {
 								FinalFunctionsUtilities.stories.clear();
-								new GetStoriesTask(ViewStoriesActivity.this,
+								new GetPublicStoriesTask(ViewStoriesActivity.this, /* GetStoriesTask */
 										requestYear).execute();
 								
 								FinalFunctionsUtilities.setSharedPreferences(Constants.ACTIVE_STORIES, Constants.PRIVATE_STORIES, context);
@@ -133,46 +169,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 						}
 						return true;
 					}
-
 				});
-
-		mStoriesAdapter = new StoriesAdapter();
-		mCards.setAdapter(mStoriesAdapter);
-
-		// e' per avere lo 0 alla fine degli anni.(per avere l'intera decade,
-		// praticmanete)
-		String year = FinalFunctionsUtilities.getSharedPreferences(
-				Constants.YEAR_KEY, this);
-		year = year.substring(0, year.length() - 1);
-		// hotfix
-		try {
-			requestYear = Integer.parseInt(year + '0');
-		} catch (Exception ex) {
-			requestYear = 1920;
-		}
-		startYear = requestYear;
-		mTimeLine.setStartYear(startYear);
-		if (arg0 != null) {
-			selectedIndex = arg0.getInt(SAVE_INDEX);
-			FinalFunctionsUtilities.stories.clear();
-			mStoriesAdapter.notifyDataSetChanged();
-		} else {
-			selectedIndex = 0;
-		}
-
-		YearView selected = (YearView) mTimeLine.getAdapter().getView(
-				selectedIndex, null, mTimeLine);
-		
-		selected.setBackgroundColor(getResources().getColor(R.color.pomegranate));
-
-		requestYear = selected.getYear();
-		lastSelected = selected;
-
 		setListeners();
-
 		initializePopUps();
-
-		initializeStoryList();
 	}
 
 	private void initializeStoryList() {
@@ -200,6 +199,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 	}
 
 	private void setListeners() {
+		
 		mTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
@@ -212,19 +212,27 @@ public class ViewStoriesActivity extends BaseActivity implements
 						R.color.red_background_dark));
 				lastSelected = (YearView) arg1;
 
-				/*
-				 * vecchio codice di giovanni // Cambio il background della
-				 * vecchia selezione updateSelected(false);
-				 */
-
 				// aggiorno gli indici
 				selectedIndex = arg2;
 				requestYear = ((YearView) arg1).getYear();
 				// tolgo le vecchie e chiedo le nuove
 				FinalFunctionsUtilities.stories.clear();
 				mStoriesAdapter.notifyDataSetChanged();
-				new GetStoriesTask(ViewStoriesActivity.this, requestYear)
-						.execute();
+				
+				if(FinalFunctionsUtilities.isDeviceConnected(context)) {
+					dialog = new ProgressDialog(context);
+					dialog.setTitle(getResources().getString(R.string.please));
+					dialog.setMessage(getResources().getString(R.string.wait));
+					dialog.setCancelable(false);
+					dialog.show();
+					Log.e("Request","stories");
+					new GetPublicStoriesTask(ViewStoriesActivity.this, requestYear)
+					.execute();
+				}
+				else {
+					if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
+					Toast.makeText(context, getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 
@@ -341,11 +349,13 @@ public class ViewStoriesActivity extends BaseActivity implements
 			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
 			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
 			if (story != null) {
-				if (story.getBackground() != null)
-					back.setImageBitmap(FinalFunctionsUtilities.stories.get(
-							arg0).getBackground());
+				
 				title.setText(story.getTitle());
 				desc.setText(story.getDesc());
+				if (story.getBackground() != null)
+					back.setImageBitmap(FinalFunctionsUtilities.stories.get(
+							arg0).getBackground());	
+				else Log.e("asd","bitmap null");
 			}
 			v.setOnClickListener(new View.OnClickListener() {
 
@@ -360,7 +370,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 				}
 			});
 			
-v.setOnLongClickListener(new View.OnLongClickListener() {
+			v.setOnLongClickListener(new View.OnLongClickListener() {
 				
 				@Override
 				public boolean onLongClick(View longClicked) {
@@ -445,42 +455,57 @@ v.setOnLongClickListener(new View.OnLongClickListener() {
 	@Override
 	public void onTaskFinished(JSONObject res) {
 		if (dialog != null && dialog.isShowing()) {
-		dialog.dismiss();
-	}
-	try {
-		if (res.getString("success").equals("true")) {
-			if(res.getString("Operation").equals("Logout")){
-				Toast.makeText(context,
-						getResources().getString(R.string.logout_success),
-						Toast.LENGTH_LONG).show();
-
-				FinalFunctionsUtilities.clearSharedPreferences(context);
-				startActivity(new Intent(ViewStoriesActivity.this,
-						LoginActivity.class));
-				this.finish();
-			}
-			else if (res.get("Operation").equals("delStory")){
-				Toast.makeText(context,
-						getResources().getString(R.string.deleteStorySucces),
-						Toast.LENGTH_LONG).show();	
-				mStoriesAdapter.notifyDataSetChanged();	
-			}
-		} else {
-			if(res.getString("Operation").equals("Logout")){
-				Toast.makeText(this,
-						getResources().getString(R.string.logout_failed),
-						Toast.LENGTH_LONG).show();
-			}
-			else if (res.get("Operation").equals("DelStory")){
-				Toast.makeText(context,
-						getResources().getString(R.string.deleteStoryFail),
-						Toast.LENGTH_LONG).show();					
-			}
+			dialog.dismiss();
 		}
-	} catch (JSONException e) {
-		Log.e(LoginActivity.class.getName(), e.toString());
+		try {
+			if (res.getString("success").equals("true")) {
+				if(res.getString("Operation").equals("Logout")){
+					Toast.makeText(context,
+							getResources().getString(R.string.logout_success),
+							Toast.LENGTH_LONG).show();
+	
+					FinalFunctionsUtilities.clearSharedPreferences(context);
+					startActivity(new Intent(ViewStoriesActivity.this,
+							LoginActivity.class));
+					this.finish();
+				}
+				else if (res.get("Operation").equals("delStory")){
+					Toast.makeText(context,
+							getResources().getString(R.string.deleteStorySucces),
+							Toast.LENGTH_LONG).show();	
+					mStoriesAdapter.notifyDataSetChanged();	
+				}
+				else if(res.getString("Operation").equals("GetStoryCover") &&
+						!res.getString("numImages").equals("0")) {
+					// Inserisco la cover della storia..
+					String id = res.getString("story_id");
+					Story s = null;
+					for(int i = 0; i < FinalFunctionsUtilities.stories.size(); i++) {
+						if(id.equals(FinalFunctionsUtilities.stories.get(i).getId())) {
+							s = FinalFunctionsUtilities.stories.get(i);
+						}
+					}
+					byte[] decodedString = Base64.decode(res.getString("cover"), Base64.DEFAULT);
+					Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
+					s.setBackground(bitmap);
+					mStoriesAdapter.notifyDataSetChanged();
+				}
+			} else {
+				if(res.getString("Operation").equals("Logout")){
+					Toast.makeText(this,
+							getResources().getString(R.string.logout_failed),
+							Toast.LENGTH_LONG).show();
+				}
+				else if (res.get("Operation").equals("DelStory")){
+					Toast.makeText(context,
+							getResources().getString(R.string.deleteStoryFail),
+							Toast.LENGTH_LONG).show();					
+				}
+			}
+		} catch (JSONException e) {
+			Log.e(LoginActivity.class.getName(), e.toString());
+		}
 	}
-}
 
 	@Override
 	public void OnShow(String question) {
@@ -516,7 +541,6 @@ v.setOnLongClickListener(new View.OnLongClickListener() {
 
 	@Override
 	public void OnFinish(Boolean result) {
-		// TODO display a toast in case of error
 		setProgressBarIndeterminateVisibility(false);
 		if ((requestYear == startYear) && (FinalFunctionsUtilities.getSharedPreferences(Constants.ACTIVE_STORIES, context).equals(Constants.PRIVATE_STORIES))) {
 			addBornStory();
@@ -529,6 +553,18 @@ v.setOnLongClickListener(new View.OnLongClickListener() {
 			no_res.setVisibility(View.INVISIBLE);
 			mCards.setVisibility(View.VISIBLE);
 		}
+		// TEST
+		if(FinalFunctionsUtilities.isDeviceConnected(this)) {
+			for(int i = 0; i < FinalFunctionsUtilities.stories.size(); i++) {
+				try {
+					new GetStoryCoverTask(ViewStoriesActivity.this, ViewStoriesActivity.this).execute(FinalFunctionsUtilities.stories.get(i).getId() + "");
+				}
+				catch (Exception e) {
+					Log.e("con size= " + FinalFunctionsUtilities.stories.size(), i + ": " +e.toString());
+				}
+			}
+		}
+		mStoriesAdapter.notifyDataSetChanged();
 		// updateSelected(true);
 		OnProgress();
 	}
@@ -601,7 +637,6 @@ v.setOnLongClickListener(new View.OnLongClickListener() {
 			dialog.show();
 		}
 		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
-			Log.e("asd", "" + story.getId());
 			new DeleteStoryTask(this, position).execute(story.getId());
 		}
 	}

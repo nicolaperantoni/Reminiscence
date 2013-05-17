@@ -21,15 +21,15 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.os.AsyncTask;
 
-public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean> 
-	implements Comparable<GetStoriesTask>{
+public class GetPrivateStoriesTask extends AsyncTask<Integer, JSONObject, Boolean> 
+	implements Comparable<GetPrivateStoriesTask>{
 
 	private OnGetStoryTask caller;
 	private Exception ex;
 	private JSONObject json;
 	private int year;
 
-	public GetStoriesTask(OnGetStoryTask caller, Integer year) {
+	public GetPrivateStoriesTask(OnGetStoryTask caller, Integer year) {
 		this.caller = caller;
 		if (year != null)
 			this.year = year;
@@ -104,7 +104,7 @@ public class GetStoriesTask extends AsyncTask<Integer, JSONObject, Boolean>
 	}
 
 	@Override
-	public int compareTo(GetStoriesTask another) {
+	public int compareTo(GetPrivateStoriesTask another) {
 		if (this.year>another.year)
 			return -1;
 		else if(this.year==another.year)

@@ -9,6 +9,7 @@ public class Story {
 	private String id;
 	private String title;
 	private String desc;
+	private String numImages;
 	private Bitmap background;
 	public ArrayList<String> urls;
 
@@ -26,6 +27,14 @@ public class Story {
 
 	public void setBackground(Bitmap background) {
 		this.background = background;
+	}
+	
+	public String getNumImages() {
+		return numImages;
+	}
+
+	public void setNumImages(String numImages) {
+		this.numImages = numImages;
 	}
 
 	public int getAnno() {

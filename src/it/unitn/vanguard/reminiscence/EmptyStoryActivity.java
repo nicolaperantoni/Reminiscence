@@ -50,6 +50,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	public static final String TITLE_PASSED_KEY = "newstorytitle";
 	public static final String DESC_PASSED_KEY = "newstorydesc";
 	public static final String ID_PASSED_KEY = "newstoryid";
+	//public static final String IMG_PASSED_KEY = "arethereimages";
 
 	private TextView mNoStoryTv;
 	private EditText mTitleEt;
@@ -118,16 +119,19 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 			@Override
 			public void onClick(View v) {
 				String year = mYearEt.getText().toString();
-				if (FinalFunctionsUtilities.isDeviceConnected(context))
-					if (checkYearInput(year))
+				if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+					if (checkYearInput(year)) {
 						new AddStoryTask(EmptyStoryActivity.this).execute(year,
 								mDescriptionEt.getText().toString(), mTitleEt
 										.getText().toString());
-					else
+					}
+					else {
 						showToast(R.string.story_year_broken);
-
-				else
+					}
+				}
+				else {
 					showToast(R.string.connection_fail);
+				}
 			}
 		});
 
@@ -230,7 +234,6 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 					imgs.add(image);
 					mAdapter.notifyDataSetChanged();
 				} catch (Exception e) {
-
 					Log.e("log_tag", "Error in http connection " + e.toString());
 					e.printStackTrace();
 				}

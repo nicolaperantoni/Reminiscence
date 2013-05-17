@@ -31,7 +31,7 @@
         <ImageView
             android:id="@+id/cardstory_img"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/view1"
             android:layout_centerHorizontal="true"

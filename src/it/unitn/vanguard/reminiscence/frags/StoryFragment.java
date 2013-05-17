@@ -1,16 +1,26 @@
 package it.unitn.vanguard.reminiscence.frags;
 
 import it.unitn.vanguard.reminiscence.CheckBoxAmici;
+import it.unitn.vanguard.reminiscence.LoginActivity;
 import it.unitn.vanguard.reminiscence.R;
+import it.unitn.vanguard.reminiscence.ViewStoriesActivity;
+import it.unitn.vanguard.reminiscence.asynctasks.GetStoryCoverTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.Constants;
+import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+import it.unitn.vanguard.reminiscence.utils.Story;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StoryFragment extends DialogFragment implements OnTaskFinished {
 
@@ -31,13 +42,13 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 	private Integer mYear;
 	private String story_id;
 
-	// Image
+	// Images
 	private ImageView view;
 	private Button btn_aiuto_amico;
 	private Button btn_upload_photo;
 	protected ProgressDialog dialog;
 	
-	public static StoryFragment newIstance(String title,String desc,String year,String id){
+	public static StoryFragment newIstance(String title,String desc,String year,String id) {
 		StoryFragment sf = new StoryFragment();
 		Bundle b = new Bundle();
 		b.putString(TITLE_PASSED_KEY, title);
@@ -52,6 +63,19 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_story, container, false);
+		
+		if(FinalFunctionsUtilities.isDeviceConnected(v.getContext())) {
+			/*
+			dialog = new ProgressDialog(v.getContext());
+			dialog.setTitle(getResources().getString(R.string.please));
+			dialog.setMessage(getResources().getString(R.string.wait));
+			dialog.setCancelable(false);
+			dialog.show();
+			*/
+			String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, getActivity());
+			new GetStoryCoverTask(this, getActivity().getApplicationContext()).execute(token,story_id);
+		}
+		
 		return v;
 	}
 
@@ -69,7 +93,7 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 		btn_aiuto_amico = (Button) getView().findViewById(R.id.btn_aiuto_amico);
 		btn_upload_photo = (Button) getView().findViewById(R.id.btn_upload_photo);
 		view = (ImageView) getView().findViewById(R.id.photo);
-
+		
 		initializeTexts();
 	}
 
@@ -172,7 +196,25 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		// TODO Auto-generated method stub
+		if (dialog != null && dialog.isShowing()) {
+			dialog.dismiss();
+		}
+		try {
+			if (res.getString("success").equals("true")) {
+				if(res.getString("Operation").equals("GetStoryCover") &&
+						!res.getString("numImages").equals("0")) {
+					
+					// Inserisco la cover della storia..
+					byte[] decodedString = Base64.decode(res.getString("cover"), Base64.DEFAULT);
+					Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
+					view.setImageBitmap(bitmap);
+				}
+			}
+			else {
+			}
+		} catch (JSONException e) {
+			Log.e(LoginActivity.class.getName(), e.toString());
+		}
 	}
 
 }
