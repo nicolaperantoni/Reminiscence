@@ -113,7 +113,7 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 		if (getArguments() != null) {
 			Bundle b = getArguments();
 			//mTitleTv.setText(b.getString(TITLE_PASSED_KEY));
-			getDialog().setTitle(b.getString(TITLE_PASSED_KEY));
+			getDialog().setTitle(b.getString(YEAR_PASSED_KEY) + ":\t" + b.getString(TITLE_PASSED_KEY));
 			mDescTv.setText(b.getString(DESCRIPTION_PASSED_KEY));
 		}
 
