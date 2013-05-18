@@ -352,9 +352,11 @@ public class ViewStoriesActivity extends BaseActivity implements
 			ImageView back = (ImageView) v.findViewById(R.id.cardstory_img);
 			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
 			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
+			TextView year = (TextView) v.findViewById(R.id.yearStoryCard);
 			if (story != null) {
 				title.setText(story.getTitle());
 				desc.setText(story.getDesc());
+				year.setText(String.valueOf(story.getAnno()));
 				if (story.getBackground() != null) {
 					back.setImageBitmap(FinalFunctionsUtilities.stories.get(
 							arg0).getBackground());
