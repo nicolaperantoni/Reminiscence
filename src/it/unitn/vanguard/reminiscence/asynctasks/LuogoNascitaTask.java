@@ -74,7 +74,4 @@ public class LuogoNascitaTask extends AsyncTask<String, Void, Boolean> {
 			Log.e(RegistrationTask.class.getName(), ex.toString());
 		caller.onTaskFinished(json);
 	}
-	
-	
-
 }

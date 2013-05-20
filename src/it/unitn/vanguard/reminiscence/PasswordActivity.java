@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,10 +57,11 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 		super.onCreate(savedInstanceState);
 		context = PasswordActivity.this;
 		
-		String language = FinalFunctionsUtilities.getSharedPreferences(
-				"language", context);
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_registration_password);
+		
 		initializeButtons();
 		initializeVars();
 		generateSuggestion();
@@ -68,14 +70,11 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 
 	private void initializeVars() {
 		name = FinalFunctionsUtilities.getSharedPreferences(Constants.NAME_KEY, context);
-
 		surname = FinalFunctionsUtilities.getSharedPreferences(Constants.SURNAME_KEY, context);
 		mail = FinalFunctionsUtilities.getSharedPreferences(Constants.MAIL_KEY, context);
-
 		day = FinalFunctionsUtilities.getSharedPreferences(Constants.DAY_KEY, context);
 		month = FinalFunctionsUtilities.getSharedPreferences(Constants.MONTH_KEY, context);
 		year = FinalFunctionsUtilities.getSharedPreferences(Constants.YEAR_KEY, context);
-
 		suggestionList = new ArrayList<String>(2);
 		suggestionList.add(name);
 		suggestionList.add(surname);
@@ -93,11 +92,9 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 	OnClickListener onclickback = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			Intent intent = new Intent(v.getContext(),
-					DataNascitaActivity.class);
+			Intent intent = new Intent(v.getContext(), DataNascitaActivity.class);
 			startActivityForResult(intent, 0);
-			overridePendingTransition(R.anim.slide_in_left,
-					R.anim.slide_out_right);
+			overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 			finish();
 		}
 	};
@@ -112,26 +109,28 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 			if (!passwordOk) {
 				Toast.makeText(
 						context,
-						getResources().getText(
-								R.string.registration_password_empty),
+						getResources().getText(R.string.registration_password_empty),
 						Toast.LENGTH_SHORT).show();
 			} else if (!(passwordOk = passwordOk && !password.contains(" "))) {
 				Toast.makeText(
 						context,
-						getResources().getText(
-								R.string.registration_password_contains_spaces),
+						getResources().getText(R.string.registration_password_contains_spaces),
 						Toast.LENGTH_SHORT).show();
-			} else if (FinalFunctionsUtilities
-					.isDeviceConnected(context)) {
-				dialog = new ProgressDialog(PasswordActivity.this);
+			} else if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+				dialog = new ProgressDialog(context);
 				dialog.setTitle(getResources().getString(R.string.please));
 				dialog.setMessage(getResources().getString(R.string.wait));
 				dialog.setCancelable(false);
 				dialog.show();
-				new RegistrationTask(PasswordActivity.this).execute(name,
+				try {
+					new RegistrationTask(PasswordActivity.this).execute(name,
 						surname, mail, password, day, month, year);
+				} catch (Exception e) {
+					Log.e(PasswordActivity.class.getName(), e.toString());
+				}
 			} else {
-				Toast.makeText(context,
+				Toast.makeText(
+						context,
 						getResources().getString(R.string.connection_fail),
 						Toast.LENGTH_LONG).show();
 			}
@@ -148,8 +147,8 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 			@Override
 			public void onClick(View v) {
 				generateSuggestion();
-				Animation anim = AnimationUtils.loadAnimation(
-						PasswordActivity.this, R.anim.rotate_arrow_360);
+				Animation anim = AnimationUtils
+						.loadAnimation(context, R.anim.rotate_arrow_360);
 				v.startAnimation(anim);
 			}
 		});
@@ -164,8 +163,7 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 				if (!passwordOk) {
 					Toast.makeText(
 							context,
-							getResources().getText(
-									R.string.registration_password_empty),
+							getResources().getText(R.string.registration_password_empty),
 							Toast.LENGTH_SHORT).show();
 				} else if (!(passwordOk = passwordOk && !password.contains(" "))) {
 					Toast.makeText(
@@ -186,14 +184,10 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-			}
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-			}
+			public void onTextChanged(CharSequence s, int start, int before, int count) { }
 		});
 	}
 
@@ -216,26 +210,29 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 				dialog.dismiss();
 			}
 
-			ret = res.getString("success"); // +res.getString("err1")+res.getString("err2")+res.getString("err3")+res.getString("err4")+res.getString("err5");
+			ret = res.getString("success");
 			if (ret.startsWith("true")) {
 				
 				FinalFunctionsUtilities.setSharedPreferences(Constants.TOKEN_KEY, res.getString("token"), context);
-				Toast.makeText(this, getResources().getText(R.string.registration_succes), Toast.LENGTH_SHORT).show();
+				Toast.makeText(context, getResources().getText(R.string.registration_succes), Toast.LENGTH_SHORT).show();
 				FinalFunctionsUtilities.setSharedPreferences(Constants.PASSWORD_KEY, password, context);
-				//Log.e("token", FinalFunctionsUtilities.getSharedPreferences("token", getApplicationContext()));
-				// intent
+				
 				Intent intent = new Intent(context, LuogoNascitaActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivityForResult(intent, 0);
 				finish();
 			} else {
-				Toast.makeText(this,
+				Toast.makeText(
+						context,
 						getResources().getText(R.string.registration_failed),
 						Toast.LENGTH_SHORT).show();
 			}
-
+			
 		} catch (JSONException e) {
+			Log.e(PasswordActivity.class.getName(), e.toString());
 			e.printStackTrace();
+		} catch (Exception e) {
+			Log.e(PasswordActivity.class.getName(), e.toString());
 		}
 	}
 
@@ -244,12 +241,12 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		String language = FinalFunctionsUtilities.getSharedPreferences(
-				"language", context);
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 		Locale locale = new Locale(language);
 
 		if (locale.toString().equals(Locale.ITALIAN.getLanguage())
-				|| locale.toString().equals(locale.ITALY.getLanguage())) {
+				|| locale.toString().equals(Locale.ITALY.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.it);
 		} else if (locale.toString().equals(Locale.ENGLISH.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.en);
@@ -259,24 +256,19 @@ public class PasswordActivity extends Activity implements OnTaskFinished {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		
 		Locale locale = null;
 		switch (item.getItemId()) {
-		case R.id.action_language_it: {
-			locale = Locale.ITALY;
-			break;
-		}
-		case R.id.action_language_en: {
-			locale = Locale.ENGLISH;
-			break;
-		}
-		}
-
-		if (locale != null
-				&& FinalFunctionsUtilities.switchLanguage(locale, context)) {
-			// Refresh activity
-			finish();
-			startActivity(getIntent());
-		}
-		return true;
+		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
+		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
+		    case android.R.id.home: this.finish();break;
+	    }
+		
+		// Refresh activity
+		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
+		    finish();
+		    startActivity(getIntent());
+	    }
+	    return true;
 	}
 }

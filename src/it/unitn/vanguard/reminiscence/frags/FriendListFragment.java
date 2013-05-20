@@ -6,6 +6,7 @@ import it.unitn.vanguard.reminiscence.ViewFriendsProfileFragmentActivity;
 import it.unitn.vanguard.reminiscence.adapters.FriendListAdapter;
 import it.unitn.vanguard.reminiscence.asynctasks.GetFriendsTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.ArrayList;
@@ -29,18 +30,21 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 	@Override
 	public void onStart() {
 		super.onStart();
-		String language = FinalFunctionsUtilities.getSharedPreferences(
-				"language", getActivity());
-		FinalFunctionsUtilities.switchLanguage(new Locale(language),
-				getActivity());
-
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, getActivity());
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), getActivity());
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		if (FinalFunctionsUtilities.isDeviceConnected(getActivity())) {
-			new GetFriendsTask(this, getActivity()).execute();
+			try {
+				new GetFriendsTask(this, getActivity()).execute();
+			} catch (Exception e) {
+				Log.e(FriendListFragment.class.getName(), e.toString());
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -66,8 +70,6 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		// super.onListItemClick(l, v, position, id);
-
 		((ViewFriendsProfileFragmentActivity) getActivity())
 				.onItemSelect(friends.get(position));
 	}
@@ -94,17 +96,18 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 				count = Integer.parseInt(res.getString("numFriend"));
 			}
 		} catch (Exception e) {
-			Log.e("itemselected", e.toString());
+			Log.e(FriendListFragment.class.getName(), e.toString());
+			e.printStackTrace();
 		}
 
 		if (success) {
+			
 			friends.clear();
-			// scorro il json
+			
 			if (count < 1) {
 				// caso in cui non ci siano amici LAMER
 				friends.add(new Friend(getString(R.string.no_friends_a),
 						getString(R.string.no_friends_b),"", -1));
-
 			} else {
 				// caso normale
 				for (int i = 0; i < count; i++) {
@@ -116,13 +119,14 @@ public class FriendListFragment extends ListFragment implements OnTaskFinished {
 								.getString("Cognome"),"", Integer.parseInt(json
 								.getString("Id"))));
 					} catch (Exception e) {
-						Log.e("flf", e.toString());
+						Log.e(FriendListFragment.class.getName(), e.toString());
+						e.printStackTrace();
 					}
 				}
 			}
 			setAdapter();
 		} else {
-			Log.e("json", "errore nell operazione success:false");
+			Log.e("JSON", "Errore nell operazione success:false");
 		}
 	}
 }

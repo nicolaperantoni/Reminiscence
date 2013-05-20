@@ -27,7 +27,6 @@ public class DeleteStoryTask extends AsyncTask <String, Void, Boolean> {
 	OnTaskFinished caller;
 	JSONObject json;
 	int position;
-	Exception ex;
 
 	public DeleteStoryTask(OnTaskFinished caller, int position) {
 		super();
@@ -37,46 +36,37 @@ public class DeleteStoryTask extends AsyncTask <String, Void, Boolean> {
 
 	@Override
 	protected Boolean doInBackground(String... arg0) {
-		String token = FinalFunctionsUtilities.getSharedPreferences("token",
-				(Activity) caller);
-		Log.e("dst", "deleting id " + position);
+		
+		String token = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.TOKEN_KEY, (Activity) caller);
+		
 		if (arg0.length != 1) {
-			throw new IllegalStateException(
-					"Error too few arguments passed in the AddFriendTask");
+			throw new IllegalStateException("You should pass 1 parameter");
 		}
 
-		if (FinalFunctionsUtilities.isDeviceConnected((Activity) caller)) {
-
+		if (!token.equals("")) {
 			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("token", token));
 			params.add(new BasicNameValuePair("idstory", arg0[0]));
 
 			HttpClient client = new DefaultHttpClient();
-			HttpPost post = new HttpPost(Constants.SERVER_URL
-					+ "delStory.php");
+			HttpPost post = new HttpPost(Constants.SERVER_URL + "delStory.php");
 
+			String jsonstring;
 			try {
 				post.setEntity(new UrlEncodedFormEntity(params));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			String jsonstring;
-
-			try {
-				jsonstring = EntityUtils.toString(client.execute(post)
-						.getEntity());
+				jsonstring = EntityUtils.toString(client.execute(post).getEntity());
 				json = new JSONObject(jsonstring);
 			} catch (Exception e) {
-				ex = e;
+				Log.e(DeleteStoryTask.class.getName(), e.toString());
+				e.printStackTrace();
 				return false;
 			}
-
 		} else {
 			Toast.makeText((Activity) caller, R.string.connection_fail,
 					Toast.LENGTH_LONG).show();
 			return false;
 		}
-
 		return true;
 	}
 
@@ -85,11 +75,6 @@ public class DeleteStoryTask extends AsyncTask <String, Void, Boolean> {
 		super.onPostExecute(result);
 		if (result) {
 			((ViewStoriesActivity) caller).storyDeleted(position);
-		}
-		if (json != null) {
-			Log.e("dst", "" + result + " " + json.toString());
-		} else {
-			Log.e("dst", "json null :D");
 		}
 		caller.onTaskFinished(json);
 	}

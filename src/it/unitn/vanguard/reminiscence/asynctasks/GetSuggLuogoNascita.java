@@ -15,7 +15,6 @@ import android.util.Log;
 public class GetSuggLuogoNascita extends AsyncTask<String, Void, Boolean> {
 
 	private OnTaskFinished caller; 
-	private Exception ex;
 	private JSONObject json;
 
 	public GetSuggLuogoNascita(OnTaskFinished caller) {
@@ -25,13 +24,13 @@ public class GetSuggLuogoNascita extends AsyncTask<String, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(String... arg0) { 
 
-		if (arg0.length < 1) {
-			throw new IllegalStateException("You should pass at least 1 params");
+		if (arg0.length != 1) {
+			throw new IllegalStateException("You should pass 1 params");
 		}
 		String url = "https://www.dandelion.eu/api/v1/datagem/26/data.json?$order=&$limit=5&$offset=0&$where=istarts_with(municipality,'";
 		url =url + arg0[0] + "')";
 		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(url); //find link from luca
+		HttpPost post = new HttpPost(url);
 		json = new JSONObject();
 		String jsonString;
 		try {
@@ -42,10 +41,9 @@ public class GetSuggLuogoNascita extends AsyncTask<String, Void, Boolean> {
 				json.put("mun"+i, a.getString("municipality"));
 			}
 			return true;
-
 		} catch (Exception e) {
-			Log.e("ii","asddsa"); 
-			this.ex = e;
+			Log.e(GetSuggLuogoNascita.class.getName(), e.toString());
+			e.printStackTrace();
 			return false;
 		}
 	}

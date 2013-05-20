@@ -20,10 +20,13 @@ public class Constants {
 	public final static String YEAR_KEY = "year";
 	public final static String PASSWORD_KEY = "password";
 	public final static String TOKEN_KEY = "token";
+	public final static String LANGUAGE_KEY = "language";
 	
-	public final static String ACTIVE_STORIES = "ActiveStories";
+	// Gestisce il cambio tra storie pubbliche e storie private
 	public final static String PRIVATE_STORIES = "Private";
 	public final static String PUBLIC_STORIES = "Public";
+	// Di default setto il tipo di storie visibili con PRIVATE_STORIES
+	public final static String ACTIVE_STORIES = PRIVATE_STORIES;
 	
 	public static enum imageType { PROFILE, STORY };
 }

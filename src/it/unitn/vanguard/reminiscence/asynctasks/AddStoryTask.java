@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class AddStoryTask extends AsyncTask<String, Void, JSONObject> {
 
@@ -29,32 +30,18 @@ public class AddStoryTask extends AsyncTask<String, Void, JSONObject> {
 		this.caller = caller;
 	}
 
-	/**
-	 * passed args 
-	 * arg[0]= year; arg[1]= text; arg[2]= title; arg[3] = date;
-	 */
 	@Override
 	protected JSONObject doInBackground(String... arg) {
 		
-		
-		
-		if (arg.length < 2) {
-			throw new IllegalStateException("You should provide a year");
+		if (arg.length != 3) {
+			throw new IllegalStateException("You should provide 3 parameters");
 		}
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 
-		// ottiene il token se presente
-		/*
-		SharedPreferences prefs = PreferenceManager
-				.getDefaultSharedPreferences(((Activity) caller)
-						.getApplicationContext());
-		String token = prefs.getString(Constants.TOKEN_KEY, "");*/
-		
-		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, ((Activity) caller)
-				.getApplicationContext());
+		String token = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.TOKEN_KEY, ((Activity) caller).getApplicationContext());
 		
 		if (!token.equals("")) {
-
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("year", "" + arg[0]));
 			params.add(new BasicNameValuePair("text", "" + arg[1]));
 			params.add(new BasicNameValuePair("title", "" + arg[2]));
@@ -65,9 +52,10 @@ public class AddStoryTask extends AsyncTask<String, Void, JSONObject> {
 			try {
 				post.setEntity(new UrlEncodedFormEntity(params));
 				HttpResponse response = client.execute(post);
-				String s = EntityUtils.toString(response.getEntity());
-				return new JSONObject(s);
+				return new JSONObject( EntityUtils.toString(response.getEntity()));
 			} catch (Exception e) {
+				Log.e(AddStoryTask.class.getName(), e.toString());
+				e.printStackTrace();
 				ex = e;
 			}
 		}

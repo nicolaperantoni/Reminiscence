@@ -34,39 +34,40 @@ public class RequestHelpTask extends AsyncTask<String, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(String... arg0) {
 
-		if (arg0.length < 2) {
-			throw new IllegalStateException("You should pass at least 2 params");
+		if (arg0.length != 2) {
+			throw new IllegalStateException("You should pass 2 parameters");
 		}
 		
-		String token = FinalFunctionsUtilities.getSharedPreferences("token",
+		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY,
 				(Activity) caller);
 
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
-		params.add(new BasicNameValuePair("token", token));
-		params.add(new BasicNameValuePair("idstory", arg0[0]));
-		params.add(new BasicNameValuePair("idHelper", arg0[1]));
+		if(!token.equals("")) {
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("token", token));
+			params.add(new BasicNameValuePair("idstory", arg0[0]));
+			params.add(new BasicNameValuePair("idHelper", arg0[1]));
 
-		Log.e("adsda", params.get(0).toString() + " " + params.get(1).toString()
-				+ " "  + params.get(2).toString());
-		
-		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(Constants.SERVER_URL + "requestHelp.php");
-		try {
-			post.setEntity(new UrlEncodedFormEntity(params));
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
+			HttpClient client = new DefaultHttpClient();
+			HttpPost post = new HttpPost(Constants.SERVER_URL + "requestHelp.php");
+			try {
+				post.setEntity(new UrlEncodedFormEntity(params));
+			} catch (UnsupportedEncodingException e1) {
+				Log.e(RequestHelpTask.class.getName(), e1.toString());
+				e1.printStackTrace();
+			}
+			json = null;
+			String jsonString;
+			try {
+				jsonString = EntityUtils.toString(client.execute(post).getEntity());
+				Log.e(RequestHelpTask.class.getName(), jsonString);
+				json = new JSONObject(jsonString);
+			} catch (Exception e) {
+				Log.e(RequestHelpTask.class.getName(), e.toString());
+				e.printStackTrace();
+				this.ex = e;
+				return false;
+			}
 		}
-		json = null;
-		String jsonString;
-		try {
-			jsonString = EntityUtils.toString(client.execute(post).getEntity());
-			Log.e(jsonString, jsonString);
-			json = new JSONObject(jsonString);
-		} catch (Exception e) {
-			this.ex = e;
-			return false;
-		}
-
 		return true;
 	}
 

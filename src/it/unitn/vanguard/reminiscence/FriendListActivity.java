@@ -4,6 +4,7 @@ import it.unitn.vanguard.reminiscence.adapters.FriendListAdapter;
 import it.unitn.vanguard.reminiscence.asynctasks.DeleteFriendTask;
 import it.unitn.vanguard.reminiscence.asynctasks.GetFriendsTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
+import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.ArrayList;
@@ -39,9 +40,10 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		context = FriendListActivity.this;
-		setContentView(R.layout.activity_friend_list);
+		
 		// Show the Up button in the action bar.
 		setupActionBar();
 		getFriendsList();
@@ -52,25 +54,29 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 			@Override
 			public void onClick(View v) {
 				FinalFunctionsUtilities.setSharedPreferences("FriendListActivity", "true", FriendListActivity.this);
-				FriendListActivity.this.finish();
-				startActivity(new Intent(context,
-						AddFriendActivity.class));
+				startActivity(new Intent(context,AddFriendActivity.class));
+				finish();
 			}
 		});
+		
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
+		setContentView(R.layout.activity_friend_list);
 	}
 	
 	@Override
 	protected void onStart() {
 		super.onStart();
-		String language = FinalFunctionsUtilities.getSharedPreferences(
-				"language", context);
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), this);
 	}
 
 	private void setAdapter() {
 		Friend fr[] = new Friend[friends.size()];
 		friends.toArray(fr);
-		FriendListAdapter t = new FriendListAdapter(this, fr);
+		FriendListAdapter t = new FriendListAdapter(context, fr);
 		setListAdapter(t);
 	}
 	
@@ -81,10 +87,13 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 			dialog.setMessage(getResources().getString(R.string.wait));
 			dialog.setCancelable(false);
 			dialog.show();
-			new GetFriendsTask(this, this).execute();
+			try {
+				new GetFriendsTask(this, this).execute();
+			} catch (Exception e) {
+				Log.e(FriendListActivity.class.getName(), e.toString());
+			}
 		} else {
-			Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
-			.show();
+			Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -95,7 +104,7 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		final int pos = position;
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
+		
 		String delFriend = "";
 		delFriend += getResources().getString(R.string.deleteFriendPopupMessage1);
 		delFriend += "\n\n" + friends.get(position).getName() + " ";
@@ -104,38 +113,29 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		delFriend += getResources().getString(R.string.deleteFriendPopupMessage2);
 		
 		builder.setMessage(delFriend)
-				.setPositiveButton(R.string.yes,
-						new DialogInterface.OnClickListener() {
-							public void onClick(
-									DialogInterface dialogInterface,
-									int id) {
-								
-								if(FinalFunctionsUtilities.isDeviceConnected(context)) {
-									dialog = new ProgressDialog(
-											context);
-									dialog.setTitle(getResources()
-											.getString(R.string.please));
-									dialog.setMessage(getResources()
-											.getString(R.string.wait));
-									dialog.setCancelable(false);
-									dialog.show();
-									
-									deleteFriend(pos);
-								}
-								else {
-									Toast.makeText(context,
-											getResources().getString(R.string.connection_fail),
-											Toast.LENGTH_LONG).show();
-								}
-							}
-						})
-				.setNegativeButton(R.string.no,
-						new DialogInterface.OnClickListener() {
-							public void onClick(
-									DialogInterface dialog, int id) {
-
-							}
-						});
+			.setPositiveButton(R.string.yes,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialogInterface, int id) {
+						
+						if(FinalFunctionsUtilities.isDeviceConnected(context)) {
+							dialog = new ProgressDialog(context);
+							dialog.setTitle(getResources().getString(R.string.please));
+							dialog.setMessage(getResources().getString(R.string.wait));
+							dialog.setCancelable(false);
+							dialog.show();
+							deleteFriend(pos);
+						}
+						else {
+							Toast.makeText(
+									context,
+									getResources().getString(R.string.connection_fail),
+									Toast.LENGTH_LONG).show();
+						}
+					}
+			})
+			.setNegativeButton(R.string.no,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) { } });
 
 		AlertDialog alert = builder.create();
 		alert.show();
@@ -188,7 +188,11 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 			dialog.show();
 		}
 		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
-			new DeleteFriendTask(this, position).execute(Integer.toString(fr.getId()));
+			try {
+				new DeleteFriendTask(this, position).execute(Integer.toString(fr.getId()));
+			} catch (Exception e) {
+				Log.e(FriendListActivity.class.getName(), e.toString());
+			}
 		}
 	}
 
@@ -196,39 +200,45 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 	public void onTaskFinished(JSONObject res) {
 		
 		int count = 10;
-		boolean success = false;
-		
-		if(dialog!=null && dialog.isShowing()) dialog.dismiss();
+		if(dialog!=null && dialog.isShowing()) { dialog.dismiss(); }
 
-		// ottengo se l'operazione ha avuto successo e il numero di valori dal
-		// json
 		/*
+		 * Ottengo il numero di valori dal json
+		 * 
 		 * json: {"success":true, "numFriend":2 "f0":{"Nome":asd, "Cognome":asd,
 		 * "Id":1} "f1":{"Nome":ciccio, "Cognome":ciccia, "Id":2}}
 		 */
 		
 		try {
-			success = res.getString("success").equals("true");
-			if (success) {
-				count = Integer.parseInt(res.getString("numFriend"));
-				friends.clear();
-				
-				for (int i = 0; i < count; i++) {
-					String ct = "f" + i;
-					JSONObject json = null;
-					try {
-						json = new JSONObject(res.getString(ct));
-						friends.add(new Friend(json.getString("Nome"), json
-								.getString("Cognome"), json.getString("Email"),
-								Integer.parseInt(json.getString("Id"))));
-					} catch (Exception e) {
-						Log.e("flf", e.toString());
+			
+			if (res.getString("success").equals("true")) {
+				try {
+					count = Integer.parseInt(res.getString("numFriend"));
+					friends.clear();
+					for (int i = 0; i < count; i++) {
+						String ct = "f" + i;
+						JSONObject json = null;
+						try {
+							json = new JSONObject(res.getString(ct));
+							friends.add(new Friend(json.getString("Nome"), json
+									.getString("Cognome"), json.getString("Email"),
+									Integer.parseInt(json.getString("Id"))));
+						} catch (Exception e) {
+							Log.e("flf", e.toString());
+						}
 					}
+					setAdapter();
+				} catch (Exception e) {
+					count = 10;
+					Toast.makeText(
+							context,
+							getResources().getString(R.string.registration_failed),
+							Toast.LENGTH_LONG).show();
 				}
-				setAdapter();
 			}
 		} catch (Exception e) {
-			Log.e("Error: " + FriendListActivity.class.getName(), "success = false, " + e.toString());
+			Log.e(FriendListActivity.class.getName(), e.toString());
+			e.printStackTrace();
 		}
 	}
 }

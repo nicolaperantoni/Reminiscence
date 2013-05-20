@@ -19,10 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.util.Log;
 
 public class GetPublicStoriesTask extends
@@ -30,8 +27,6 @@ public class GetPublicStoriesTask extends
 		Comparable<GetPublicStoriesTask> {
 
 	private OnGetStoryTask caller;
-	private Exception ex;
-	private JSONObject json;
 	private int year;
 
 	@Override
@@ -48,6 +43,7 @@ public class GetPublicStoriesTask extends
 
 	@Override
 	protected Boolean doInBackground(Integer... arg) {
+		
 		if (arg.length > 0) {
 			if (arg[0] != null)
 				this.year = arg[0];
@@ -55,31 +51,34 @@ public class GetPublicStoriesTask extends
 				throw new IllegalStateException("You should provide a year");
 			}
 		}
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
-		// ottiene il token se presente 
-		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, ((Activity) caller)
-				.getApplicationContext());
-		params.add(new BasicNameValuePair("token", token));
-		params.add(new BasicNameValuePair("initdecade", "" + year));
-
-		HttpClient client = new DefaultHttpClient();
-		HttpPost post = new HttpPost(Constants.SERVER_URL + "getStory.php");
-		try {
-			post.setEntity(new UrlEncodedFormEntity(params));
-			HttpResponse response = client.execute(post);
-			String s = EntityUtils.toString(response.getEntity());
-			JSONObject json = new JSONObject(s);
-			Log.e("JSON OBJECT", s);
-			int n = json.getInt("numStory");
-			if (n < 1)
-				return false;
-			for (int i = 0; i < n; i++) {
-				JSONObject story = new JSONObject(json.get("s" + i).toString());
-				publishProgress(story);
+		
+		String token = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.TOKEN_KEY, ((Activity) caller).getApplicationContext());
+		
+		if(!token.equals("")) {
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("token", token));
+			params.add(new BasicNameValuePair("initdecade", "" + year));
+			HttpClient client = new DefaultHttpClient();
+			HttpPost post = new HttpPost(Constants.SERVER_URL + "getStory.php");
+			try {
+				post.setEntity(new UrlEncodedFormEntity(params));
+				HttpResponse response = client.execute(post);
+				String s = EntityUtils.toString(response.getEntity());
+				JSONObject json = new JSONObject(s);
+				Log.e("JSON OBJECT", s);
+				int n = json.getInt("numStory");
+				if (n < 1)
+					return false;
+				for (int i = 0; i < n; i++) {
+					JSONObject story = new JSONObject(json.get("s" + i).toString());
+					publishProgress(story);
+				}
+				return true;
+			} catch (Exception e) {
+				Log.e(GetPublicStoriesTask.class.getName(), e.toString() + "asdada");
+				e.printStackTrace();
 			}
-			return true;
-		} catch (Exception e) {
-			ex = e;
 		}
 		return false;
 	}
@@ -95,6 +94,10 @@ public class GetPublicStoriesTask extends
 			Story s = new Story(year, title, desc, id);
 			FinalFunctionsUtilities.stories.add(s);
 		} catch (JSONException e) {
+			Log.e(GetPublicStoriesTask.class.getName(), e.toString());
+			e.printStackTrace();
+		} catch (Exception e) {
+			Log.e(GetPublicStoriesTask.class.getName(), e.toString());
 			e.printStackTrace();
 		}
 	}
@@ -113,5 +116,4 @@ public class GetPublicStoriesTask extends
 			return 0;
 		return 1;
 	}
-
 }

@@ -40,12 +40,13 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = ChangePassword.this;
-		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 			
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_change_password);
+		
 		initializeButtons();
 		initializeListeners();
 	}
@@ -59,6 +60,7 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 
 	private void initializeListeners() {
 		btnChangePassword.setOnClickListener(new View.OnClickListener() {
+			
 			@Override
 			public void onClick(View v) {
 				
@@ -73,7 +75,7 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 				}
 				else {
 					if(!new_pass1.equals(new_pass2)) {
-						Toast.makeText(ChangePassword.this, getResources().getString(R.string.wrong_password),
+						Toast.makeText(context, getResources().getString(R.string.wrong_password),
 								Toast.LENGTH_LONG).show();
 					}
 					else if(!FinalFunctionsUtilities.isDeviceConnected(context)) {
@@ -86,12 +88,16 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 						dialog.setCancelable(false);
 						dialog.show();
 						if (FinalFunctionsUtilities.isDeviceConnected(context)) {
-							new ChangePasswordTask(ChangePassword.this).execute(new_pass1, new_pass2);
+							try {
+								new ChangePasswordTask(ChangePassword.this).execute(new_pass1, new_pass2);
+							} catch (Exception e) {
+								Log.e(ChangePassword.class.getName(), e.toString());
+							}
 						} else {
 							Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
 						}
-						//finish();
 					}
+					finish();
 				}
 			} 
 		});
@@ -155,21 +161,27 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		if(dialog!=null && dialog.isShowing())
-			dialog.dismiss();
+		
+		if(dialog!=null && dialog.isShowing()) { dialog.dismiss(); }
+		
 		try {
-			Log.e("", FinalFunctionsUtilities.getSharedPreferences(Constants.PASSWORD_KEY, context));
+			
 			if (res.getString("success").equals("true")) {
 				FinalFunctionsUtilities.setSharedPreferences(Constants.PASSWORD_KEY, new_pass1, context);
-				Toast.makeText(context, getResources().getString(R.string.correct_password),
+				Toast.makeText(
+						context,
+						getResources().getString(R.string.correct_password),
 						Toast.LENGTH_LONG).show();
 				finish();
 			}
 			else
-				Toast.makeText(context, getResources().getString(R.string.login_failed),
+				Toast.makeText(
+						context,
+						getResources().getString(R.string.login_failed),
 						Toast.LENGTH_LONG).show();
 		} catch (JSONException e) {
 			Log.e(ChangePassword.class.getName(), e.toString());
+			e.printStackTrace();
 		}
 	}
 	
@@ -178,20 +190,22 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 		Locale locale = new Locale(language);
 
-		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
+		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(Locale.ITALY.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.it);
 		}
 		else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.en);
 		}
-		return super.onCreateOptionsMenu(menu);
+		return true;
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		
 		Locale locale = null;
 		switch (item.getItemId()) {
 		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
@@ -199,8 +213,8 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 		    case android.R.id.home: this.finish();break;
 	    }
 		
+		// Refresh activity
 		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
-		    // Refresh activity
 		    finish();
 		    startActivity(getIntent());
 	    }

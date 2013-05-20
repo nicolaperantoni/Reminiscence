@@ -6,6 +6,8 @@
     <string name="please">Please</string>
     <string name="wait">wait...</string>
     <string name="connection_fail">You must be connected to the internet</string>
+    <string name="dropdown_public_stories">Public Stories</string>
+    <string name="dropdown_private_stories">Your stories</string>
 
     <!-- SlidingMenu -->
     <string name="menu_profile">ACCOUNT</string>
@@ -90,14 +92,19 @@
          Vivamus et turpis ipsum, quis tristique orci. Vestibulum egestas 
          felis at justo aliquet sollicitudin.</string>
     <string name="empty_year">What happened to you in this year?\n Write a new Story! =)</string>
+    <string name="deleteStoryPopupMessage1">Are you sure you want to remove</string>
+    <string name="deleteStoryPopupMessage2">from your stories?</string>
+    <string name="deleteStorySucces">Story removed</string>
+    <string name="deleteStoryFail">Story removed (Failed)</string>
 
     <!-- EmptyStoryActivity -->
     <string name="no_story">Tell us a story about</string>
     <string name="year_hint">Year</string>
     <string name="story_add_ok">Story added successfully</string>
     <string name="story_year_broken">year invalid</string>
-    <string name="story_add_fail">Some errors occured</string>
+    <string name="story_add_fail">Some errors occurred</string>
     <string name="story_notification_upload_title">Uploading image (%1$s / %2$s)</string>
+    <string name="story_upload_photo">Upload some photos</string>
 
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">MainPageActivity</string>
@@ -132,27 +139,20 @@
 
     <!-- Story Fragment -->
     <string name="chiedi_aiuto_btn">Ask for help</string>
-
-    <!-- stringhe per zen da sistemare -->
-    <string name="title_activity_add_friend">AddFriendActivity</string>
-    <string name="add_friend_successful">Your friend was successfully added!</string>
-    <string name="no_friends_a">No </string>
+    
+    <!-- AddFriendActivity -->
+	<string name="title_activity_add_friend">Add a friend</string>
+	<string name="add_friend_successful">Your friend was successfully added!</string>
+	<string name="no_friends_a">No </string>
     <string name="no_friends_b">friends</string>
+    
+    <!-- FriendListActivity -->
     <string name="title_activity_friend_list">FriendListActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="uploadPhoto">Upload Photo</string>
-    <string name="send_mail">Send mail!</string>
     <string name="deleteFriendPopupMessage1">Are you sure you want to remove</string>
     <string name="deleteFriendPopupMessage2">from friends?</string>
-
-    <!-- stringhe per Zen della ActionBar -->
-    <string name="dropdown_public_stories">Public Stories</string>
-    <string name="dropdown_private_stories">Private Stories</string>
     <string name="fli_removefriend">Remove Friend</string>
-    <string name="dropdown_public_stories">Public Stories</string>
-    <string name="deleteStoryPopupMessage1">Are you sure you want to remove</string>
-    <string name="deleteStoryPopupMessage2">from your stories?</string>
-    <string name="deleteStorySucces">Story removed</string>
-    <string name="deleteStoryFail">Story removed (Failed)</string>
+    
+    <!-- CheckBoxActivity -->
+    <string name="send_mail">Send mail</string>
 
 </resources>

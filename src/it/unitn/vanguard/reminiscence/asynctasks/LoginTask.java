@@ -34,19 +34,19 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(String... arg0) {
 
-		if (arg0.length < 2) {
-			throw new IllegalStateException("You should pass at least 2 params");
+		if (arg0.length != 2) {
+			throw new IllegalStateException("You should pass 2 parameters");
 		}
-
+		
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 		params.add(new BasicNameValuePair("email", arg0[0]));
 		params.add(new BasicNameValuePair("password", arg0[1]));
-
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(Constants.SERVER_URL + "login.php");
 		try {
 			post.setEntity(new UrlEncodedFormEntity(params));
 		} catch (UnsupportedEncodingException e1) {
+			Log.e(LoginTask.class.getName(), e1.toString());
 			e1.printStackTrace();
 		}
 		json = null;
@@ -65,6 +65,8 @@ public class LoginTask extends AsyncTask<String, Void, Boolean> {
 			}
 
 		} catch (Exception e) {
+			Log.e(LoginTask.class.getName(), e.toString());
+			e.printStackTrace();
 			this.ex = e;
 			return false;
 		}

@@ -52,20 +52,20 @@ public class RegistrationTask extends AsyncTask<String, Void, Boolean> {
 		try {
 			post.setEntity(new UrlEncodedFormEntity(params));
 		} catch (UnsupportedEncodingException e1) {
+			Log.e(RegistrationTask.class.getName(), e1.toString());
 			e1.printStackTrace();
 		}
 		json = null;
 		String jsonString;
 		try {
-			
 			jsonString = EntityUtils.toString(client.execute(post).getEntity());
 			json = new JSONObject(jsonString);
-			
 		} catch (Exception e) {
+			Log.e(RegistrationTask.class.getName(), e.toString());
+			e.printStackTrace();
 			this.ex=e;
 			return false;
 		}
-		
 		return true;
 	}
 
@@ -76,7 +76,4 @@ public class RegistrationTask extends AsyncTask<String, Void, Boolean> {
 			Log.e(RegistrationTask.class.getName(), ex.toString());
 		caller.onTaskFinished(json);
 	}
-	
-	
-
 }

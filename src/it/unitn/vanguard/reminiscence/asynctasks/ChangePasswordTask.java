@@ -23,7 +23,6 @@ import android.util.Log;
 public class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
 
 	private OnTaskFinished caller;
-	private Exception ex;
 	private JSONObject json;
 
 	public ChangePasswordTask(OnTaskFinished caller) {
@@ -35,28 +34,17 @@ public class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
 	protected Boolean doInBackground(String... arg0) {
 
 
-		if (arg0.length < 1) {
-			throw new IllegalStateException("You should pass at least 1 params");
+		if (arg0.length != 2) {
+			throw new IllegalStateException("You should pass 2 parameters: old_password and new_password");
 		}
-
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 		
-		//ottiene il token se presente
-		/*SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(((Activity) caller).getApplicationContext());
-		String token = prefs.getString(Constants.TOKEN_KEY, "");
-		String old = prefs.getString(Constants.PASSWORD_KEY, "");*/
+		String token = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.TOKEN_KEY, ((Activity) caller).getApplicationContext());
+		String old = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.PASSWORD_KEY, ((Activity) caller).getApplicationContext());
 		
-		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, ((Activity) caller)
-				.getApplicationContext());
-		String old = FinalFunctionsUtilities.getSharedPreferences(Constants.PASSWORD_KEY, ((Activity) caller)
-				.getApplicationContext());
-		
-		Log.e("token", token);
-		Log.e("old pass",old);
-		Log.e("new pass",arg0[0]);
-		
-
 		if (!token.equals("")) {
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("oldpass", old ));
 			params.add(new BasicNameValuePair("newpass", arg0[0]));
 			params.add(new BasicNameValuePair("token", token));
@@ -74,15 +62,14 @@ public class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
 				jsonString = EntityUtils.toString(client.execute(post).getEntity());
 				json = new JSONObject(jsonString);
 				if (json != null && json.getString("success").equals("true")) {
-					FinalFunctionsUtilities.setSharedPreferences(Constants.PASSWORD_KEY, arg0[0], ((Activity) caller)
+					FinalFunctionsUtilities
+					.setSharedPreferences(Constants.PASSWORD_KEY, arg0[0], ((Activity) caller)
 							.getApplicationContext());
-					/*SharedPreferences.Editor editor = prefs.edit();
-					editor.putString("password" , arg0[0]);
-					editor.commit();*/
 					return true;
 				}
 			} catch (Exception e) {
-				this.ex = e;
+				Log.e(ChangePasswordTask.class.getName(), e.toString());
+				e.printStackTrace();
 				return false;
 			}
 		}
@@ -92,9 +79,6 @@ public class ChangePasswordTask extends AsyncTask<String, Void, Boolean> {
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
-		if (!result && ex != null) {
-			Log.e(RegistrationTask.class.getName(), ex.toString());
-		}
 		caller.onTaskFinished(json);
 	}
 }

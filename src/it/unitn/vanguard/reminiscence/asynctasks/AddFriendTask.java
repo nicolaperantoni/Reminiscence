@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 public class AddFriendTask extends AsyncTask<String, Void, Boolean> {
@@ -34,16 +35,14 @@ public class AddFriendTask extends AsyncTask<String, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(String... arg0) {
 
-		String token = FinalFunctionsUtilities.getSharedPreferences("token",
-				(Activity) caller);
-
+		String token = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.TOKEN_KEY, (Activity) caller);
+		
 		if (arg0.length != 3) {
-			throw new IllegalStateException(
-					"Error too few arguments passed in the AddFriendTask");
+			throw new IllegalStateException("You should provide 3 parameters");
 		}
 
-		if (FinalFunctionsUtilities.isDeviceConnected((Activity) caller)) {
-
+		if (!token.equals("")) {
 			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(4);
 			params.add(new BasicNameValuePair("nome", arg0[0]));
 			params.add(new BasicNameValuePair("cognome", arg0[1]));
@@ -51,32 +50,25 @@ public class AddFriendTask extends AsyncTask<String, Void, Boolean> {
 			params.add(new BasicNameValuePair("token", token));
 
 			HttpClient client = new DefaultHttpClient();
-			HttpPost post = new HttpPost(Constants.SERVER_URL
-					+ "addFriends.php");
+			HttpPost post = new HttpPost(Constants.SERVER_URL + "addFriends.php");
 
+			String jsonstring;
 			try {
 				post.setEntity(new UrlEncodedFormEntity(params));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			String jsonstring;
-
-			try {
-				jsonstring = EntityUtils.toString(client.execute(post)
-						.getEntity());
+				jsonstring = EntityUtils.toString(client.execute(post).getEntity());
 				json = new JSONObject(jsonstring);
+				return true;
 			} catch (Exception e) {
+				Log.e(AddFriendTask.class.getName(), e.toString());
+				e.printStackTrace();
 				ex = e;
 				return false;
 			}
-
 		} else {
 			Toast.makeText((Activity) caller, R.string.connection_fail,
 					Toast.LENGTH_LONG).show();
 			return false;
 		}
-
-		return true;
 	}
 
 	@Override
@@ -84,5 +76,4 @@ public class AddFriendTask extends AsyncTask<String, Void, Boolean> {
 		super.onPostExecute(result);
 		caller.onTaskFinished(json);
 	}
-
 }

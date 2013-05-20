@@ -6,6 +6,8 @@
     <string name="please">Per Favore</string>
     <string name="wait">attendi...</string>
     <string name="connection_fail">Devi essere connesso alla rete internet</string>
+    <string name="dropdown_public_stories">Storie Pubbliche</string>
+    <string name="dropdown_private_stories">Le tue Storie</string>
 
     <!-- Menus -->
     <string name="menu_profile">PROFILO</string>
@@ -90,7 +92,11 @@
          Vivamus et turpis ipsum, quis tristique orci. Vestibulum egestas 
          felis at justo aliquet sollicitudin.</string>
     <string name="empty_year">Cosa ti è successo in quest\'anno?\n Scrivi una nuova storia! =)</string>
-
+    <string name="deleteStoryPopupMessage1">Sei sicuro di rimuovere</string>
+    <string name="deleteStoryPopupMessage2">dalle tue storie?</string>
+    <string name="deleteStorySucces">Storia rimossa correttamente</string>
+    <string name="deleteStoryFail">Non è stato possibile rimuovere la storia</string>
+    
     <!-- EmptyStoryActivity -->
     <string name="no_story">Raccontaci una storia su</string>
     <string name="year_hint">Anno</string>
@@ -98,6 +104,7 @@
     <string name="story_year_broken">anno errato</string>
     <string name="story_add_fail">E\' avvenuto qualche errore</string>
     <string name="story_notification_upload_title">Uploading images (%1$s / %2$s)</string>
+    <string name="story_upload_photo">Carica delle foto</string>
 
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">Pagina Principale</string>
@@ -119,6 +126,8 @@
 
     <!-- ProfileImage Activity -->
     <string name="title_activity_profile_fragment">FragmentProfilo</string>
+   
+    <!-- ChangeProfileImage Activity -->
     <string name="label_change_profile_image">Cambia la tua immagine profilo</string>
     <string name="profile_image_change_button">Scegli un\'immagine</string>
     <string name="profile_image_change_success">La tua immagine profilo è stata cambiata!</string>
@@ -130,5 +139,20 @@
 
     <!-- Story Fragment -->
     <string name="chiedi_aiuto_btn">Chiedi aiuto</string>
+    
+    <!-- AddFriendActivity -->
+	<string name="title_activity_add_friend">Aggiungi un amico</string>
+	<string name="add_friend_successful">L\'amico è stato aggiunto alla tua lista!</string>
+	<string name="no_friends_a">Non hai </string>
+    <string name="no_friends_b">amici</string>
+    
+    <!-- FriendListActivity -->
+    <string name="title_activity_friend_list">FriendListActivity</string>
+    <string name="deleteFriendPopupMessage1">Sei sicuro di voler rimuovere</string>
+    <string name="deleteFriendPopupMessage2">dagli amici?</string>
+    <string name="fli_removefriend">Rimuovi amico</string>
+    
+    <!-- CheckBoxActivity -->
+    <string name="send_mail">Invia mail</string>
 
 </resources>

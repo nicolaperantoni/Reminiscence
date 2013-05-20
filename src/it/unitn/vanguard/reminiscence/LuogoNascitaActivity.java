@@ -19,7 +19,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,28 +39,25 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 	private Button btnLuogoNascitaConfirm;
 	private AutoCompleteTextView txtLuogoNascita;
 	private boolean placeOk;
-	private String first = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = LuogoNascitaActivity.this;
 
-		String language = FinalFunctionsUtilities.getSharedPreferences(
-				"language", context);
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_luogo_nascita);
-		Resources res = getResources();
-		int color = res.getColor(android.R.color.black);
+		
 		initializeButtons();
-
-		txtLuogoNascita.setTextColor(color);
 		initializeListeners();
 	}
 
 	private void initializeButtons() {
 		btnLuogoNascitaConfirm = (Button) findViewById(R.id.btnLuogoNascita);
 		txtLuogoNascita = (AutoCompleteTextView) findViewById(R.id.txtLuogoNascita);
+		txtLuogoNascita.setTextColor(getResources().getColor(android.R.color.black));
 	}
 
 	private void initializeListeners() {
@@ -69,17 +65,10 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 		txtLuogoNascita.addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
-
-			}
+			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { }
 
 			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-				// TODO Auto-generated method stub
-
-			}
+			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) { }
 
 			@Override
 			public void afterTextChanged(Editable arg0) {
@@ -135,14 +124,13 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 							Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
 							txtLuogoNascita.getText().toString(),
 							LuogoNascitaActivity.this);
-					// intent
-					Intent loginIntent = new Intent(context,
-							ViewStoriesActivity.class);
-					loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivityForResult(loginIntent, 0);
-					new LuogoNascitaTask(LuogoNascitaActivity.this)
-							.execute(place);
-					finish();
+					
+					try {
+						new LuogoNascitaTask(LuogoNascitaActivity.this).execute(place);
+					} catch (Exception e) {
+						Log.e(LuogoNascitaActivity.class.getName(), e.toString());
+						e.printStackTrace();
+					}
 				} else {
 					Toast.makeText(context,
 							getResources().getString(R.string.connection_fail),
@@ -160,28 +148,33 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 		});
 	}
 
-	private List removeDuplicate(List sourceList) {
-		Set setPmpListArticle = new HashSet(sourceList);
-		return new ArrayList(setPmpListArticle);
+	private List<String> removeDuplicate(List<String> sourceList) {
+		Set<String> setPmpListArticle = new HashSet<String>(sourceList);
+		return new ArrayList<String>(setPmpListArticle);
 	}
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
 
-		Log.e("Lista suggerimenti", res.toString());
-		if (res != null) {
 			try {
-				if (res.getString("Operation").equals("setLuogoNascita")) {
-					if (res.getString("success").equals("true"))
-						this.finish();
-					else
-						Toast.makeText(
-								context,
-								getResources().getString(
-										R.string.connection_fail),
-								Toast.LENGTH_LONG).show();
+				
+				if (res.getString("success").equals("true")
+						&& res.getString("Operation").equals("setLuogoNascita") ) {
+						
+						Intent loginIntent = new Intent(context, ViewStoriesActivity.class);
+						loginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+						startActivityForResult(loginIntent, 0);
+						finish();
+						
+				} else {
+					Toast.makeText(
+							context,
+							getResources().getString(
+									R.string.connection_fail),
+							Toast.LENGTH_LONG).show();
 				}
 			} catch (JSONException je) {
+				
 				ArrayList<String> sugg = new ArrayList<String>();
 				try {
 					sugg.add(res.getString("mun0"));
@@ -189,56 +182,63 @@ public class LuogoNascitaActivity extends Activity implements OnTaskFinished {
 					sugg.add(res.getString("mun2"));
 					sugg.add(res.getString("mun3"));
 					ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-							context, R.layout.my_item_view,
-							removeDuplicate(sugg));
+							context, R.layout.my_item_view, removeDuplicate(sugg));
+					
 					txtLuogoNascita.setThreshold(2);
 					txtLuogoNascita.setAdapter(adapter);
 					txtLuogoNascita.showDropDown();
+					
 				} catch (JSONException e) {
+					Log.e(LuogoNascitaActivity.class.getName(), e.toString());
 					e.printStackTrace();
+					Toast.makeText(
+							context,
+							getResources().getString(R.string.registration_failed),
+							Toast.LENGTH_LONG).show();
 				}
+			} catch (Exception e) {
+				Log.e(LuogoNascitaActivity.class.getName(), e.toString());
+				e.printStackTrace();
+				Toast.makeText(
+						context,
+						getResources().getString(R.string.registration_failed),
+						Toast.LENGTH_LONG).show();
 			}
-		}
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		String language = FinalFunctionsUtilities.getSharedPreferences(
-				"language", context);
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 		Locale locale = new Locale(language);
 
-		if (locale.toString().equals(Locale.ITALIAN.getLanguage())
-				|| locale.toString().equals(Locale.ITALY.getLanguage())) {
+		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(Locale.ITALY.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.it);
-		} else if (locale.toString().equals(Locale.ENGLISH.getLanguage())) {
+		}
+		else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.en);
 		}
 		return true;
 	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		
 		Locale locale = null;
 		switch (item.getItemId()) {
-		case R.id.action_language_it: {
-			locale = Locale.ITALY;
-			break;
-		}
-		case R.id.action_language_en: {
-			locale = Locale.ENGLISH;
-			break;
-		}
-		}
-
-		if (locale != null
-				&& FinalFunctionsUtilities.switchLanguage(locale, context)) {
-			// Refresh activity
-			finish();
-			startActivity(getIntent());
-		}
-		return true;
+		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
+		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
+		    case android.R.id.home: this.finish();break;
+	    }
+		
+		// Refresh activity
+		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
+		    finish();
+		    startActivity(getIntent());
+	    }
+	    return true;
 	}
 }

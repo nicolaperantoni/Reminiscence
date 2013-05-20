@@ -42,8 +42,6 @@ public class RegistrationActivity extends Activity {
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
         setContentView(R.layout.activity_registration);
         
-        //FinalFunctionsUtilities.clearSharedPreferences(context);
-        
 		initializeButtons();
 		initializeListeners();
     }
@@ -208,12 +206,13 @@ public class RegistrationActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		
-		// Inflate the menu; this adds items to the action bar if it is present.
+		// Inflate the menu: this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 		Locale locale = new Locale(language);
 
-		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
+		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(Locale.ITALY.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.it);
 		}
 		else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
@@ -224,14 +223,15 @@ public class RegistrationActivity extends Activity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		
 		Locale locale = null;
 		switch (item.getItemId()) {
 		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
 		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
 	    }
 		
+		// Refresh activity
 		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
-		    // Refresh activity
 		    finish();
 		    startActivity(getIntent());
 	    }

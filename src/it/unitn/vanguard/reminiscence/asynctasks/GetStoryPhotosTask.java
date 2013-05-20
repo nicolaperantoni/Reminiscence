@@ -23,7 +23,6 @@ import android.util.Log;
 public class GetStoryPhotosTask extends AsyncTask<Integer, JSONObject, Boolean> {
 
 	private OnTaskFinished caller;
-	private Exception ex;
 	private JSONObject json;
 	private Context context;
 
@@ -33,23 +32,20 @@ public class GetStoryPhotosTask extends AsyncTask<Integer, JSONObject, Boolean> 
 	}
 
 	@Override
-	protected Boolean doInBackground(Integer... arg0) {
+	protected Boolean doInBackground(Integer... arg) {
 
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(1);
-
-		// ottiene il token se presente
 		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, context);
-		Log.e("token", "->"+token);
 
-		if (!token.equals("") && FinalFunctionsUtilities.isDeviceConnected(context)) {
-			
+		if (!token.equals("")) {
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(1);
 			params.add(new BasicNameValuePair("token", token));
 			HttpClient client = new DefaultHttpClient();
 			HttpPost post = new HttpPost(Constants.SERVER_URL + "getProfileImage.php");
 			try {
 				post.setEntity(new UrlEncodedFormEntity(params));
-			} catch (UnsupportedEncodingException e1) {
-				e1.printStackTrace();
+			} catch (UnsupportedEncodingException e) {
+				Log.e(GetStoryPhotosTask.class.getName(), e.toString());
+				e.printStackTrace();
 			}
 			json = null;
 			String jsonString;
@@ -60,8 +56,8 @@ public class GetStoryPhotosTask extends AsyncTask<Integer, JSONObject, Boolean> 
 					return true;
 				}
 			} catch (Exception e) {
-				this.ex = e;
-				Log.e("Error", e.toString());
+				Log.e(GetStoryPhotosTask.class.getName(), e.toString());
+				e.printStackTrace();
 				return false;
 			}
 		}
@@ -71,9 +67,6 @@ public class GetStoryPhotosTask extends AsyncTask<Integer, JSONObject, Boolean> 
 	@Override
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
-		if (!result && ex != null) {
-			Log.e(GetStoryPhotosTask.class.getName(), ex.toString());
-		}
 		caller.onTaskFinished(json);
 	}
 }

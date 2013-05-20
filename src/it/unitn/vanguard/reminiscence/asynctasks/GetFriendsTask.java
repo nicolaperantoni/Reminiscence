@@ -24,10 +24,8 @@ public class GetFriendsTask extends AsyncTask<Integer, JSONObject, Boolean> {
 	
 	OnTaskFinished caller;
 	Context context;
-	private JSONObject json;	
-	private Exception ex = null;
+	private JSONObject json;
 	
-
 	public GetFriendsTask(OnTaskFinished caller, Context context) {
 		super();
 		this.caller = caller;
@@ -36,16 +34,12 @@ public class GetFriendsTask extends AsyncTask<Integer, JSONObject, Boolean> {
 
 	@Override
 	protected Boolean doInBackground(Integer... arg0) {
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-		
 
 		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, context);
-		Log.e("token", "->"+token);
 		
-		if (!token.equals("") && FinalFunctionsUtilities.isDeviceConnected(context)) {
-			Log.e("friendlisttask","invio la richiesta per la lista amici");
+		if (!token.equals("")) {
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(1);
 			params.add(new BasicNameValuePair("token", token));
-
 			HttpClient client = new DefaultHttpClient();
 			HttpPost post = new HttpPost(Constants.SERVER_URL + "getFriends.php");
 			
@@ -57,18 +51,16 @@ public class GetFriendsTask extends AsyncTask<Integer, JSONObject, Boolean> {
 			
 			json = null;
 			String jsonString;
-			
 			try {
 				jsonString = EntityUtils.toString(client.execute(post).getEntity());
 				json = new JSONObject(jsonString);
-				Log.e("friendlisttask", json.toString());
 			} catch (Exception e) {
-				this.ex = e;
+				Log.e(GetFriendsTask.class.getName(), e.toString());
+				e.printStackTrace();
 				return false;
 			}
 			return true;
 		}
-		
 		return true;
 	}
 
@@ -77,7 +69,4 @@ public class GetFriendsTask extends AsyncTask<Integer, JSONObject, Boolean> {
 		super.onPostExecute(result);
 		caller.onTaskFinished(json);
 	}
-	
-	
-
 }

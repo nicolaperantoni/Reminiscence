@@ -20,19 +20,19 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class GetPrivateStoriesTask extends AsyncTask<Integer, JSONObject, Boolean> 
 	implements Comparable<GetPrivateStoriesTask>{
 
 	private OnGetStoryTask caller;
-	private Exception ex;
-	private JSONObject json;
 	private int year;
 
 	public GetPrivateStoriesTask(OnGetStoryTask caller, Integer year) {
 		this.caller = caller;
-		if (year != null)
+		if (year != null) {
 			this.year = year;
+		}
 	}
 	
 	@Override
@@ -45,18 +45,19 @@ public class GetPrivateStoriesTask extends AsyncTask<Integer, JSONObject, Boolea
 	protected Boolean doInBackground(Integer... arg) {
 		
 		if (arg.length > 0) {
-			if (arg[0] != null)
+			if (arg[0] != null) {
 				this.year = arg[0];
-			else
+			}
+			else {
 				throw new IllegalStateException("You should provide a year");
+			}
 		}
-		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 
-		// ottiene il token se presente 
 		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, ((Activity) caller)
 				.getApplicationContext());
 
 		if (!token.equals("")) {
+			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("initdecade", "" + year));
 			params.add(new BasicNameValuePair("token", token));
 
@@ -71,13 +72,13 @@ public class GetPrivateStoriesTask extends AsyncTask<Integer, JSONObject, Boolea
 				if (n < 1)
 					return false;
 				for (int i = 0; i < n; i++) {
-					JSONObject story = new JSONObject(json.get("s" + i)
-							.toString());
+					JSONObject story = new JSONObject(json.get("s" + i).toString());
 					publishProgress(story);
 				}
 				return true;
 			} catch (Exception e) {
-				ex = e;
+				Log.e(GetPrivateStoriesTask.class.getName(), e.toString() + "asdada");
+				e.printStackTrace();
 			}
 		}
 		return false;
@@ -93,6 +94,7 @@ public class GetPrivateStoriesTask extends AsyncTask<Integer, JSONObject, Boolea
 			desc = values[0].getString("Text");
 			FinalFunctionsUtilities.stories.add(new Story(year, title, desc, id));
 		} catch (JSONException e) {
+			Log.e(GetPrivateStoriesTask.class.getName(), e.toString());
 			e.printStackTrace();
 		}
 	}
@@ -111,5 +113,4 @@ public class GetPrivateStoriesTask extends AsyncTask<Integer, JSONObject, Boolea
 			return 0;
 		return 1;
 	}
-
 }

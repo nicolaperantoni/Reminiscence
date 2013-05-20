@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -38,7 +39,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 import eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView;
 
@@ -52,7 +52,6 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	public static final String ID_PASSED_KEY = "newstoryid";
 	//public static final String IMG_PASSED_KEY = "arethereimages";
 
-	private TextView mNoStoryTv;
 	private EditText mTitleEt;
 	private EditText mDescriptionEt;
 	private EditText mYearEt;
@@ -67,11 +66,22 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
+		context = EmptyStoryActivity.this;
+		
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.fragment_emptystory);
-		context = this;
+		
+		initializeComponent();
+		toUpload = new PriorityQueue<UploadPhotoTask>();
+		initializeListeners();
+	}
 
-		mNoStoryTv = (TextView) findViewById(R.id.emptystory_nostory_tv);
+	private void initializeComponent() {
+		
 		mTitleEt = (EditText) findViewById(R.id.emptystory_title_et);
 		mDescriptionEt = (EditText) findViewById(R.id.emptystory_desc_et);
 		mAddBtn = (Button) findViewById(R.id.emptystory_add_btn);
@@ -83,19 +93,14 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		imgs = new ArrayList<ImageView>();
 		mAdapter = new ImageViewAdapter();
 		mMedias.setAdapter(mAdapter);
-
-		toUpload = new PriorityQueue<UploadPhotoTask>();
-
-		initializeListeners();
-
 	}
-
+	
 	private void initializeListeners() {
 
 		mYearEt.addTextChangedListener(new TextWatcher() {
+			
 			@Override
 			public void afterTextChanged(Editable s) {
-
 				if (!checkYearInput(s.toString())) {
 					mYearEt.setBackgroundResource(R.drawable.txt_input_bordered_error);
 				} else {
@@ -104,14 +109,10 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-			}
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-			}
+			public void onTextChanged(CharSequence s, int start, int before, int count) { }
 		});
 
 		mAddBtn.setOnClickListener(new View.OnClickListener() {
@@ -121,9 +122,14 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 				String year = mYearEt.getText().toString();
 				if (FinalFunctionsUtilities.isDeviceConnected(context)) {
 					if (checkYearInput(year)) {
-						new AddStoryTask(EmptyStoryActivity.this).execute(year,
-								mDescriptionEt.getText().toString(), mTitleEt
-										.getText().toString());
+						try {
+							new AddStoryTask(EmptyStoryActivity.this).execute(
+									year,
+									mDescriptionEt.getText().toString(),
+									mTitleEt.getText().toString());
+						} catch (Exception e) {
+							Log.e(EmptyStoryActivity.class.getName(), e.toString());
+						}
 					}
 					else {
 						showToast(R.string.story_year_broken);
@@ -148,11 +154,10 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		String s;
+		
 		try {
 			Intent out = new Intent();
-			s = res.getString("success");
-			if (s.equals("true")) {
+			if (res.getString("success").equals("true")) {
 				if(res.getString("Operation").equals("addStory")) {
 					idStoria = res.getInt("idadded");
 					if (toUpload.size() > 0) { sendPhotos(); }
@@ -175,8 +180,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	}
 
 	private void sendPhotos() {
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(
-				getApplicationContext());
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 		builder.setAutoCancel(true);
 		builder.setContentTitle(String.format(
 				getString(R.string.story_notification_upload_title),
@@ -189,24 +193,16 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 					1234, builder);
 			toUpload.remove().execute(idStoria + "");
 		}
-		/*
-			FinalFunctionsUtilities.removeNotification(getApplicationContext(),
-					1234);
-*/
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == Activity.RESULT_OK) {
-
 			Uri chosenImageUri = data.getData();
-
 			Bitmap mBitmap = null;
 			try {
 
-//				Bitmap bm = Media.getBitmap(getContentResolver(),
-//						chosenImageUri);
 				mBitmap = Media.getBitmap(getContentResolver(), chosenImageUri);
 				Bitmap bm = mBitmap.copy(Config.RGB_565, false);
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -224,9 +220,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 						.add(new BasicNameValuePair("image", encodedImage));
 
 				try {
-					// TODO upload and view of the photo
-					toUpload.add(new UploadPhotoTask(this,
-							Constants.imageType.STORY, encodedImage, context));
+					toUpload.add(new UploadPhotoTask(this, Constants.imageType.STORY, encodedImage, context));
 					totalimgs++;
 					ImageView image = new ImageView(context);
 					image.setImageBitmap(mBitmap);
@@ -234,15 +228,14 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 					imgs.add(image);
 					mAdapter.notifyDataSetChanged();
 				} catch (Exception e) {
-					Log.e("log_tag", "Error in http connection " + e.toString());
+					Log.e(EmptyStoryActivity.class.getName(), e.toString());
 					e.printStackTrace();
 				}
-
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
+				Log.e(EmptyStoryActivity.class.getName(), e.toString());
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				Log.e(EmptyStoryActivity.class.getName(), e.toString());
 				e.printStackTrace();
 			}
 		}
@@ -257,13 +250,14 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 			int iyear = Integer.parseInt(year);
 			return (iyear >= bornyear && iyear <= actualyear);
 		} catch (Exception e) {
+			Log.e(EmptyStoryActivity.class.getName(), e.toString());
 			return false;
 		}
 	}
 
 	private void showToast(boolean success) {
 		Toast.makeText(
-				this.getApplicationContext(),
+				context,
 				getResources().getString(
 						success ? R.string.story_add_ok
 								: R.string.story_add_fail), Toast.LENGTH_SHORT)
@@ -296,6 +290,5 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		public View getView(int arg0, View arg1, ViewGroup arg2) {
 			return imgs.get(arg0);
 		}
-
 	}
 }

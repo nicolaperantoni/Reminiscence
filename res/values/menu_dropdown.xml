@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array
-        name="stories_dropdown">
-        
-        <item>Private Stories</item>
-        <item>Public Stories</item>
-        
+    <string-array name="stories_dropdown">
+        <item>@string/dropdown_private_stories</item>
+        <item>@string/dropdown_public_stories</item>
     </string-array>
 </resources>

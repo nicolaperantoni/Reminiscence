@@ -2,6 +2,7 @@ package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.QuestionPopUpHandler.QuestionPopUp;
 import it.unitn.vanguard.reminiscence.asynctasks.DeleteStoryTask;
+import it.unitn.vanguard.reminiscence.asynctasks.GetPrivateStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.GetPublicStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.GetStoryCoverTask;
 import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
@@ -77,13 +78,13 @@ public class ViewStoriesActivity extends BaseActivity implements
 	public void onCreate(Bundle arg0) {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		super.onCreate(arg0);
-		setContentView(R.layout.activity_viewstories);
 		context = ViewStoriesActivity.this;
 		bundle = arg0;
 
 		String language = FinalFunctionsUtilities.getSharedPreferences(
-				"language", context);
+				Constants.LANGUAGE_KEY, context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
+		setContentView(R.layout.activity_viewstories);
 
 		mCards = (GridView) findViewById(R.id.viewstroies_cards_gw);
 		mTimeLine = (TimeLineView) findViewById(R.id.viewstories_tlv);
@@ -118,8 +119,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 			selectedIndex = 0;
 		}
 
-		
-		Log.e("setting the selected year", "oh yeah");
+		// Cambio il colore dell'anno corrente
 		YearView selected = (YearView) mTimeLine.getAdapter().getView(selectedIndex, null, mTimeLine);
 		selected.setBackgroundColor(getResources().getColor(R.color.pomegranate));
 		
@@ -132,70 +132,51 @@ public class ViewStoriesActivity extends BaseActivity implements
 				new ActionBar.OnNavigationListener() {
 
 					@Override
-					public boolean onNavigationItemSelected(int itemPosition,
-							long itemId) {
-						switch (itemPosition) {
-						case 0:
-							if (FinalFunctionsUtilities.isDeviceConnected(context)) {
-								FinalFunctionsUtilities.stories.clear();
-								Log.e("asdasasd","caso 0");
-								
-								YearView selected = (YearView) mTimeLine.getAdapter().getView(selectedIndex, null, mTimeLine);
-								selected.setBackgroundColor(getResources().getColor(R.color.pomegranate));
-								
-								new GetPublicStoriesTask(ViewStoriesActivity.this, /* GetStoriesTask */
-										requestYear).execute();
-								
-								FinalFunctionsUtilities.setSharedPreferences(Constants.ACTIVE_STORIES, Constants.PRIVATE_STORIES, context);
-								
-							} else {
-								Toast.makeText(context,
-										R.string.connection_fail,
-										Toast.LENGTH_LONG).show();
+					public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+						
+						if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+							FinalFunctionsUtilities.stories.clear();
+							
+							YearView selected = (YearView) mTimeLine.getAdapter().getView(selectedIndex, null, mTimeLine);
+							selected.setBackgroundColor(getResources().getColor(R.color.pomegranate));
+
+							switch (itemPosition) {
+								case 0: {
+									switchActiveStories(Constants.PRIVATE_STORIES);
+									break;
+								}
+								case 1: {
+									switchActiveStories(Constants.PRIVATE_STORIES);
+									break;
+								}
 							}
-							break;
-						case 1:
-							if (FinalFunctionsUtilities
-									.isDeviceConnected(context)) {
-								FinalFunctionsUtilities.stories.clear();
-								Log.e("asdasasd","caso 1");
-								
-								YearView selected = (YearView) mTimeLine.getAdapter().getView(selectedIndex, null, mTimeLine);
-								selected.setBackgroundColor(getResources().getColor(R.color.pomegranate));
-								
-								new GetPublicStoriesTask(
-										ViewStoriesActivity.this, requestYear)
-										.execute();
-								
-								FinalFunctionsUtilities.setSharedPreferences(Constants.ACTIVE_STORIES, Constants.PUBLIC_STORIES, context);
-								
-							} else {
-								Toast.makeText(context,
-										R.string.connection_fail,
-										Toast.LENGTH_LONG).show();
-							}
-							break;
+						} else {
+							Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG).show();
 						}
 						return true;
-					}
-				});
-		
+				}
+		});
 		setListeners();
 		initializePopUps();
 	}
-
-	private void initializeStoryList() {
-
-		/*
-		 * doppie storie perche' doppia richiesta, richiesta che avviene gia'
-		 * con l'inizializzazione della barra privato/pubblico
-		 * 
-		 * // Comincia a chiedere al server le storie if
-		 * (FinalFunctionsUtilities.isDeviceConnected(context)) { new
-		 * GetStoriesTask(this, requestYear).execute(); } else {
-		 * Toast.makeText(context, R.string.connection_fail, Toast.LENGTH_LONG)
-		 * .show(); }
-		 */
+	
+	private void switchActiveStories(String willActive) {
+		
+		String activeStories = FinalFunctionsUtilities.getSharedPreferences(Constants.ACTIVE_STORIES, context);
+		Log.e("scambia", "scambia storie");
+		
+		// Richiedo il tipo di storie selezionato solo se quelle 
+		// attuali erano diverse..
+		if(willActive.equals(Constants.PRIVATE_STORIES)) {
+			new GetPrivateStoriesTask(ViewStoriesActivity.this, requestYear).execute();
+		} else if(willActive.equals(Constants.PUBLIC_STORIES)) {
+			new GetPublicStoriesTask(ViewStoriesActivity.this, requestYear).execute();
+		}
+		
+		// Aggiorno il tipo di storie visualizzate
+		FinalFunctionsUtilities.setSharedPreferences(
+				Constants.ACTIVE_STORIES,
+				willActive, context);
 	}
 
 	private void initializePopUps() {
@@ -213,8 +194,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 		mTimeLine.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				
 				((YearView) arg1).setBackgroundColor(getResources().getColor(
 						R.color.pomegranate));
 
@@ -230,11 +211,25 @@ public class ViewStoriesActivity extends BaseActivity implements
 				mStoriesAdapter.notifyDataSetChanged();
 				
 				if(FinalFunctionsUtilities.isDeviceConnected(context)) {
-					Log.e("Request","stories");
-					new GetPublicStoriesTask(ViewStoriesActivity.this, requestYear).execute();
+					// A seconda del tipo di storie selezionate chiedo al server le storie pubbliche o private
+					String activeStories = FinalFunctionsUtilities.getSharedPreferences(Constants.ACTIVE_STORIES, context);
+					if(activeStories.equals(Constants.PRIVATE_STORIES)) {
+						try {
+							new GetPrivateStoriesTask(ViewStoriesActivity.this, requestYear).execute();
+						} catch (Exception e) {
+							Log.e(ViewStoriesActivity.class.getName(), e.toString());
+							e.printStackTrace();
+						}
+					} else {
+						try {
+							new GetPublicStoriesTask(ViewStoriesActivity.this, requestYear).execute();
+						} catch (Exception e) {
+							Log.e(ViewStoriesActivity.class.getName(), e.toString());
+							e.printStackTrace();
+						}
+					}
 				}
 				else {
-					if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
 					Toast.makeText(context, getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show();
 				}
 			}
@@ -257,72 +252,66 @@ public class ViewStoriesActivity extends BaseActivity implements
 				OnHide();
 			}
 		});
+		
 		mLogout = (TextView) findViewById(R.id.hiddebmenu_logout_tv);
 		mLogout.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-						ViewStoriesActivity.this);
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
 				builder.setMessage(R.string.exit_message)
-						.setPositiveButton(R.string.yes,
-								new DialogInterface.OnClickListener() {
-									public void onClick(
-											DialogInterface dialogInterface,
-											int id) {
+					.setPositiveButton(R.string.yes,
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialogInterface, int id) {
+								
+							if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+								dialog = new ProgressDialog(context);
+								dialog.setTitle(getResources().getString(R.string.please));
+								dialog.setMessage(getResources().getString(R.string.wait));
+								dialog.setCancelable(false);
+								dialog.show();
 
-										if (FinalFunctionsUtilities
-												.isDeviceConnected(context)) {
-											dialog = new ProgressDialog(
-													ViewStoriesActivity.this);
-											dialog.setTitle(getResources()
-													.getString(R.string.please));
-											dialog.setMessage(getResources()
-													.getString(R.string.wait));
-											dialog.setCancelable(false);
-											dialog.show();
+								String email = FinalFunctionsUtilities
+										.getSharedPreferences(
+												Constants.MAIL_KEY,
+												context);
+								String password = FinalFunctionsUtilities
+										.getSharedPreferences(
+												Constants.PASSWORD_KEY,
+												context);
 
-											String email = FinalFunctionsUtilities
-													.getSharedPreferences(
-															Constants.MAIL_KEY,
-															ViewStoriesActivity.this);
-											String password = FinalFunctionsUtilities
-													.getSharedPreferences(
-															Constants.PASSWORD_KEY,
-															ViewStoriesActivity.this);
-
-											new LogoutTask(
-													ViewStoriesActivity.this)
-													.execute(email, password);
-										} else {
-											Toast.makeText(
-													context,
-													getResources()
-															.getString(
-																	R.string.connection_fail),
-													Toast.LENGTH_LONG).show();
-										}
-									}
-								})
-						.setNegativeButton(R.string.no,
-								new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,
-											int id) {
-
-									}
-								});
+								try {
+									new LogoutTask(ViewStoriesActivity.this)
+										.execute(email, password);
+								} catch (Exception e) {
+									Log.e(ViewStoriesActivity.class.getName(), e.toString());
+									e.printStackTrace();
+								}
+							} else {
+								Toast.makeText(
+										context,
+										getResources().getString(R.string.connection_fail),
+										Toast.LENGTH_LONG).show();
+							}
+						}
+					})
+				.setNegativeButton(
+						R.string.no,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) { } }
+				);
 
 				AlertDialog alert = builder.create();
 				alert.show();
+				
 				((TextView) alert.findViewById(android.R.id.message))
 						.setGravity(Gravity.CENTER);
 				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
 						.setBackgroundResource(R.drawable.bottone_logout);
 				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
 						.setTextColor(Color.WHITE);
-
 			}
 		});
 	}
@@ -346,8 +335,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 		@Override
 		public View getView(final int arg0, View arg1, ViewGroup arg2) {
-			View v = getLayoutInflater().inflate(R.layout.card_story, arg2,
-					false);
+			View v = getLayoutInflater().inflate(R.layout.card_story, arg2, false);
 			Story story = FinalFunctionsUtilities.stories.get(arg0);
 			ImageView back = (ImageView) v.findViewById(R.id.cardstory_img);
 			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
@@ -361,18 +349,15 @@ public class ViewStoriesActivity extends BaseActivity implements
 					back.setImageBitmap(FinalFunctionsUtilities.stories.get(
 							arg0).getBackground());
 				}
-				else Log.e("Story" + story.getId(),"Story" + story.getId() + " has bitmap null");
 			}
+			
 			v.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View clicked) {
 					Story story = FinalFunctionsUtilities.stories.get(arg0);
-					Log.e("Showing story:", "id: " + story.getId());
-					StoryFragment sf = StoryFragment.newIstance(
-							story.getTitle(), story.getDesc(),
-							"" + story.getAnno(), story.getId());
-					sf.show(getSupportFragmentManager(), "visualized");
+					StoryFragment sf = StoryFragment.newInstance(story);
+					sf.show(getFragmentManager(), "visualized");
 				}
 			});
 			
@@ -390,41 +375,35 @@ public class ViewStoriesActivity extends BaseActivity implements
 					delStory += getResources().getString(R.string.deleteStoryPopupMessage2);
 					
 					builder.setMessage(delStory)
-							.setPositiveButton(R.string.yes,
-									new DialogInterface.OnClickListener() {
-										public void onClick(
-												DialogInterface dialogInterface,
-												int id) {
-											
-											if(FinalFunctionsUtilities.isDeviceConnected(context)) {
-												dialog = new ProgressDialog(
-														context);
-												dialog.setTitle(getResources()
-														.getString(R.string.please));
-												dialog.setMessage(getResources()
-														.getString(R.string.wait));
-												dialog.setCancelable(false);
-												dialog.show();	
-												deleteStory(arg0);																					
-												
-											}
-											else {
-												Toast.makeText(context,
-														getResources().getString(R.string.connection_fail),
-														Toast.LENGTH_LONG).show();
-											}
-										}
-									})
-							.setNegativeButton(R.string.no,
-									new DialogInterface.OnClickListener() {
-										public void onClick(
-												DialogInterface dialog, int id) {
-
-										}
-									});
+						.setPositiveButton(R.string.yes,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialogInterface, int id) {
+									
+									if(FinalFunctionsUtilities.isDeviceConnected(context)) {
+										dialog = new ProgressDialog(context);
+										dialog.setTitle(getResources().getString(R.string.please));
+										dialog.setMessage(getResources().getString(R.string.wait));
+										dialog.setCancelable(false);
+										dialog.show();	
+										deleteStory(arg0);
+									}
+									else {
+										Toast.makeText(
+												context,
+												getResources().getString(R.string.connection_fail),
+												Toast.LENGTH_LONG).show();
+									}
+								}
+						})
+						.setNegativeButton(
+								R.string.no,
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog, int id) { }
+						});
 
 					AlertDialog alert = builder.create();
 					alert.show();
+					
 					((TextView) alert.findViewById(android.R.id.message))
 							.setGravity(Gravity.CENTER);
 					((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
@@ -450,9 +429,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_add_story:
-			Intent i = new Intent(this, EmptyStoryActivity.class);
-			i.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, requestYear);
-			startActivityForResult(i, ADD_STORY_CODE);
+			Intent intent = new Intent(this, EmptyStoryActivity.class);
+			intent.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, requestYear);
+			startActivityForResult(intent, ADD_STORY_CODE);
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -460,30 +439,33 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		if (dialog != null && dialog.isShowing()) {
-			dialog.dismiss();
-		}
+		
+		if (dialog != null && dialog.isShowing()) { dialog.dismiss(); }
 
 		try {
+			
 			if (res.getString("success").equals("true")) {
 				if(res.getString("Operation").equals("Logout")){
-					Toast.makeText(context,
+					Toast.makeText(
+							context,
 							getResources().getString(R.string.logout_success),
 							Toast.LENGTH_LONG).show();
 	
 					FinalFunctionsUtilities.clearSharedPreferences(context);
-					startActivity(new Intent(ViewStoriesActivity.this,
-							LoginActivity.class));
+					startActivity(new Intent(context, LoginActivity.class));
 					this.finish();
 				}
-				else if (res.get("Operation").equals("delStory")){
-					Toast.makeText(context,
+				else if (res.get("Operation").equals("delStory")) {
+					Toast.makeText(
+							context,
 							getResources().getString(R.string.deleteStorySucces),
 							Toast.LENGTH_LONG).show();	
+					
 					mStoriesAdapter.notifyDataSetChanged();
 				}
 				else if(res.getString("Operation").equals("GetStoryCover") &&
 						!res.getString("numImages").equals("0")) {
+					
 					// Inserisco la cover della storia..
 					String id = res.getString("story_id");
 					Story s = null;
@@ -492,25 +474,46 @@ public class ViewStoriesActivity extends BaseActivity implements
 							s = FinalFunctionsUtilities.stories.get(i);
 						}
 					}
-					byte[] decodedString = Base64.decode(res.getString("cover"), Base64.DEFAULT);
-					Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
-					s.setBackground(bitmap);
-					mStoriesAdapter.notifyDataSetChanged();
+					if(s != null) {
+						try {
+							// Converto l'immagine da Base64 a Bitmap e la inserisco
+							// nell' imageView della StoryCard (COVER)..
+							byte[] decodedString = Base64.decode(res.getString("cover"), Base64.DEFAULT);
+							Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
+							s.setBackground(bitmap);
+							mStoriesAdapter.notifyDataSetChanged();
+						} catch (Exception e) {
+							Log.e(ViewStoriesActivity.class.getName(), e.toString());
+							e.printStackTrace();
+						} catch (OutOfMemoryError e) {
+							Log.e(ViewStoriesActivity.class.getName(), e.toString());
+							e.printStackTrace();
+							Toast.makeText(context, "Cover non caricata", Toast.LENGTH_LONG).show();
+						}
+					}
 				}
 			} else {
+				
+				String toastText = "";
+				
 				if(res.getString("Operation").equals("Logout")){
-					Toast.makeText(this,
-							getResources().getString(R.string.logout_failed),
-							Toast.LENGTH_LONG).show();
+					toastText = getResources().getString(R.string.logout_failed);
 				}
 				else if (res.get("Operation").equals("DelStory")){
-					Toast.makeText(context,
-							getResources().getString(R.string.deleteStoryFail),
-							Toast.LENGTH_LONG).show();					
+					toastText = getResources().getString(R.string.deleteStoryFail);			
 				}
+				else if (res.getString("Operation").equals("GetStoryCover") &&
+						!res.getString("numImages").equals("0")) {
+					toastText = "Error";	
+				}
+				Toast.makeText(context, toastText, Toast.LENGTH_LONG).show();
 			}
-		} catch (JSONException e) {
-			Log.e(LoginActivity.class.getName(), e.toString());
+		} catch (JSONException jsonEx) {
+			Log.e(ViewStoriesActivity.class.getName(), jsonEx.toString());
+			jsonEx.printStackTrace();
+		} catch (Exception e) {
+			Log.e(ViewStoriesActivity.class.getName(), e.toString());
+			e.printStackTrace();
 		}
 	}
 
@@ -533,7 +536,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 			mQuestionTv.setVisibility(View.VISIBLE);
 			mCloseQuestionImgV.setVisibility(View.VISIBLE);
 		}
-
 	}
 
 	@Override
@@ -548,34 +550,45 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 	@Override
 	public void OnFinish(Boolean result) {
-		setProgressBarIndeterminateVisibility(false);
-		if ((requestYear == startYear) && (FinalFunctionsUtilities.getSharedPreferences(Constants.ACTIVE_STORIES, context).equals(Constants.PRIVATE_STORIES))) {
-			addBornStory();
-		}
-		View no_res = findViewById(R.id.no_result_tv);
-		if (FinalFunctionsUtilities.stories.isEmpty()) {
-			no_res.setVisibility(View.VISIBLE);
-			mCards.setVisibility(View.INVISIBLE);
-		} else {
-			no_res.setVisibility(View.INVISIBLE);
-			mCards.setVisibility(View.VISIBLE);
-		}
-		// TEST
-		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, context);
-		if(FinalFunctionsUtilities.isDeviceConnected(this)) {
-			for(int i = 0; i < FinalFunctionsUtilities.stories.size(); i++) {
-				try {
-					Log.e("GetStoryCover", "task number " + i + "");
-					new GetStoryCoverTask(ViewStoriesActivity.this, ViewStoriesActivity.this).execute(token, FinalFunctionsUtilities.stories.get(i).getId() + "");
-				}
-				catch (Exception e) {
-					Log.e("con size= " + FinalFunctionsUtilities.stories.size(), i + ": " +e.toString());
+		
+		if(result) {
+			setProgressBarIndeterminateVisibility(false);
+			// Se sono nell'anno di nascita e sto visualizzando le storie private
+			// mostro la BornStory come prima storia..
+			if ((requestYear == startYear) && 
+				(FinalFunctionsUtilities.getSharedPreferences(
+						Constants.ACTIVE_STORIES, context).
+						equals(Constants.PRIVATE_STORIES))) {
+				addBornStory();
+			}
+			
+			View no_res = findViewById(R.id.no_result_tv);
+			if (FinalFunctionsUtilities.stories.isEmpty()) {
+				no_res.setVisibility(View.VISIBLE);
+				mCards.setVisibility(View.INVISIBLE);
+			} else {
+				no_res.setVisibility(View.INVISIBLE);
+				mCards.setVisibility(View.VISIBLE);
+			}
+			
+			// Per ciascuna storia lancio un task per ottenere la relativa cover..
+			String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, context);
+			if(FinalFunctionsUtilities.isDeviceConnected(this)) {
+				for(int i = 0; i < FinalFunctionsUtilities.stories.size(); i++) {
+					try {
+						new GetStoryCoverTask(ViewStoriesActivity.this, ViewStoriesActivity.this).execute(token, FinalFunctionsUtilities.stories.get(i).getId() + "");
+					}
+					catch (Exception e) {
+						Log.e(ViewStoriesActivity.class.getName(), e.toString());
+						e.printStackTrace();
+					}
 				}
 			}
+			OnProgress();
 		}
-		mStoriesAdapter.notifyDataSetChanged();
-		// updateSelected(true);
-		OnProgress();
+		else {
+			Toast.makeText(context, getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show();
+		}
 	}
 
 	private void addBornStory() {
@@ -583,9 +596,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 		String desc = String.format(getString(R.string.born),
 				FinalFunctionsUtilities.getSharedPreferences(
 						Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
-						ViewStoriesActivity.this));
-		Bitmap img = BitmapFactory.decodeResource(getResources(),
-				R.drawable.baby);
+						context));
+		Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.baby);
 		Story s = new Story(startYear, title, desc, "");
 		s.setBackground(img);
 		FinalFunctionsUtilities.stories.addFirst(s);
@@ -596,36 +608,31 @@ public class ViewStoriesActivity extends BaseActivity implements
 		super.onSaveInstanceState(outState);
 		outState.putInt(SAVE_INDEX, selectedIndex);
 	}
-
-	private void updateSelected(boolean selected) {
-		YearView v = (YearView) mTimeLine.getChildAt(selectedIndex);
-		if (v == null)
-			v = (YearView) mTimeLine.getAdapter().getView(selectedIndex, null,
-					null);
-		if (selected)
-			v.setBackgroundColor(getResources().getColor(R.color.pomegranate));
-		else
-			v.setBackgroundColor(getResources().getColor(
-					R.color.red_background_dark));
-	}
-
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == ADD_STORY_CODE) {
 			if (resultCode == RESULT_OK) {
 				if (data.hasExtra(EmptyStoryActivity.YEAR_PASSED_KEY)) {
-					int year = Integer
-							.parseInt(data
-									.getStringExtra(EmptyStoryActivity.YEAR_PASSED_KEY));
-					if (year >= requestYear && year <= requestYear + 10) {
-						Story s = new Story(
-								year,
-								data.getStringExtra(EmptyStoryActivity.TITLE_PASSED_KEY),
-								data.getStringExtra(EmptyStoryActivity.DESC_PASSED_KEY),
-								data.getStringExtra(EmptyStoryActivity.ID_PASSED_KEY));
-						FinalFunctionsUtilities.stories.add(s);
-						mStoriesAdapter.notifyDataSetChanged();
+					
+					try {
+						int year = Integer.parseInt(
+							data.getStringExtra(EmptyStoryActivity.YEAR_PASSED_KEY));
+						
+						if (year >= requestYear && year <= requestYear + 10) {
+							Story s = new Story(
+									year,
+									data.getStringExtra(EmptyStoryActivity.TITLE_PASSED_KEY),
+									data.getStringExtra(EmptyStoryActivity.DESC_PASSED_KEY),
+									data.getStringExtra(EmptyStoryActivity.ID_PASSED_KEY));
+							
+							FinalFunctionsUtilities.stories.add(s);
+							mStoriesAdapter.notifyDataSetChanged();
+						}
+					} catch (Exception e) {
+						Log.e(ViewStoriesActivity.class.getName(), e.toString());
+						e.printStackTrace();
 					}
 				}
 			}
@@ -633,20 +640,36 @@ public class ViewStoriesActivity extends BaseActivity implements
 	}
 	
 	public void storyDeleted(int position) {
-		FinalFunctionsUtilities.stories.remove(position);
+		try {
+			FinalFunctionsUtilities.stories.remove(position);
+		} catch (Exception e) {
+			Log.e(ViewStoriesActivity.class.getName(), e.toString());
+			e.printStackTrace();
+		}
 	}
 
 	private void deleteStory(int position) {
 		Story story = FinalFunctionsUtilities.stories.get(position);
-		if(dialog == null) {
-			dialog = new ProgressDialog(context);
-			dialog.setTitle(getResources().getString(R.string.please));
-			dialog.setMessage(getResources().getString(R.string.wait));
-			dialog.setCancelable(false);
-			dialog.show();
-		}
 		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
-			new DeleteStoryTask(this, position).execute(story.getId());
+			if(dialog == null) {
+				dialog = new ProgressDialog(context);
+				dialog.setTitle(getResources().getString(R.string.please));
+				dialog.setMessage(getResources().getString(R.string.wait));
+				dialog.setCancelable(false);
+				dialog.show();
+			}
+			try {
+				new DeleteStoryTask(ViewStoriesActivity.this, position).execute(story.getId());
+			} catch (Exception e) {
+				Log.e(ViewStoriesActivity.class.getName(), e.toString());
+				e.printStackTrace();
+			}
+		}
+		else {
+			Toast.makeText(
+					context,
+					getResources().getString(R.string.connection_fail),
+					Toast.LENGTH_LONG).show();
 		}
 	}
 }

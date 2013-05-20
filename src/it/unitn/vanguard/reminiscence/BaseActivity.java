@@ -1,5 +1,6 @@
 package it.unitn.vanguard.reminiscence;
 
+import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
@@ -49,8 +50,9 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				String language = FinalFunctionsUtilities.getSharedPreferences(
-						"language", context);
+				
+				String language = FinalFunctionsUtilities
+						.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 				Locale locale = new Locale(language);
 
 				if (locale.toString().equals(Locale.ITALIAN.getLanguage())
@@ -60,11 +62,12 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
 						Locale.ENGLISH.getLanguage())) {
 					locale = Locale.ITALY;
 				}
-				FinalFunctionsUtilities.switchLanguage(locale,
-						BaseActivity.this);
-				//this is an hotfix!
+				
+				FinalFunctionsUtilities.switchLanguage(locale, context);
+				
+				// HOTFIX
 				FinalFunctionsUtilities.stories.clear();
-				BaseActivity.this.finish();
+				finish();
 				startActivity(getIntent());
 			}
 		});
@@ -73,8 +76,7 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(context,
-						ChangePassword.class));
+				startActivity(new Intent(context, ChangePassword.class));
 			}
 		});
 		mChangeProfile = (TextView) findViewById(R.id.hiddebmenu_changeimage_tv);
@@ -82,8 +84,7 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(context,
-						ProfileImageActivity.class));
+				startActivity(new Intent(context, ProfileImageActivity.class));
 			}
 		});
 		mFriendList = (TextView) findViewById(R.id.hiddenmenu_friendList_tv);
@@ -91,8 +92,7 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
 
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(context,
-						FriendListActivity.class));
+				startActivity(new Intent(context, FriendListActivity.class));
 			}
 		});
 		mAddFriend = (TextView) findViewById(R.id.hiddebmenu_addfriend_tv);
@@ -100,9 +100,7 @@ public abstract class BaseActivity extends SlidingFragmentActivity {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				startActivity(new Intent(context,
-						AddFriendActivity.class));
+				startActivity(new Intent(context, AddFriendActivity.class));
 			}
 		});
 	}

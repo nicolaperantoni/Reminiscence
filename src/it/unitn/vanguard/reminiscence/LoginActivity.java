@@ -49,9 +49,9 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 			finish();
 		}
 		
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
-		FinalFunctionsUtilities.switchLanguage(new Locale(language),
-				context);
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_login);
 		initializeButtons();
 		initializeListeners();
@@ -95,7 +95,11 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 					dialog.setMessage(getResources().getString(R.string.wait));
 					dialog.setCancelable(false);
 					dialog.show();
-					new LoginTask(LoginActivity.this).execute(username, password);
+					try {
+						new LoginTask(LoginActivity.this).execute(username, password);
+					} catch (Exception e) {
+						Log.e(LoginActivity.class.getName(), e.toString());
+					}
 				}
 				else {
 					if(dialog!=null && dialog.isShowing()) { 	dialog.dismiss(); }
@@ -107,7 +111,7 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 			@Override
 			public void onClick(View v) {
 				Intent regIntent = new Intent(context, RegistrationActivity.class);
-				startActivityForResult(regIntent, 0);
+				startActivity(regIntent);
 				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 				finish();
 			}
@@ -166,10 +170,11 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 		Locale locale = new Locale(language);
 
-		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
+		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(Locale.ITALY.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.it);
 		}
 		else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
@@ -180,14 +185,16 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		
 		Locale locale = null;
 		switch (item.getItemId()) {
 		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
 		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
+		    case android.R.id.home: this.finish();break;
 	    }
 		
+		// Refresh activity
 		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
-		    // Refresh activity
 		    finish();
 		    startActivity(getIntent());
 	    }

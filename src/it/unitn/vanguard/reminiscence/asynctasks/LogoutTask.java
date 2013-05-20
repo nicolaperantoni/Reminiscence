@@ -49,6 +49,7 @@ public class LogoutTask extends AsyncTask<String, Void, Boolean> {
 			try {
 				post.setEntity(new UrlEncodedFormEntity(params));
 			} catch (UnsupportedEncodingException e1) {
+				Log.e(LogoutTask.class.getName(), e1.toString());
 				e1.printStackTrace();
 			}
 			json = null;
@@ -60,13 +61,13 @@ public class LogoutTask extends AsyncTask<String, Void, Boolean> {
 					FinalFunctionsUtilities.setSharedPreferences(Constants.TOKEN_KEY, "", ((Activity) caller));
 					return true;
 				}
-
 			} catch (Exception e) {
+				Log.e(LogoutTask.class.getName(), e.toString());
+				e.printStackTrace();
 				this.ex = e;
 				return false;
 			}
 		}
-
 		return false;
 	}
 

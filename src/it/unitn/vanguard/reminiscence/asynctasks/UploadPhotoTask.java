@@ -44,8 +44,7 @@ public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 		
 		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, context);
 		
-		if (!token.equals("") && FinalFunctionsUtilities.isDeviceConnected(context)) {
-		
+		if (!token.equals("")) {
 			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("image", image));
 			params.add(new BasicNameValuePair("token", token ));
@@ -62,6 +61,7 @@ public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 			try {
 				post.setEntity(new UrlEncodedFormEntity(params));
 			} catch (UnsupportedEncodingException e1) {
+				Log.e(UploadPhotoTask.class.getName(), e1.toString());
 				e1.printStackTrace();
 			}
 			json = null;
@@ -73,8 +73,9 @@ public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 					return true;
 				}
 			} catch (Exception e) {
+				Log.e(UploadPhotoTask.class.getName(), e.toString());
+				e.printStackTrace();
 				this.ex = e;
-				Log.e("Error", e.toString());
 				return false;
 			}
 		}

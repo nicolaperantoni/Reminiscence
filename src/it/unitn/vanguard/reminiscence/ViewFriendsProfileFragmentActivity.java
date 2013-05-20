@@ -2,6 +2,7 @@ package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.frags.FriendListFragment;
 import it.unitn.vanguard.reminiscence.frags.ProfileFragment;
+import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 
 import java.util.Locale;
@@ -9,39 +10,35 @@ import java.util.Locale;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.MenuItem;
 
 public class ViewFriendsProfileFragmentActivity extends FragmentActivity implements
 		FriendListFragment.OnItemSelectListener {
 
 	private Context context;
-	private FriendListFragment fl;
+//	private FriendListFragment fl;
 	private ProfileFragment pf;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
+		
 		super.onCreate(arg0);
 		context = ViewFriendsProfileFragmentActivity.this;
-
-		setContentView(R.layout.activity_friendlist_profile);
-
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		pf = (ProfileFragment) getSupportFragmentManager().findFragmentById(
 				R.id.user_profile_fragment);
-		fl = (FriendListFragment) getSupportFragmentManager().findFragmentById(
-				R.id.friend_list_fragment);
+//		fl = (FriendListFragment) getSupportFragmentManager().findFragmentById(
+//				R.id.friend_list_fragment);
 
 		String language = FinalFunctionsUtilities.getSharedPreferences(
-				"language", context);
+				Constants.LANGUAGE_KEY, context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
-
+		setContentView(R.layout.activity_friendlist_profile);
 	}
 
 	@Override
 	public void onItemSelect(Friend friend) {
-		Log.e("selecteditem", friend.getName() + " " + friend.getSurname());
 		pf.update(friend);
 	}
 
@@ -54,5 +51,4 @@ public class ViewFriendsProfileFragmentActivity extends FragmentActivity impleme
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
 }

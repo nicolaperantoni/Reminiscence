@@ -13,9 +13,7 @@ public class ProfileFragment extends Fragment {
 	
 	public static final String NAME_PASSED_KEY = "name";
 	public static final String SURNAME_PASSED_KEY = "surname";
-	
-	private Friend friend;
-	
+
 	private TextView nameTextView;
 	private TextView surnameTextView;
 
@@ -34,13 +32,11 @@ public class ProfileFragment extends Fragment {
 	@Override
 	public void onStart() {
 		super.onStart();
-
 		nameTextView = (TextView) getView().findViewById(R.id.profile_name_textview);
 		surnameTextView = (TextView) getView().findViewById(R.id.profile_surname_textview);
 	}
 
 	public void update(Friend friend) {
-		this.friend = friend;
 		nameTextView.setText(friend.getName());
 		surnameTextView.setText(friend.getSurname());
 	}	

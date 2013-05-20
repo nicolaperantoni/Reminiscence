@@ -21,12 +21,10 @@ import android.widget.Toast;
 public class DataNascitaActivity extends Activity {
 
 	private Context context;
-	
 	private String day, month, year;
 	
 	// Date values
 	private int dayValue = 1, monthValue = 0, yearValue = 1940;
-	
 	private int maxYear, maxDay, maxMonth;
 	
 	// Day views
@@ -53,9 +51,11 @@ public class DataNascitaActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		context = DataNascitaActivity.this;
 		
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_data_nascita);
+		
 		initializeButtons();
 		initializeVars();		
 		initializeListeners();
@@ -68,11 +68,12 @@ public class DataNascitaActivity extends Activity {
 	}
 	
 	private void initializeVars() {
+		
 		day = FinalFunctionsUtilities.getSharedPreferences(Constants.DAY_KEY, context);
 		month = FinalFunctionsUtilities.getSharedPreferences(Constants.MONTH_KEY, context);
 		year = FinalFunctionsUtilities.getSharedPreferences(Constants.YEAR_KEY, context);
 		
-		//inizializza le variabili
+		// Inizializza le variabili
 		dayValue = Integer.parseInt(day);
 		yearValue = Integer.parseInt(year);
 		for(int i = 0; i < mesi.length; i++){
@@ -80,8 +81,6 @@ public class DataNascitaActivity extends Activity {
 				monthValue = i;
 			}
 		}
-		
-		//setta i campi di testo
 		txtDay.setText(day);
     	txtMonth.setText(month);
     	txtYear.setText(year);
@@ -214,8 +213,8 @@ public class DataNascitaActivity extends Activity {
 		OnClickListener onclickback = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), RegistrationActivity.class);
-				startActivityForResult(intent, 0);
+				Intent intent = new Intent(context, RegistrationActivity.class);
+				startActivity(intent);
 				overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 				finish();
 			}
@@ -224,13 +223,13 @@ public class DataNascitaActivity extends Activity {
 		OnClickListener onclickconfirm = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent passwordIntent = new Intent(v.getContext(), PasswordActivity.class);
 				
 				FinalFunctionsUtilities.setSharedPreferences(Constants.DAY_KEY, txtDay.getText().toString(), context);
 				FinalFunctionsUtilities.setSharedPreferences(Constants.MONTH_KEY, txtMonth.getText().toString(), context);
 				FinalFunctionsUtilities.setSharedPreferences(Constants.YEAR_KEY, txtYear.getText().toString(), context);
 				
-		        startActivityForResult(passwordIntent, 0);
+				Intent passwordIntent = new Intent(context, PasswordActivity.class);
+		        startActivity(passwordIntent);
 		        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 				finish();
 			}
@@ -245,7 +244,7 @@ public class DataNascitaActivity extends Activity {
 		arrowConfirmBtn.setOnClickListener(onclickconfirm);
 	}
 	
-	//control on current date (easter egg toast)
+	// Control on current date (easter egg toast)
 	void currentDateMsg(){
 			CharSequence text = "Davvero? Sei nato nel futuro?";
 			Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
@@ -257,10 +256,11 @@ public class DataNascitaActivity extends Activity {
 		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.login, menu);
-		String language = FinalFunctionsUtilities.getSharedPreferences("language", context);
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 		Locale locale = new Locale(language);
 
-		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(locale.ITALY.getLanguage())) {
+		if(locale.toString().equals(Locale.ITALIAN.getLanguage()) || locale.toString().equals(Locale.ITALY.getLanguage())) {
 			menu.getItem(0).setIcon(R.drawable.it);
 		}
 		else if(locale.toString().equals(Locale.ENGLISH.getLanguage())) {
@@ -271,14 +271,16 @@ public class DataNascitaActivity extends Activity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		
 		Locale locale = null;
 		switch (item.getItemId()) {
 		    case R.id.action_language_it: { locale = Locale.ITALY; break; }
 		    case R.id.action_language_en: { locale = Locale.ENGLISH; break; }
+		    case android.R.id.home: this.finish();break;
 	    }
 		
+		// Refresh activity
 		if(locale != null && FinalFunctionsUtilities.switchLanguage(locale, context)) {
-		    // Refresh activity
 		    finish();
 		    startActivity(getIntent());
 	    }
