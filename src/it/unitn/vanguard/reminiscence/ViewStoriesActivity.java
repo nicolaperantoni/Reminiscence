@@ -162,8 +162,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 	
 	private void switchActiveStories(String willActive) {
 		
-		String activeStories = FinalFunctionsUtilities.getSharedPreferences(Constants.ACTIVE_STORIES, context);
-		Log.e("scambia", "scambia storie");
+//		String activeStories = FinalFunctionsUtilities.getSharedPreferences(Constants.ACTIVE_STORIES, context);
+//		Log.e("scambia", "scambia storie");
 		
 		// Richiedo il tipo di storie selezionato solo se quelle 
 		// attuali erano diverse..
@@ -552,44 +552,40 @@ public class ViewStoriesActivity extends BaseActivity implements
 	@Override
 	public void OnFinish(Boolean result) {
 		
-		if(result) {
-			setProgressBarIndeterminateVisibility(false);
-			// Se sono nell'anno di nascita e sto visualizzando le storie private
-			// mostro la BornStory come prima storia..
-			if ((requestYear == startYear) && 
-				(FinalFunctionsUtilities.getSharedPreferences(
-						Constants.ACTIVE_STORIES, context).
-						equals(Constants.PRIVATE_STORIES))) {
-				addBornStory();
-			}
-			
-			View no_res = findViewById(R.id.no_result_tv);
-			if (FinalFunctionsUtilities.stories.isEmpty()) {
-				no_res.setVisibility(View.VISIBLE);
-				mCards.setVisibility(View.INVISIBLE);
-			} else {
-				no_res.setVisibility(View.INVISIBLE);
-				mCards.setVisibility(View.VISIBLE);
-			}
-			
-			// Per ciascuna storia lancio un task per ottenere la relativa cover..
-			String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, context);
-			if(FinalFunctionsUtilities.isDeviceConnected(this)) {
-				for(int i = 0; i < FinalFunctionsUtilities.stories.size(); i++) {
-					try {
-						new GetStoryCoverTask(ViewStoriesActivity.this, ViewStoriesActivity.this).execute(token, FinalFunctionsUtilities.stories.get(i).getId() + "");
-					}
-					catch (Exception e) {
-						Log.e(ViewStoriesActivity.class.getName(), e.toString());
-						e.printStackTrace();
-					}
+		setProgressBarIndeterminateVisibility(false);
+		// Se sono nell'anno di nascita e sto visualizzando le storie private
+		// mostro la BornStory come prima storia..
+		if ((requestYear == startYear) && 
+			(FinalFunctionsUtilities.getSharedPreferences(
+					Constants.ACTIVE_STORIES, context).
+					equals(Constants.PRIVATE_STORIES))) {
+			addBornStory();
+		}
+		
+		View no_res = findViewById(R.id.no_result_tv);
+		if (FinalFunctionsUtilities.stories.isEmpty()) {
+			no_res.setVisibility(View.VISIBLE);
+			mCards.setVisibility(View.INVISIBLE);
+		} else {
+			no_res.setVisibility(View.INVISIBLE);
+			mCards.setVisibility(View.VISIBLE);
+		}
+		
+		// Per ciascuna storia lancio un task per ottenere la relativa cover..
+		String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, context);
+		if(FinalFunctionsUtilities.isDeviceConnected(this)) {
+			for(int i = 0; i < FinalFunctionsUtilities.stories.size(); i++) {
+				try {
+					new GetStoryCoverTask(ViewStoriesActivity.this, ViewStoriesActivity.this).execute(token, FinalFunctionsUtilities.stories.get(i).getId() + "");
+				}
+				catch (Exception e) {
+					Log.e(ViewStoriesActivity.class.getName(), e.toString());
+					e.printStackTrace();
 				}
 			}
-			OnProgress();
 		}
-		else {
-			Toast.makeText(context, getResources().getString(R.string.connection_fail), Toast.LENGTH_LONG).show();
-		}
+		mStoriesAdapter.notifyDataSetChanged();
+		OnProgress();
 	}
 
 	private void addBornStory() {

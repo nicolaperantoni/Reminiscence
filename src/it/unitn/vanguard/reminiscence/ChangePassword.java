@@ -40,13 +40,13 @@ public class ChangePassword extends Activity implements OnTaskFinished {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = ChangePassword.this;
-		getActionBar().setDisplayHomeAsUpEnabled(true);
 			
 		String language = FinalFunctionsUtilities
 				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_change_password);
 		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		initializeButtons();
 		initializeListeners();
 	}

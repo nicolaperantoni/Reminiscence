@@ -40,12 +40,13 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = AddFriendActivity.this;
-		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		String language = FinalFunctionsUtilities
 				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_add_friend);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		initializeButtons();
 		initializeListeners();
 	}

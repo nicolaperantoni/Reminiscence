@@ -48,11 +48,11 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 		super.onCreate(savedInstanceState);
 		context = ProfileImageActivity.this;
 		
-		getActionBar().setDisplayHomeAsUpEnabled(true);
 		String language = FinalFunctionsUtilities
 				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_profile_image);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		initializeButtons();
 		initializeListeners();

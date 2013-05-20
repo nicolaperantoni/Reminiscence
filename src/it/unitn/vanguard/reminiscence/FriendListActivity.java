@@ -45,6 +45,11 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		super.onCreate(savedInstanceState);
 		context = FriendListActivity.this;
 		
+		String language = FinalFunctionsUtilities
+				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
+		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
+		setContentView(R.layout.activity_friend_list);
+		
 		// Show the Up button in the action bar.
 		setupActionBar();
 		getFriendsList();
@@ -60,11 +65,6 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 						AddFriendActivity.class), ADD_NEW_FRIEND);
 			}
 		});
-		
-		String language = FinalFunctionsUtilities
-				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
-		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
-		setContentView(R.layout.activity_friend_list);
 	}
 	
 	
