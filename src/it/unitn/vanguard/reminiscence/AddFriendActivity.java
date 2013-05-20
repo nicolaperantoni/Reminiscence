@@ -220,15 +220,6 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 				getIntent().putExtra("surname", res.getString("surname"));
 				getIntent().putExtra("email", res.getString("email"));
 				finish();
-				if (FinalFunctionsUtilities.getSharedPreferences(
-						"FriendListActivity", this).equals("true")) {
-					FinalFunctionsUtilities.setSharedPreferences("FriendListActivity", "false", this);
-					startActivity(new Intent(this, FriendListActivity.class));
-				} else if (FinalFunctionsUtilities.getSharedPreferences(
-						"CheckBoxAmici", this).equals("true")) {
-					FinalFunctionsUtilities.setSharedPreferences("CheckBoxAmici", "false", this);
-					startActivity(new Intent(this, CheckBoxAmici.class));
-				}
 				Toast.makeText(context, R.string.add_friend_successful,
 						Toast.LENGTH_LONG).show();
 			} else {
@@ -238,6 +229,22 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 			}
 		} catch (Exception e) {
 			Log.e("Error in" + AddFriendActivity.class.getName(), e.toString());
+		}
+	}
+	
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		if (FinalFunctionsUtilities.getSharedPreferences(
+				"FriendListActivity", this).equals("true")) {
+			FinalFunctionsUtilities.setSharedPreferences("FriendListActivity", "false", this);
+			startActivity(new Intent(this, FriendListActivity.class));
+		} else if (FinalFunctionsUtilities.getSharedPreferences(
+				"CheckBoxAmici", this).equals("true")) {
+			FinalFunctionsUtilities.setSharedPreferences("CheckBoxAmici", "false", this);
+			startActivity(new Intent(this, CheckBoxAmici.class));
 		}
 	}
 
