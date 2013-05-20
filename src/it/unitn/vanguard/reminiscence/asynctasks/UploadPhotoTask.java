@@ -21,7 +21,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
+public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> implements Comparable<UploadPhotoTask> {
 
 	private OnTaskFinished caller;
 	private imageType imageType;
@@ -89,5 +89,10 @@ public class UploadPhotoTask extends AsyncTask<String, Void, Boolean> {
 			Log.e(RegistrationTask.class.getName(), ex.toString());
 		}
 		caller.onTaskFinished(json);
+	}
+
+	@Override
+	public int compareTo(UploadPhotoTask another) {
+		return 0;
 	}
 }

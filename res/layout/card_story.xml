@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/yearStoryCard"
             android:padding="4dp"
             android:text="@string/story_title_placeholder" />
 
@@ -59,11 +60,15 @@
             android:id="@+id/yearStoryCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_above="@+id/cardstory_img"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/cardstory_img"
+            android:layout_alignParentTop="true"
             android:background="@color/alphablack"
+            android:text="@string/year_hint"
             android:textColor="@color/white"
-            android:text="@string/year_hint" />
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
 
     </RelativeLayout>
 

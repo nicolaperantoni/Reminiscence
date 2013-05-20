@@ -146,7 +146,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 									break;
 								}
 								case 1: {
-									switchActiveStories(Constants.PRIVATE_STORIES);
+									switchActiveStories(Constants.PUBLIC_STORIES);
 									break;
 								}
 							}
@@ -195,14 +195,14 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				
-				((YearView) arg1).setBackgroundColor(getResources().getColor(
-						R.color.pomegranate));
 
 				lastSelected.setBackgroundColor(getResources().getColor(
 						R.color.red_background_dark));
 				lastSelected = (YearView) arg1;
-
+				
+				((YearView) arg1).setBackgroundColor(getResources().getColor(
+						R.color.pomegranate));
+				
 				// aggiorno gli indici
 				selectedIndex = arg2;
 				requestYear = ((YearView) arg1).getYear();
@@ -336,18 +336,23 @@ public class ViewStoriesActivity extends BaseActivity implements
 		@Override
 		public View getView(final int arg0, View arg1, ViewGroup arg2) {
 			View v = getLayoutInflater().inflate(R.layout.card_story, arg2, false);
-			Story story = FinalFunctionsUtilities.stories.get(arg0);
+			
 			ImageView back = (ImageView) v.findViewById(R.id.cardstory_img);
 			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
 			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
 			TextView year = (TextView) v.findViewById(R.id.yearStoryCard);
-			if (story != null) {
-				title.setText(story.getTitle());
-				desc.setText(story.getDesc());
-				year.setText(String.valueOf(story.getAnno()));
-				if (story.getBackground() != null) {
-					back.setImageBitmap(FinalFunctionsUtilities.stories.get(
-							arg0).getBackground());
+			
+			if(FinalFunctionsUtilities.stories.size() != 0) {
+				Story story = FinalFunctionsUtilities.stories.get(arg0);
+				
+				if (story != null) {
+					title.setText(story.getTitle());
+					desc.setText(story.getDesc());
+					year.setText(String.valueOf(story.getAnno()));
+					if (story.getBackground() != null) {
+						back.setImageBitmap(FinalFunctionsUtilities.stories.get(
+								arg0).getBackground());
+					}
 				}
 			}
 			
@@ -355,9 +360,11 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 				@Override
 				public void onClick(View clicked) {
-					Story story = FinalFunctionsUtilities.stories.get(arg0);
-					StoryFragment sf = StoryFragment.newInstance(story);
-					sf.show(getFragmentManager(), "visualized");
+					if(FinalFunctionsUtilities.stories.size() != 0) {
+						Story story = FinalFunctionsUtilities.stories.get(arg0);
+						StoryFragment sf = StoryFragment.newInstance(story);
+						sf.show(getFragmentManager(), "visualized");
+					}
 				}
 			});
 			
@@ -368,7 +375,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 					
 					final int pos = arg0;
 					
-					if(FinalFunctionsUtilities.stories.get(arg0).getId().equals("1")){
+					if(FinalFunctionsUtilities.stories.size() != 0 &&
+							!FinalFunctionsUtilities.stories.get(arg0).getId().equals("-1")) {
+						
 						AlertDialog.Builder builder = new AlertDialog.Builder(context);
 	
 						String delStory = "";
@@ -595,7 +604,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 						Constants.LOUGO_DI_NASCITA_PREFERENCES_KEY,
 						context));
 		Bitmap img = BitmapFactory.decodeResource(getResources(), R.drawable.baby);
-		Story s = new Story(startYear, title, desc, "");
+		Story s = new Story(startYear, title, desc, "-1");
 		s.setBackground(img);
 		FinalFunctionsUtilities.stories.addFirst(s);
 	}
