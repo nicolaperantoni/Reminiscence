@@ -87,13 +87,13 @@ public class GetPrivateStoriesTask extends AsyncTask<Integer, JSONObject, Boolea
 	@Override
 	protected void onProgressUpdate(JSONObject... values) {
 		super.onProgressUpdate(values);
-		String id, title, desc, year;
+		String id, title, desc, storyYear;
 		try {
-			year = values[0].getString("Year");
+			storyYear = values[0].getString("Year");
 			id = values[0].getString("IdStory");
 			title = values[0].getString("Title");
 			desc = values[0].getString("Text");
-			FinalFunctionsUtilities.stories.add(new Story(Integer.parseInt(year) , title, desc, id));
+			FinalFunctionsUtilities.stories.add(new Story(Integer.parseInt(storyYear) , title, desc, id));
 		} catch (JSONException e) {
 			Log.e(GetPrivateStoriesTask.class.getName(), e.toString());
 			e.printStackTrace();
