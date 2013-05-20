@@ -22,23 +22,23 @@
 
         <View
             android:id="@+id/view1"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/cardstory_title"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
             android:background="@color/grey" />
 
-        <ImageView
-            android:id="@+id/cardstory_img"
+        <eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView
+            android:id="@+id/card_story_imgs_hlv"
             android:layout_width="fill_parent"
-            android:layout_height="300dp"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/view1"
-            android:layout_centerHorizontal="true"
-            android:minHeight="150dp" />
+            android:layout_height="match_parent"
+            android:layout_above="@+id/linear_cardstory"
+            android:layout_below="@+id/view1" >
+        </eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView>
 
         <LinearLayout
+            android:id="@+id/linear_cardstory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -60,16 +60,15 @@
             android:id="@+id/yearStoryCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_above="@+id/cardstory_img"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:background="@color/alphablack"
-            android:text="@string/year_hint"
-            android:textColor="@color/white"
+            android:gravity="center"
             android:paddingLeft="5dp"
-            android:paddingRight="5dp" />
-
+            android:paddingRight="5dp"
+            android:text="@string/year_hint"
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <View

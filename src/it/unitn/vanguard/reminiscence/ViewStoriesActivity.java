@@ -47,6 +47,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
 import eu.giovannidefrancesco.DroidTimeline.view.YearView;
+import eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView;
 
 public class ViewStoriesActivity extends BaseActivity implements
 		OnTaskFinished, QuestionPopUp, OnGetStoryTask {
@@ -337,21 +338,37 @@ public class ViewStoriesActivity extends BaseActivity implements
 		public View getView(final int arg0, View arg1, ViewGroup arg2) {
 			View v = getLayoutInflater().inflate(R.layout.card_story, arg2, false);
 			
-			ImageView back = (ImageView) v.findViewById(R.id.cardstory_img);
+			//lancio il task per farmi ritornare il jason con le immagini
+			
+			String token = FinalFunctionsUtilities.getSharedPreferences(Constants.TOKEN_KEY, context);
+			
+			
+			
+			//decodifico in bitmap da base64 le immagini
+//			Bitmap bm
+			
+			//carico le img nell'horizontalList 
+			
+		    HorizontalListView mMedias = (HorizontalListView) findViewById(R.id.card_story_imgs_hlv);
 			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
 			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
 			TextView year = (TextView) v.findViewById(R.id.yearStoryCard);
 			
 			if(FinalFunctionsUtilities.stories.size() != 0) {
 				Story story = FinalFunctionsUtilities.stories.get(arg0);
+				if(FinalFunctionsUtilities.isDeviceConnected(context)) {
+					new GetStoryCoverTask(ViewStoriesActivity.this, context).execute(token, story.getId());
+				}
+				
+				int num_image = Integer.parseInt(story.getNumImages());
 				
 				if (story != null) {
 					title.setText(story.getTitle());
 					desc.setText(story.getDesc());
 					year.setText(String.valueOf(story.getAnno()));
-					if (story.getBackground() != null) {
-						back.setImageBitmap(FinalFunctionsUtilities.stories.get(
-								arg0).getBackground());
+					if (num_image != 0) {
+						//back.setImageBitmap(FinalFunctionsUtilities.stories.get(
+								//arg0).getBackground());
 					}
 				}
 			}
@@ -488,9 +505,11 @@ public class ViewStoriesActivity extends BaseActivity implements
 						try {
 							// Converto l'immagine da Base64 a Bitmap e la inserisco
 							// nell' imageView della StoryCard (COVER)..
+//							for(int i = 0; i < )
+							
 							byte[] decodedString = Base64.decode(res.getString("cover"), Base64.DEFAULT);
 							Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
-							s.setBackground(bitmap);
+							
 							mStoriesAdapter.notifyDataSetChanged();
 						} catch (Exception e) {
 							Log.e(ViewStoriesActivity.class.getName(), e.toString());
