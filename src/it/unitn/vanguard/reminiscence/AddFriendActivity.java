@@ -229,6 +229,22 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 			Log.e(AddFriendActivity.class.getName(), e.toString());
 		}
 	}
+	
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		if (FinalFunctionsUtilities.getSharedPreferences(
+				"FriendListActivity", this).equals("true")) {
+			FinalFunctionsUtilities.setSharedPreferences("FriendListActivity", "false", this);
+			startActivity(new Intent(this, FriendListActivity.class));
+		} else if (FinalFunctionsUtilities.getSharedPreferences(
+				"CheckBoxAmici", this).equals("true")) {
+			FinalFunctionsUtilities.setSharedPreferences("CheckBoxAmici", "false", this);
+			startActivity(new Intent(this, CheckBoxAmici.class));
+		}
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

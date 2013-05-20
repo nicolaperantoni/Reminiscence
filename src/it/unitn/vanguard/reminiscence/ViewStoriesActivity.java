@@ -365,56 +365,57 @@ public class ViewStoriesActivity extends BaseActivity implements
 				
 				@Override
 				public boolean onLongClick(View longClicked) {
+					
 					final int pos = arg0;
 					
-					AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-					String delStory = "";
-					delStory += getResources().getString(R.string.deleteStoryPopupMessage1);
-					delStory += "\n\n\"" + FinalFunctionsUtilities.stories.get(pos).getTitle() + "\"\n\n";
-					delStory += getResources().getString(R.string.deleteStoryPopupMessage2);
-					
-					builder.setMessage(delStory)
-						.setPositiveButton(R.string.yes,
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialogInterface, int id) {
-									
-									if(FinalFunctionsUtilities.isDeviceConnected(context)) {
-										dialog = new ProgressDialog(context);
-										dialog.setTitle(getResources().getString(R.string.please));
-										dialog.setMessage(getResources().getString(R.string.wait));
-										dialog.setCancelable(false);
-										dialog.show();	
-										deleteStory(arg0);
-									}
-									else {
-										Toast.makeText(
-												context,
-												getResources().getString(R.string.connection_fail),
-												Toast.LENGTH_LONG).show();
-									}
-								}
-						})
-						.setNegativeButton(
-								R.string.no,
+					if(FinalFunctionsUtilities.stories.get(arg0).getId().equals("1")){
+						AlertDialog.Builder builder = new AlertDialog.Builder(context);
+	
+						String delStory = "";
+						delStory += getResources().getString(R.string.deleteStoryPopupMessage1);
+						delStory += "\n\n\"" + FinalFunctionsUtilities.stories.get(pos).getTitle() + "\"\n\n";
+						delStory += getResources().getString(R.string.deleteStoryPopupMessage2);
+						
+						builder.setMessage(delStory)
+							.setPositiveButton(R.string.yes,
 								new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog, int id) { }
-						});
-
-					AlertDialog alert = builder.create();
-					alert.show();
-					
-					((TextView) alert.findViewById(android.R.id.message))
-							.setGravity(Gravity.CENTER);
-					((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
-							.setBackgroundResource(R.drawable.bottone_logout);
-					((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
-							.setTextColor(Color.WHITE);
-									
+									public void onClick(DialogInterface dialogInterface, int id) {
+										
+										if(FinalFunctionsUtilities.isDeviceConnected(context)) {
+											dialog = new ProgressDialog(context);
+											dialog.setTitle(getResources().getString(R.string.please));
+											dialog.setMessage(getResources().getString(R.string.wait));
+											dialog.setCancelable(false);
+											dialog.show();	
+											deleteStory(arg0);
+										}
+										else {
+											Toast.makeText(
+													context,
+													getResources().getString(R.string.connection_fail),
+													Toast.LENGTH_LONG).show();
+										}
+									}
+							})
+							.setNegativeButton(
+									R.string.no,
+									new DialogInterface.OnClickListener() {
+										public void onClick(DialogInterface dialog, int id) { }
+							});
+	
+						AlertDialog alert = builder.create();
+						alert.show();
+						
+						((TextView) alert.findViewById(android.R.id.message))
+								.setGravity(Gravity.CENTER);
+						((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
+								.setBackgroundResource(R.drawable.bottone_logout);
+						((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
+								.setTextColor(Color.WHITE);
+					}
 					return true;
 				}
 			});
-
 			return v;
 		}
 	}

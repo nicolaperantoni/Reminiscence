@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 public class FriendListActivity extends ListActivity implements OnTaskFinished {
 
+	protected static final int ADD_NEW_FRIEND = 0;
 	private ArrayList<Friend> friends = new ArrayList<Friend>();
 	protected ProgressDialog dialog;
 	private Context context;
@@ -54,8 +55,9 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 			@Override
 			public void onClick(View v) {
 				FinalFunctionsUtilities.setSharedPreferences("FriendListActivity", "true", FriendListActivity.this);
-				startActivity(new Intent(context,AddFriendActivity.class));
-				finish();
+				FriendListActivity.this.finish();
+				startActivityForResult(new Intent(context,
+						AddFriendActivity.class), ADD_NEW_FRIEND);
 			}
 		});
 		
@@ -65,6 +67,20 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		setContentView(R.layout.activity_friend_list);
 	}
 	
+	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode==ADD_NEW_FRIEND) {
+			if (resultCode==RESULT_OK) {
+				
+			}
+		}
+	}
+
+
+
 	@Override
 	protected void onStart() {
 		super.onStart();
