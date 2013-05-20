@@ -60,7 +60,7 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 			@Override
 			public void onClick(View v) {
 				FinalFunctionsUtilities.setSharedPreferences("FriendListActivity", "true", FriendListActivity.this);
-				FriendListActivity.this.finish();
+				//FriendListActivity.this.finish();
 				startActivityForResult(new Intent(context,
 						AddFriendActivity.class), ADD_NEW_FRIEND);
 			}
@@ -74,7 +74,13 @@ public class FriendListActivity extends ListActivity implements OnTaskFinished {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode==ADD_NEW_FRIEND) {
 			if (resultCode==RESULT_OK) {
-				
+				Bundle bd = data.getExtras();
+				int id = (Integer) bd.get("id");
+				String name = (String) bd.get("name");
+				String surname = (String) bd.get("surname");
+				String mail = (String) bd.get("mail");
+				friends.add(new Friend(name, surname, mail, id));
+				setAdapter();
 			}
 		}
 	}

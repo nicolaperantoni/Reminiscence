@@ -205,20 +205,13 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 		
 		try {
 			if (res.getString("success").equals("true")) {
-				getIntent().putExtra("id", res.getString("id"));
-				getIntent().putExtra("name", res.getString("name"));
-				getIntent().putExtra("surname", res.getString("surname"));
-				getIntent().putExtra("email", res.getString("email"));
+				Intent returnIntent = new Intent();
+				returnIntent.putExtra("id", Integer.parseInt(res.getString("id")));
+				returnIntent.putExtra("name", res.getString("name"));
+				returnIntent.putExtra("surname", res.getString("surname"));
+				returnIntent.putExtra("mail", res.getString("email"));
+				setResult(RESULT_OK, returnIntent);
 				finish();
-				if (FinalFunctionsUtilities.getSharedPreferences(
-						"FriendListActivity", context).equals("true")) {
-					FinalFunctionsUtilities.setSharedPreferences("FriendListActivity", "false", context);
-					startActivity(new Intent(context, FriendListActivity.class));
-				} else if (FinalFunctionsUtilities.getSharedPreferences(
-						"CheckBoxAmici", this).equals("true")) {
-					FinalFunctionsUtilities.setSharedPreferences("CheckBoxAmici", "false", context);
-					startActivity(new Intent(context, CheckBoxAmici.class));
-				}
 				Toast.makeText(context, R.string.add_friend_successful,
 						Toast.LENGTH_LONG).show();
 			} else {
@@ -228,22 +221,6 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 			}
 		} catch (Exception e) {
 			Log.e(AddFriendActivity.class.getName(), e.toString());
-		}
-	}
-	
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-
-		if (FinalFunctionsUtilities.getSharedPreferences(
-				"FriendListActivity", this).equals("true")) {
-			FinalFunctionsUtilities.setSharedPreferences("FriendListActivity", "false", this);
-			startActivity(new Intent(this, FriendListActivity.class));
-		} else if (FinalFunctionsUtilities.getSharedPreferences(
-				"CheckBoxAmici", this).equals("true")) {
-			FinalFunctionsUtilities.setSharedPreferences("CheckBoxAmici", "false", this);
-			startActivity(new Intent(this, CheckBoxAmici.class));
 		}
 	}
 
