@@ -1,6 +1,7 @@
 package it.unitn.vanguard.reminiscence;
 
 import it.unitn.vanguard.reminiscence.utils.Constants;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -45,7 +46,12 @@ public class QuestionPopUpHandler extends Handler {
 					Constants.QUESTION_POPUP_SHOWING_TIME);
 			//TODO retrieve the new question from the server
 			Message newmsg = new Message();
-			newmsg.setData(datas);
+			Bundle b = new Bundle();
+			String[] questions = ((Context)listener).getResources().getStringArray(R.array.questions);
+			int index = (int)(Math.random()*questions.length);
+			b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY,
+					questions[index]);
+			newmsg.setData(b);
 			this.sendMessageDelayed(newmsg, Constants.QUESTION_INTERVAL);
 	}
 	

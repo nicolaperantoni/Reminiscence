@@ -18,6 +18,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.integer;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -86,13 +87,14 @@ public class GetPublicStoriesTask extends
 	@Override
 	protected void onProgressUpdate(JSONObject... values) {
 		super.onProgressUpdate(values);
-		String title, desc, id;
-		try {
-			id = values[0].getString("IdStory");
-			title = values[0].getString("Title");
-			desc = values[0].getString("Text");
-			Story s = new Story(year, title, desc, id);
-			FinalFunctionsUtilities.stories.add(s);
+		String title, desc, id, storyYear;
+			try {
+				storyYear = id = values[0].getString("Year");
+				id = values[0].getString("IdStory");
+				title = values[0].getString("Title");
+				desc = values[0].getString("Text");
+				Story s = new Story(Integer.parseInt(storyYear), title, desc, id);
+				FinalFunctionsUtilities.stories.add(s);
 		} catch (JSONException e) {
 			Log.e(GetPublicStoriesTask.class.getName(), e.toString());
 			e.printStackTrace();
