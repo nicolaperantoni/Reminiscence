@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="questions">
+        <item>What\'s your favorite way to spend time with your sibling?</item>
+        <item>What about your children reminds you of yourself?</item>
+        <item>What advantages would you want your children to have that you didn\'t?</item>
+        <item>What bonding moment with your sibling left a lasting impression on you?</item>
+        <item>Describe a time when you and your sibling drove your parents nuts</item>
+        <item>Did you ever feel tortured by your sibling?</item>
+        <item>How do you describe your boyfriend to other people?</item>
+        <item>What\'s something that has caused tension between you and your sibling?</item>
+        <item>What\'s the nicest thing you and your sibling have done for your parents?</item>
+        <item>Share something you\'ve kept from your sibling</item>
+        <item>What do you wish your mom and dad did differently?</item>
+        <item>Describe a time when you couldn\'t help your children even though you wanted to</item>
+        <item>Are you friends with any of your exes?</item>
+        <item>What was your favorite thing about your first date with your boyfriend?</item>
+        <item>What\'s the best thing your father and mother have given you?</item>
+        <item>Which of your children\'s friends could you not stand?</item>
+        <item>What made you want to date your girlfriend?</item>
+        <item>Do you think you\'ll settle down and have kids someday?</item>
+        <item>Who would win in a fight between you and your sibling?</item>
+        <item>Do you remember a time when your sibling made a sacrifice for you?</item>
+        <item>What advice from your sibling has stayed with you?</item>
+        <item>When do you feel your parents were totally unfair?</item>
+        <item>What would your mom or dad always do to lift your spirits?</item>
+        <item>What sacrifices have your parents made for you?</item>
+        <item>Is there a song that makes you think of your dad and mom?</item>
+        <item>What do you most appreciate about your parents?</item>
+        <item>Describe one of the funniest memories you have of your children</item>
+        <item>What would you do if your parents didn\'t like your boyfriend?</item>
+        <item>When have your parents bailed you out of trouble?</item>
+        <item>Describe a time when you let your children learn a lesson on their own</item>
+        <item>When have your parents done something unexpected?</item>
+        <item>In what small ways did your parents make you feel special?</item>
+        <item>Have you ever said I love you without meaning it?</item>
+        <item>What do you like most about your boyfriend?</item>
+        <item>What\'s your favorite thing you and your boyfriend have done together?</item>
+        <item>What made you want to date your boyfriend?</item>
+        <item>When have your children most infuriated you?</item>
+        <item>What\'s something your children do that you don\'t understand?</item>
+        <item>Describe a time as a parent when you knew you were in over your head</item>
+        <item>What have you thought about your children\'s clothing and music choices over the years?</item>
+        <item>What were the challenges you faced in your early working years?</item>
+        <item>When did you get your current job?</item>
+        <item>If you owned a store what would you sell?</item>
+        <item>Who taught you about business or have you learned on your own?</item>
+        <item>If you had the opportunity to start your own business what would you start?</item>
+        <item>How did your family influence your career choice?</item>
+        <item>What one thing did you learn early that impacted your whole career?</item>
+        <item>How much do you define yourself by your career?</item>
+        <item>How much did you make at your very first job?</item>
+        <item>When did you get your first big break?</item>
+        <item>What do you like most about your job?</item>
+        <item>What advice would you give someone just starting out in your field?</item>
+        <item>How do you deal with work-life balance?</item>
+        <item>What was the first big purchase you made with your own money?</item>
+        <item>How do you deal with financial stress?</item>
+        <item>Where do you go to be alone?</item>
+        <item>What stresses you?</item>
+        <item>What has been your most rewarding job?</item>
+        <item>How do you relax at the end of the day?</item>
+        <item>Who have been your mentors in your professional life?</item>
+        <item>How do you challenge yourself?</item>
+        <item>What was the worst thing you had to do for a job?</item>
+        <item>When did you get your first job what was it like and how did you land it?</item>
+        <item>How did you get into your line of work?</item>
+        <item>What profession would you not like to do?</item>
+        <item>What interests or passions do you have outside of work and family?</item>
+        <item>Is your current career based on a passion of yours?</item>
+        <item>Describe a lost opportunity</item>
+        <item>How do you define success?</item>
+        <item>What do you do when you get into arguments with the people in your life?</item>
+        <item>What was your first boss like?</item>
+        <item>If you could choose any profession what would it be and why?</item>
+        <item>What would you credit for getting you where you are today?</item>
+        <item>What would you do differently if you were starting your career today?</item>
+        <item>What has been your most interesting job?</item>
+        <item>How have your career aspirations evolved?</item>
+        <item>What do you do to get centered?</item>
+        <item>What\'s the most entrepreneurial thing you\'ve ever done?</item>
+        <item>List some significant milestones in your professional life</item>
+        <item>Describe an unforeseen event that impacted your career</item>
+        <item>When did you graduate from college?</item>
+        <item>Describe your childhood home</item>
+        <item>What food brings back childhood memories?</item>
+        <item>Where was your prom and who was your date?</item>
+        <item>When did you graduate high school?</item>
+        <item>Where did you go to college and why did you choose that school?</item>
+        <item>Who were your best friends in high school and what were they like?</item>
+        <item>Who was your favorite teacher in high school?</item>
+        <item>What is your earliest memory?</item>
+        <item>What was your biggest fear as a child?</item>
+        <item>What did your mom always pack in your lunch when you were young?</item>
+        <item>What is your favorite childhood memory of summer?</item>
+        <item>Is there a photo of you as a Boy Scout Girl Scout or Brownie?</item>
+        <item>When and where did you learn to ride a bicycle?</item>
+        <item>What did your high school look like?</item>
+        <item>Did you have a curfew in high school? Did you ever break it?</item>
+        <item>Did you participate in any extracurricular activities throughout high school?</item>
+        <item>Who were the school bullies? Who was in the popular crowd?</item>
+        <item>Describe your high school experience</item>
+        <item>How did you get to and from school every day?</item>
+        <item>Did you ever hide something from your parents?</item>
+        <item>Share a photo of a science project you attempted</item>
+        <item>What was your favorite subject in school?</item>
+        <item>How were you disciplined?</item>
+        <item>Add a picture of the house you grew up in</item>
+        <item>Describe something mischievous you did as a child</item>
+        <item>When and where did you learn to swim?</item>
+        <item>Who was your best friend growing up?</item>
+        <item>What was the best class you took in high school? The worst?</item>
+        <item>What\'s the story behind your name?</item>
+        <item>What\'s your earliest baby photo?</item>
+        <item>Which college textbooks have you kept and why?</item>
+        <item>What did you always play during recess?</item>
+        <item>Who was your worst grade school teacher?</item>
+        <item>Describe a memorable childhood adventure</item>
+        <item>What were your favorite activities outside of school?</item>
+        <item>What was your favorite childhood toy? Add a picture</item>
+        <item>Is there a photograph from when you took your first steps?</item>
+        <item>Was there a photo taken of your first birthday?</item>
+        <item>Share a photograph from your high school graduation</item>
+        <item>When did you learn to play an instrument and which was it?</item>
+        <item>Is there a song you love to sing out loud?</item>
+        <item>What is the best text message you\'ve received?</item>
+        <item>Have you ever taken a picture with a famous person?</item>
+        <item>When have you performed in front of an audience?</item>
+        <item>Which pop culture niche are you the undisputed expert in?</item>
+        <item>What was your favorite concert?</item>
+        <item>Have you ever won a trophy?</item>
+        <item>Have you ever had a sports rival?</item>
+        <item>What was your most disappointing loss in a game?</item>
+        <item>What was your greatest moment in a game?</item>
+        <item>How do you like to read: on a screen or the old-fashioned way?</item>
+        <item>Which book does \'everyone\' love but you can\'t stand?</item>
+        <item>What book would you most like to see made into a movie?</item>
+        <item>What was your first concert?</item>
+        <item>In what ways are you nerdy?</item>
+        <item>What new technology entered the scene while you were in high school?</item>
+        <item>Which athlete did you admire as a kid?</item>
+        <item>What book do you recommend the most?</item>
+        <item>What song do you wish you could perform?</item>
+        <item>What songs make you instantly happy?</item>
+        <item>What are you currently reading?</item>
+        <item>Which books have you been trying to tackle for ages?</item>
+        <item>Name a children\'s book that every child should read</item>
+        <item>Do you have a song that takes you back?</item>
+        <item>What was your favorite book growing up?</item>
+        <item>Which song would you love to have dedicated to you?</item>
+        <item>How many songs do you have in your digital music library?</item>
+        <item>Which five books mean a lot to you?</item>
+        <item>If you could bring one character to life from your favorite book who would it be?</item>
+        <item>If you could be a character from any book you\'ve read who would you be?</item>
+        <item>Who\'s your favorite villain?</item>
+        <item>Has your picture been in the newspaper?</item>
+        <item>Do you like the smell of old books?</item>
+        <item>What was your first computer?</item>
+        <item>What do you consider to be the most overrated movie?</item>
+        <item>Who in your life had the most influence in shaping your musical tastes?</item>
+        <item>What was your first album?</item>
+        <item>List your top 5 favorite actors</item>
+        <item>Who\'s your favorite sidekick?</item>
+        <item>Which interests do you share with your mom? with your dad?</item>
+        <item>Which is considered to be the most important holiday for your family?</item>
+        <item>Describe a time when you felt especially close to your family</item>
+        <item>What\'s your favorite family tradition?</item>
+        <item>Describe the personalities of your grandparents</item>
+        <item>What kind of pet do you have?</item>
+        <item>Describe your pet\'s personality</item>
+        <item>How have you followed in the footsteps of the generations that came before you in your family?</item>
+        <item>What is something your parents instilled in you that you have passed down or will pass down to your own children?</item>
+        <item>What\'s your favorite moment or story of your pet?</item>
+        <item>Add the oldest photo of your immediate family that you can find</item>
+        <item>Are your family and close friends spread out or nearby?</item>
+        <item>How do you most want to be like your parents?</item>
+        <item>How did your parents reward you?</item>
+        <item>What was the first moment of interaction with your pet like?</item>
+        <item>Which one of your parents do you most resemble?</item>
+        <item>Add a photograph of your pet</item>
+        <item>Which family or friends regularly come over for the holidays?</item>
+        <item>How are you similar to your mother and father?</item>
+        <item>What\'s the name of your pet (and why\'d you choose it)?</item>
+        <item>Describe a poignant memory of your grandparents</item>
+        <item>When was the last time your whole family took a picture together?</item>
+        <item>Where did you go often in your hometown?</item>
+        <item>What\'s a frame-worthy photo of you and your siblings?</item>
+        <item>Do you have a photo of your grandparents from when they were a young couple?</item>
+        <item>Where does your family celebrate the holidays?</item>
+        <item>Did you like where you grew up?</item>
+        <item>What\'s your favorite restaurant in your hometown?</item>
+        <item>What do you always like to do with your brother or sister?</item>
+        <item>What did your parents pressure you about?</item>
+        <item>Describe a favorite memory of your brother or sister</item>
+        <item>What\'s something you wish you did more often with your family?</item>
+        <item>When did you get your pet?</item>
+        <item>In what ways are you and your siblings close today?</item>
+        <item>Add a picture from a memorable family vacation</item>
+        <item>Describe the neighborhood where you grew up</item>
+        <item>What is the best or most practical advice your parents have given you?</item>
+        <item>What were your siblings like when they were young?</item>
+        <item>What have you always wanted to ask your grandparents?</item>
+        <item>Describe your siblings and their personality</item>
+        <item>What wild adventure would you like to take with your closest friends?</item>
+        <item>What do you and your friends like to do together?</item>
+        <item>Do you have any photos from summer camp?</item>
+        <item>Where have you traveled with your friends?</item>
+        <item>What traditions do you and your gal pals have?</item>
+        <item>How have your friends stuck by you in good and bad times?</item>
+        <item>What does your good friend do that always makes you laugh?</item>
+        <item>What pearls of wisdom have your girlfriends given you?</item>
+        <item>What do you admire about each of your friends?</item>
+        <item>What are the most important relationships in your life?</item>
+        <item>When did you meet your best friend?</item>
+        <item>Share a photo you love of you and your friends</item>
+        <item>How do your friends bring out different parts of yourself?</item>
+        <item>When have your friends made you laugh when you thought you were going to cry?</item>
+        <item>What have you learned about yourself through your friendships?</item>
+        <item>Describe one or two fun memories you and your best friends had together</item>
+        <item>Have any new friendships or connections taken you by surprise?</item>
+        <item>Share a photo of you with high school friends</item>
+        <item>What makes you and your gal pals click?</item>
+        <item>Is there someone in your life who has never let you down? How long have you known this person?</item>
+        <item>Whom have you lost touch with but still wonder about?</item>
+        <item>What would you like your closest friends to say about you at your funeral?</item>
+        <item>Share your funniest story about a practical joke</item>
+        <item>Who are the significant people in your life?</item>
+        <item>Who is the first person you tell when something good happens to you?</item>
+        <item>When and how was the last time you told a friend honestly how you felt?</item>
+        <item>Which friend has had the most impact on your life?</item>
+        <item>What was your first sleepover as a kid?</item>
+        <item>Which one of your friends have you known the longest?</item>
+        <item>Who are the most memorable friends from your past?</item>
+        <item>Which family friends regularly come over for dinners or parties?</item>
+        <item>Where did you and your friends hang out as teenagers?</item>
+        <item>Add a photo of you and a childhood friend</item>
+        <item>With whom would you trust your deepest feelings and secrets?</item>
+        <item>What camp did you go to in the summers?</item>
+        <item>How forgiving are you when your friends let you down?</item>
+        <item>In an emergency which friends could you call in the middle of the night?</item>
+        <item>What are some thoughtful things your friends have done for you?</item>
+        <item>Describe a time when a friend was down and you helped them get through it</item>
+        <item>Add a photo that captures a happy time with you and the girls (and share a great story!)</item>
+        <item>Share a photo in which you look your absolute best</item>
+        <item>What\'s hanging above your sofa?</item>
+        <item>What do you love most about your home?</item>
+        <item>What was your first car?</item>
+        <item>What kinds of local delicacies have you tried when visiting other countries?</item>
+        <item>What is the farthest place you have ever been to?</item>
+        <item>Describe a big risk you\'ve taken in life that paid off</item>
+        <item>Describe the first time you drove a car</item>
+        <item>What was your most epic road trip?</item>
+        <item>What\'s your favorite car?</item>
+        <item>What\'s your favorite photo of the city you live in?</item>
+        <item>What is the highest stake you\'d put on a bet?</item>
+        <item>What\'s the most dangerous thing you\'ve done?</item>
+        <item>If you could live anywhere in the world where would you live?</item>
+        <item>What are you awesome at?</item>
+        <item>What do people say your best quality is?</item>
+        <item>When did you buy your first home?</item>
+        <item>What\'s your favorite Girl Scout cookie?</item>
+        <item>What\'s your favorite thing in your closet?</item>
+        <item>When was the last time you were complimented and for what?</item>
+        <item>What do you believe is your best physical feature?</item>
+        <item>Which fruit is your favorite?</item>
+        <item>List your favorite desserts</item>
+        <item>What do you always crave?</item>
+        <item>What is the weirdest food you\'ve eaten?</item>
+        <item>What\'s the fastest you\'ve ever been caught speeding?</item>
+        <item>If you had one week by yourself at home what would you do?</item>
+        <item>What\'s your favorite home-cooked meal?</item>
+        <item>Sunny-side up or over-easy?</item>
+        <item>What\'s your favorite recipe?</item>
+        <item>Describe a typical family dinner today</item>
+        <item>Who are your favorite designers?</item>
+        <item>Share a photo of a fashion statement you\'ve made that you now regret</item>
+        <item>Was there any food your parents prepared that you refused to eat?</item>
+        <item>What\'s a trend you\'d like to bring back?</item>
+        <item>Which scent do you love to smell in the kitchen?</item>
+        <item>When and how did you learn to drive? What rules were you given about cars?</item>
+        <item>Is there a picture of you performing in a talent show?</item>
+        <item>Take a photo of the things pinned on your refrigerator</item>
+        <item>What trend do you wish you had never followed?</item>
+        <item>What song most represents love to you?</item>
+        <item>Name one thing your fiancé does that makes you feel loved</item>
+        <item>How does your spouse support you?</item>
+        <item>Which new hobbies would you like to pursue with your spouse?</item>
+        <item>Where did you get married?</item>
+        <item>How do you and your significant other complement each other?</item>
+        <item>What was the worst date you\'ve ever been on?</item>
+        <item>What do you love most about your significant other?</item>
+        <item>What beliefs do you share with your spouse?</item>
+        <item>Name the worst pick-up line you\'ve heard (or tried)</item>
+        <item>Were you and your significant other brought together by fate?</item>
+        <item>If you were to make a love-song mix for your significant other which songs would you choose?</item>
+        <item>How are you and your fiancé perfect for each other?</item>
+        <item>After getting married where did you live and how did you choose to live there?</item>
+        <item>What\'s the best thing about being married?</item>
+        <item>If you had the voice (and the courage!) which song would you sing to your partner on your next anniversary?</item>
+        <item>When you disagree what\'s your path to resolution?</item>
+        <item>How long did you date your spouse before getting engaged?</item>
+        <item>When did you get married?</item>
+        <item>Have you ever dated anyone your parents didn\'t approve of?</item>
+        <item>How has your perspective changed since getting married?</item>
+        <item>If you could have a second honeymoon where would you go?</item>
+        <item>Have you ever had a secret admirer? What did they do to grab your attention?</item>
+        <item>When do you feel closest to your spouse?</item>
+        <item>When did you know your spouse was "the one?</item>
+"        <item>Was there ever a song you could no longer listen to after a relationship?</item>
+        <item>What does your spouse do that really irritates you?</item>
+        <item>How did you meet your spouse?</item>
+        <item>Who was your first crush?</item>
+        <item>If you could relive one day of your marriage what would it be?</item>
+        <item>When did you get engaged?</item>
+        <item>What is the sweetest thing your spouse has ever done for you?</item>
+        <item>Who was your first kiss?</item>
+        <item>Who was your first celebrity crush?</item>
+        <item>Who was the first person who broke your heart?</item>
+        <item>Who was your first love?</item>
+        <item>What\'s the most romantic thing your significant other has done for you?</item>
+        <item>What love song makes you most teary-eyed?</item>
+        <item>Which song(s) tell the story of your lives together as a couple?</item>
+        <item>What is your idea of a perfect date?</item>
+Parenthood        <item>What was the first word your child spoke?</item>
+        <item>What insights about yourself did you gain from becoming a parent?</item>
+        <item>What was the biggest surprise about parenthood?</item>
+        <item>How did your relationship with your child change when you became a grandparent?</item>
+        <item>What kind of legacy do you want to leave?</item>
+        <item>Describe your most vivid memory from pregnancy</item>
+        <item>What\'s your child\'s favorite word?</item>
+        <item>Which part of parenthood have you struggled with?</item>
+        <item>How has being a parent changed you?</item>
+        <item>How do you stay true to your life and marriage when raising children?</item>
+        <item>What do you wish for your children?</item>
+        <item>Which of your children\'s difficult times have also been hard for you?</item>
+        <item>What do you want to pass down either physically or metaphorically to your grandchildren?</item>
+        <item>What do you want your grandchildren to know about you?</item>
+        <item>What have you learned about your children from seeing them as parents?</item>
+        <item>How have you let your children be themselves?</item>
+        <item>What insights have you gained from parenthood about your own parents?</item>
+        <item>What secrets do you think your kids should keep from you?</item>
+        <item>What are some of the memories you have of your children?</item>
+        <item>Add a picture from when you were expecting your child</item>
+        <item>When was your first child born?</item>
+        <item>What do you enjoy most about being a grandparent?</item>
+        <item>What was the best gift someone gave you before the arrival of your first child?</item>
+        <item>What have been your greatest joys as a parent?</item>
+        <item>As a parent when did you let go?</item>
+        <item>How did you first learn you were pregnant?</item>
+        <item>What advice have you given your children about love?</item>
+        <item>Would you be proud of your children if they wound up exactly like you?</item>
+        <item>How did your life change when your children moved out?</item>
+        <item>Did you tell your kids about drugs and how do you think it went?</item>
+        <item>Share a sonogram of your child</item>
+        <item>If you could go back in time what would you do differently as a parent?</item>
+        <item>When are your children most proud of you?</item>
+        <item>Did you tell your kids about sex and how do you think it went?</item>
+        <item>In what ways have you rewarded your children?</item>
+        <item>How have you disciplined your children?</item>
+        <item>What\'s your child\'s favorite toy?</item>
+        <item>What do you enjoy doing with your grandchildren?</item>
+        <item>Describe a few early moments with your children</item>
+        <item>How did you prepare for parenthood?</item>
+        <item>Is God ever-present?</item>
+        <item>Is God concerned with the well-being of the world? Is God concerned with your personal well-being?</item>
+        <item>Is God angered by human sin? By your sin?</item>
+        <item>Do you believe in God? Why?</item>
+        <item>What would you want to say to God?</item>
+        <item>Is God directly involved in your personal affairs or removed from them?</item>
+        <item>How have you been blessed?</item>
+        <item>How do your spiritual beliefs differ from those of your parents and siblings?</item>
+        <item>Describe your spiritual understanding</item>
+        <item>What do you think heaven will be like?</item>
+        <item>Is there one true religion?</item>
+        <item>Does religion play a significant role in your life?</item>
+        <item>In what ways do you communicate with God?</item>
+        <item>Have you ever felt that you had a special calling?</item>
+        <item>When have you felt God\'s presence?</item>
+        <item>What is the role of God in your life?</item>
+        <item>Would you ever wear another religious symbol without practicing that faith?</item>
+        <item>Which religion would your children be brought up practicing?</item>
+        <item>Which religion are you the most curious about other than your own?</item>
+        <item>Do you believe in practicing more than one religion?</item>
+        <item>How do you feel about yourself emotionally mentally and spiritually?</item>
+        <item>What is your idea of true peace?</item>
+        <item>When you pray who do you pray to?</item>
+        <item>What part of life confuses you the most?</item>
+        <item>When and how do you feel spiritual?</item>
+        <item>Is God wrathful or forgiving?</item>
+        <item>Is God judging us every moment some days or never?</item>
+        <item>Do you think God has an active hand in your life? Why?</item>
+        <item>Have you ever converted religions?</item>
+        <item>Would you ever raise a family in a multi-faith household?</item>
+        <item>Which traditions from other religions do you appreciate?</item>
+        <item>Would you marry someone of a different faith?</item>
+        <item>Were you raised religious? Are you still?</item>
+        <item>Describe your spiritual beliefs</item>
+        <item>Describe your favorite religious holiday</item>
+        <item>Are there certain scriptures or other writings that you repeatedly turn to for inspiration or guidance?</item>
+        <item>Do you believe in miracles and if so have you ever experienced one?</item>
+        <item>If you decided to go on a spiritual journey where would you go and what would you do?</item>
+        <item>How do you think you could be better to your body?</item>
+        <item>Do you meditate?</item>
+        <item>Where did you go to school?</item>
+        <item>When and where were you born?</item>
+        <item>Talk about a memory that makes you smile when you think of it</item>
+        <item>What language would you like to learn?</item>
+        <item>Who are the heroes and heroines in your life?</item>
+        <item>If you could return to your youth what would you do differently?</item>
+        <item>What is your favorite virtue?</item>
+        <item>Where would you most like to live?</item>
+        <item>When have you felt homesick?</item>
+        <item>What is your idea of happiness?</item>
+        <item>What do you do for a living?</item>
+        <item>What\'s the worst injury you\'ve had?</item>
+        <item>What\'s something foolish you\'ve done?</item>
+        <item>Where do you live now?</item>
+        <item>Do you have any nicknames? How did you get them?</item>
+        <item>Do you have any siblings?</item>
+        <item>Where did you grow up?</item>
+        <item>Who do you wish you had more time with?</item>
+        <item>What natural gift would you most like to possess?</item>
+        <item>What makes you laugh?</item>
+        <item>What would you do if you had an extra hour every day?</item>
+        <item>If you were going to college in the fall what would you study and why?</item>
+        <item>Under what circumstances would you steal?</item>
+        <item>What are your parents\' names?</item>
+        <item>Can you be trusted with a secret?</item>
+        <item>Do you have a significant other and who is it?</item>
+        <item>What do you most like about the age we live in?</item>
+        <item>When was the last time you thanked someone?</item>
+        <item>Have you volunteered in your community?</item>
+        <item>Have you ever broken or lost something that belonged to someone else?</item>
+        <item>What\'s the hardest thing you\'ve ever done?</item>
+        <item>Who has had the most influence on you?</item>
+        <item>What\'s next for you?</item>
+        <item>What would people be saying about you at your own funeral?</item>
+        <item>What is your motto?</item>
+        <item>What\'s the harshest thing your loved ones have ever told you? nicest?</item>
+        <item>What is your favorite food and drink?</item>
+        <item>How would your best friend describe you?</item>
+        <item>How would you like to die?</item>
+        <item>What\'s something your family always teases you about?</item>
+    </string-array>
+
+</resources>

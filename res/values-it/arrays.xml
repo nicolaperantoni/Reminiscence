@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="questions">
+        <item>"Qual è il tuo modo preferito per trascorrere il tempo con il tuo fratello?"</item>
+        <item>"E i vostri figli vi ricorda di te stesso?"</item>
+        <item>"Quali vantaggi si vorrebbe i vostri figli ad avere che non l'hai fatto?"</item>
+        <item>"Che momento di legame con il tuo fratello ha lasciato una durevole impressione su di te?"</item>
+        <item>"Descrivi un momento in cui tu e il tuo fratello faceva impazzire i tuoi genitori"</item>
+        <item>"Ti sei mai sentito torturato dal tuo fratello?"</item>
+        <item>"Come descriveresti il ​​tuo ragazzo ad altre persone?"</item>
+        <item>"Qual è una cosa che ha causato tensione tra te e il tuo fratello?"</item>
+        <item>"Qual è la cosa più bella che tu e il tuo fratello hai fatto per i tuoi genitori?"</item>
+        <item>"Condividi qualcosa che hai tenuto dal fratello"</item>
+        <item>"Che cosa desiderate la vostra mamma e papà ha fatto in modo diverso?"</item>
+        <item>"Descrivi un momento in cui non si poteva aiutare i vostri figli anche se si voleva"</item>
+        <item>"Sei amici con uno dei tuoi ex che?"</item>
+        <item>"Qual è stata la cosa che preferisci del tuo primo appuntamento con il tuo ragazzo?"</item>
+        <item>"Qual è la cosa migliore che tuo padre e tua madre ti hanno dato?"</item>
+        <item>"Quale di amici dei vostri figli potrebbe non stare in piedi?"</item>
+        <item>"Che cosa ha fatto si desidera data la tua ragazza?"</item>
+        <item>"Pensi che ti sistemarsi e avere dei bambini un giorno?"</item>
+        <item>"Chi vincerebbe in una lotta tra te e tuo fratello?"</item>
+        <item>"Ti ricordi di un tempo in cui il tuo fratello ha fatto un sacrificio per voi?"</item>
+        <item>"Che consiglio al proprio fratello è rimasto con voi?"</item>
+        <item>"Quando ti senti i tuoi genitori erano assolutamente ingiusto?"</item>
+        <item>"Quale sarebbe la vostra mamma o papà sempre fare per sollevare il morale?"</item>
+        <item>"Quali sacrifici sono i tuoi genitori hanno fatto per te?"</item>
+        <item>"C'è una canzone che ti fa pensare di tuo papà e mamma?"</item>
+        <item>"Cosa più apprezzo i tuoi genitori?"</item>
+        <item>"Descrivere uno dei ricordi più divertenti che avete dei vostri figli"</item>
+        <item>"Cosa fareste se i vostri genitori non piace il tuo ragazzo?"</item>
+        <item>"Quando i tuoi genitori ti hanno salvato dai guai?"</item>
+        <item>"Descrivi un momento in cui si lascia che i bambini imparano una lezione sulla propria"</item>
+        <item>"Quando si hanno i vostri genitori fare qualcosa di inaspettato?"</item>
+        <item>"In che modo le piccole hanno i tuoi genitori ti fanno sentire speciale?"</item>
+        <item>"Hai mai detto ti amo senza volerlo?"</item>
+        <item>"Che cosa ti piace di più del tuo fidanzato?"</item>
+        <item>"Qual è la cosa che preferisci tu e il tuo ragazzo avete fatto insieme?"</item>
+        <item>"Che cosa ha fatto si desidera data il tuo ragazzo?"</item>
+        <item>"Quando si hanno i vostri figli più che infuriato?"</item>
+        <item>"Che cosa fanno i tuoi figli che non capisci?"</item>
+        <item>"Descrivi un momento come un genitore quando si sapeva che eri in sopra la vostra testa"</item>
+        <item>"Che cosa hai pensato di abbigliamento per i vostri figli e le scelte musicali nel corso degli anni?"</item>
+        <item>"Quali sono state le difficoltà che avete dovuto affrontare nei tuoi primi anni di lavoro?"</item>
+        <item>"Quando hai avuto il tuo attuale lavoro?"</item>
+        <item>"Se sei proprietario di un negozio, cosa vorresti vendere?"</item>
+        <item>"Chi ti ha insegnato di affari o hai imparato da sola?"</item>
+        <item>"Se avete avuto la possibilità di iniziare la propria attività, cosa vorresti iniziare?"</item>
+        <item>"Come è nata la tua famiglia influenzare la vostra scelta di carriera?"</item>
+        <item>"Che una cosa hai imparato presto che risente tutta la tua carriera?"</item>
+        <item>"Quanto ti definisci per la tua carriera?"</item>
+        <item>"Quanto hai fatto al tuo primo lavoro?"</item>
+        <item>"Quando hai avuto la tua prima grande opportunità?"</item>
+        <item>"Cosa ti piace di più del tuo lavoro?"</item>
+        <item>"Che consiglio daresti a qualcuno appena agli inizi nel tuo campo?"</item>
+        <item>"Come si fa a trattare con equilibrio vita-lavoro?"</item>
+        <item>"Qual è stato il primo grande acquisto che hai fatto con il proprio denaro?"</item>
+        <item>"Come si fa a trattare con lo stress finanziario?"</item>
+        <item>"Dove si va a stare da solo?"</item>
+        <item>"Cosa vi stressa?"</item>
+        <item>"Qual è stato il tuo lavoro più gratificante?"</item>
+        <item>"Come si fa a rilassarsi alla fine della giornata?"</item>
+        <item>"Chi sono stati i tuoi maestri nella tua vita professionale?"</item>
+        <item>"Come si fa a sfidare te stesso?"</item>
+        <item>"Qual è stata la cosa peggiore che si doveva fare un lavoro?"</item>
+        <item>"Quando hai avuto il tuo primo lavoro come è andata e come hai ottenuto questo?"</item>
+        <item>"Come sei arrivato nella vostra linea di lavoro?"</item>
+        <item>"Che professione non vorresti fare?"</item>
+        <item>"Quali interessi o passioni si fa avere al di fuori del lavoro e della famiglia?"</item>
+        <item>"È la tua carriera attuale basato su una passione di tuo?"</item>
+        <item>"Descrivi un'occasione persa"</item>
+        <item>"Come si fa a definire il successo?"</item>
+        <item>"Che cosa fare quando si entra in argomenti con le persone della tua vita?"</item>
+        <item>"Qual è stato il vostro primo boss come?"</item>
+        <item>"Se potessi scegliere qualsiasi professione quale sarebbe e perché?"</item>
+        <item>"Cosa vorresti di credito per voi arrivare dove sei oggi?"</item>
+        <item>"Cosa faresti di diverso se si stesse iniziando la tua carriera oggi?"</item>
+        <item>"Qual è stato il lavoro più interessante?"</item>
+        <item>"Come sono le vostre aspirazioni di carriera si è evoluta?"</item>
+        <item>"Che cosa fare per essere centrato?"</item>
+        <item>"Qual è la cosa più imprenditoriale che hai mai fatto?"</item>
+        <item>"Elencare alcune tappe significative nella vostra vita professionale"</item>
+        <item>"Descrivere un evento imprevisto che ha inciso la tua carriera"</item>
+        <item>"Quando ti sei diplomato al college?"</item>
+        <item>"Descrivi la tua casa d'infanzia"</item>
+        <item>"Che cibo riporta ricordi d'infanzia?"</item>
+        <item>"Dove è stato il ballo e che era la data?"</item>
+        <item>"Quando ti sei diplomato di scuola superiore?"</item>
+        <item>"Dove sei andato al college e perché hai scelto questa scuola?"</item>
+        <item>"Chi erano i tuoi migliori amici al liceo e che cosa erano?"</item>
+        <item>"Chi era il tuo insegnante preferito al liceo?"</item>
+        <item>"Qual è il tuo primo ricordo?"</item>
+        <item>"Qual è stata la tua più grande paura come un bambino?"</item>
+        <item>"Che cosa ha fatto la tua mamma imballare sempre nel vostro pranzo quando eri giovane?"</item>
+        <item>"Qual è il tuo ricordo d'infanzia preferito dell'estate?"</item>
+        <item>"C'è una foto di voi come un Boy Scout Girl Scout o Brownie?"</item>
+        <item>"Quando e dove hai imparato ad andare in bicicletta?"</item>
+        <item>"Che cosa ha fatto il tuo liceo assomiglia?"</item>
+        <item>"Hai avuto il coprifuoco al liceo? Hai mai romperlo?"</item>
+        <item>"Hai partecipato a tutte le attività extrascolastiche in tutto il liceo?"</item>
+        <item>"Chi erano i bulli della scuola? Chi era in mezzo alla folla popolare?"</item>
+        <item>"Descrivi la tua esperienza di scuola superiore"</item>
+        <item>"Come sei arrivato a scuola tutti i giorni?"</item>
+        <item>"Hai mai nascondere qualcosa dai tuoi genitori?"</item>
+        <item>"Condividere una foto di un progetto scientifico che si è tentato"</item>
+        <item>"Qual è stata la tua materia preferita a scuola?"</item>
+        <item>"Come siete stati disciplinati?"</item>
+        <item>"Aggiungi una foto della casa in cui sei cresciuto in"</item>
+        <item>"Descrivere qualcosa malizioso che hai fatto come un bambino"</item>
+        <item>"Quando e dove hai imparato a nuotare?"</item>
+        <item>"Chi è stato il tuo migliore amico crescendo?"</item>
+        <item>"Qual è stato il migliore della classe che hai preso al liceo? Il peggiore?"</item>
+        <item>"Qual è la storia dietro il tuo nome?"</item>
+        <item>"Qual è il tuo primo bambino foto?"</item>
+        <item>"Quali libri di testo universitari che hanno mantenuto e perché?"</item>
+        <item>"Cosa hai sempre giocare durante la ricreazione?"</item>
+        <item>"Chi è stato il tuo peggior insegnante di scuola elementare?"</item>
+        <item>"Descrivi una avventura indimenticabile infanzia"</item>
+        <item>"Quali sono state le tue attività preferite al di fuori della scuola?"</item>
+        <item>"Qual era il tuo giocattolo preferito? Aggiungi una foto"</item>
+        <item>"C'è una fotografia da quando hai preso i tuoi primi passi?"</item>
+        <item>"Vi era una foto scattata del tuo primo compleanno?"</item>
+        <item>"Condividi una foto dal vostro diploma di scuola superiore"</item>
+        <item>"Quando hai imparato a suonare uno strumento e che è stato?"</item>
+        <item>"C'è una canzone che ami cantare ad alta voce?"</item>
+        <item>"Qual è il miglior messaggio che hai ricevuto?"</item>
+        <item>"Hai mai preso una foto con una persona famosa?"</item>
+        <item>"Dopo aver eseguito davanti ad un pubblico?"</item>
+        <item>"Quale cultura pop nicchia sei l'esperto indiscusso?"</item>
+        <item>"Qual è stato il tuo concerto preferito?"</item>
+        <item>"Hai mai vinto un trofeo?"</item>
+        <item>"Hai mai avuto un rivale sportivo?"</item>
+        <item>"Qual è stata la vostra perdita più deludente in un gioco?"</item>
+        <item>"Qual è stato il tuo momento più grande in un gioco?"</item>
+        <item>"Come ti piace leggere: su uno schermo o la vecchia maniera?"</item>
+        <item>"Quale libro significa 'tutti' amore, ma non si può stare?"</item>
+        <item>"Che libro ti piacerebbe vedere trasformato in un film?"</item>
+        <item>"Qual è stato il tuo primo concerto?"</item>
+        <item>"In che modo sei nerd?"</item>
+        <item>"Che la nuova tecnologia è entrata in scena mentre eri al liceo?"</item>
+        <item>"Quale atleta ti ammiri come un bambino?"</item>
+        <item>"Che libro mi consigliate di più?"</item>
+        <item>"Che canzone si desidera si può eseguire?"</item>
+        <item>"Quali canzoni ti fanno istantaneamente felice?"</item>
+        <item>"Cosa stai leggendo in questo momento?"</item>
+        <item>"Quali libri hai cercato di affrontare per le età?"</item>
+        <item>"Assegnare un libro per bambini che ogni bambino dovrebbe leggere"</item>
+        <item>"Hai una canzone che ti porta indietro?"</item>
+        <item>"Qual è stato il vostro libro preferito crescendo?"</item>
+        <item>"Quale canzone ti piacerebbe avere dedicato a voi?"</item>
+        <item>"Quante canzoni hai nella tua libreria di musica digitale?"</item>
+        <item>"Quali cinque libri significa molto per te?"</item>
+        <item>"Se potessi portare un carattere a vita dal vostro libro preferito, chi sarebbe?"</item>
+        <item>"Se potessi essere un personaggio di qualsiasi libro che hai letto chi saresti?"</item>
+        <item>"Chi è il tuo cattivo preferito?"</item>
+        <item>"La vostra immagine stato sul giornale?"</item>
+        <item>"Ti piace l'odore dei vecchi libri?"</item>
+        <item>"Qual è stato il tuo primo computer?"</item>
+        <item>"Quale ritiene essere il film più sopravvalutato?"</item>
+        <item>"Chi nella vita ha avuto più influenza nel plasmare i tuoi gusti musicali?"</item>
+        <item>"Qual è stato il vostro primo album?"</item>
+        <item>"Elenca i tuoi primi 5 attori preferiti"</item>
+        <item>"Chi è il tuo compagno preferito?"</item>
+        <item>"Quali interessi si fa a condividere con la tua mamma? con tuo padre?"</item>
+        <item>"Il che è considerata la festa più importante per la tua famiglia?"</item>
+        <item>"Descrivi un momento in cui ti sei sentito particolarmente vicino alla tua famiglia"</item>
+        <item>"Qual è la vostra tradizione di famiglia preferito?"</item>
+        <item>"Descrivere la personalità dei tuoi nonni"</item>
+        <item>"Con quale animale avete?"</item>
+        <item>"Descrivi la personalità del vostro animale domestico"</item>
+        <item>"Come avete seguito le orme di generazioni che sono venuti prima di voi nella vostra famiglia?"</item>
+        <item>"Che cosa è qualcosa che i vostri genitori instillato in voi che avete superato il basso o passa basso per i vostri figli?"</item>
+        <item>"Qual è il tuo momento preferito o la storia del vostro animale domestico?"</item>
+        <item>"Aggiungi la foto più antica della vostra famiglia immediata che si può trovare"</item>
+        <item>"Sono la tua famiglia e gli amici intimi sparsi o nelle vicinanze?"</item>
+        <item>"Come la maggior parte vogliono essere come i tuoi genitori?"</item>
+        <item>"Come hanno fatto i tuoi genitori ti premiano?"</item>
+        <item>"Qual è stato il primo momento di interazione con il vostro animale domestico come?"</item>
+        <item>"Quale dei tuoi genitori ti somigli di più?"</item>
+        <item>"Aggiungi una foto del vostro animale domestico"</item>
+        <item>"Quale famiglia o gli amici regolarmente venire per le vacanze?"</item>
+        <item>"Come stai simile a tua madre e tuo padre?"</item>
+        <item>"Qual è il nome del tuo animale domestico (e perché l'hai scelto di esso)?"</item>
+        <item>"Descrivi un ricordo struggente dei tuoi nonni"</item>
+        <item>"Quando è stata l'ultima volta che tutta la famiglia ha fatto una foto insieme?"</item>
+        <item>"Dove sei andato spesso nella vostra città?"</item>
+        <item>"Che cosa è un photo frame-degno di voi e ai vostri fratelli?"</item>
+        <item>"Avete una foto dei tuoi nonni da quando erano una giovane coppia?"</item>
+        <item>"Da dove viene la tua famiglia festeggiare le vacanze?"</item>
+        <item>"Ti è piaciuto dove sei cresciuto?"</item>
+        <item>"Qual è il tuo ristorante preferito nella vostra città?"</item>
+        <item>"Cosa ti piace sempre a che fare con tuo fratello o sorella?"</item>
+        <item>"Che cosa hanno i tuoi genitori pressione che si tratta?"</item>
+        <item>"Descrivi un ricordo preferito di tuo fratello o sorella"</item>
+        <item>"Che cosa volete che hai fatto più spesso con la vostra famiglia?"</item>
+        <item>"Quando hai avuto il tuo animale domestico?"</item>
+        <item>"In che modo voi ei vostri fratelli si chiude oggi?"</item>
+        <item>"Aggiungere un'immagine da una memorabile vacanza in famiglia"</item>
+        <item>"Descrivere il quartiere dove sei cresciuto"</item>
+        <item>"Qual è il migliore o il più pratico consiglio tuoi genitori ti hanno dato?"</item>
+        <item>"Quali erano i tuoi fratelli come quando erano giovani?"</item>
+        <item>"Cosa hai sempre voluto chiedere ai vostri nonni?"</item>
+        <item>"Descrivi i tuoi fratelli e la loro personalità"</item>
+        <item>"Che avventura selvaggia vorresti portare con i tuoi amici più cari?"</item>
+        <item>"Che tu ei tuoi amici piace fare insieme?"</item>
+        <item>"Avete qualche foto dal campo estivo?"</item>
+        <item>"Dove avete viaggiato con gli amici?"</item>
+        <item>"Quali tradizioni fai tu ei tuoi amici gal hai?"</item>
+        <item>"Come sono i tuoi amici, bloccato da voi in tempi buoni e cattivi?"</item>
+        <item>"Che cosa significa il tuo buon amico fare che ti fa sempre ridere?"</item>
+        <item>"Che perle di saggezza sono le tue amiche dato?"</item>
+        <item>"Cosa ammiri su ciascuno dei vostri amici?"</item>
+        <item>"Quali sono le relazioni più importanti della tua vita?"</item>
+        <item>"Quando hai conosciuto il tuo migliore amico?"</item>
+        <item>"Condividere una foto che ami di te ei tuoi amici"</item>
+        <item>"Come fanno i tuoi amici tirare fuori diverse parti di te stesso?"</item>
+        <item>"Quando sono i tuoi amici ti ha fatto ridere quando si pensava che stavano per piangere?"</item>
+        <item>"Che cosa avete imparato a conoscere te stesso attraverso le tue amicizie?"</item>
+        <item>"Descrivere uno o due ricordi divertenti voi e ai vostri migliori amici avuto insieme"</item>
+        <item>"Sono tutte nuove amicizie o connessioni si colti di sorpresa?"</item>
+        <item>"Condividere una foto di te con gli amici di scuola superiore"</item>
+        <item>"Che tu e la tua ragazza amici click fa?"</item>
+        <item>"C'è qualcuno nella tua vita che non ha mai lasciato giù? Quanto tempo avete conosciuto questa persona?"</item>
+        <item>"Cui avete perso il contatto con la ma ancora chiedersi?"</item>
+        <item>"Cosa ti piacerebbe vostri amici più cari per dicono di te al tuo funerale?"</item>
+        <item>"Condividi la tua storia più divertente di uno scherzo"</item>
+        <item>"Chi sono le persone importanti nella tua vita?"</item>
+        <item>"Chi è la prima persona di dire quando succede qualcosa di buono per voi?"</item>
+        <item>"Quando e come è stata l'ultima volta che hai detto un amico onestamente come ti sei sentito?"</item>
+        <item>"Quale amico ha avuto il maggior impatto sulla vostra vita?"</item>
+        <item>"Qual è stato il tuo primo pigiama party da bambino?"</item>
+        <item>"Quale dei tuoi amici ti hanno conosciuto il più lungo?"</item>
+        <item>"Chi sono gli amici più memorabili del tuo passato?"</item>
+        <item>"Quali amici di famiglia regolarmente vengono sopra per cene o feste?"</item>
+        <item>"Dove hai tu ei tuoi amici appendere fuori da adolescenti?"</item>
+        <item>"Aggiungere una foto di voi e un amico d'infanzia"</item>
+        <item>"Con chi si fiderebbe i tuoi sentimenti ed i segreti più profondi?"</item>
+        <item>"Che campo siete andati a nelle estati?"</item>
+        <item>"Come perdonare voi quando i vostri amici vi deluderà?"</item>
+        <item>"In caso di emergenza, che gli amici si potrebbe chiamare nel bel mezzo della notte?"</item>
+        <item>"Quali sono alcune cose riflessivo i tuoi amici hanno fatto per te?"</item>
+        <item>"Descrivi un momento in cui un amico era giù e ti ha aiutato a ottenere attraverso di essa"</item>
+        <item>"Aggiungi una foto che cattura un momento felice con te e le ragazze (e condividere una grande storia!)"</item>
+        <item>"Condividere una foto in cui si guarda il tuo meglio in assoluto"</item>
+        <item>"Che cosa è appeso sopra il vostro divano?"</item>
+        <item>"Che cosa ti piace di più in casa tua?"</item>
+        <item>"Qual è stata la tua prima auto?"</item>
+        <item>"Quali tipi di prelibatezze locali che hanno provato durante la visita in altri paesi?"</item>
+        <item>"Qual è il luogo più lontano siete mai stati a?"</item>
+        <item>"Descrivi un grosso rischio che hai preso nella vita che ha pagato"</item>
+        <item>"Descrivi la prima volta che hai guidato una macchina"</item>
+        <item>"Qual è stato il tuo viaggio su strada più epico?"</item>
+        <item>"Qual è la vostra auto preferita?"</item>
+        <item>"Qual è la tua foto preferita della città in cui vivi?"</item>
+        <item>"Qual è la più alta quota che ci si mette su una scommessa?"</item>
+        <item>"Qual è la cosa più pericolosa che hai fatto?"</item>
+        <item>"Se si potesse vivere in qualsiasi parte del mondo in cui vorresti vivere?"</item>
+        <item>"Cosa sei impressionante a?"</item>
+        <item>"Che cosa dice la gente la tua qualità migliore è?"</item>
+        <item>"Quando hai comprato la tua prima casa?"</item>
+        <item>"Qual è il tuo preferito Girl Scout biscotto?"</item>
+        <item>"Qual è la cosa che preferisci nel tuo armadio?"</item>
+        <item>"Quando è stata l'ultima volta che sono stati i complimenti e per che cosa?"</item>
+        <item>"Cosa credi sia la tua migliore caratteristica fisica?"</item>
+        <item>"Quale frutto è il tuo preferito?"</item>
+        <item>"Elencare i vostri dolci preferiti"</item>
+        <item>"Che cosa si ha bisogno sempre?"</item>
+        <item>"Qual è il cibo più strana che hai mangiato?"</item>
+        <item>"Che cosa è il più veloce che hai mai catturato eccesso di velocità?"</item>
+        <item>"Se tu avessi uno settimana da soli a casa, cosa vorresti fare?"</item>
+        <item>"Qual è il tuo pasto cucinato in casa preferita?"</item>
+        <item>"Sunny-side up o troppo facile?"</item>
+        <item>"Qual è la vostra ricetta preferita?"</item>
+        <item>"Descrivi una cena tipica famiglia oggi"</item>
+        <item>"Chi sono i tuoi stilisti preferiti?"</item>
+        <item>"Condividere una foto di una dichiarazione di moda che hai fatto che ora ti penti"</item>
+        <item>"C'era qualche alimento tuoi genitori preparati che si rifiutava di mangiare?"</item>
+        <item>"Qual è un trend vuoi riportare?"</item>
+        <item>"Quale profumo cosa ti piace sentire l'odore in cucina?"</item>
+        <item>"Quando e come hai imparato a guidare? Quali regole è stata data su auto?"</item>
+        <item>"C'è una foto di voi in esecuzione di un talent show?"</item>
+        <item>"Scattare una fotografia delle cose appuntato sul frigorifero"</item>
+        <item>"Cosa tendenza ti vorresti aver mai seguito?"</item>
+        <item>"Che canzone più rappresenta l'amore per te?"</item>
+        <item>"Nome di una cosa il tuo fidanzato fa che ti fa sentire amato"</item>
+        <item>"Come funziona il vostro coniuge supporta?"</item>
+        <item>"Quali nuovi hobby vorresti perseguire con il vostro coniuge?"</item>
+        <item>"Dove ti sei sposata?"</item>
+        <item>"Come fate voi e il vostro altro significativo si completano a vicenda?"</item>
+        <item>"Qual è stata la data peggiore che abbia mai fatto?"</item>
+        <item>"Che cosa ti piace di più del vostro altro significativo?"</item>
+        <item>"Quali convinzioni condividete con il vostro coniuge?"</item>
+        <item>"Assegnare un nome alla peggiore linea di pick-up che avete sentito (o tentato)"</item>
+        <item>"Voi e il vostro altro significativo riuniti dal destino eri?"</item>
+        <item>"Se si dovesse fare un mix di canzone d'amore per il vostro altro significativo quali canzoni sceglieresti?"</item>
+        <item>"Come stai tu e il tuo fidanzato perfetto per l'altro?"</item>
+        <item>"Dopo il matrimonio dove hai vissuto e come hai scelto di vivere lì?"</item>
+        <item>"Qual è la cosa migliore di essere sposato?"</item>
+        <item>"Se tu avessi la voce (e il coraggio!) Quale canzone vorresti cantare al vostro partner il vostro prossimo anniversario?"</item>
+        <item>"Se non siete d'accordo che cosa è il tuo percorso di risoluzione?"</item>
+        <item>"Quanto tempo si data vostro coniuge prima di fidanzarsi?"</item>
+        <item>"Quando ti sei sposata?"</item>
+        <item>"Avete mai datato chiunque tuoi genitori non approvano?"</item>
+        <item>"Come è il vostro punto di vista cambiato da quando il matrimonio?"</item>
+        <item>"Se si potrebbe avere una seconda luna di miele dove andresti?"</item>
+        <item>"Hai mai avuto un ammiratore segreto? Che cosa hanno fatto per attirare la tua attenzione?"</item>
+        <item>"Quando ti senti più vicino al vostro coniuge?"</item>
+        <item>"Quando hai capito il vostro coniuge è stato \"l'uno?"</item>
+"        <item>"Ci fu mai una canzone che non poteva più ascoltare, dopo una relazione?"</item>
+        <item>"Che cosa fa il vostro coniuge farlo davvero ti irrita?"</item>
+        <item>"Come hai conosciuto il vostro coniuge?"</item>
+        <item>"Chi era la tua prima cotta?"</item>
+        <item>"Se potessi rivivere un giorno il vostro matrimonio, quale sarebbe?"</item>
+        <item>"Quando ti sei fidanzata?"</item>
+        <item>"Qual è la cosa più dolce il vostro coniuge ha mai fatto per voi?"</item>
+        <item>"Chi è stato il tuo primo bacio?"</item>
+        <item>"Chi era la tua prima cotta celebrità?"</item>
+        <item>"Chi è stata la prima persona che ha rotto il tuo cuore?"</item>
+        <item>"Chi è stato il tuo primo amore?"</item>
+        <item>"Qual è la cosa più romantica vostro altro significativo ha fatto per te?"</item>
+        <item>"Che canzone d'amore che più lacrime agli occhi fa?"</item>
+        <item>"Quale canzone (s) raccontare la storia della vostra vita insieme come una coppia?"</item>
+        <item>"Qual è la vostra idea di un appuntamento perfetto?"</item>
+Parenthood        <item>"Qual è stata la prima parola che il bambino ha parlato?"</item>
+        <item>"Quali intuizioni su di te hai guadagna da diventare un genitore?"</item>
+        <item>"Qual è stata la sorpresa più grande di paternità?"</item>
+        <item>"Come ha fatto il tuo rapporto con il vostro bambino cambia quando sei diventato un nonno?"</item>
+        <item>"Che tipo di eredità vuoi lasciare?"</item>
+        <item>"Descrivi il tuo ricordo più vivido dalla gravidanza"</item>
+        <item>"Qual è la parola preferita di tuo figlio?"</item>
+        <item>"Quale parte della genitorialità avete lottato con?"</item>
+        <item>"Come ha di essere un genitore si cambiato?"</item>
+        <item>"Come si fa a rimanere fedeli alla vostra vita e il matrimonio in cui crescere i figli?"</item>
+        <item>"Che cosa desiderate per i vostri bambini?"</item>
+        <item>"Quale dei momenti difficili dei vostri figli sono stati anche difficile per te?"</item>
+        <item>"Cosa vuoi tramandare fisicamente o metaforicamente ai vostri nipoti?"</item>
+        <item>"Che cosa volete che i vostri nipoti a sapere su di te?"</item>
+        <item>"Che cosa avete imparato a conoscere ai bambini di vedere loro come genitori?"</item>
+        <item>"Come avete lasciate che i vostri bambini si siano?"</item>
+        <item>"Quali intuizioni avete guadagnato dal genitore circa i vostri genitori?"</item>
+        <item>"Quali segreti pensi che i tuoi figli dovrebbero tenere da voi?"</item>
+        <item>"Quali sono alcuni dei ricordi che hai dei tuoi figli?"</item>
+        <item>"Aggiungere un'immagine da quando ti aspettavi il tuo bambino"</item>
+        <item>"Quando è stato il tuo primo figlio nato?"</item>
+        <item>"Cosa ti piace di più di essere un nonno?"</item>
+        <item>"Qual è stato il miglior regalo che qualcuno ti ha dato prima dell'arrivo del vostro primo figlio?"</item>
+        <item>"Quali sono state le più grandi gioie come genitore?"</item>
+        <item>"Come genitore, quando hai lasciato andare?"</item>
+        <item>"Come siete venuti a conoscenza che eri incinta?"</item>
+        <item>"Che consigli ti hanno dato i vostri figli l'amore?"</item>
+        <item>"Vuoi essere orgogliosi dei vostri bambini se liquidazione esattamente come te?"</item>
+        <item>"Come è cambiata la tua vita quando i vostri figli si sono trasferiti fuori?"</item>
+        <item>"Hai detto ai tuoi figli la droga e come pensi che è andata?"</item>
+        <item>"Condividi un suono del tuo bambino"</item>
+        <item>"Se potessi tornare indietro nel tempo, cosa vorresti fare in modo diverso come genitore?"</item>
+        <item>"Quando sono i vostri bambini più fiero di te?"</item>
+        <item>"Hai detto vostri figli di sesso e come pensi che è andata?"</item>
+        <item>"In che modo avete premiato i vostri figli?"</item>
+        <item>"Come avete disciplinato i vostri figli?"</item>
+        <item>"Qual è il giocattolo preferito del vostro bambino?"</item>
+        <item>"Cosa ti piace fare con i vostri nipoti?"</item>
+        <item>"Descrivere alcuni momenti iniziali con i vostri bambini"</item>
+        <item>"Come ti sei preparato per la paternità?"</item>
+        <item>"Dio è sempre presente?"</item>
+        <item>"È Dio occupa del benessere del mondo? Dio è preoccupato con il vostro benessere personale?"</item>
+        <item>"Dio è arrabbiato per il peccato umano? Con il tuo peccato?"</item>
+        <item>"Credi in Dio? Perché?"</item>
+        <item>"Cosa vorresti dire a Dio?"</item>
+        <item>"Dio è direttamente coinvolto nei tuoi affari personali o rimosso da loro?"</item>
+        <item>"Come benefici avete ricevuto?"</item>
+        <item>"Come fanno le vostre convinzioni spirituali differiscono da quelli dei vostri genitori e fratelli?"</item>
+        <item>"Descrivi la tua comprensione spirituale"</item>
+        <item>"Cosa pensi cieli sarà simile?"</item>
+        <item>"Esiste una vera religione?"</item>
+        <item>"La religione gioca un ruolo importante nella tua vita?"</item>
+        <item>"In che modo si fa a comunicare con Dio?"</item>
+        <item>"Avete mai sentito che hai avuto una chiamata speciale?"</item>
+        <item>"Dopo aver sentito la presenza di Dio?"</item>
+        <item>"Qual è il ruolo di Dio nella tua vita?"</item>
+        <item>"Vuoi mai indossare un altro simbolo religioso senza praticare la fede?"</item>
+        <item>"Quale religione sarebbero i vostri bambini saranno portati a praticare?"</item>
+        <item>"Quale religione sono la più curioso di diverso dal proprio?"</item>
+        <item>"Credi in pratica più di una religione?"</item>
+        <item>"Come ti senti su di te emotivamente mentalmente e spiritualmente?"</item>
+        <item>"Qual è la vostra idea di una vera pace?"</item>
+        <item>"Quando pregate che preghi per?"</item>
+        <item>"Quale parte della vita si confonde di più?"</item>
+        <item>"Quando e come ti senti spirituale?"</item>
+        <item>"Dio è adirato o perdonare?"</item>
+        <item>"È Dio ci giudica ogni momento qualche giorno o mai?"</item>
+        <item>"Pensi che Dio ha una parte attiva nella tua vita? Perché?"</item>
+        <item>"Avete mai convertito religioni?"</item>
+        <item>"Vuoi mai crescere una famiglia in una famiglia multi-fede?"</item>
+        <item>"Quali tradizioni di altre religioni non apprezzi?"</item>
+        <item>"Vuole sposare una persona di una fede diversa?"</item>
+        <item>"Sei stato cresciuto religioso? Sei ancora?"</item>
+        <item>"Descrivete le vostre convinzioni spirituali"</item>
+        <item>"Descrivi la tua festa religiosa preferita"</item>
+        <item>"Ci sono alcune Scritture o altri scritti che ripetutamente rivolgersi per ispirazione o di orientamento?"</item>
+        <item>"Credete nei miracoli e se sì avete mai provato uno?"</item>
+        <item>"Se avete deciso di andare in un viaggio spirituale, dove vorresti andare e cosa vorresti fare?"</item>
+        <item>"Come pensa che si potrebbe essere meglio per il vostro corpo?"</item>
+        <item>"Ti meditare?"</item>
+        <item>"Dove sei andato a scuola?"</item>
+        <item>"Quando e dove sei nato?"</item>
+        <item>"Parlare di un ricordo che ti fa sorridere quando si pensa di esso"</item>
+        <item>"Che lingua vuoi imparare?"</item>
+        <item>"Chi sono gli eroi e le eroine nella tua vita?"</item>
+        <item>"Se si potesse tornare alla tua giovinezza che cosa faresti di diverso?"</item>
+        <item>"Qual è la tua virtù preferito?"</item>
+        <item>"Dove ti piacerebbe vivere?"</item>
+        <item>"Quando hai sentito nostalgia di casa?"</item>
+        <item>"Qual è la tua idea di felicità?"</item>
+        <item>"Cosa fai per vivere?"</item>
+        <item>"Qual è il peggior danno che hai avuto?"</item>
+        <item>"Che cosa stupida che hai fatto?"</item>
+        <item>"Dove vivi adesso?"</item>
+        <item>"Hai qualche soprannome? Come hai fatto a loro?"</item>
+        <item>"Hai fratelli o sorelle?"</item>
+        <item>"Dove sei cresciuto?"</item>
+        <item>"Chi avresti voluto più tempo con?"</item>
+        <item>"Che dono naturale ti piacerebbe possedere?"</item>
+        <item>"Cosa ti fa ridere?"</item>
+        <item>"Cosa fareste se aveste un'ora in più ogni giorno?"</item>
+        <item>"Se si dovesse andare al college in autunno, cosa vorresti studiare e perché?"</item>
+        <item>"In quali circostanze si dovrebbe rubare?"</item>
+        <item>"Quali sono i nomi dei tuoi genitori?"</item>
+        <item>"Si può fidare di un segreto?"</item>
+        <item>"Avete un altro significativo e di chi è?"</item>
+        <item>"Cosa ti piace di più circa l'età in cui viviamo?"</item>
+        <item>"Quando è stata l'ultima volta che hai ringraziato qualcuno?"</item>
+        <item>"Ti sei offerto volontario nella vostra comunità?"</item>
+        <item>"Hai mai rotto o perso qualcosa che apparteneva a qualcun altro?"</item>
+        <item>"Qual è la cosa più difficile che tu abbia mai fatto?"</item>
+        <item>"Chi ha avuto la maggiore influenza su di te?"</item>
+        <item>"Quali sono le prospettive per te?"</item>
+        <item>"Quali sarebbero le persone si dice su di te al tuo funerale?"</item>
+        <item>"Qual è il tuo motto?"</item>
+        <item>"Qual è la cosa più dura vostri cari hanno mai detto? bello?"</item>
+        <item>"Qual è il vostro cibo e bevanda preferita?"</item>
+        <item>"Come sarebbe il tuo migliore amico descrivere te?"</item>
+        <item>"Come vorresti morire?"</item>
+        <item>"Che cosa la vostra famiglia vi stuzzica sempre su?"</item>
+    </string-array>
+
+</resources>

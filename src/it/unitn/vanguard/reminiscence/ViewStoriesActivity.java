@@ -73,6 +73,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private YearView lastSelected;
 	
 	private Bundle bundle;
+	private String[] questions;
 
 	@Override
 	public void onCreate(Bundle arg0) {
@@ -93,6 +94,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 				getApplicationContext(), R.array.stories_dropdown,
 				android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		
+		questions = getResources().getStringArray(R.array.questions);
 		
 		mStoriesAdapter = new StoriesAdapter();
 		mCards.setAdapter(mStoriesAdapter);
@@ -157,7 +160,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 				}
 		});
 		setListeners();
-		initializePopUps();
 	}
 	
 	private void switchActiveStories(String willActive) {
@@ -177,16 +179,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 		FinalFunctionsUtilities.setSharedPreferences(
 				Constants.ACTIVE_STORIES,
 				willActive, context);
-	}
-
-	private void initializePopUps() {
-		Bundle b = new Bundle();
-		b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY,
-				"Sei mai andato in crociera?");
-		Message msg = new Message();
-		msg.setData(b);
-		new QuestionPopUpHandler(this).sendMessageDelayed(msg,
-				Constants.QUESTION_INTERVAL);
 	}
 
 	private void setListeners() {
@@ -575,6 +567,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		if (FinalFunctionsUtilities.stories.isEmpty()) {
 			no_res.setVisibility(View.VISIBLE);
 			mCards.setVisibility(View.INVISIBLE);
+			int index = (int)(Math.random()*questions.length);
 		} else {
 			no_res.setVisibility(View.INVISIBLE);
 			mCards.setVisibility(View.VISIBLE);
