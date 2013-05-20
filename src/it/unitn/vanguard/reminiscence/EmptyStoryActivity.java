@@ -34,8 +34,6 @@ import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -59,7 +57,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	private ImageView mMediaButton;
 	private HorizontalListView mMedias;
 	private ArrayList<ImageView> imgs;
-	private ImageViewAdapter mAdapter;
+//	private ImageViewAdapter mAdapter;
 	private int idStoria;
 	private Queue<UploadPhotoTask> toUpload;
 	private int totalimgs = 0;
@@ -91,8 +89,8 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 
 		mMedias = (HorizontalListView) findViewById(R.id.emptystories_imgs_hlv);
 		imgs = new ArrayList<ImageView>();
-		mAdapter = new ImageViewAdapter();
-		mMedias.setAdapter(mAdapter);
+//		mAdapter = new ImageViewAdapter();
+//		mMedias.setAdapter(mAdapter);
 	}
 	
 	private void initializeListeners() {
@@ -226,7 +224,8 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 					image.setImageBitmap(mBitmap);
 					image.setAdjustViewBounds(true);
 					imgs.add(image);
-					mAdapter.notifyDataSetChanged();
+					mMedias.addView(image);
+//					mAdapter.notifyDataSetChanged();
 				} catch (Exception e) {
 					Log.e(EmptyStoryActivity.class.getName(), e.toString());
 					e.printStackTrace();
@@ -269,26 +268,26 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 				getResources().getString(resource), Toast.LENGTH_SHORT).show();
 	}
 
-	private class ImageViewAdapter extends BaseAdapter {
-
-		@Override
-		public int getCount() {
-			return imgs.size();
-		}
-
-		@Override
-		public Object getItem(int arg0) {
-			return arg0;
-		}
-
-		@Override
-		public long getItemId(int arg0) {
-			return arg0;
-		}
-
-		@Override
-		public View getView(int arg0, View arg1, ViewGroup arg2) {
-			return imgs.get(arg0);
-		}
-	}
+//	private class ImageViewAdapter extends BaseAdapter {
+//
+//		@Override
+//		public int getCount() {
+//			return imgs.size();
+//		}
+//
+//		@Override
+//		public Object getItem(int arg0) {
+//			return arg0;
+//		}
+//
+//		@Override
+//		public long getItemId(int arg0) {
+//			return arg0;
+//		}
+//
+//		@Override
+//		public View getView(int arg0, View arg1, ViewGroup arg2) {
+//			return imgs.get(arg0);
+//		}
+//	}
 }

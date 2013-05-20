@@ -34,7 +34,7 @@
         android:maxLength="4" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/emptystory_add_btn"
         android:layout_below="@+id/emptystory_year_et"
@@ -77,7 +77,7 @@
 
         <eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView
             android:id="@+id/emptystories_imgs_hlv"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="200dp"
             android:layout_alignLeft="@+id/emptystory_very_inner_ll"
             android:layout_below="@+id/emptystory_very_inner_ll"
