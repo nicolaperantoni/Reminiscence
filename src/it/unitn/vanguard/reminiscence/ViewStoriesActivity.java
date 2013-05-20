@@ -628,7 +628,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 							
 							FinalFunctionsUtilities.stories.add(s);
 							mStoriesAdapter.notifyDataSetChanged();
-						}
+					}
 					} catch (Exception e) {
 						Log.e(ViewStoriesActivity.class.getName(), e.toString());
 						e.printStackTrace();
