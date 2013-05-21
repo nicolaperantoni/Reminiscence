@@ -48,14 +48,14 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content" >
 	        
-	        <ImageView
-	            android:id="@+id/photo"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
+	       	<android.support.v4.view.ViewPager
+				android:id="@+id/view_pager"
+				android:layout_width="300dp"
+	            android:layout_height="300dp"
 	            android:maxHeight="400dp"
 	            android:adjustViewBounds="true"
 				android:scaleType="fitCenter"
-	            android:visibility="gone" />
+				android:visibility="visible" />
 	
 	        <TextView
 	            android:id="@+id/story_description_tv"

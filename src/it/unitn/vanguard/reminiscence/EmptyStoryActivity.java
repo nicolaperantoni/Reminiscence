@@ -51,7 +51,6 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	public static final String TITLE_PASSED_KEY = "newstorytitle";
 	public static final String DESC_PASSED_KEY = "newstorydesc";
 	public static final String ID_PASSED_KEY = "newstoryid";
-	// public static final String IMG_PASSED_KEY = "arethereimages";
 
 	private EditText mTitleEt;
 	private EditText mDescriptionEt;

@@ -2,18 +2,23 @@ package it.unitn.vanguard.reminiscence.frags;
 
 import it.unitn.vanguard.reminiscence.CheckBoxAmici;
 import it.unitn.vanguard.reminiscence.R;
+import it.unitn.vanguard.reminiscence.asynctasks.GetStoryPhotosTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Story;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.opengl.Visibility;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,15 +35,14 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 	public static final String ID_PASSED_KEY = "storyId";
 	public static final String COVER_PASSED_KEY = "storyCover";
 	
-	private TextView mTitleTv;
 	private TextView mDescTv;
 	private Integer mYear;
+	private ViewPager viewPager;
 	private static String story_id;
 	private static Story story;
+	private Context context;
 	
 	// Images
-	private ImageView cover;
-	private Bitmap coverBtm;
 	private Button btn_aiuto_amico;
 	private Button btn_upload_photo;
 	protected ProgressDialog dialog;
@@ -63,6 +67,7 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.fragment_story, container, false);
+		context = v.getContext();
 		return v;
 	}
 
@@ -73,16 +78,17 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 		mYear = getArguments().getInt(YEAR_PASSED_KEY);
 		story_id = getArguments().getString(ID_PASSED_KEY);
 		
+		viewPager = (ViewPager) getView().findViewById(R.id.view_pager);
 		mDescTv = (TextView) getView().findViewById(R.id.story_description_tv);
 		btn_aiuto_amico = (Button) getView().findViewById(R.id.btn_aiuto_amico);
 		btn_upload_photo = (Button) getView().findViewById(R.id.btn_upload_photo);
-		cover = (ImageView) getView().findViewById(R.id.photo);
 		
-		if(story.getBackground() != null) {
-			Bitmap bmp = story.getBackground();
-			cover.setImageBitmap(bmp);
-			cover.setVisibility(0); // Visible
-		}
+		Log.e("chiedo foyto", "asda");
+//		try {
+			new GetStoryPhotosTask(StoryFragment.this, context).execute(Integer.parseInt(story_id));
+//		} catch (Exception e) {
+//			Log.e(StoryFragment.class.getName(), e.toString());
+//		}
 		
 		initializeTexts();
 	}
@@ -100,10 +106,6 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 			mDescTv.setText(b.getString(DESCRIPTION_PASSED_KEY));
 			getDialog().setTitle(story.getAnno() + ":\t" + story.getTitle());
 			mDescTv.setText(story.getDesc());
-
-//			cover.setMaxWidth((int)(getActivity().getWindow().peekDecorView().getWidth()*0.7)); 
-//			cover.setMaxHeight((int)(getActivity().getWindow().peekDecorView().getHeight()*0.4)); 
-			
 			getDialog().getWindow().setLayout(
 					(int)(getActivity().getWindow().peekDecorView().getWidth()*0.8),
 					(int)(getActivity().getWindow().peekDecorView().getHeight()*0.8)
@@ -193,23 +195,41 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 	public void onTaskFinished(JSONObject res) {
 		if (dialog != null && dialog.isShowing()) { dialog.dismiss(); }
 		
-//		try {
-//			if (res.getString("success").equals("true")) {
-//				if(res.getString("Operation").equals("GetStoryCover") &&
-//						!res.getString("numImages").equals("0")) {
-//					
-//					// Inserisco la cover della storia..
-//					byte[] decodedString = Base64.decode(res.getString("cover"), Base64.DEFAULT);
-//					Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
-//					cover.setImageBitmap(bitmap);
-//				}
-//			}
-//		} catch (JSONException e) {
-//			Log.e(StoryFragment.class.getName(), e.toString());
-//			e.printStackTrace();
-//		} catch (Exception e) {
-//			Log.e(StoryFragment.class.getName(), e.toString());
-//			e.printStackTrace();
-//		}
+		try {
+			if (res.getString("success").equals("true")) {
+				if(res.getString("Operation").equals("GetImage") &&
+						!res.getString("numImages").equals("0")) {
+					
+					
+					int numImages = 0;
+					try {
+						numImages = Integer.parseInt(res.getString("numImages"));
+					} catch (Exception e) {
+						Log.e(StoryFragment.class.getName(), e.toString());
+					}
+					
+					Log.e("arrivato", numImages + "" );
+					
+					ImageView imageView;
+					
+					// Inserisco l' immagine nel pageView..
+					for(int i = 0; i < numImages; i++) {
+						viewPager.setVisibility(0);
+						byte[] decodedString = Base64.decode(res.getString("img"+i), Base64.DEFAULT);
+						Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+						imageView = new ImageView(context);
+					    imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+					    imageView.setImageBitmap(bitmap);
+					    viewPager.addView(imageView);
+					}
+				}
+			}
+		} catch (JSONException e) {
+			Log.e(StoryFragment.class.getName(), e.toString());
+			e.printStackTrace();
+		} catch (Exception e) {
+			Log.e(StoryFragment.class.getName(), e.toString());
+			e.printStackTrace();
+		}
 	}
 }
