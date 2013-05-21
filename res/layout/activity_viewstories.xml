@@ -34,6 +34,17 @@
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="3" />
+    <ImageView
+        android:id="@+id/viewstories_add_img"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/no_result_tv"
+        android:background="@drawable/addstory_hint_background"
+        android:src="@drawable/add_story"
+        android:visibility="invisible" />
 
     <GridView
         android:id="@+id/viewstroies_cards_gw"
@@ -51,10 +62,11 @@
 
     <TextView
         android:id="@+id/viewtories_addstory_hint"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:singleLine="false"
         android:background="@drawable/addstory_hint_background"
         android:padding="10dp"
         android:text="@string/dummy_story_desc"

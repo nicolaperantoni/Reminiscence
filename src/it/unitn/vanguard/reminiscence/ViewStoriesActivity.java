@@ -29,6 +29,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -69,6 +70,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private int selectedIndex;
 	private ArrayList<ImageView> imgs;
 	private ImageViewAdapter mAdapter;
+	private ImageView mAddBtn;
 
 	// private YearView selected;
 	private int startYear;
@@ -175,8 +177,20 @@ public class ViewStoriesActivity extends BaseActivity implements
 						return true;
 					}
 				});
+		mAddBtn = (ImageView) findViewById(R.id.viewstories_add_img);
 		setListeners();
+		initializePopUps();
 	}
+	
+	private void initializePopUps() {
+		    Bundle b = new Bundle();
+		    int index = (int) (Math.random() * questions.length);
+		    b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY,questions[index]);
+		    Message msg = new Message();
+		    msg.setData(b);
+		    new QuestionPopUpHandler(this).sendMessageDelayed(msg,
+		        Constants.QUESTION_INTERVAL);
+		  }
 
 	private void switchActiveStories(String willActive) {
 
@@ -260,7 +274,10 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 			@Override
 			public void onClick(View v) {
-				OnHide();
+				Intent intent = new Intent(ViewStoriesActivity.this,
+						EmptyStoryActivity.class);
+				intent.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, requestYear);
+				startActivityForResult(intent, ADD_STORY_CODE);
 			}
 		});
 
@@ -344,6 +361,17 @@ public class ViewStoriesActivity extends BaseActivity implements
 						.setBackgroundResource(R.drawable.bottone_logout);
 				((Button) alert.getButton(AlertDialog.BUTTON_POSITIVE))
 						.setTextColor(Color.WHITE);
+			}
+		});
+
+		mAddBtn.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(ViewStoriesActivity.this,
+						EmptyStoryActivity.class);
+				intent.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, requestYear);
+				startActivityForResult(intent, ADD_STORY_CODE);
 			}
 		});
 	}
@@ -613,8 +641,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 	@Override
 	public void OnShow(String question) {
-		togglePopup(true);
 		mQuestionTv.setText(question);
+		togglePopup(true);
 	}
 
 	@Override
@@ -655,13 +683,16 @@ public class ViewStoriesActivity extends BaseActivity implements
 			addBornStory();
 		}
 
-		View no_res = findViewById(R.id.no_result_tv);
+		TextView no_res = (TextView) findViewById(R.id.no_result_tv);
 		if (FinalFunctionsUtilities.stories.isEmpty()) {
-			no_res.setVisibility(View.VISIBLE);
 			mCards.setVisibility(View.INVISIBLE);
 			int index = (int) (Math.random() * questions.length);
+			no_res.setText(questions[index]);
+			no_res.setVisibility(View.VISIBLE);
+			mAddBtn.setVisibility(View.VISIBLE);
 		} else {
 			no_res.setVisibility(View.INVISIBLE);
+			mAddBtn.setVisibility(View.INVISIBLE);
 			mCards.setVisibility(View.VISIBLE);
 		}
 
