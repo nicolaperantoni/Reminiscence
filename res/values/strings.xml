@@ -104,7 +104,7 @@
     <string name="story_year_broken">year invalid</string>
     <string name="story_add_fail">Some errors occurred</string>
     <string name="story_notification_upload_title">Uploading image (%1$s / %2$s)</string>
-    <string name="story_upload_photo">Upload photos</string>
+    <string name="story_upload_photo">Add photos</string>
 
     <!-- MainPageActivity -->
     <string name="title_activity_main_page">MainPageActivity</string>
@@ -138,7 +138,7 @@
     <string name="born_title">Born</string>
 
     <!-- Story Fragment -->
-    <string name="chiedi_aiuto_btn">Ask for help</string>
+    <string name="chiedi_aiuto_btn">Request help</string>
     
     <!-- AddFriendActivity -->
 	<string name="title_activity_add_friend">Add a friend</string>
