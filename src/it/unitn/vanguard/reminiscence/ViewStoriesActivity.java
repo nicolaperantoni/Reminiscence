@@ -178,12 +178,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 		    Bundle b = new Bundle();
 		    int index = (int) (Math.random() * questions.length);
 		    b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY,questions[index]);
-		    
-		    // test
-		    if(requestYear == 1980) {
-		    	b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY,"When did you graduated?");
-		    }
-		    
 		    Message msg = new Message();
 		    msg.setData(b);
 		    new QuestionPopUpHandler(this).sendMessageDelayed(msg,
