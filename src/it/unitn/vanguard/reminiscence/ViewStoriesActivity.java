@@ -551,8 +551,11 @@ public class ViewStoriesActivity extends BaseActivity implements
 						mCards.setVisibility(View.INVISIBLE);
 						int index = (int) (Math.random() * questions.length);
 						mNo_res_tv.setText(questions[index]);
-						mNo_res_tv.setVisibility(View.VISIBLE);
 						
+						//test
+						if(selectedIndex == 1980)
+							mNo_res_tv.setText("When did you graduate?");
+						mNo_res_tv.setVisibility(View.VISIBLE);
 					} else {
 						mNo_res_tv.setVisibility(View.GONE);
 						mCards.setVisibility(View.VISIBLE);
@@ -673,6 +676,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 			mCards.setVisibility(View.INVISIBLE);
 			int index = (int) (Math.random() * questions.length);
 			mNo_res_tv.setText(questions[index]);
+			//test
+			if(selectedIndex == 1980)
+				mNo_res_tv.setText("When did you graduate?");
 			mNo_res_tv.setVisibility(View.VISIBLE);
 			
 		} else {
