@@ -39,7 +39,7 @@ public class QuestionPopUpHandler extends Handler {
 	@Override
 	public void handleMessage(Message msg) {
 		super.handleMessage(msg);
-		Bundle datas = msg.getData();
+		Bundle datas = msg.getData(); 
 		String question = datas.getString(QUESTION_PASSED_KEY);
 		listener.OnShow(question);
 			new PopUpHideHandler(listener).sendMessageDelayed(new Message(),

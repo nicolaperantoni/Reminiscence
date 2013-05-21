@@ -51,7 +51,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	public static final String TITLE_PASSED_KEY = "newstorytitle";
 	public static final String DESC_PASSED_KEY = "newstorydesc";
 	public static final String ID_PASSED_KEY = "newstoryid";
-	//public static final String IMG_PASSED_KEY = "arethereimages";
+	// public static final String IMG_PASSED_KEY = "arethereimages";
 
 	private EditText mTitleEt;
 	private EditText mDescriptionEt;
@@ -67,22 +67,22 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
 		context = EmptyStoryActivity.this;
-		
-		String language = FinalFunctionsUtilities
-				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
+
+		String language = FinalFunctionsUtilities.getSharedPreferences(
+				Constants.LANGUAGE_KEY, context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.fragment_emptystory);
-		
+
 		initializeComponent();
 		toUpload = new PriorityQueue<UploadPhotoTask>();
 		initializeListeners();
 	}
 
 	private void initializeComponent() {
-		
+
 		mTitleEt = (EditText) findViewById(R.id.emptystory_title_et);
 		mDescriptionEt = (EditText) findViewById(R.id.emptystory_desc_et);
 		mAddBtn = (Button) findViewById(R.id.emptystory_add_btn);
@@ -95,11 +95,11 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		mAdapter = new ImageViewAdapter();
 		mMedias.setAdapter(mAdapter);
 	}
-	
+
 	private void initializeListeners() {
 
 		mYearEt.addTextChangedListener(new TextWatcher() {
-			
+
 			@Override
 			public void afterTextChanged(Editable s) {
 				if (!checkYearInput(s.toString())) {
@@ -110,10 +110,14 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) { }
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+			}
 		});
 
 		mAddBtn.setOnClickListener(new View.OnClickListener() {
@@ -125,18 +129,16 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 					if (checkYearInput(year)) {
 						try {
 							new AddStoryTask(EmptyStoryActivity.this).execute(
-									year,
-									mDescriptionEt.getText().toString(),
+									year, mDescriptionEt.getText().toString(),
 									mTitleEt.getText().toString());
 						} catch (Exception e) {
-							Log.e(EmptyStoryActivity.class.getName(), e.toString());
+							Log.e(EmptyStoryActivity.class.getName(),
+									e.toString());
 						}
-					}
-					else {
+					} else {
 						showToast(R.string.story_year_broken);
 					}
-				}
-				else {
+				} else {
 					showToast(R.string.connection_fail);
 				}
 			}
@@ -155,20 +157,23 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		
+
 		try {
 			Intent out = new Intent();
 			if (res.getString("success").equals("true")) {
-				if(res.getString("Operation").equals("addStory")) {
+				if (res.getString("Operation").equals("addStory")) {
 					idStoria = res.getInt("idadded");
-					if (toUpload.size() > 0) { sendPhotos(); }
-					out.putExtra(TITLE_PASSED_KEY, mTitleEt.getText().toString());
-					out.putExtra(DESC_PASSED_KEY, mDescriptionEt.getText().toString());
+					if (toUpload.size() > 0) {
+						sendPhotos();
+					}
+					out.putExtra(TITLE_PASSED_KEY, mTitleEt.getText()
+							.toString());
+					out.putExtra(DESC_PASSED_KEY, mDescriptionEt.getText()
+							.toString());
 					out.putExtra(YEAR_PASSED_KEY, mYearEt.getText().toString());
 					out.putExtra(ID_PASSED_KEY, idStoria);
-				}
-				else if(res.getString("Operation").equals("AddImage")) {
-					Log.e("immagine caricata","ok");
+				} else if (res.getString("Operation").equals("AddImage")) {
+					Log.e("immagine caricata", "ok");
 				}
 				this.setResult(RESULT_OK, out);
 				finish();
@@ -181,19 +186,21 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	}
 
 	private void sendPhotos() {
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(
+				context);
 		builder.setAutoCancel(true);
 		builder.setContentTitle(String.format(
 				getString(R.string.story_notification_upload_title),
 				toUpload.size(), totalimgs));
 		builder.setSmallIcon(R.drawable.ic_launcher);
-		builder.setProgress(toUpload.size(), 0, true);
-
+		builder.setProgress(totalimgs, toUpload.size(), false);
 		if (!toUpload.isEmpty()) {
 			FinalFunctionsUtilities.showNotification(getApplicationContext(),
 					1234, builder);
 			toUpload.remove().execute(idStoria + "");
 		}
+		else
+			FinalFunctionsUtilities.removeNotification(getApplicationContext(), 1234);
 	}
 
 	@Override
@@ -221,9 +228,10 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 						.add(new BasicNameValuePair("image", encodedImage));
 
 				try {
-					toUpload.add(new UploadPhotoTask(this, Constants.imageType.STORY, encodedImage, context));
+					toUpload.add(new UploadPhotoTask(this,
+							Constants.imageType.STORY, encodedImage, context));
 					totalimgs++;
-					ImageView img= new ImageView(context);
+					ImageView img = new ImageView(context);
 					img.setAdjustViewBounds(true);
 					img.setImageBitmap(mBitmap);
 					imgs.add(img);

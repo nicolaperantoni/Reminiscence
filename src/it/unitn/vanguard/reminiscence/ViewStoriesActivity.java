@@ -29,6 +29,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -78,6 +79,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 	private Bundle bundle;
 	private String[] questions;
+	private TextView mNo_res_tv;
 
 	@Override
 	public void onCreate(Bundle arg0) {
@@ -176,7 +178,18 @@ public class ViewStoriesActivity extends BaseActivity implements
 					}
 				});
 		setListeners();
+		initializePopUps();
 	}
+	
+	private void initializePopUps() {
+		    Bundle b = new Bundle();
+		    int index = (int) (Math.random() * questions.length);
+		    b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY,questions[index]);
+		    Message msg = new Message();
+		    msg.setData(b);
+		    new QuestionPopUpHandler(this).sendMessageDelayed(msg,
+		        Constants.QUESTION_INTERVAL);
+		  }
 
 	private void switchActiveStories(String willActive) {
 
@@ -260,7 +273,10 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 			@Override
 			public void onClick(View v) {
-				OnHide();
+				Intent intent = new Intent(ViewStoriesActivity.this,
+						EmptyStoryActivity.class);
+				intent.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, requestYear);
+				startActivityForResult(intent, ADD_STORY_CODE);
 			}
 		});
 
@@ -346,6 +362,17 @@ public class ViewStoriesActivity extends BaseActivity implements
 						.setTextColor(Color.WHITE);
 			}
 		});
+		mNo_res_tv = (TextView) findViewById(R.id.no_result_tv);
+		mNo_res_tv.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(ViewStoriesActivity.this,
+						EmptyStoryActivity.class);
+				intent.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, requestYear);
+				startActivityForResult(intent, ADD_STORY_CODE);
+			}
+		});
 	}
 
 	private class StoriesAdapter extends BaseAdapter {
@@ -381,6 +408,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 			// carico le img nell'horizontalList
 
 			HorizontalListView mMedias = (HorizontalListView) findViewById(R.id.card_story_imgs_hlv);
+			
 			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
 			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
 			TextView year = (TextView) v.findViewById(R.id.yearStoryCard);
@@ -618,8 +646,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 	@Override
 	public void OnShow(String question) {
-		togglePopup(true);
 		mQuestionTv.setText(question);
+		togglePopup(true);
 	}
 
 	@Override
@@ -660,13 +688,15 @@ public class ViewStoriesActivity extends BaseActivity implements
 			addBornStory();
 		}
 
-		View no_res = findViewById(R.id.no_result_tv);
+
 		if (FinalFunctionsUtilities.stories.isEmpty()) {
-			no_res.setVisibility(View.VISIBLE);
 			mCards.setVisibility(View.INVISIBLE);
 			int index = (int) (Math.random() * questions.length);
+			mNo_res_tv.setText(questions[index]);
+			mNo_res_tv.setVisibility(View.VISIBLE);
+			
 		} else {
-			no_res.setVisibility(View.INVISIBLE);
+			mNo_res_tv.setVisibility(View.GONE);
 			mCards.setVisibility(View.VISIBLE);
 		}
 
