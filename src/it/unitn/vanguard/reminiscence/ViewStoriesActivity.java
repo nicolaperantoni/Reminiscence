@@ -547,6 +547,16 @@ public class ViewStoriesActivity extends BaseActivity implements
 							Toast.LENGTH_LONG).show();
 
 					mStoriesAdapter.notifyDataSetChanged();
+					if (FinalFunctionsUtilities.stories.isEmpty()) {
+						mCards.setVisibility(View.INVISIBLE);
+						int index = (int) (Math.random() * questions.length);
+						mNo_res_tv.setText(questions[index]);
+						mNo_res_tv.setVisibility(View.VISIBLE);
+						
+					} else {
+						mNo_res_tv.setVisibility(View.GONE);
+						mCards.setVisibility(View.VISIBLE);
+					}
 				} else if (res.getString("Operation").equals("GetStoryCover")
 						&& !res.getString("numImages").equals("0")) {
 
