@@ -357,12 +357,24 @@ public class ViewStoriesActivity extends BaseActivity implements
 				if(FinalFunctionsUtilities.isDeviceConnected(context)) {
 					new GetStoryCoverTask(ViewStoriesActivity.this, context).execute(token, story.getId());
 				}
+<<<<<<< HEAD
 
+=======
+				
+				//int num_image = Integer.parseInt(story.getNumImages());
+>>>>>>> ccfe891bc320062abd78e1c26f6987b64cb43ba5
 				
 				if (story != null) {
 					title.setText(story.getTitle());
 					desc.setText(story.getDesc());
 					year.setText(String.valueOf(story.getAnno()));
+<<<<<<< HEAD
+=======
+					/*if (num_image != 0) {
+						//back.setImageBitmap(FinalFunctionsUtilities.stories.get(
+								//arg0).getBackground());
+					}*/ 
+>>>>>>> ccfe891bc320062abd78e1c26f6987b64cb43ba5
 				}
 			}
 			

@@ -1,7 +1,7 @@
 package it.unitn.vanguard.reminiscence.frags;
 
-import it.unitn.vanguard.reminiscence.Friend;
 import it.unitn.vanguard.reminiscence.R;
+import it.unitn.vanguard.reminiscence.utils.Friend;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

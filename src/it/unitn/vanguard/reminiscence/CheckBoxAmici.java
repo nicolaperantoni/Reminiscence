@@ -6,6 +6,7 @@ import it.unitn.vanguard.reminiscence.asynctasks.RequestHelpTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+import it.unitn.vanguard.reminiscence.utils.Friend;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -39,10 +40,10 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
 		context = CheckBoxAmici.this;
-		
+
 		if (FinalFunctionsUtilities.isDeviceConnected(context)) {
 			dialog = new ProgressDialog(context);
 			dialog.setTitle(getResources().getString(R.string.please));
@@ -50,19 +51,19 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished {
 			dialog.setCancelable(false);
 			dialog.show();
 			try {
-				new GetFriendsTask(CheckBoxAmici.this, CheckBoxAmici.this).execute();
+				new GetFriendsTask(CheckBoxAmici.this, CheckBoxAmici.this)
+						.execute();
 			} catch (Exception e) {
 				Log.e(CheckBoxAmici.class.getName(), e.toString());
 			}
 		} else {
-			Toast.makeText(
-					context,
+			Toast.makeText(context,
 					getResources().getString(R.string.connection_fail),
 					Toast.LENGTH_LONG).show();
 		}
-		
-		String language = FinalFunctionsUtilities
-				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
+
+		String language = FinalFunctionsUtilities.getSharedPreferences(
+				Constants.LANGUAGE_KEY, context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.checkbox_amici);
 
@@ -73,70 +74,96 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished {
 	}
 
 	private void initializeButtons() {
-		
+
 		btnAddFriend = (Button) findViewById(R.id.checklist_add_friend);
 		invia_mail = (Button) findViewById(R.id.choosefriend_send_mail);
-		
+
 		invia_mail.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+
 				ListView lv = (ListView) findViewById(id.list);
-				
+
 				CheckBox cbox;
 				String ids = "";
-			
-			   for (int i=0; i<lv.getCount(); i++){
-				   cbox = (CheckBox) lv.getChildAt(i).findViewById(R.id.check_friend);
-				   if(cbox.isChecked()){
-					   ids += (friends.get(i).getId()) + ",";
-				   }
-			   }
 
-			   // Elimino ultima virgola..
-			   if(ids.lastIndexOf(',') == (ids.length() - 1)) {
-				   ids = ids.substring(0, ids.length() - 1);
-			   }
-			     
-			   if(FinalFunctionsUtilities.isDeviceConnected(context)) {
-				   dialog = new ProgressDialog(context);
-				   dialog.setTitle(getResources().getString(R.string.please) + getResources().getString(R.string.wait));
-				   dialog.setMessage("We are sending an email for each friend selected..");
-				   dialog.setCancelable(false);
-				   dialog.show();
-				   try {
-					   new RequestHelpTask(CheckBoxAmici.this).execute(id_story, ids);
-				   } catch (Exception e) {
-					Log.e(CheckBoxAmici.class.getName(), e.toString());
-				   }
-			   }
+				for (int i = 0; i < lv.getCount(); i++) {
+					cbox = (CheckBox) lv.getChildAt(i).findViewById(
+							R.id.check_friend);
+					if (cbox.isChecked()) {
+						ids += (friends.get(i).getId()) + ",";
+					}
+				}
+
+				// Elimino ultima virgola..
+				if (ids.lastIndexOf(',') == (ids.length() - 1)) {
+					ids = ids.substring(0, ids.length() - 1);
+				}
+
+				if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+					dialog = new ProgressDialog(context);
+					dialog.setTitle(getResources().getString(R.string.please)
+							+ getResources().getString(R.string.wait));
+					dialog.setMessage("We are sending an email for each friend selected..");
+					dialog.setCancelable(false);
+					dialog.show();
+					try {
+						new RequestHelpTask(CheckBoxAmici.this).execute(
+								id_story, ids);
+					} catch (Exception e) {
+						Log.e(CheckBoxAmici.class.getName(), e.toString());
+					}
+				}
 			}
 		});
-		
+
 		btnAddFriend.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				FinalFunctionsUtilities.setSharedPreferences("CheckBoxAmici", "true", context);
-				finish();
-				startActivity(new Intent(context, AddFriendActivity.class));
+				FinalFunctionsUtilities.setSharedPreferences("CheckBoxAmici",
+						"true", context);
+				startActivityForResult(new Intent(context,
+						AddFriendActivity.class),
+						FriendListActivity.ADD_NEW_FRIEND);
 			}
 		});
 	}
-	
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode==FriendListActivity.ADD_NEW_FRIEND) {
+			if (resultCode==RESULT_OK) {
+				Bundle bd = data.getExtras();
+				int id = (Integer) bd.get("id");
+				String name = (String) bd.get("name");
+				String surname = (String) bd.get("surname");
+				String mail = (String) bd.get("mail");
+				friends.add(new Friend(name, surname, mail, id));
+				setAdapter();
+			}
+		}
+	}
+
 	private void initializeItemListener() {
-		
+
 		ListView lv = (ListView) findViewById(id.list);
 		lv.setOnItemClickListener(new ListView.OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
 				CheckBox cb = (CheckBox) arg1.findViewById(R.id.check_friend);
-				if(cb.isChecked()){ cb.setChecked(false); } else{ cb.setChecked(true); }
+				if (cb.isChecked()) {
+					cb.setChecked(false);
+				} else {
+					cb.setChecked(true);
+				}
 			}
 		});
 	}
-	
+
 	private void setAdapter() {
 		Friend fr[] = new Friend[friends.size()];
 		friends.toArray(fr);
@@ -146,9 +173,11 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished {
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		
+
 		int count = 10;
-		if(dialog!=null && dialog.isShowing()) { dialog.dismiss(); }
+		if (dialog != null && dialog.isShowing()) {
+			dialog.dismiss();
+		}
 
 		/*
 		 * Ottengo il numero di valori dal json
@@ -156,17 +185,18 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished {
 		 * json: {"success":true, "numFriend":2 "f0":{"Nome":asd, "Cognome":asd,
 		 * "Id":1} "f1":{"Nome":ciccio, "Cognome":ciccia, "Id":2}}
 		 */
-		
+
 		try {
 			if (res.getString("success").equals("true")) {
 				if (res.getString("Operation").equals("getFriends")) {
 					try {
-						
+
 						count = Integer.parseInt(res.getString("numFriend"));
 						friends.clear();
 						if (count < 1) {
 							// Caso in cui non ci siano amici LAMER
-							friends.add(new Friend(getString(R.string.no_friends_a),
+							friends.add(new Friend(
+									getString(R.string.no_friends_a),
 									getString(R.string.no_friends_b), "", -1));
 						} else {
 							for (int i = 0; i < count; i++) {
@@ -174,12 +204,12 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished {
 								JSONObject json = null;
 								try {
 									json = new JSONObject(res.getString(ct));
-									friends.add(new Friend(
-											json.getString("Nome"),
-											json.getString("Cognome"), 
-											json.getString("Email"),
-											Integer.parseInt(json.getString("Id"))));
-									} catch (Exception e) {
+									friends.add(new Friend(json
+											.getString("Nome"), json
+											.getString("Cognome"), json
+											.getString("Email"), Integer
+											.parseInt(json.getString("Id"))));
+								} catch (Exception e) {
 									Log.e("flf", e.toString());
 								}
 							}
@@ -190,18 +220,16 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished {
 						e.printStackTrace();
 						Toast.makeText(
 								context,
-								getResources().getString(R.string.registration_failed),
+								getResources().getString(
+										R.string.registration_failed),
 								Toast.LENGTH_LONG).show();
 					}
-				} else if(res.getString("Operation").equals("requestHelp")) {
-					Toast.makeText(
-							context,
-							"Emails sent",
-							Toast.LENGTH_LONG).show();
+				} else if (res.getString("Operation").equals("requestHelp")) {
+					Toast.makeText(context, "Emails sent", Toast.LENGTH_LONG)
+							.show();
 				}
 			} else {
-				Toast.makeText(
-						context,
+				Toast.makeText(context,
 						getResources().getString(R.string.connection_fail),
 						Toast.LENGTH_LONG).show();
 			}
@@ -210,5 +238,5 @@ public class CheckBoxAmici extends ListActivity implements OnTaskFinished {
 			e.printStackTrace();
 		}
 	}
-	
+
 }

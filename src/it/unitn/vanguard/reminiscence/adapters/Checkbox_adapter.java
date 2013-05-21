@@ -1,7 +1,7 @@
 package it.unitn.vanguard.reminiscence.adapters;
 
-import it.unitn.vanguard.reminiscence.Friend;
 import it.unitn.vanguard.reminiscence.R;
+import it.unitn.vanguard.reminiscence.utils.Friend;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
