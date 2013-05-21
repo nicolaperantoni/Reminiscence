@@ -27,7 +27,7 @@
             android:layout_below="@+id/cardstory_title"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
-            android:background="@color/grey" />
+            android:background="@color/gray" />
         
         <ImageView
             android:id="@+id/card_story_img"

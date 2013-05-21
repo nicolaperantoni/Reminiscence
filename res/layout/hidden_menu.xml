@@ -18,7 +18,7 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="2dp"
-        android:background="@color/lighter_midnight_blue" />
+        android:background="@color/gray" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -40,7 +40,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:background="@color/lighter_midnight_blue" />
+            android:background="@color/gray" />
 
         <TextView
             android:id="@+id/hiddebmenu_changeimage_tv"
@@ -57,7 +57,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:background="@color/lighter_midnight_blue" />
+            android:background="@color/gray" />
 
         <TextView
             android:id="@+id/hiddebmenu_addfriend_tv"
@@ -77,7 +77,7 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="2dp"
-        android:background="@color/lighter_midnight_blue" />
+        android:background="@color/gray" />
       
     <TextView
         android:id="@+id/card_title"
@@ -92,7 +92,7 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="2dp"
-        android:background="@color/lighter_midnight_blue" />
+        android:background="@color/gray" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -114,7 +114,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:background="@color/lighter_midnight_blue" />
+            android:background="@color/gray" />
 
         <TextView
             android:id="@+id/hiddenmenu_changelocale_tv"
@@ -129,7 +129,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:background="@color/lighter_midnight_blue" />
+            android:background="@color/gray" />
 
         <TextView
             android:id="@+id/hiddebmenu_logout_tv"
@@ -146,7 +146,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:background="@color/lighter_midnight_blue" />
+            android:background="@color/gray" />
     </LinearLayout>
 
 </LinearLayout>
