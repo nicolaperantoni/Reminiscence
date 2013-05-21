@@ -59,10 +59,9 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	private ImageView mMediaButton;
 	private HorizontalListView mMedias;
 	private ArrayList<ImageView> imgs;
+	private ArrayList<String> toUpload;
 	private ImageViewAdapter mAdapter;
 	private int idStoria;
-	private Queue<UploadPhotoTask> toUpload;
-	private int totalimgs = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -76,7 +75,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		setContentView(R.layout.fragment_emptystory);
 
 		initializeComponent();
-		toUpload = new PriorityQueue<UploadPhotoTask>();
+		toUpload = new ArrayList<String>();
 		initializeListeners();
 	}
 
@@ -162,17 +161,14 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 			if (res.getString("success").equals("true")) {
 				if (res.getString("Operation").equals("addStory")) {
 					idStoria = res.getInt("idadded");
-					if (toUpload.size() > 0) {
-						sendPhotos();
-					}
+					sendPhotos();
 					out.putExtra(TITLE_PASSED_KEY, mTitleEt.getText()
 							.toString());
 					out.putExtra(DESC_PASSED_KEY, mDescriptionEt.getText()
 							.toString());
 					out.putExtra(YEAR_PASSED_KEY, mYearEt.getText().toString());
 					out.putExtra(ID_PASSED_KEY, idStoria);
-				} else if (res.getString("Operation").equals("AddImage")) {
-					Log.e("immagine caricata", "ok");
+					this.finish();
 				}
 				this.setResult(RESULT_OK, out);
 				finish();
@@ -185,21 +181,12 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 	}
 
 	private void sendPhotos() {
-		NotificationCompat.Builder builder = new NotificationCompat.Builder(
-				context);
-		builder.setAutoCancel(true);
-		builder.setContentTitle(String.format(
-				getString(R.string.story_notification_upload_title),
-				toUpload.size(), totalimgs));
-		builder.setSmallIcon(R.drawable.ic_launcher);
-		builder.setProgress(totalimgs, toUpload.size(), false);
-		if (!toUpload.isEmpty()) {
-			FinalFunctionsUtilities.showNotification(getApplicationContext(),
-					1234, builder);
-			toUpload.remove().execute(idStoria + "");
-		}
-		else
-			FinalFunctionsUtilities.removeNotification(getApplicationContext(), 1234);
+		Intent i = new Intent(this, PhotoUploaderService.class);
+		i.putExtra(PhotoUploaderService.ID_STORY_KEY, idStoria+"");
+		String[] base= new String[toUpload.size()];
+		toUpload.toArray(base);
+		i.putExtra(PhotoUploaderService.PATHS_KEY, base);
+		startService(i);
 	}
 
 	@Override
@@ -227,13 +214,11 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 						.add(new BasicNameValuePair("image", encodedImage));
 
 				try {
-					toUpload.add(new UploadPhotoTask(this,
-							Constants.imageType.STORY, encodedImage, context));
-					totalimgs++;
 					ImageView img = new ImageView(context);
 					img.setAdjustViewBounds(true);
 					img.setImageBitmap(mBitmap);
 					imgs.add(img);
+					toUpload.add(encodedImage);
 					mAdapter.notifyDataSetChanged();
 				} catch (Exception e) {
 					Log.e(EmptyStoryActivity.class.getName(), e.toString());
