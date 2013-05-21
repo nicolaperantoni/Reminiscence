@@ -419,6 +419,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 					new GetStoryCoverTask(ViewStoriesActivity.this, context)
 							.execute(token, story.getId());
 				}
+				
 				// int num_image = Integer.parseInt(story.getNumImages());
 				if (story != null) {
 					title.setText(story.getTitle());
