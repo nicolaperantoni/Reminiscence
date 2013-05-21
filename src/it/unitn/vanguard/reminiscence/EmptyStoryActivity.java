@@ -29,6 +29,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -38,7 +39,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView;
 
-public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
+public class EmptyStoryActivity extends Activity implements OnTaskFinished {
 
 	private Context context;
 
@@ -68,7 +69,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 				Constants.LANGUAGE_KEY, context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.fragment_emptystory);
-
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		initializeComponent();
 		toUpload = new ArrayList<String>();
 		initializeListeners();
@@ -156,7 +157,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 			if (res.getString("success").equals("true")) {
 				if (res.getString("Operation").equals("addStory")) {
 					idStoria = res.getInt("idadded");
-					if(toUpload.size()>0)
+					if (toUpload.size() > 0)
 						sendPhotos();
 					out.putExtra(TITLE_PASSED_KEY, mTitleEt.getText()
 							.toString());
@@ -177,11 +178,21 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 
 	private void sendPhotos() {
 		Intent i = new Intent(this, PhotoUploaderService.class);
-		i.putExtra(PhotoUploaderService.ID_STORY_KEY, idStoria+"");
-		String[] base= new String[toUpload.size()];
+		i.putExtra(PhotoUploaderService.ID_STORY_KEY, idStoria + "");
+		String[] base = new String[toUpload.size()];
 		toUpload.toArray(base);
 		i.putExtra(PhotoUploaderService.PATHS_KEY, base);
 		startService(i);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			this.finish();
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
