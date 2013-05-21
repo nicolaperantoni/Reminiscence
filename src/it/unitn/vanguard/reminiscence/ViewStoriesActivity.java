@@ -742,15 +742,12 @@ public class ViewStoriesActivity extends BaseActivity implements
 									year,
 									data.getStringExtra(EmptyStoryActivity.TITLE_PASSED_KEY),
 									data.getStringExtra(EmptyStoryActivity.DESC_PASSED_KEY),
-									data.getStringExtra(EmptyStoryActivity.ID_PASSED_KEY));
-							
-							if(FinalFunctionsUtilities.stories.isEmpty()){
-								mNo_res_tv.setVisibility(View.GONE);
-								mCards.setVisibility(View.VISIBLE);
-							}
+									data.getStringExtra(EmptyStoryActivity.ID_PASSED_KEY));	
 							
 							FinalFunctionsUtilities.stories.add(s);
 							mStoriesAdapter.notifyDataSetChanged();
+							mNo_res_tv.setVisibility(View.GONE);
+							mCards.setVisibility(View.VISIBLE);
 						}
 					} catch (Exception e) {
 						Log.e(ViewStoriesActivity.class.getName(), e.toString());

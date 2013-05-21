@@ -168,7 +168,6 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 							.toString());
 					out.putExtra(YEAR_PASSED_KEY, mYearEt.getText().toString());
 					out.putExtra(ID_PASSED_KEY, idStoria);
-					this.finish();
 				}
 				this.setResult(RESULT_OK, out);
 				finish();
