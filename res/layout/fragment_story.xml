@@ -8,9 +8,7 @@
     <eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView
         android:id="@+id/gallery"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" >
+        android:layout_height="300dp" >
     </eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView>
 
     <RelativeLayout
@@ -47,20 +45,20 @@
         android:id="@+id/scrollStory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/panelButtonStory"
         android:layout_below="@+id/gallery"
+        android:layout_above="@id/panelButtonStory"
         android:layout_gravity="top" >
 
-            <TextView
-                android:id="@+id/story_description_tv"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:padding="10dp"
-                android:singleLine="false"
-                android:text="@string/story_description_placeholder"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/story_description_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:singleLine="false"
+            android:text="@string/story_description_placeholder"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </ScrollView>
 
 </RelativeLayout>

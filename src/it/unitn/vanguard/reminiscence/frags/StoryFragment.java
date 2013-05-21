@@ -216,15 +216,11 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 					} catch (Exception e) {
 						Log.e(StoryFragment.class.getName(), e.toString());
 					}
-					
-					Log.e("arrivato", res.toString() );
 
 					byte[] decodedString = null;
 					
 					// Inserisco l' immagine nel pageView..
 					for(int i = 0; i < numImages; i++) {
-						
-						Log.e("img3", "immagine: " + res.getString("img" + 1));
 						decodedString = Base64.decode(res.getString("img" + 1), Base64.DEFAULT);
 						Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 						ImageView imageView = new ImageView(context);
