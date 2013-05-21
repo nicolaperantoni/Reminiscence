@@ -33,6 +33,7 @@
             android:id="@+id/card_story_imgs_hlv"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
+            android:minHeight="50dp"
             android:layout_above="@+id/linear_cardstory"
             android:layout_below="@+id/view1" >
         </eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView>

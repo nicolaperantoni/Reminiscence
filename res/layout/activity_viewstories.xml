@@ -22,11 +22,10 @@
     
     <TextView
         android:id="@+id/no_result_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="invisible"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/viewstories_tlv"
+        android:visibility="gone"
         android:gravity="center"
         android:text="@string/empty_year"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -34,17 +33,6 @@
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="3" />
-    <ImageView
-        android:id="@+id/viewstories_add_img"
-        android:layout_margin="5dp"
-        android:padding="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/no_result_tv"
-        android:background="@drawable/addstory_hint_background"
-        android:src="@drawable/add_story"
-        android:visibility="invisible" />
 
     <GridView
         android:id="@+id/viewstroies_cards_gw"

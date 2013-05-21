@@ -70,7 +70,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private int selectedIndex;
 	private ArrayList<ImageView> imgs;
 	private ImageViewAdapter mAdapter;
-	private ImageView mAddBtn;
 
 	// private YearView selected;
 	private int startYear;
@@ -80,6 +79,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 	private Bundle bundle;
 	private String[] questions;
+	private TextView mNo_res_tv;
 
 	@Override
 	public void onCreate(Bundle arg0) {
@@ -177,7 +177,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 						return true;
 					}
 				});
-		mAddBtn = (ImageView) findViewById(R.id.viewstories_add_img);
 		setListeners();
 		initializePopUps();
 	}
@@ -363,9 +362,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 						.setTextColor(Color.WHITE);
 			}
 		});
-
-		mAddBtn.setOnClickListener(new View.OnClickListener() {
-
+		mNo_res_tv = (TextView) findViewById(R.id.no_result_tv);
+		mNo_res_tv.setOnClickListener(new View.OnClickListener() {
+			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(ViewStoriesActivity.this,
@@ -409,6 +408,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 			// carico le img nell'horizontalList
 
 			HorizontalListView mMedias = (HorizontalListView) findViewById(R.id.card_story_imgs_hlv);
+			
 			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
 			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
 			TextView year = (TextView) v.findViewById(R.id.yearStoryCard);
@@ -684,16 +684,15 @@ public class ViewStoriesActivity extends BaseActivity implements
 			addBornStory();
 		}
 
-		TextView no_res = (TextView) findViewById(R.id.no_result_tv);
+
 		if (FinalFunctionsUtilities.stories.isEmpty()) {
 			mCards.setVisibility(View.INVISIBLE);
 			int index = (int) (Math.random() * questions.length);
-			no_res.setText(questions[index]);
-			no_res.setVisibility(View.VISIBLE);
-			mAddBtn.setVisibility(View.VISIBLE);
+			mNo_res_tv.setText(questions[index]);
+			mNo_res_tv.setVisibility(View.VISIBLE);
+			
 		} else {
-			no_res.setVisibility(View.INVISIBLE);
-			mAddBtn.setVisibility(View.INVISIBLE);
+			mNo_res_tv.setVisibility(View.GONE);
 			mCards.setVisibility(View.VISIBLE);
 		}
 
