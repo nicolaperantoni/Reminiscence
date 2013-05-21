@@ -391,11 +391,16 @@ public class ViewStoriesActivity extends BaseActivity implements
 					new GetStoryCoverTask(ViewStoriesActivity.this, context)
 							.execute(token, story.getId());
 				}
-
+				// int num_image = Integer.parseInt(story.getNumImages());
 				if (story != null) {
 					title.setText(story.getTitle());
 					desc.setText(story.getDesc());
 					year.setText(String.valueOf(story.getAnno()));
+					/*
+					 * if (num_image != 0) {
+					 * //back.setImageBitmap(FinalFunctionsUtilities
+					 * .stories.get( //arg0).getBackground()); }
+					 */
 				}
 			}
 
