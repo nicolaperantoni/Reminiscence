@@ -113,6 +113,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.app.ListActivity" />
         </activity>
+        <service android:name="PhotoUploaderService"></service>
     </application>
 
 </manifest>
