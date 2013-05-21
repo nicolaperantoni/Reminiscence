@@ -160,7 +160,7 @@ public final class FinalFunctionsUtilities {
 
 	public static boolean switchLanguage(Locale locale, Context context) {
 
-		// Ottengo la configurazione attuale e controllo se �� uguale a quella
+		// Ottengo la configurazione attuale e controllo se ������ uguale a quella
 		// delle
 		// SharedPreferences. Se non sono uguali cambio la lingua altrimenti
 		// non faccio nulla..
@@ -179,14 +179,4 @@ public final class FinalFunctionsUtilities {
 		return false;
 	}
 
-	public static void showNotification(Context ctx, int id, NotificationCompat.Builder nc) {
-		NotificationManager nm = (NotificationManager) ctx
-				.getSystemService(Context.NOTIFICATION_SERVICE);
-		nm.notify(id, nc.build()); 
-	}
-	public static void removeNotification(Context ctx, int id){
-		NotificationManager nm = (NotificationManager) ctx
-				.getSystemService(Context.NOTIFICATION_SERVICE);
-		nm.cancel(id);
-	}
 }
