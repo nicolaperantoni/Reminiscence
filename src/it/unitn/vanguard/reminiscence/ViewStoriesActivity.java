@@ -6,7 +6,6 @@ import it.unitn.vanguard.reminiscence.asynctasks.GetPrivateStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.GetPublicStoriesTask;
 import it.unitn.vanguard.reminiscence.asynctasks.GetStoryCoverTask;
 import it.unitn.vanguard.reminiscence.asynctasks.LogoutTask;
-import it.unitn.vanguard.reminiscence.frags.StoryFragment;
 import it.unitn.vanguard.reminiscence.interfaces.OnGetStoryTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
@@ -357,25 +356,11 @@ public class ViewStoriesActivity extends BaseActivity implements
 				if(FinalFunctionsUtilities.isDeviceConnected(context)) {
 					new GetStoryCoverTask(ViewStoriesActivity.this, context).execute(token, story.getId());
 				}
-<<<<<<< HEAD
 
-=======
-				
-				//int num_image = Integer.parseInt(story.getNumImages());
->>>>>>> ccfe891bc320062abd78e1c26f6987b64cb43ba5
-				
-				if (story != null) {
-					title.setText(story.getTitle());
-					desc.setText(story.getDesc());
-					year.setText(String.valueOf(story.getAnno()));
-<<<<<<< HEAD
-=======
 					/*if (num_image != 0) {
 						//back.setImageBitmap(FinalFunctionsUtilities.stories.get(
 								//arg0).getBackground());
 					}*/ 
->>>>>>> ccfe891bc320062abd78e1c26f6987b64cb43ba5
-				}
 			}
 			
 			v.setOnClickListener(new View.OnClickListener() {

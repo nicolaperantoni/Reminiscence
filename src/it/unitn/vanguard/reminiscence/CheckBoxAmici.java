@@ -6,7 +6,6 @@ import it.unitn.vanguard.reminiscence.asynctasks.RequestHelpTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
-import it.unitn.vanguard.reminiscence.utils.Friend;
 
 import java.util.ArrayList;
 import java.util.Locale;
