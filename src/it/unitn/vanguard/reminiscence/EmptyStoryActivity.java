@@ -161,7 +161,8 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 			if (res.getString("success").equals("true")) {
 				if (res.getString("Operation").equals("addStory")) {
 					idStoria = res.getInt("idadded");
-					sendPhotos();
+					if(toUpload.size()>0)
+						sendPhotos();
 					out.putExtra(TITLE_PASSED_KEY, mTitleEt.getText()
 							.toString());
 					out.putExtra(DESC_PASSED_KEY, mDescriptionEt.getText()
