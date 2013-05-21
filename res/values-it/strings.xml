@@ -154,5 +154,6 @@
     
     <!-- CheckBoxActivity -->
     <string name="send_mail">Invia mail</string>
+    <string name="add_friend_checkinputs">Ricontrolla quello che hai inserito</string>
 
 </resources>

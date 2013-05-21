@@ -40,12 +40,12 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = AddFriendActivity.this;
-		
-		String language = FinalFunctionsUtilities
-				.getSharedPreferences(Constants.LANGUAGE_KEY, context);
+
+		String language = FinalFunctionsUtilities.getSharedPreferences(
+				Constants.LANGUAGE_KEY, context);
 		FinalFunctionsUtilities.switchLanguage(new Locale(language), context);
 		setContentView(R.layout.activity_add_friend);
-		
+
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		initializeButtons();
 		initializeListeners();
@@ -75,21 +75,27 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 				if (nameOk && surnameOk && mailOk) {
 					if (FinalFunctionsUtilities.isDeviceConnected(context)) {
 						dialog = new ProgressDialog(context);
-						dialog.setTitle(getResources().getString(R.string.please));
-						dialog.setMessage(getResources().getString(R.string.wait));
+						dialog.setTitle(getResources().getString(
+								R.string.please));
+						dialog.setMessage(getResources().getString(
+								R.string.wait));
 						dialog.setCancelable(false);
 						dialog.show();
 						try {
-							new AddFriendTask(AddFriendActivity.this).execute(name, surname, mail);
+							new AddFriendTask(AddFriendActivity.this).execute(
+									name, surname, mail);
 						} catch (Exception e) {
-							Log.e(AddFriendActivity.class.getName(), e.toString());
+							Log.e(AddFriendActivity.class.getName(),
+									e.toString());
 						}
 					} else {
-						Toast.makeText(
-								context,
-								R.string.connection_fail,
+						Toast.makeText(context, R.string.connection_fail,
 								Toast.LENGTH_LONG).show();
 					}
+				} else {
+					Toast.makeText(AddFriendActivity.this,
+							R.string.add_friend_checkinputs, Toast.LENGTH_LONG)
+							.show();
 				}
 			}
 		};
@@ -112,13 +118,16 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 				if (!nameOk) {
 					Toast.makeText(
 							context,
-							getResources().getText(R.string.registration_surname_empty),
+							getResources().getText(
+									R.string.registration_surname_empty),
 							Toast.LENGTH_SHORT).show();
 				} else if (!(nameOk = nameOk && !name.startsWith(" ")
 						&& !name.endsWith(" "))) {
 					Toast.makeText(
 							context,
-							getResources().getText(R.string.registration_surname_contains_spaces),
+							getResources()
+									.getText(
+											R.string.registration_surname_contains_spaces),
 							Toast.LENGTH_SHORT).show();
 				}
 
@@ -132,10 +141,14 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) { }
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+			}
 		});
 
 		editTextSurname.addTextChangedListener(new TextWatcher() {
@@ -147,13 +160,16 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 				if (!surnameOk) {
 					Toast.makeText(
 							context,
-							getResources().getText(R.string.registration_surname_empty),
+							getResources().getText(
+									R.string.registration_surname_empty),
 							Toast.LENGTH_SHORT).show();
 				} else if (!(surnameOk = surnameOk && !surname.startsWith(" ")
 						&& !surname.endsWith(" "))) {
 					Toast.makeText(
 							context,
-							getResources().getText(R.string.registration_surname_contains_spaces),
+							getResources()
+									.getText(
+											R.string.registration_surname_contains_spaces),
 							Toast.LENGTH_SHORT).show();
 				}
 
@@ -167,10 +183,14 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) { }
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+			}
 		});
 
 		editTextMail.addTextChangedListener(new TextWatcher() {
@@ -190,23 +210,30 @@ public class AddFriendActivity extends Activity implements OnTaskFinished {
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) { }
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+			}
 
 		});
 	}
 
 	@Override
 	public void onTaskFinished(JSONObject res) {
-		
-		if(dialog!=null && dialog.isShowing()) { dialog.dismiss(); }
-		
+
+		if (dialog != null && dialog.isShowing()) {
+			dialog.dismiss();
+		}
+
 		try {
 			if (res.getString("success").equals("true")) {
 				Intent returnIntent = new Intent();
-				returnIntent.putExtra("id", Integer.parseInt(res.getString("id")));
+				returnIntent.putExtra("id",
+						Integer.parseInt(res.getString("id")));
 				returnIntent.putExtra("name", res.getString("name"));
 				returnIntent.putExtra("surname", res.getString("surname"));
 				returnIntent.putExtra("mail", res.getString("email"));

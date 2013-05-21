@@ -4,6 +4,7 @@ import it.unitn.vanguard.reminiscence.frags.FriendListFragment;
 import it.unitn.vanguard.reminiscence.frags.ProfileFragment;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+import it.unitn.vanguard.reminiscence.utils.Friend;
 
 import java.util.Locale;
 

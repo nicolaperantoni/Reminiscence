@@ -57,4 +57,13 @@ public class Story {
 		return urls;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Story) {
+			Story s = (Story) o;
+			return s.getId().equals(this.getId());
+		}
+		return false;
+	}
+
 }

@@ -1,6 +1,5 @@
 package it.unitn.vanguard.reminiscence.frags;
 
-import it.unitn.vanguard.reminiscence.Friend;
 import it.unitn.vanguard.reminiscence.R;
 import it.unitn.vanguard.reminiscence.ViewFriendsProfileFragmentActivity;
 import it.unitn.vanguard.reminiscence.adapters.FriendListAdapter;
@@ -8,6 +7,7 @@ import it.unitn.vanguard.reminiscence.asynctasks.GetFriendsTask;
 import it.unitn.vanguard.reminiscence.interfaces.OnTaskFinished;
 import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
+import it.unitn.vanguard.reminiscence.utils.Friend;
 
 import java.util.ArrayList;
 import java.util.Locale;
