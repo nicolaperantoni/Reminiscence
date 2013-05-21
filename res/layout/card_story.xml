@@ -28,15 +28,18 @@
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
             android:background="@color/grey" />
-
-        <eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView
-            android:id="@+id/card_story_imgs_hlv"
+        
+        <ImageView
+            android:id="@+id/card_story_img"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:minHeight="50dp"
-            android:layout_above="@+id/linear_cardstory"
-            android:layout_below="@+id/view1" >
-        </eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView>
+            android:layout_height="300dp"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/cardstory_title"
+            android:layout_centerHorizontal="true"
+            android:minHeight="200dp"
+            android:scaleType="fitCenter" >
+
+        </ImageView>
 
         <LinearLayout
             android:id="@+id/linear_cardstory"
@@ -61,7 +64,7 @@
             android:id="@+id/yearStoryCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/cardstory_img"
+            android:layout_above="@+id/card_story_img"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:background="@color/alphablack"

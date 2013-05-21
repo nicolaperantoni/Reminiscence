@@ -39,8 +39,9 @@ public class GetStoryPhotosTask extends AsyncTask<Integer, JSONObject, Boolean> 
 		if (!token.equals("")) {
 			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(1);
 			params.add(new BasicNameValuePair("token", token));
+			params.add(new BasicNameValuePair("story_id", arg[0] + ""));
 			HttpClient client = new DefaultHttpClient();
-			HttpPost post = new HttpPost(Constants.SERVER_URL + "getProfileImage.php");
+			HttpPost post = new HttpPost(Constants.SERVER_URL + "getImage.php");
 			try {
 				post.setEntity(new UrlEncodedFormEntity(params));
 			} catch (UnsupportedEncodingException e) {

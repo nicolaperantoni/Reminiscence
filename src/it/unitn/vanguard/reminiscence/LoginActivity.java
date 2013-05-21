@@ -162,6 +162,8 @@ public class LoginActivity extends Activity implements OnTaskFinished {
 			}
 		} catch (JSONException e) {
 			Log.e(LoginActivity.class.getName(), e.toString());
+		} catch (Exception e) {
+			Log.e(LoginActivity.class.getName(), e.toString());
 		}
 	}
 	

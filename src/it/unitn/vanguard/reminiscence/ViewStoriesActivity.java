@@ -13,7 +13,6 @@ import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 import it.unitn.vanguard.reminiscence.utils.Story;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 import org.json.JSONException;
@@ -48,11 +47,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import eu.giovannidefrancesco.DroidTimeline.view.TimeLineView;
 import eu.giovannidefrancesco.DroidTimeline.view.YearView;
-import eu.giovannidefrancesco.DroidTimeline.widget.HorizontalListView;
 
 public class ViewStoriesActivity extends BaseActivity implements
 		OnTaskFinished, QuestionPopUp, OnGetStoryTask {
-
+	
 	private static final String SAVE_INDEX = "saved_index";
 	public static final int ADD_STORY_CODE = 100;
 
@@ -68,8 +66,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private ImageView mCloseQuestionImgV;
 	private StoriesAdapter mStoriesAdapter;
 	private int selectedIndex;
-	private ArrayList<ImageView> imgs;
-	private ImageViewAdapter mAdapter;
 
 	// private YearView selected;
 	private int startYear;
@@ -105,9 +101,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 		mStoriesAdapter = new StoriesAdapter();
 		mCards.setAdapter(mStoriesAdapter);
-
-		imgs = new ArrayList<ImageView>();
-		mAdapter = new ImageViewAdapter();
 
 		// E' per avere lo 0 alla fine degli anni.(per avere l'intera decade,
 		// praticamente)
@@ -192,11 +185,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 		  }
 
 	private void switchActiveStories(String willActive) {
-
-		// String activeStories =
-		// FinalFunctionsUtilities.getSharedPreferences(Constants.ACTIVE_STORIES,
-		// context);
-		// Log.e("scambia", "scambia storie");
 
 		// Richiedo il tipo di storie selezionato solo se quelle
 		// attuali erano diverse..
@@ -402,35 +390,26 @@ public class ViewStoriesActivity extends BaseActivity implements
 			String token = FinalFunctionsUtilities.getSharedPreferences(
 					Constants.TOKEN_KEY, context);
 
-			// decodifico in bitmap da base64 le immagini
-			// Bitmap bm
-
-			// carico le img nell'horizontalList
-
-			HorizontalListView mMedias = (HorizontalListView) findViewById(R.id.card_story_imgs_hlv);
-			
+			ImageView back = (ImageView) v.findViewById(R.id.card_story_img);
 			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
 			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
 			TextView year = (TextView) v.findViewById(R.id.yearStoryCard);
-
+			
 			if (FinalFunctionsUtilities.stories.size() != 0) {
 				Story story = FinalFunctionsUtilities.stories.get(arg0);
-				if (FinalFunctionsUtilities.isDeviceConnected(context)) {
-					new GetStoryCoverTask(ViewStoriesActivity.this, context)
-							.execute(token, story.getId());
-				}
+//				if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+//					new GetStoryCoverTask(ViewStoriesActivity.this, context)
+//							.execute(token, story.getId());
+//				}
 				
-				// int num_image = Integer.parseInt(story.getNumImages());
-				if (story != null) {
-					title.setText(story.getTitle());
-					desc.setText(story.getDesc());
-					year.setText(String.valueOf(story.getAnno()));
-					/*
-					 * if (num_image != 0) {
-					 * //back.setImageBitmap(FinalFunctionsUtilities
-					 * .stories.get( //arg0).getBackground()); }
-					 */
-				}
+				 if (story != null) {
+					 title.setText(story.getTitle());
+					 desc.setText(story.getDesc());
+					 year.setText(String.valueOf(story.getAnno()));
+					 if (story.getBackground() != null) {
+						 back.setImageBitmap(story.getBackground()); 
+					 }
+				 }
 			}
 
 			v.setOnClickListener(new View.OnClickListener() {
@@ -578,34 +557,29 @@ public class ViewStoriesActivity extends BaseActivity implements
 						if (id.equals(FinalFunctionsUtilities.stories.get(i)
 								.getId())) {
 							s = FinalFunctionsUtilities.stories.get(i);
-							// image adapter set
 						}
 					}
 					if (s != null) {
 						try {
-							int numero_img = Integer.parseInt(res
-									.getString("numImages"));
-							s.setNumImages(res.getString("numImages"));
+							
 							// Converto l'immagine da Base64 a Bitmap e la
-							// inserisco
-							// nell' imageView della StoryCard (COVER)..
-							for (int i = 0; i < numero_img; i++) {
-								byte[] decodedString = Base64.decode(
-										res.getString("cover"), Base64.DEFAULT);
-								Bitmap bitmap = BitmapFactory.decodeByteArray(
-										decodedString, 0, decodedString.length);
+							// inserisco nell' imageView della StoryCard (COVER)..
+							byte[] decodedString = Base64.decode(
+									res.getString("cover"), Base64.DEFAULT);
+							Bitmap bitmap = BitmapFactory.decodeByteArray(
+									decodedString, 0, decodedString.length);
 
-								ImageView img = new ImageView(context);
-								img.setImageBitmap(bitmap);
-								img.setAdjustViewBounds(true);
-								imgs.add(img);
-								mAdapter.notifyDataSetChanged();
-							}
+							s.setBackground(bitmap);
+							s.setNumImages(1 + "");
+							Log.e("imagg", res.getString("cover"));
 							mStoriesAdapter.notifyDataSetChanged();
+							
 						} catch (Exception e) {
 							Log.e(ViewStoriesActivity.class.getName(),
 									e.toString());
 							e.printStackTrace();
+							Toast.makeText(context, "Cover non caricata",
+									Toast.LENGTH_LONG).show();
 						} catch (OutOfMemoryError e) {
 							Log.e(ViewStoriesActivity.class.getName(),
 									e.toString());
@@ -725,6 +699,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 				R.drawable.baby);
 		Story s = new Story(startYear, title, desc, "-1");
 		s.setBackground(img);
+		s.setNumImages(1 + "");
 		FinalFunctionsUtilities.stories.addFirst(s);
 	}
 
@@ -800,29 +775,6 @@ public class ViewStoriesActivity extends BaseActivity implements
 			Toast.makeText(context,
 					getResources().getString(R.string.connection_fail),
 					Toast.LENGTH_LONG).show();
-		}
-	}
-
-	private class ImageViewAdapter extends BaseAdapter {
-
-		@Override
-		public int getCount() {
-			return imgs.size();
-		}
-
-		@Override
-		public Object getItem(int arg0) {
-			return getView(arg0, null, null);
-		}
-
-		@Override
-		public long getItemId(int arg0) {
-			return arg0;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			return imgs.get(position);
 		}
 	}
 }
