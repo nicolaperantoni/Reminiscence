@@ -384,7 +384,11 @@ public class ViewStoriesActivity extends BaseActivity implements
 			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
 			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
 			TextView year = (TextView) v.findViewById(R.id.yearStoryCard);
-
+			
+			imgs = new ArrayList<ImageView>();
+			mAdapter = new ImageViewAdapter();
+			mMedias.setAdapter(mAdapter);
+			
 			if (FinalFunctionsUtilities.stories.size() != 0) {
 				Story story = FinalFunctionsUtilities.stories.get(arg0);
 				if (FinalFunctionsUtilities.isDeviceConnected(context)) {
@@ -558,9 +562,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 							int numero_img = Integer.parseInt(res
 									.getString("numImages"));
 							s.setNumImages(res.getString("numImages"));
+							
 							// Converto l'immagine da Base64 a Bitmap e la
-							// inserisco
-							// nell' imageView della StoryCard (COVER)..
+							// inserisco nell' imageView della StoryCard (COVER)..
 							for (int i = 0; i < numero_img; i++) {
 								byte[] decodedString = Base64.decode(
 										res.getString("cover"), Base64.DEFAULT);
