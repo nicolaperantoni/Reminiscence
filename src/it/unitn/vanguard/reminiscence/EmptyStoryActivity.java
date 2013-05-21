@@ -189,7 +189,7 @@ public class EmptyStoryActivity extends BaseActivity implements OnTaskFinished {
 		builder.setSmallIcon(R.drawable.ic_launcher);
 		builder.setProgress(toUpload.size(), 0, true);
 
-		while (!toUpload.isEmpty()) {
+		if (!toUpload.isEmpty()) {
 			FinalFunctionsUtilities.showNotification(getApplicationContext(),
 					1234, builder);
 			toUpload.remove().execute(idStoria + "");

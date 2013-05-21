@@ -13,6 +13,7 @@ import it.unitn.vanguard.reminiscence.utils.Constants;
 import it.unitn.vanguard.reminiscence.utils.FinalFunctionsUtilities;
 import it.unitn.vanguard.reminiscence.utils.Story;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import org.json.JSONException;
@@ -28,7 +29,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Message;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -67,6 +67,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private ImageView mCloseQuestionImgV;
 	private StoriesAdapter mStoriesAdapter;
 	private int selectedIndex;
+	private ArrayList<ImageView> imgs;
+	private ImageViewAdapter mAdapter;
+	
 	// private YearView selected;
 	private int startYear;
 	private int requestYear;
@@ -100,6 +103,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 		
 		mStoriesAdapter = new StoriesAdapter();
 		mCards.setAdapter(mStoriesAdapter);
+		
+		imgs = new ArrayList<ImageView>();
+		mAdapter = new ImageViewAdapter();
 
 		// E' per avere lo 0 alla fine degli anni.(per avere l'intera decade, praticamente)
 		String year = FinalFunctionsUtilities.getSharedPreferences(Constants.YEAR_KEY, this);
@@ -351,17 +357,24 @@ public class ViewStoriesActivity extends BaseActivity implements
 				if(FinalFunctionsUtilities.isDeviceConnected(context)) {
 					new GetStoryCoverTask(ViewStoriesActivity.this, context).execute(token, story.getId());
 				}
+<<<<<<< HEAD
+
+=======
 				
 				//int num_image = Integer.parseInt(story.getNumImages());
+>>>>>>> ccfe891bc320062abd78e1c26f6987b64cb43ba5
 				
 				if (story != null) {
 					title.setText(story.getTitle());
 					desc.setText(story.getDesc());
 					year.setText(String.valueOf(story.getAnno()));
+<<<<<<< HEAD
+=======
 					/*if (num_image != 0) {
 						//back.setImageBitmap(FinalFunctionsUtilities.stories.get(
 								//arg0).getBackground());
 					}*/ 
+>>>>>>> ccfe891bc320062abd78e1c26f6987b64cb43ba5
 				}
 			}
 			
@@ -491,17 +504,25 @@ public class ViewStoriesActivity extends BaseActivity implements
 					for(int i = 0; i < FinalFunctionsUtilities.stories.size(); i++) {
 						if(id.equals(FinalFunctionsUtilities.stories.get(i).getId())) {
 							s = FinalFunctionsUtilities.stories.get(i);
+							// image adapter set
 						}
 					}
 					if(s != null) {
-						try {
+						try {							
+							int numero_img = Integer.parseInt(res.getString("numImages"));
+							s.setNumImages(res.getString("numImages"));
 							// Converto l'immagine da Base64 a Bitmap e la inserisco
 							// nell' imageView della StoryCard (COVER)..
-//							for(int i = 0; i < )
-							
-							byte[] decodedString = Base64.decode(res.getString("cover"), Base64.DEFAULT);
-							Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
-							
+							for(int i = 0; i < numero_img;i++){
+								byte[] decodedString = Base64.decode(res.getString("cover"), Base64.DEFAULT);
+								Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); 
+								
+								ImageView img = new ImageView(context);
+								img.setImageBitmap(bitmap);
+								img.setAdjustViewBounds(true);
+								imgs.add(img);
+								mAdapter.notifyDataSetChanged();
+							}
 							mStoriesAdapter.notifyDataSetChanged();
 						} catch (Exception e) {
 							Log.e(ViewStoriesActivity.class.getName(), e.toString());
@@ -690,4 +711,28 @@ public class ViewStoriesActivity extends BaseActivity implements
 					Toast.LENGTH_LONG).show();
 		}
 	}
+	
+	private class ImageViewAdapter extends BaseAdapter {
+
+		@Override
+		public int getCount() {
+			return imgs.size();
+		}
+
+		@Override
+		public Object getItem(int arg0) {
+			return getView(arg0, null, null);
+		}
+
+		@Override
+		public long getItemId(int arg0) {
+			return arg0;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			return imgs.get(position);
+		}
+	}
 }
+
