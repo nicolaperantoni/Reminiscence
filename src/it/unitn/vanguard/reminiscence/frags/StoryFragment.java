@@ -47,16 +47,18 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 	private static String story_id;
 	private static Story story;
 	private Context context;
+	private static int index;
 	
 	// Images
 	private Button btn_aiuto_amico;
 	private Button btn_upload_photo;
 	protected ProgressDialog dialog;
 	
-	public static StoryFragment newInstance(Story storia) {
+	public static StoryFragment newInstance(Story storia, int indice) {
 		StoryFragment sf = new StoryFragment();
 		
 		story = storia;
+		index = indice;
 		Bundle b = new Bundle();
 		b.putString(TITLE_PASSED_KEY, story.getTitle());
 		b.putString(DESCRIPTION_PASSED_KEY, story.getDesc());
@@ -90,14 +92,19 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 		
 		imgs = new ArrayList<ImageView>();
 		mAdapter = new ImageViewAdapter();
-		mMedias.setAdapter(mAdapter);
-		
-		if(FinalFunctionsUtilities.isDeviceConnected(context)) {
-			try {
-				new GetStoryPhotosTask(StoryFragment.this, context).execute(Integer.parseInt(story_id));
-			} catch (Exception e) {
-				Log.e(StoryFragment.class.getName(), e.toString());
+		if(index == 0){
+			mMedias.setAdapter(mAdapter);
+			
+			if(FinalFunctionsUtilities.isDeviceConnected(context)) {
+				try {
+					new GetStoryPhotosTask(StoryFragment.this, context).execute(Integer.parseInt(story_id));
+				} catch (Exception e) {
+					Log.e(StoryFragment.class.getName(), e.toString());
+				}
 			}
+		}
+		else{
+			mMedias.setVisibility(View.GONE);			
 		}
 		
 		initializeTexts();

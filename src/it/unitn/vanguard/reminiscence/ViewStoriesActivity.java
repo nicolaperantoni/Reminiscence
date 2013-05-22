@@ -50,7 +50,7 @@ import eu.giovannidefrancesco.DroidTimeline.view.YearView;
 
 public class ViewStoriesActivity extends BaseActivity implements
 		OnTaskFinished, QuestionPopUp, OnGetStoryTask {
-	
+
 	private static final String SAVE_INDEX = "saved_index";
 	public static final int ADD_STORY_CODE = 100;
 
@@ -173,16 +173,16 @@ public class ViewStoriesActivity extends BaseActivity implements
 		setListeners();
 		initializePopUps();
 	}
-	
+
 	private void initializePopUps() {
-		    Bundle b = new Bundle();
-		    int index = (int) (Math.random() * questions.length);
-		    b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY,questions[index]);
-		    Message msg = new Message();
-		    msg.setData(b);
-		    new QuestionPopUpHandler(this).sendMessageDelayed(msg,
-		        Constants.QUESTION_INTERVAL);
-		  }
+		Bundle b = new Bundle();
+		int index = (int) (Math.random() * questions.length);
+		b.putString(QuestionPopUpHandler.QUESTION_PASSED_KEY, questions[index]);
+		Message msg = new Message();
+		msg.setData(b);
+		new QuestionPopUpHandler(this).sendMessageDelayed(msg,
+				Constants.QUESTION_INTERVAL);
+	}
 
 	private void switchActiveStories(String willActive) {
 
@@ -352,13 +352,16 @@ public class ViewStoriesActivity extends BaseActivity implements
 		});
 		mNo_res_tv = (TextView) findViewById(R.id.no_result_tv);
 		mNo_res_tv.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(ViewStoriesActivity.this,
-						EmptyStoryActivity.class);
-				intent.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, requestYear);
-				startActivityForResult(intent, ADD_STORY_CODE);
+				if (actionBar.getSelectedNavigationIndex() == 0) {
+					Intent intent = new Intent(ViewStoriesActivity.this,
+							EmptyStoryActivity.class);
+					intent.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY,
+							requestYear);
+					startActivityForResult(intent, ADD_STORY_CODE);
+				}
 			}
 		});
 	}
@@ -382,34 +385,42 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 		@Override
 		public View getView(final int arg0, View arg1, ViewGroup arg2) {
-			View v = getLayoutInflater().inflate(R.layout.card_story, arg2,
-					false);
+			View v;
+			ImageView back=null;
+			if (actionBar.getSelectedNavigationIndex() == 1) {
+				v = getLayoutInflater().inflate(R.layout.card_story_pub, arg2,
+						false);
+			} else {
+				v = getLayoutInflater().inflate(R.layout.card_story, arg2,
+						false);
+				back = (ImageView) v.findViewById(R.id.card_story_img);
+			}
 
 			// lancio il task per farmi ritornare il jason con le immagini
 
 			String token = FinalFunctionsUtilities.getSharedPreferences(
 					Constants.TOKEN_KEY, context);
 
-			ImageView back = (ImageView) v.findViewById(R.id.card_story_img);
 			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
 			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
 			TextView year = (TextView) v.findViewById(R.id.yearStoryCard);
-			
+
 			if (FinalFunctionsUtilities.stories.size() != 0) {
 				Story story = FinalFunctionsUtilities.stories.get(arg0);
-//				if (FinalFunctionsUtilities.isDeviceConnected(context)) {
-//					new GetStoryCoverTask(ViewStoriesActivity.this, context)
-//							.execute(token, story.getId());
-//				}
-				
-				 if (story != null) {
-					 title.setText(story.getTitle());
-					 desc.setText(story.getDesc());
-					 year.setText(String.valueOf(story.getAnno()));
-					 if (story.getBackground() != null) {
-						 back.setImageBitmap(story.getBackground()); 
-					 }
-				 }
+				// if (FinalFunctionsUtilities.isDeviceConnected(context)) {
+				// new GetStoryCoverTask(ViewStoriesActivity.this, context)
+				// .execute(token, story.getId());
+				// }
+
+				if (story != null) {
+					title.setText(story.getTitle());
+					desc.setText(story.getDesc());
+					year.setText(String.valueOf(story.getAnno()));
+					if (story.getBackground() != null) {
+						if (back != null)
+							back.setImageBitmap(story.getBackground());
+					}
+				}
 			}
 
 			v.setOnClickListener(new View.OnClickListener() {
@@ -418,7 +429,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 				public void onClick(View clicked) {
 					if (FinalFunctionsUtilities.stories.size() != 0) {
 						Story story = FinalFunctionsUtilities.stories.get(arg0);
-						StoryFragment sf = StoryFragment.newInstance(story);
+						StoryFragment sf = StoryFragment.newInstance(story, actionBar.getSelectedNavigationIndex());
 						sf.show(getFragmentManager(), "visualized");
 					}
 				}
@@ -551,9 +562,9 @@ public class ViewStoriesActivity extends BaseActivity implements
 						mCards.setVisibility(View.INVISIBLE);
 						int index = (int) (Math.random() * questions.length);
 						mNo_res_tv.setText(questions[index]);
-						
-						//test
-						if(selectedIndex == 1980)
+
+						// test
+						if (selectedIndex == 1980)
 							mNo_res_tv.setText("When did you graduate?");
 						mNo_res_tv.setVisibility(View.VISIBLE);
 					} else {
@@ -574,9 +585,10 @@ public class ViewStoriesActivity extends BaseActivity implements
 					}
 					if (s != null) {
 						try {
-							
+
 							// Converto l'immagine da Base64 a Bitmap e la
-							// inserisco nell' imageView della StoryCard (COVER)..
+							// inserisco nell' imageView della StoryCard
+							// (COVER)..
 							byte[] decodedString = Base64.decode(
 									res.getString("cover"), Base64.DEFAULT);
 							Bitmap bitmap = BitmapFactory.decodeByteArray(
@@ -586,7 +598,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 							s.setNumImages(1 + "");
 							Log.e("imagg", res.getString("cover"));
 							mStoriesAdapter.notifyDataSetChanged();
-							
+
 						} catch (Exception e) {
 							Log.e(ViewStoriesActivity.class.getName(),
 									e.toString());
@@ -671,16 +683,18 @@ public class ViewStoriesActivity extends BaseActivity implements
 			addBornStory();
 		}
 
-
 		if (FinalFunctionsUtilities.stories.isEmpty()) {
 			mCards.setVisibility(View.INVISIBLE);
 			int index = (int) (Math.random() * questions.length);
-			mNo_res_tv.setText(questions[index]);
-			//test
-			if(selectedIndex == 1980)
+			if (actionBar.getSelectedNavigationIndex() == 0)
+				mNo_res_tv.setText(questions[index]);
+			else
+				mNo_res_tv.setText(getString(R.string.no_stories));
+			// test
+			if (selectedIndex == 1980)
 				mNo_res_tv.setText("When did you graduate?");
 			mNo_res_tv.setVisibility(View.VISIBLE);
-			
+
 		} else {
 			mNo_res_tv.setVisibility(View.GONE);
 			mCards.setVisibility(View.VISIBLE);
@@ -742,8 +756,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 									year,
 									data.getStringExtra(EmptyStoryActivity.TITLE_PASSED_KEY),
 									data.getStringExtra(EmptyStoryActivity.DESC_PASSED_KEY),
-									data.getStringExtra(EmptyStoryActivity.ID_PASSED_KEY));	
-							
+									data.getStringExtra(EmptyStoryActivity.ID_PASSED_KEY));
+
 							FinalFunctionsUtilities.stories.add(s);
 							mStoriesAdapter.notifyDataSetChanged();
 							mNo_res_tv.setVisibility(View.GONE);

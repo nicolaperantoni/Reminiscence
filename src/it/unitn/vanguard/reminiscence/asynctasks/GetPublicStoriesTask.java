@@ -11,10 +11,12 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,7 +46,7 @@ public class GetPublicStoriesTask extends
 
 	@Override
 	protected Boolean doInBackground(Integer... arg) {
-		
+
 		if (arg.length > 0) {
 			if (arg[0] != null)
 				this.year = arg[0];
@@ -52,34 +54,24 @@ public class GetPublicStoriesTask extends
 				throw new IllegalStateException("You should provide a year");
 			}
 		}
-		
-		String token = FinalFunctionsUtilities
-				.getSharedPreferences(Constants.TOKEN_KEY, ((Activity) caller).getApplicationContext());
-		
-		if(!token.equals("")) {
-			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("token", token));
-			params.add(new BasicNameValuePair("initdecade", "" + year));
-			HttpClient client = new DefaultHttpClient();
-			HttpPost post = new HttpPost(Constants.SERVER_URL + "getStory.php");
-			try {
-				post.setEntity(new UrlEncodedFormEntity(params));
-				HttpResponse response = client.execute(post);
-				String s = EntityUtils.toString(response.getEntity());
-				JSONObject json = new JSONObject(s);
-				Log.e("JSON OBJECT", s);
-				int n = json.getInt("numStory");
-				if (n < 1)
-					return false;
-				for (int i = 0; i < n; i++) {
-					JSONObject story = new JSONObject(json.get("s" + i).toString());
-					publishProgress(story);
-				}
-				return true;
-			} catch (Exception e) {
-				Log.e(GetPublicStoriesTask.class.getName(), e.toString() + "asdada");
-				e.printStackTrace();
+
+		HttpClient client = new DefaultHttpClient();
+		HttpGet post = new HttpGet(
+				"http://test.reminiscens.me/lifecontext/api/events?decade="
+						+ year);
+		try {
+			HttpResponse response = client.execute(post);
+			String s = EntityUtils.toString(response.getEntity());
+			JSONObject json = new JSONObject(s);
+			JSONArray events = json.getJSONArray("events");
+			for (int i = 0; i < events.length(); i++) {
+				JSONObject story = events.getJSONObject(i);
+				publishProgress(story);
 			}
+			return true;
+		} catch (Exception e) {
+			Log.e(GetPublicStoriesTask.class.getName(), e.toString() + "asdada");
+			e.printStackTrace();
 		}
 		return false;
 	}
@@ -88,13 +80,14 @@ public class GetPublicStoriesTask extends
 	protected void onProgressUpdate(JSONObject... values) {
 		super.onProgressUpdate(values);
 		String title, desc, id, storyYear;
-			try {
-				storyYear = id = values[0].getString("Year");
-				id = values[0].getString("IdStory");
-				title = values[0].getString("Title");
-				desc = values[0].getString("Text");
-				Story s = new Story(Integer.parseInt(storyYear), title, desc, id);
-				FinalFunctionsUtilities.stories.add(s);
+		try {
+			id="-1";
+			Log.i("json", values[0].toString());
+			storyYear = values[0].getJSONObject("time").getString("datetime").split("-")[0]; 
+			title = values[0].getString("headline");
+			desc = values[0].getString("text");
+			Story s = new Story(Integer.parseInt(storyYear), title, desc, id);
+			FinalFunctionsUtilities.stories.add(s);
 		} catch (JSONException e) {
 			Log.e(GetPublicStoriesTask.class.getName(), e.toString());
 			e.printStackTrace();

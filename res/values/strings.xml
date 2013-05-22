@@ -96,6 +96,7 @@
     <string name="deleteStoryPopupMessage2">from your stories?</string>
     <string name="deleteStorySucces">Story removed</string>
     <string name="deleteStoryFail">Story removed (Failed)</string>
+    <string name="no_stories">There aren\'t public stories available for this decade</string>
 
     <!-- EmptyStoryActivity -->
     <string name="no_story">Tell us a story about</string>
@@ -132,6 +133,7 @@
     <string name="profile_image_change_button">Choose an image</string>
     <string name="profile_image_change_success">Your profile image has been changed!</string>
     <string name="profile_image_change_failed">Error: profile image cannot be change! try later.</string>
+    <string name="profile_image_no_data">There is no profile image</string>
 
     <!-- Born Fragment -->
     <string name="born">Born in %1$s</string>
