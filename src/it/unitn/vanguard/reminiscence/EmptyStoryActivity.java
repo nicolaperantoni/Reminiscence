@@ -167,7 +167,12 @@ public class EmptyStoryActivity extends Activity implements OnTaskFinished {
 							.toString());
 					out.putExtra(YEAR_PASSED_KEY, mYearEt.getText().toString());
 					out.putExtra(ID_PASSED_KEY, idStoria);
-					out.putExtra(IMG_PASSED_KEY, coverUri.toString());
+					if (coverUri != null) {
+						out.putExtra(IMG_PASSED_KEY, coverUri.toString());
+					} else {
+						out.putExtra(IMG_PASSED_KEY, "");
+					}
+
 				}
 				this.setResult(RESULT_OK, out);
 				finish();
@@ -223,7 +228,7 @@ public class EmptyStoryActivity extends Activity implements OnTaskFinished {
 						.add(new BasicNameValuePair("image", encodedImage));
 
 				try {
-					if(coverUri == null){
+					if (coverUri == null) {
 						coverUri = chosenImageUri;
 					}
 					ImageView img = new ImageView(context);
@@ -232,7 +237,7 @@ public class EmptyStoryActivity extends Activity implements OnTaskFinished {
 					imgs.add(img);
 					toUpload.add(encodedImage);
 					mAdapter.notifyDataSetChanged();
-			} catch (Exception e) {
+				} catch (Exception e) {
 					Log.e(EmptyStoryActivity.class.getName(), e.toString());
 					e.printStackTrace();
 				}

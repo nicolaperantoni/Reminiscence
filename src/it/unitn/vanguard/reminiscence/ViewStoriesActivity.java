@@ -63,7 +63,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private TimeLineView mTimeLine;
 	private ProgressDialog dialog;
 	private ActionBar actionBar;
-	
+
 	private TextView mQuestionTv;
 	private ImageView mCloseQuestionImgV;
 	private StoriesAdapter mStoriesAdapter;
@@ -128,11 +128,12 @@ public class ViewStoriesActivity extends BaseActivity implements
 		} else {
 			selectedIndex = 0;
 		}
-		
-		if(FinalFunctionsUtilities.getSharedPreferences(Constants.ACTIVE_STORIES, context).equals(Constants.PRIVATE_STORIES)){
+
+		if (FinalFunctionsUtilities.getSharedPreferences(
+				Constants.ACTIVE_STORIES, context).equals(
+				Constants.PRIVATE_STORIES)) {
 			actionbar_index = 0;
-		}
-		else{
+		} else {
 			actionbar_index = 1;
 		}
 
@@ -147,7 +148,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 		actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		
+
 		actionBar.setListNavigationCallbacks(adapter,
 				new ActionBar.OnNavigationListener() {
 
@@ -398,7 +399,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 		@Override
 		public View getView(final int arg0, View arg1, ViewGroup arg2) {
 			View v;
-			ImageView back=null;
+			ImageView back = null;
 			if (actionBar.getSelectedNavigationIndex() == 1) {
 				v = getLayoutInflater().inflate(R.layout.card_story_pub, arg2,
 						false);
@@ -441,7 +442,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 				public void onClick(View clicked) {
 					if (FinalFunctionsUtilities.stories.size() != 0) {
 						Story story = FinalFunctionsUtilities.stories.get(arg0);
-						StoryFragment sf = StoryFragment.newInstance(story, actionBar.getSelectedNavigationIndex());
+						StoryFragment sf = StoryFragment.newInstance(story,
+								actionBar.getSelectedNavigationIndex());
 						sf.show(getFragmentManager(), "visualized");
 					}
 				}
@@ -769,10 +771,16 @@ public class ViewStoriesActivity extends BaseActivity implements
 									data.getStringExtra(EmptyStoryActivity.TITLE_PASSED_KEY),
 									data.getStringExtra(EmptyStoryActivity.DESC_PASSED_KEY),
 									data.getStringExtra(EmptyStoryActivity.ID_PASSED_KEY));
-									
-							Uri imageUri = Uri.parse(data.getStringExtra(EmptyStoryActivity.IMG_PASSED_KEY));
-							Bitmap cover = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-							s.setBackground(cover);
+							Log.e(ViewStoriesActivity.class.getName(), s.getId());
+
+							String uriStr = data
+									.getStringExtra(EmptyStoryActivity.IMG_PASSED_KEY);
+							if (!uriStr.equals("")) {
+								Uri imageUri = Uri.parse(uriStr);
+								Bitmap cover = MediaStore.Images.Media.getBitmap(
+								this.getContentResolver(), imageUri);
+								s.setBackground(cover);
+							}
 							FinalFunctionsUtilities.stories.add(s);
 							mStoriesAdapter.notifyDataSetChanged();
 							mNo_res_tv.setVisibility(View.GONE);
