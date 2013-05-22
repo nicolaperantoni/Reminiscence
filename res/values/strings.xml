@@ -96,6 +96,7 @@
     <string name="deleteStoryPopupMessage2">from your stories?</string>
     <string name="deleteStorySucces">Story removed</string>
     <string name="deleteStoryFail">Story removed (Failed)</string>
+    <string name="no_stories">There aren\'t public stories available for this decade</string>
 
     <!-- EmptyStoryActivity -->
     <string name="no_story">Tell us a story about</string>

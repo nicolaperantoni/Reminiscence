@@ -96,7 +96,8 @@
     <string name="deleteStoryPopupMessage2">dalle tue storie?</string>
     <string name="deleteStorySucces">Storia rimossa correttamente</string>
     <string name="deleteStoryFail">Non è stato possibile rimuovere la storia</string>
-    
+    <string name="no_stories">Non ci sono storie pubbliche disponibili per quest\'anno.</string>
+
     <!-- EmptyStoryActivity -->
     <string name="no_story">Raccontaci una storia su</string>
     <string name="year_hint">Anno</string>
@@ -126,7 +127,7 @@
 
     <!-- ProfileImage Activity -->
     <string name="title_activity_profile_fragment">FragmentProfilo</string>
-   
+
     <!-- ChangeProfileImage Activity -->
     <string name="label_change_profile_image">Cambia la tua immagine profilo</string>
     <string name="profile_image_change_button">Scegli un\'immagine</string>
@@ -139,19 +140,19 @@
 
     <!-- Story Fragment -->
     <string name="chiedi_aiuto_btn">Chiedi aiuto</string>
-    
+
     <!-- AddFriendActivity -->
-	<string name="title_activity_add_friend">Aggiungi un amico</string>
-	<string name="add_friend_successful">L\'amico è stato aggiunto alla tua lista!</string>
-	<string name="no_friends_a">Non hai </string>
+    <string name="title_activity_add_friend">Aggiungi un amico</string>
+    <string name="add_friend_successful">L\'amico è stato aggiunto alla tua lista!</string>
+    <string name="no_friends_a">Non hai </string>
     <string name="no_friends_b">amici</string>
-    
+
     <!-- FriendListActivity -->
     <string name="title_activity_friend_list">FriendListActivity</string>
     <string name="deleteFriendPopupMessage1">Sei sicuro di voler rimuovere</string>
     <string name="deleteFriendPopupMessage2">dagli amici?</string>
     <string name="fli_removefriend">Rimuovi amico</string>
-    
+
     <!-- CheckBoxActivity -->
     <string name="send_mail">Invia mail</string>
     <string name="add_friend_checkinputs">Ricontrolla quello che hai inserito</string>

@@ -355,10 +355,13 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(ViewStoriesActivity.this,
-						EmptyStoryActivity.class);
-				intent.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY, requestYear);
-				startActivityForResult(intent, ADD_STORY_CODE);
+				if (actionBar.getSelectedNavigationIndex() == 0) {
+					Intent intent = new Intent(ViewStoriesActivity.this,
+							EmptyStoryActivity.class);
+					intent.putExtra(EmptyStoryActivity.YEAR_PASSED_KEY,
+							requestYear);
+					startActivityForResult(intent, ADD_STORY_CODE);
+				}
 			}
 		});
 	}
@@ -382,15 +385,22 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 		@Override
 		public View getView(final int arg0, View arg1, ViewGroup arg2) {
-			View v = getLayoutInflater().inflate(R.layout.card_story, arg2,
-					false);
+			View v;
+			ImageView back=null;
+			if (actionBar.getSelectedNavigationIndex() == 1) {
+				v = getLayoutInflater().inflate(R.layout.card_story_pub, arg2,
+						false);
+			} else {
+				v = getLayoutInflater().inflate(R.layout.card_story, arg2,
+						false);
+				back = (ImageView) v.findViewById(R.id.card_story_img);
+			}
 
 			// lancio il task per farmi ritornare il jason con le immagini
 
 			String token = FinalFunctionsUtilities.getSharedPreferences(
 					Constants.TOKEN_KEY, context);
 
-			ImageView back = (ImageView) v.findViewById(R.id.card_story_img);
 			TextView title = (TextView) v.findViewById(R.id.cardstory_title);
 			TextView desc = (TextView) v.findViewById(R.id.cardstory_desc);
 			TextView year = (TextView) v.findViewById(R.id.yearStoryCard);
@@ -407,7 +417,8 @@ public class ViewStoriesActivity extends BaseActivity implements
 					desc.setText(story.getDesc());
 					year.setText(String.valueOf(story.getAnno()));
 					if (story.getBackground() != null) {
-						back.setImageBitmap(story.getBackground());
+						if (back != null)
+							back.setImageBitmap(story.getBackground());
 					}
 				}
 			}
@@ -675,7 +686,10 @@ public class ViewStoriesActivity extends BaseActivity implements
 		if (FinalFunctionsUtilities.stories.isEmpty()) {
 			mCards.setVisibility(View.INVISIBLE);
 			int index = (int) (Math.random() * questions.length);
-			mNo_res_tv.setText(questions[index]);
+			if (actionBar.getSelectedNavigationIndex() == 0)
+				mNo_res_tv.setText(questions[index]);
+			else
+				mNo_res_tv.setText(getString(R.string.no_stories));
 			// test
 			if (selectedIndex == 1980)
 				mNo_res_tv.setText("When did you graduate?");
