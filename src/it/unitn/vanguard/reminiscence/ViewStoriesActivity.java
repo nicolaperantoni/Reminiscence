@@ -429,7 +429,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 				public void onClick(View clicked) {
 					if (FinalFunctionsUtilities.stories.size() != 0) {
 						Story story = FinalFunctionsUtilities.stories.get(arg0);
-						StoryFragment sf = StoryFragment.newInstance(story);
+						StoryFragment sf = StoryFragment.newInstance(story, actionBar.getSelectedNavigationIndex());
 						sf.show(getFragmentManager(), "visualized");
 					}
 				}

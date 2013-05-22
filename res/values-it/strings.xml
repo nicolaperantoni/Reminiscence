@@ -133,7 +133,8 @@
     <string name="profile_image_change_button">Scegli un\'immagine</string>
     <string name="profile_image_change_success">La tua immagine profilo è stata cambiata!</string>
     <string name="profile_image_change_failed">Errore: l\'immagine profilo non può essere cambiata! Riprova più tardi.</string>
-
+ 	<string name="profile_image_no_data">Non ci sono foto profilo</string>
+    
     <!-- Born Fragment -->
     <string name="born">Nato a %1$s</string>
     <string name="born_title">Nascita</string>
