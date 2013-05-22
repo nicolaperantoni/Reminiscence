@@ -61,7 +61,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private TimeLineView mTimeLine;
 	private ProgressDialog dialog;
 	private ActionBar actionBar;
-
+	
 	private TextView mQuestionTv;
 	private ImageView mCloseQuestionImgV;
 	private StoriesAdapter mStoriesAdapter;
@@ -76,6 +76,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 	private Bundle bundle;
 	private String[] questions;
 	private TextView mNo_res_tv;
+	private int actionbar_index;
 
 	@Override
 	public void onCreate(Bundle arg0) {
@@ -125,6 +126,13 @@ public class ViewStoriesActivity extends BaseActivity implements
 		} else {
 			selectedIndex = 0;
 		}
+		
+		if(FinalFunctionsUtilities.getSharedPreferences(Constants.ACTIVE_STORIES, context).equals(Constants.PRIVATE_STORIES)){
+			actionbar_index = 0;
+		}
+		else{
+			actionbar_index = 1;
+		}
 
 		// Cambio il colore dell'anno corrente
 		YearView selected = (YearView) mTimeLine.getAdapter().getView(
@@ -137,6 +145,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 
 		actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		
 		actionBar.setListNavigationCallbacks(adapter,
 				new ActionBar.OnNavigationListener() {
 
@@ -170,6 +179,7 @@ public class ViewStoriesActivity extends BaseActivity implements
 						return true;
 					}
 				});
+		actionBar.setSelectedNavigationItem(actionbar_index);
 		setListeners();
 		initializePopUps();
 	}
