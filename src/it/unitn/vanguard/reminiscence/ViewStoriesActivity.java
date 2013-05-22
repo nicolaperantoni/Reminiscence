@@ -27,8 +27,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -767,7 +769,10 @@ public class ViewStoriesActivity extends BaseActivity implements
 									data.getStringExtra(EmptyStoryActivity.TITLE_PASSED_KEY),
 									data.getStringExtra(EmptyStoryActivity.DESC_PASSED_KEY),
 									data.getStringExtra(EmptyStoryActivity.ID_PASSED_KEY));
-
+									
+							Uri imageUri = Uri.parse(data.getStringExtra(EmptyStoryActivity.IMG_PASSED_KEY));
+							Bitmap cover = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+							s.setBackground(cover);
 							FinalFunctionsUtilities.stories.add(s);
 							mStoriesAdapter.notifyDataSetChanged();
 							mNo_res_tv.setVisibility(View.GONE);

@@ -47,6 +47,7 @@ public class EmptyStoryActivity extends Activity implements OnTaskFinished {
 	public static final String TITLE_PASSED_KEY = "newstorytitle";
 	public static final String DESC_PASSED_KEY = "newstorydesc";
 	public static final String ID_PASSED_KEY = "newstoryid";
+	public static final String IMG_PASSED_KEY = "newstoryimg";
 
 	private EditText mTitleEt;
 	private EditText mDescriptionEt;
@@ -58,6 +59,7 @@ public class EmptyStoryActivity extends Activity implements OnTaskFinished {
 	private ArrayList<String> toUpload;
 	private ImageViewAdapter mAdapter;
 	private int idStoria;
+	private Uri coverUri = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -165,6 +167,7 @@ public class EmptyStoryActivity extends Activity implements OnTaskFinished {
 							.toString());
 					out.putExtra(YEAR_PASSED_KEY, mYearEt.getText().toString());
 					out.putExtra(ID_PASSED_KEY, idStoria);
+					out.putExtra(IMG_PASSED_KEY, coverUri.toString());
 				}
 				this.setResult(RESULT_OK, out);
 				finish();
@@ -220,13 +223,16 @@ public class EmptyStoryActivity extends Activity implements OnTaskFinished {
 						.add(new BasicNameValuePair("image", encodedImage));
 
 				try {
+					if(coverUri == null){
+						coverUri = chosenImageUri;
+					}
 					ImageView img = new ImageView(context);
 					img.setAdjustViewBounds(true);
 					img.setImageBitmap(mBitmap);
 					imgs.add(img);
 					toUpload.add(encodedImage);
 					mAdapter.notifyDataSetChanged();
-				} catch (Exception e) {
+			} catch (Exception e) {
 					Log.e(EmptyStoryActivity.class.getName(), e.toString());
 					e.printStackTrace();
 				}

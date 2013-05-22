@@ -51,7 +51,6 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 	
 	// Images
 	private Button btn_aiuto_amico;
-	private Button btn_upload_photo;
 	protected ProgressDialog dialog;
 	
 	public static StoryFragment newInstance(Story storia, int indice) {
@@ -87,7 +86,6 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 		
 		mDescTv = (TextView) getView().findViewById(R.id.story_description_tv);
 		btn_aiuto_amico = (Button) getView().findViewById(R.id.btn_aiuto_amico);
-//		btn_upload_photo = (Button) getView().findViewById(R.id.btn_upload_photo);
 		mMedias = (HorizontalListView) getView().findViewById(R.id.gallery);
 		
 		imgs = new ArrayList<ImageView>();
@@ -107,7 +105,14 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 			mMedias.setVisibility(View.GONE);
 			btn_aiuto_amico.setVisibility(View.GONE);
 		}
-		
+		if(story.getId().equals("-1")) {
+			ImageView imageView = new ImageView(context);
+			imageView.setAdjustViewBounds(true);
+		    imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+		    imageView.setImageBitmap(story.getBackground());
+		    imgs.add(imageView);
+		    mAdapter.notifyDataSetChanged();
+		}
 		initializeTexts();
 	}
 
@@ -137,17 +142,7 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 				if(story != null) { checkbox_amici.putExtra("id_story", story.getId() + ""); }
 				startActivity(checkbox_amici);
 			}
-		});
-		
-//		btn_upload_photo.setOnClickListener(new View.OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
-//				photoPickerIntent.setType("image/*");
-//				startActivityForResult(photoPickerIntent, 1);
-//			}
-//		});
+		});		
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -236,7 +231,6 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 					    imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 					    imageView.setImageBitmap(bitmap);
 					    imgs.add(imageView);
-					    Log.e("aseasd","asdda");
 					    mAdapter.notifyDataSetChanged();
 					}
 				}
