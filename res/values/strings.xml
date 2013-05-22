@@ -133,6 +133,7 @@
     <string name="profile_image_change_button">Choose an image</string>
     <string name="profile_image_change_success">Your profile image has been changed!</string>
     <string name="profile_image_change_failed">Error: profile image cannot be change! try later.</string>
+    <string name="profile_image_no_data">There is no profile image</string>
 
     <!-- Born Fragment -->
     <string name="born">Born in %1$s</string>

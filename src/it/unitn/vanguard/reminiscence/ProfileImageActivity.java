@@ -197,7 +197,16 @@ public class ProfileImageActivity extends Activity implements OnTaskFinished {
 							getResources().getString(R.string.profile_image_change_success),
 							Toast.LENGTH_LONG).show();
 				}
-			} else {
+			} 
+			else if (res.getString("success").equals("false")) {
+				if(res.getString("Operation").equals("GetProfileImage")) {
+					Toast.makeText(
+							context,
+							getResources().getString(R.string.profile_image_no_data),
+							Toast.LENGTH_LONG).show();
+				}
+			}
+			else {
 				Toast.makeText(
 						context,
 						getResources().getString(R.string.connection_fail),
