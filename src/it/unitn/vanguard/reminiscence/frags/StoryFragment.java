@@ -85,7 +85,7 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 		
 		mDescTv = (TextView) getView().findViewById(R.id.story_description_tv);
 		btn_aiuto_amico = (Button) getView().findViewById(R.id.btn_aiuto_amico);
-		btn_upload_photo = (Button) getView().findViewById(R.id.btn_upload_photo);
+//		btn_upload_photo = (Button) getView().findViewById(R.id.btn_upload_photo);
 		mMedias = (HorizontalListView) getView().findViewById(R.id.gallery);
 		
 		imgs = new ArrayList<ImageView>();
@@ -131,15 +131,15 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 			}
 		});
 		
-		btn_upload_photo.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
-				photoPickerIntent.setType("image/*");
-				startActivityForResult(photoPickerIntent, 1);
-			}
-		});
+//		btn_upload_photo.setOnClickListener(new View.OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
+//				photoPickerIntent.setType("image/*");
+//				startActivityForResult(photoPickerIntent, 1);
+//			}
+//		});
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -220,8 +220,8 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 					byte[] decodedString = null;
 					
 					// Inserisco l' immagine nel pageView..
-					for(int i = 0; i < numImages; i++) {
-						decodedString = Base64.decode(res.getString("img" + 1), Base64.DEFAULT);
+					for(int i = 1; i <= numImages; i++) {
+						decodedString = Base64.decode(res.getString("img" + i), Base64.DEFAULT);
 						Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 						ImageView imageView = new ImageView(context);
 						imageView.setAdjustViewBounds(true);
