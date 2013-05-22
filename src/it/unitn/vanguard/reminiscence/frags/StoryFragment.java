@@ -92,7 +92,7 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 		
 		imgs = new ArrayList<ImageView>();
 		mAdapter = new ImageViewAdapter();
-		if(index == 0){
+		if(index == 0) { // Private stories selected
 			mMedias.setAdapter(mAdapter);
 			
 			if(FinalFunctionsUtilities.isDeviceConnected(context)) {
@@ -104,7 +104,8 @@ public class StoryFragment extends DialogFragment implements OnTaskFinished {
 			}
 		}
 		else{
-			mMedias.setVisibility(View.GONE);			
+			mMedias.setVisibility(View.GONE);
+			btn_aiuto_amico.setVisibility(View.GONE);
 		}
 		
 		initializeTexts();
