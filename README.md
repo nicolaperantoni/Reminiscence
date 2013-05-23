@@ -36,10 +36,10 @@ We've got a bunch of videos filmed by us that show the current state of our proj
   <dt>Second Sprint Video</dt>
   <dd>http://www.youtube.com/watch?v=zOmBns9EdeI</dd>
   <dt>Final Presentation Video</dt>
-  <dd>Coming sooner than what you can imagine :)</dd>
+  <dd>http://www.youtube.com/watch?v=HsnmFGJ-_WU</dd>
 </dl>
 
 ### Account to test our Application
 
-+ E-Mail:     g.forna@gmail.com
++ E-Mail:     m.rossi [at] reminiscence.org
 + Password:   test
