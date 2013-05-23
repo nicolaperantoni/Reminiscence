@@ -166,13 +166,12 @@ public class EmptyStoryActivity extends Activity implements OnTaskFinished {
 					out.putExtra(DESC_PASSED_KEY, mDescriptionEt.getText()
 							.toString());
 					out.putExtra(YEAR_PASSED_KEY, mYearEt.getText().toString());
-					out.putExtra(ID_PASSED_KEY, idStoria);
+					out.putExtra(ID_PASSED_KEY, idStoria + "");
 					if (coverUri != null) {
 						out.putExtra(IMG_PASSED_KEY, coverUri.toString());
 					} else {
 						out.putExtra(IMG_PASSED_KEY, "");
 					}
-
 				}
 				this.setResult(RESULT_OK, out);
 				finish();

@@ -66,4 +66,14 @@ public class Story {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		String str = "";
+		str += "Id: " + this.id + "\n";
+		str += "Title: " + this.title + "\n";
+		str += "Desc: " + this.desc + "\n";
+		str += "Year: " + this.anno + "\n";
+		str += "Background: " + this.background.toString() + "\n";
+		return str;
+	}
 }

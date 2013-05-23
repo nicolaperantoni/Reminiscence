@@ -771,23 +771,27 @@ public class ViewStoriesActivity extends BaseActivity implements
 									data.getStringExtra(EmptyStoryActivity.TITLE_PASSED_KEY),
 									data.getStringExtra(EmptyStoryActivity.DESC_PASSED_KEY),
 									data.getStringExtra(EmptyStoryActivity.ID_PASSED_KEY));
-							Log.e(ViewStoriesActivity.class.getName(), s.getId());
+							Log.e(ViewStoriesActivity.class.getName(), "dataGet" + data.getStringExtra(EmptyStoryActivity.ID_PASSED_KEY));
 
 							String uriStr = data
 									.getStringExtra(EmptyStoryActivity.IMG_PASSED_KEY);
+							
 							if (!uriStr.equals("")) {
 								Uri imageUri = Uri.parse(uriStr);
 								Bitmap cover = MediaStore.Images.Media.getBitmap(
 								this.getContentResolver(), imageUri);
 								s.setBackground(cover);
 							}
+							// test
+							//Log.e("storiaaaaaaaa", s.toString());
+							
 							FinalFunctionsUtilities.stories.add(s);
 							mStoriesAdapter.notifyDataSetChanged();
 							mNo_res_tv.setVisibility(View.GONE);
 							mCards.setVisibility(View.VISIBLE);
 						}
 					} catch (Exception e) {
-						Log.e(ViewStoriesActivity.class.getName(), e.toString());
+						Log.e(ViewStoriesActivity.class.getName(), "a"  + e.toString());
 						e.printStackTrace();
 					}
 				}
