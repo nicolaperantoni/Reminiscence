@@ -26,6 +26,13 @@ time, mark, audio, video {
   font-size: 80px;
 }
 
+.fork_us img {
+  border: none;
+  box-shadow: none;
+  padding: 0px;
+  margin: 0px;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
