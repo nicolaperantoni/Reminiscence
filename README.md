@@ -43,3 +43,7 @@ We've got a bunch of videos filmed by us that show the current state of our proj
 
 + E-Mail:     m.rossi [at] reminiscence.org
 + Password:   test
+
+### License
+
+This project is released under the Apache License, Version 2.0
