@@ -1,0 +1,18 @@
+@import url(http://fonts.googleapis.com/css?family=Pacifico);
+
+.title {
+	font-family: 'Pacifico', cursive;
+	font-size: 80px;
+}
+
+.title a, .title a:hover, .title a:visited {
+	color: white;
+}
+
+.qr {
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 1);
+}
+
+.qr_image {
+	margin: 50px;
+}
